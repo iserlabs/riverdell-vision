@@ -34,11 +34,18 @@ export async function POST(req: Request) {
     replyTo: email,
     lines: [
       ["Name", name],
+      ["Patient", String(body.patientType || "Not specified")],
       ["Phone", phone],
       ["Email", email],
       ["Interested in", String(body.serviceInterest || "Not specified")],
+      ["Insurance", String(body.insurance || "Not specified")],
+      ["For", String(body.whoFor || "Not specified")],
+      ["Office", String(body.office || "Oradell")],
+      ["Preferred doctor", String(body.preferredDoctor || "No preference")],
+      ["Language", String(body.language || "Not specified")],
       ["Preferred contact", String(body.preferredContact || "Phone")],
       ["Best time", String(body.preferredTime || "Not specified")],
+      ["Heard via", String(body.heardVia || "Not specified")],
       ["Source", String(body.source || "Website form")],
     ],
   });
