@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Star, ArrowUpRight } from "lucide-react";
+import { Star, ArrowUpRight, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/site/primitives";
+import { GoogleG, ZocdocMark } from "@/components/site/reviews";
 import { useInView } from "@/lib/use-in-view";
 import { practice } from "@/lib/site";
 import { REVIEW_STATS } from "@/lib/reviews";
@@ -13,6 +14,7 @@ import { REVIEW_STATS } from "@/lib/reviews";
 type Stat = {
   value: number;
   rating?: string;
+  source?: "Google" | "Zocdoc";
   kicker?: string;
   label: string;
   note: string;
@@ -24,6 +26,7 @@ const STATS: Stat[] = [
   {
     value: REVIEW_STATS.count,
     rating: REVIEW_STATS.rating.toFixed(1),
+    source: "Google",
     label: "Google reviews",
     note: "A genuine five-star average from real patients.",
     href: practice.socials.google,
@@ -32,6 +35,7 @@ const STATS: Stat[] = [
   {
     value: REVIEW_STATS.zocdocCount,
     rating: REVIEW_STATS.zocdocRating.toFixed(1),
+    source: "Zocdoc",
     label: "Zocdoc reviews",
     note: "Verified by patients who booked through Zocdoc.",
     href: practice.zocdocUrl,
@@ -126,6 +130,15 @@ function LedgerCell({ stat, run, i }: { stat: Stat; run: boolean; i: number }) {
             <span className="font-mono text-xs font-medium text-ink-soft">
               {stat.rating}
             </span>
+            {stat.source && (
+              <span className="ml-auto md:ml-2" aria-label={`on ${stat.source}`}>
+                {stat.source === "Google" ? (
+                  <GoogleG className="size-4" />
+                ) : (
+                  <ZocdocMark className="size-4" />
+                )}
+              </span>
+            )}
           </>
         ) : (
           <span className="eyebrow text-clay">{stat.kicker}</span>
@@ -166,12 +179,21 @@ export function ProofLedger() {
   const { ref, inView } = useInView<HTMLElement>({ threshold: 0.25 });
 
   return (
-    <section ref={ref} className="border-y border-line bg-bone-deep">
-      <Container wide className="py-14 md:py-20">
-        <div className="flex items-baseline justify-between">
+    <section ref={ref} className="relative overflow-hidden border-y border-line bg-bone-deep">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brass/40 to-transparent"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_-20%,rgba(255,255,255,0.55),transparent_60%)]"
+      />
+      <Container wide className="relative py-14 md:py-20">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
           <p className="eyebrow text-clay">The record</p>
-          <p className="hidden text-sm text-ink-soft sm:block">
-            Real ratings, verified by patients
+          <p className="inline-flex items-center gap-2 text-sm text-ink-soft">
+            <ShieldCheck className="size-4 text-brass" aria-hidden />
+            Every rating is real and patient-verified
           </p>
         </div>
         <div className="mt-10 grid gap-y-12 md:mt-14 md:grid-cols-3 md:gap-0 md:divide-x md:divide-line">

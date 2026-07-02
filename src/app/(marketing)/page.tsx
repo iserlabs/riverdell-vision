@@ -22,20 +22,29 @@ import { providers, fortLee } from "@/lib/site";
 
 const PRINCIPLES = [
   {
-    title: "Physician-led, not retail",
-    body: "Eye health is medicine here. Every visit is a real clinical exam, not a lead-in to selling frames.",
+    title: "A vision-development Fellow on staff",
+    proof: "FCOVD",
+    body: "Dr. Meyer is a Fellow of the College of Optometrists in Vision Development, a credential only a small fraction of optometrists hold. It means learning-related vision problems, concussion recovery, and complex binocular cases are treated here, not referred out.",
   },
   {
-    title: "Unhurried by design",
-    body: "We schedule time to look carefully, explain what we see, and answer every question you have.",
+    title: "The specialty care others send you away for",
+    proof: "5 programs, one roof",
+    body: "Myopia management, Ortho-K, scleral and specialty lenses, vision therapy, and neuro-optometric rehabilitation. The programs most practices refer out, we run in-house, so your care stays with a team that knows you.",
   },
   {
-    title: "Updated technology",
-    body: "Modern diagnostics let us catch more, measure precisely, and track change over time with confidence.",
+    title: "Physician-led, never retail-led",
+    proof: "Medicine first",
+    body: "Eye health is treated as medicine, not a lead-in to selling frames. Patients say it plainly in their reviews: a thorough exam, honest options, and never a push to buy.",
   },
   {
-    title: "Care that grows with you",
-    body: "One trusted practice for children, parents, and grandparents, from first exam through specialty care.",
+    title: "A bilingual team your family keeps",
+    proof: "English & Korean",
+    body: "Care in English and Korean, four doctors who each lead a focus, and patients who have stayed fifteen, twenty, even thirty years. You see people who already know your history.",
+  },
+  {
+    title: "Unhurried exams, current diagnostics",
+    proof: "Never a conveyor belt",
+    body: "Time to look carefully, explain what we see, and track change over the years with up-to-date imaging. The exam sets the pace, not the schedule.",
   },
 ];
 
@@ -45,7 +54,7 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-bone grain">
         <Container wide className="relative z-10">
-          <div className="grid items-center gap-14 py-14 md:py-20 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          <div className="grid items-center gap-14 py-14 md:py-20 lg:grid-cols-2 lg:gap-16">
             <div>
               <Reveal>
                 <Eyebrow>Family optometry · Oradell, New Jersey</Eyebrow>

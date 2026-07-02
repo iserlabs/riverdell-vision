@@ -8,7 +8,7 @@ import { useInView } from "@/lib/use-in-view";
 export function EditorialList({
   items,
 }: {
-  items: { title: string; body: string }[];
+  items: { title: string; body: string; proof?: string }[];
 }) {
   const { ref, inView } = useInView<HTMLOListElement>({ threshold: 0.1 });
 
@@ -31,9 +31,16 @@ export function EditorialList({
               {String(i + 1).padStart(2, "0")}
             </span>
             <div>
-              <h3 className="font-display text-lg font-medium text-teal md:text-xl">
-                {it.title}
-              </h3>
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <h3 className="font-display text-lg font-medium text-teal md:text-xl">
+                  {it.title}
+                </h3>
+                {it.proof && (
+                  <span className="rounded-full bg-brass/12 px-2.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-clay">
+                    {it.proof}
+                  </span>
+                )}
+              </div>
               <p className="mt-1.5 max-w-2xl text-[15px] leading-relaxed text-ink-soft">
                 {it.body}
               </p>
