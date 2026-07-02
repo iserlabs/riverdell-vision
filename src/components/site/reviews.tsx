@@ -56,7 +56,7 @@ export function ZocdocMark({ className }: { className?: string }) {
 
 function SourceLockup({ source }: { source: Review["source"] }) {
   return (
-    <span className="inline-flex items-center gap-1.5" aria-label={`Reviewed on ${source}`}>
+    <span className="inline-flex items-center gap-1.5">
       {source === "Google" ? (
         <GoogleG className="size-3.5" />
       ) : (
