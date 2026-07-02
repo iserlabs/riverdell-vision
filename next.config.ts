@@ -13,20 +13,11 @@ const nextConfig: NextConfig = {
     return [{ source: "/focus", destination: "/", permanent: true }];
   },
   async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "X-Frame-Options", value: "SAMEORIGIN" },
-          {
-            key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
-          },
-        ],
-      },
-    ];
+    // Explicit .ts extension: Next 16's native Node.js TypeScript resolver for
+    // next.config.ts inherits Node's ESM resolution, which (unlike bundler
+    // resolution) requires a file extension on relative specifiers.
+    const { securityHeaders } = await import("./src/lib/headers.ts");
+    return [{ source: "/:path*", headers: securityHeaders }];
   },
 };
 
