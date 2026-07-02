@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Star, ArrowUpRight } from "lucide-react";
 import { Container, Section, Eyebrow } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
-import { ReviewsGrid } from "@/components/site/reviews";
+import { ReviewsWall } from "@/components/site/reviews-wall";
 import { CtaBand } from "@/components/site/cta-band";
 import { REVIEW_STATS } from "@/lib/reviews";
 import { practice } from "@/lib/site";
@@ -44,7 +44,7 @@ export default function ReviewsPage() {
       <Section>
         <Container wide>
           <Reveal>
-            <ReviewsGrid limit={6} />
+            <ReviewsWall />
           </Reveal>
           <p className="mx-auto mt-10 max-w-2xl text-center text-xs leading-relaxed text-ink-soft">
             Representative reviews reflecting themes patients share on our public

@@ -5,7 +5,8 @@ import { Container, Section, SectionHeading, Eyebrow } from "@/components/site/p
 import { Reveal } from "@/components/site/reveal";
 import { BookButton, CallButton } from "@/components/site/cta";
 import { Magnetic } from "@/components/site/magnetic";
-import { DualProof, ReviewsGrid } from "@/components/site/reviews";
+import { DualProof } from "@/components/site/reviews";
+import { ReviewsWall } from "@/components/site/reviews-wall";
 import { InsuranceRow } from "@/components/site/insurance";
 import { DoctorPhoto } from "@/components/site/doctor-photo";
 import { HeroBooking } from "@/components/marketing/hero-booking";
@@ -231,7 +232,7 @@ export default function HomePage() {
               />
             </Reveal>
             <Reveal delay={120} className="mt-12">
-              <ReviewsGrid limit={6} />
+              <ReviewsWall />
             </Reveal>
           </Section>
         </Container>
