@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   Check,
-  CircleDot,
   Sparkles,
 } from "lucide-react";
 import { Container, Section, SectionHeading, Eyebrow } from "@/components/site/primitives";
@@ -12,15 +11,19 @@ import { ReassuranceBar } from "@/components/site/reassurance-bar";
 import { ProcessTimeline } from "@/components/site/process-timeline";
 import { EditorialList } from "@/components/site/editorial-list";
 import { EditorialIndex } from "@/components/site/editorial-index";
+import { CandidacyCheck } from "@/components/marketing/candidacy-check";
+import { CostInsurance } from "@/components/marketing/cost-insurance";
+import { Glossary } from "@/components/marketing/glossary";
+import { OptionsCompare } from "@/components/marketing/options-compare";
 import { DualProof } from "@/components/site/reviews";
 import { Faq } from "@/components/site/faq";
 import { CtaBand } from "@/components/site/cta-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { ServiceIcon } from "@/components/site/service-icon";
 import { DoctorPhoto } from "@/components/site/doctor-photo";
-import { getService, bookHrefFor, type ServiceContent } from "@/lib/services";
+import { getService, bookHrefFor, getServiceExtras, type ServiceContent } from "@/lib/services";
 import { providers } from "@/lib/site";
-import { serviceSchema, faqSchema, breadcrumbSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, breadcrumbSchema, definedTermSetSchema } from "@/lib/schema";
 
 export function ServiceView({ service: s }: { service: ServiceContent }) {
   const related = s.related
@@ -29,6 +32,7 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
   const lead =
     providers.find((p) => s.reviewedBy.startsWith(p.name)) ?? providers[0];
   const bookHref = bookHrefFor(s.slug);
+  const extras = getServiceExtras(s.slug);
 
   return (
     <>
@@ -40,6 +44,9 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
             { name: "Home", path: "/" },
             { name: s.name, path: `/${s.slug}` },
           ]),
+          ...(extras?.glossary
+            ? [definedTermSetSchema(s.slug, s.name, extras.glossary)]
+            : []),
         ]}
       />
 
@@ -128,71 +135,75 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
               <SectionHeading eyebrow={s.eyebrow} title="Why this matters" />
               <p className="mt-6 text-lg leading-relaxed text-ink-soft">{s.problem}</p>
             </Reveal>
-            <div className="grid gap-8 sm:grid-cols-2">
-              <Reveal delay={80}>
-                <h3 className="flex items-center gap-2 font-display text-lg font-medium text-teal">
-                  <Check className="size-4 text-clay" aria-hidden /> Who this is for
-                </h3>
-                <ul className="mt-4 space-y-3">
-                  {s.whoFor.map((w) => (
-                    <li key={w} className="flex gap-2.5 text-[15px] text-ink-soft">
-                      <Check className="mt-1 size-4 shrink-0 text-teal" aria-hidden />
-                      {w}
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-              <Reveal delay={160}>
-                <h3 className="flex items-center gap-2 font-display text-lg font-medium text-teal">
-                  <CircleDot className="size-4 text-clay" aria-hidden /> When to see us
-                </h3>
-                <ul className="mt-4 space-y-3">
-                  {s.whenToSee.map((w) => (
-                    <li key={w} className="flex gap-2.5 text-[15px] text-ink-soft">
-                      <CircleDot className="mt-1 size-4 shrink-0 text-clay" aria-hidden />
-                      {w}
-                    </li>
-                  ))}
-                </ul>
-              </Reveal>
-            </div>
+            <Reveal delay={80}>
+              <h3 className="flex items-center gap-2 font-display text-lg font-medium text-teal">
+                <Check className="size-4 text-clay" aria-hidden /> Who this is for
+              </h3>
+              <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                {s.whoFor.map((w) => (
+                  <li key={w} className="flex gap-2.5 text-[15px] text-ink-soft">
+                    <Check className="mt-1 size-4 shrink-0 text-teal" aria-hidden />
+                    {w}
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
           </div>
         </Container>
       </Section>
 
-      {/* How we evaluate */}
+      {/* Interactive self-check (uses the symptom list) */}
       <section className="bg-bone-deep">
         <Container wide>
           <Section>
-            <Reveal>
-              <SectionHeading
-                eyebrow="How Riverdell Vision evaluates this"
-                title="A careful, measured process."
-                lead="No guesswork and no rushing. Here is how an evaluation actually goes."
+            <div className="mx-auto max-w-3xl">
+              <CandidacyCheck
+                items={s.whenToSee}
+                bookHref={bookHref}
+                shortName={s.shortName}
               />
-            </Reveal>
-            <div className="mt-14">
-              <ProcessTimeline steps={s.howWeEvaluate} />
             </div>
           </Section>
         </Container>
       </section>
 
-      {/* What treatment involves */}
+      {/* How we evaluate */}
       <Section>
         <Container wide>
           <Reveal>
             <SectionHeading
-              eyebrow="What treatment may involve"
-              title="Options matched to you, not a default."
-              lead="Every plan is personalized. These are the approaches we most often use, with no exaggerated promises about outcomes."
+              eyebrow="How Riverdell Vision evaluates this"
+              title="A careful, measured process."
+              lead="No guesswork and no rushing. Here is how an evaluation actually goes."
             />
           </Reveal>
-          <div className="mt-12">
-            <EditorialList items={s.whatTreatment} />
+          <div className="mt-14">
+            <ProcessTimeline steps={s.howWeEvaluate} />
           </div>
         </Container>
       </Section>
+
+      {/* What treatment involves (+ option comparison for flagships) */}
+      <section className="bg-bone-deep">
+        <Container wide>
+          <Section>
+            <Reveal>
+              <SectionHeading
+                eyebrow="What treatment may involve"
+                title="Options matched to you, not a default."
+                lead="Every plan is personalized. These are the approaches we most often use, with no exaggerated promises about outcomes."
+              />
+            </Reveal>
+            <div className="mt-12">
+              <EditorialList items={s.whatTreatment} />
+            </div>
+            {extras?.compare && <OptionsCompare compare={extras.compare} />}
+          </Section>
+        </Container>
+      </section>
+
+      {/* Cost & insurance (AEO answer block) */}
+      {extras?.costNote && <CostInsurance note={extras.costNote} />}
 
       {/* Mid-page conversion + doctor trust */}
       <section className="bg-bone-deep">
@@ -222,21 +233,31 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
         </Container>
       </section>
 
+      {/* Glossary (plain-English, feeds DefinedTerm schema) */}
+      {extras?.glossary && (
+        <Glossary
+          terms={extras.glossary}
+          title={`${s.shortName}, in plain English`}
+        />
+      )}
+
       {/* FAQ */}
-      <Section>
-        <Container>
-          <Reveal>
-            <SectionHeading eyebrow="Common questions" title="Good questions, answered plainly." />
-          </Reveal>
-          <div className="mt-8">
-            <Faq items={s.faqs} />
-          </div>
-        </Container>
-      </Section>
+      <section className="bg-bone-deep">
+        <Section>
+          <Container>
+            <Reveal>
+              <SectionHeading eyebrow="Common questions" title="Good questions, answered plainly." />
+            </Reveal>
+            <div className="mt-8">
+              <Faq items={s.faqs} />
+            </div>
+          </Container>
+        </Section>
+      </section>
 
       {/* Related */}
       {related.length > 0 && (
-        <section className="bg-bone-deep">
+        <section className="bg-bone">
           <Container wide>
             <Section>
               <Eyebrow>Related care</Eyebrow>

@@ -147,6 +147,24 @@ export function faqSchema(faqs: { q: string; a: string }[]) {
   };
 }
 
+export function definedTermSetSchema(
+  slug: string,
+  name: string,
+  terms: { term: string; def: string }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "@id": `${SITE_URL}/${slug}#glossary`,
+    name: `${name} glossary`,
+    hasDefinedTerm: terms.map((t) => ({
+      "@type": "DefinedTerm",
+      name: t.term,
+      description: t.def,
+    })),
+  };
+}
+
 export function breadcrumbSchema(items: { name: string; path: string }[]) {
   return {
     "@context": "https://schema.org",

@@ -516,6 +516,108 @@ export function bookHrefFor(slug?: string) {
   return interest ? `/book?interest=${encodeURIComponent(interest)}` : "/book";
 }
 
+// Depth layer for the high-ticket pages: an honest cost/insurance answer block
+// (no invented prices), a plain-English glossary (feeds DefinedTerm schema and
+// AI answer engines), and an option-comparison for services with real choices.
+export type ServiceExtras = {
+  costNote: string;
+  glossary: { term: string; def: string }[];
+  compare?: { headers: [string, string, string]; rows: [string, string, string][] };
+};
+
+export const SERVICE_EXTRAS: Record<string, ServiceExtras> = {
+  "myopia-management": {
+    costNote:
+      "Myopia management is usually a mix of covered and out-of-pocket care. The eye-health exam is often billable to vision or medical insurance, while specialty materials (custom lenses, atropine) and the management program are frequently not fully covered. We verify your specific benefits and give you clear, itemized pricing before you commit, with no surprises.",
+    glossary: [
+      { term: "Axial length", def: "The front-to-back length of the eye. In myopia it grows too long; tracking it over time is the most precise way to measure progression." },
+      { term: "Orthokeratology (Ortho-K)", def: "Custom rigid lenses worn overnight that gently reshape the cornea, giving clear daytime vision without glasses and helping slow myopia." },
+      { term: "Low-dose atropine", def: "A once-nightly diluted eye drop shown to slow the progression of nearsightedness in many children." },
+      { term: "Progression", def: "How quickly a prescription is worsening. The goal of management is a slower rate and a lower final prescription." },
+    ],
+    compare: {
+      headers: ["Approach", "Best for", "How it helps"],
+      rows: [
+        ["Ortho-K (overnight lenses)", "Active kids who want glasses-free days", "Reshapes vision overnight and slows progression"],
+        ["Soft multifocal contacts", "Daytime contact wearers", "Corrects vision while signaling the eye to slow growth"],
+        ["Myopia-control glasses", "Younger children not ready for contacts", "Look like ordinary glasses, engineered to reduce progression"],
+        ["Low-dose atropine", "A simple nightly drop, alone or added on", "A diluted nightly drop that slows progression"],
+      ],
+    },
+  },
+  "dry-eye-treatment": {
+    costNote:
+      "A medical dry eye evaluation is often billable to your medical insurance rather than a vision plan, because dry eye is a medical condition. Some advanced in-office gland treatments are typically not covered. We check your coverage in advance and explain any out-of-pocket cost before treatment.",
+    glossary: [
+      { term: "Meibomian glands", def: "Oil glands in the eyelids that keep tears from evaporating too fast. When they under-perform (MGD), tears break up and eyes feel dry." },
+      { term: "Tear film", def: "The thin, layered film of water, oil, and mucus that coats and protects the surface of the eye." },
+      { term: "Evaporative dry eye", def: "The most common form of dry eye, driven by poor-quality oil letting tears evaporate, rather than too few tears." },
+      { term: "Ocular surface", def: "The cornea and conjunctiva, the tissues a healthy tear film protects." },
+    ],
+  },
+  "specialty-contact-lenses": {
+    costNote:
+      "Some medically necessary specialty lenses, such as those for keratoconus, may have partial insurance coverage; many custom lenses are out-of-pocket. Benefits vary widely, so we verify your plan and provide clear pricing before ordering anything custom to your eyes.",
+    glossary: [
+      { term: "Scleral lens", def: "A large rigid lens that vaults over the cornea and rests on the white of the eye, holding a cushion of fluid for comfort and crisp vision." },
+      { term: "Keratoconus", def: "A condition where the cornea thins and bulges into a cone shape, distorting vision in a way glasses often cannot fully correct." },
+      { term: "Cornea", def: "The clear front window of the eye that does most of its focusing." },
+      { term: "Rigid gas-permeable (RGP)", def: "A firm, breathable contact lens used for irregular corneas and high prescriptions." },
+    ],
+    compare: {
+      headers: ["Lens type", "Best for", "How it helps"],
+      rows: [
+        ["Scleral lenses", "Keratoconus, irregular corneas, severe dry eye", "Vault the cornea with a fluid cushion for comfort and sharp vision"],
+        ["Custom soft lenses", "High or astigmatic prescriptions", "Made to order beyond standard catalog parameters"],
+        ["Rigid gas-permeable", "Irregular corneas needing sharp optics", "Firm, breathable lenses that mask surface irregularity"],
+      ],
+    },
+  },
+  "ortho-k": {
+    costNote:
+      "Ortho-K is generally an out-of-pocket program, since specialty lens materials and fitting are often not covered by vision plans. We verify any benefits you have and give you a clear, all-in quote (lenses, fitting, and follow-up) before you begin.",
+    glossary: [
+      { term: "Orthokeratology", def: "Custom rigid lenses worn only during sleep that temporarily reshape the cornea for clear, glasses-free daytime vision." },
+      { term: "Corneal reshaping", def: "The gentle, reversible flattening of the cornea's front surface that produces the daytime correction." },
+      { term: "Myopia control", def: "Slowing how fast nearsightedness worsens; Ortho-K is one of the most effective options in children." },
+    ],
+  },
+  "vision-therapy": {
+    costNote:
+      "Some medical plans cover parts of diagnosed vision therapy when there is a documented eye-teaming or focusing disorder. Coverage varies, so we confirm benefits and explain the cost of the evaluation and program before you start.",
+    glossary: [
+      { term: "Eye teaming (binocular vision)", def: "How well the two eyes work together as a single team; poor teaming makes reading and focus exhausting." },
+      { term: "Convergence", def: "The eyes' ability to turn inward and stay aligned on near work like reading." },
+      { term: "Tracking (oculomotor)", def: "The eyes' ability to move smoothly and accurately along a line of text." },
+      { term: "Accommodation", def: "The eye's focusing system that keeps near objects clear." },
+    ],
+  },
+  "neuro-optometric-rehabilitation": {
+    costNote:
+      "Neuro-optometric rehabilitation is often billable to medical insurance, especially after a documented concussion, injury, or stroke. Coverage and visit limits vary; we verify your benefits, coordinate with your other providers, and explain any out-of-pocket cost before starting.",
+    glossary: [
+      { term: "Neuro-optometric rehabilitation", def: "Therapy that helps the visual system recover after a concussion, brain injury, or stroke, using lenses, prisms, and guided exercises." },
+      { term: "Prism", def: "A lens element that bends light to relieve double vision and visual strain after a neurological event." },
+      { term: "Post-concussion vision syndrome", def: "The cluster of visual symptoms (blur, double vision, light sensitivity, dizziness) that can follow a concussion even when eyesight is 20/20." },
+      { term: "Visual midline shift", def: "A distorted sense of where straight-ahead is after brain injury, affecting balance and posture." },
+    ],
+  },
+  "medical-eye-care": {
+    costNote:
+      "Medical eye visits (diabetic exams, glaucoma monitoring, red or painful eyes) are typically billed to your medical insurance rather than a vision plan. We help you understand your coverage and any copay, and coordinate with your primary care or specialists when needed.",
+    glossary: [
+      { term: "Diabetic retinopathy", def: "Damage to the retina's blood vessels from diabetes; a dilated exam catches it early, often before vision changes." },
+      { term: "Glaucoma", def: "A group of conditions that quietly damage the optic nerve, usually tied to eye pressure; early detection protects sight." },
+      { term: "Dilated exam", def: "Using drops to widen the pupil so the doctor can examine the retina and optic nerve thoroughly." },
+      { term: "Intraocular pressure", def: "The fluid pressure inside the eye, a key measurement in screening for glaucoma." },
+    ],
+  },
+};
+
+export function getServiceExtras(slug: string): ServiceExtras | undefined {
+  return SERVICE_EXTRAS[slug];
+}
+
 // The service ladder shown on the homepage: the three flagship pages plus the
 // supporting family/medical/optical lines that round out the practice.
 export const SERVICE_LADDER: {
