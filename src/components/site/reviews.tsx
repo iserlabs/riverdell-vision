@@ -99,7 +99,7 @@ export function DualProof({ className }: { className?: string }) {
           <span className="font-semibold">{REVIEW_STATS.zocdocRating.toFixed(1)}</span>
           <span className="text-ink-soft group-hover:text-teal"> · </span>
           <span className="underline decoration-line decoration-1 underline-offset-4 group-hover:decoration-teal">
-            Zocdoc
+            {REVIEW_STATS.zocdocCount} Zocdoc reviews
           </span>
         </span>
         <ArrowUpRight className="size-3.5 shrink-0 text-clay transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
