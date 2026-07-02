@@ -71,20 +71,29 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
   );
   const [insurance, setInsurance] = useState("");
   const [done, setDone] = useState({ name: "", phone: "", service: "", office: "Oradell" });
+  const [errors, setErrors] = useState({ name: false, email: false, phone: false });
+  const [statusMessage, setStatusMessage] = useState("");
 
   const doctor = providers.find((p) => p.slug === LEAD_DOCTOR[interest]);
   const insured = insurance !== "" && insurance !== "Other or self-pay";
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const name = String(fd.get("name") || "").trim();
     const email = String(fd.get("email") || "").trim();
     const phone = String(fd.get("phone") || "").trim();
     if (!name || !email || !phone) {
-      toast.error("Please add your name, email, and phone.");
+      setErrors({ name: !name, email: !email, phone: !phone });
+      const message = "Please add your name, email, and phone.";
+      toast.error(message);
+      setStatusMessage(message);
+      const firstInvalid = form.querySelector<HTMLElement>("[aria-invalid='true'], :invalid");
+      firstInvalid?.focus();
       return;
     }
+    setErrors({ name: false, email: false, phone: false });
     setPending(true);
     const office = String(fd.get("office") || "Oradell");
     const payload = {
@@ -123,7 +132,9 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
     setDone({ name, phone, service: interest, office });
     setPending(false);
     setSubmitted(true);
-    toast.success("Request received. Our team will reach out shortly.");
+    const message = "Request received. Our team will reach out shortly.";
+    toast.success(message);
+    setStatusMessage(message);
   }
 
   if (submitted) {
@@ -166,22 +177,26 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
         {/* New vs returning: routes the front desk instantly */}
         <fieldset>
           <legend className={labelCls}>Are you a new or returning patient?</legend>
-          <div className="mt-2 grid grid-cols-2 gap-2" role="radiogroup" aria-label="Patient type">
+          <div className="mt-2 grid grid-cols-2 gap-2">
             {(["New patient", "Returning patient"] as const).map((t) => (
-              <button
-                type="button"
+              <label
                 key={t}
-                role="radio"
-                aria-checked={patientType === t}
-                onClick={() => setPatientType(t)}
-                className={`rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors ${
+                className={`block cursor-pointer rounded-lg border px-3 py-2.5 text-center text-sm font-medium transition-colors ${
                   patientType === t
                     ? "border-teal bg-teal text-bone"
                     : "border-line bg-card text-ink-soft hover:border-teal/40 hover:text-ink"
                 }`}
               >
+                <input
+                  type="radio"
+                  name="patientType"
+                  value={t}
+                  checked={patientType === t}
+                  onChange={() => setPatientType(t)}
+                  className="sr-only"
+                />
                 {t}
-              </button>
+              </label>
             ))}
           </div>
         </fieldset>
@@ -189,15 +204,41 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <div className="flex flex-col gap-1.5 sm:col-span-2">
             <label htmlFor="name" className={labelCls}>Full name</label>
-            <input id="name" name="name" required className={field} autoComplete="name" />
+            <input
+              id="name"
+              name="name"
+              required
+              className={field}
+              autoComplete="name"
+              inputMode="text"
+              aria-invalid={errors.name}
+            />
           </div>
           <div className="flex flex-col gap-1.5">
             <label htmlFor="email" className={labelCls}>Email</label>
-            <input id="email" name="email" type="email" required className={field} autoComplete="email" />
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              className={field}
+              autoComplete="email"
+              inputMode="email"
+              aria-invalid={errors.email}
+            />
           </div>
           <div className="flex flex-col gap-1.5">
             <label htmlFor="phone" className={labelCls}>Phone</label>
-            <input id="phone" name="phone" type="tel" required className={field} autoComplete="tel" />
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              required
+              className={field}
+              autoComplete="tel"
+              inputMode="tel"
+              aria-invalid={errors.phone}
+            />
           </div>
           <div className="flex flex-col gap-1.5">
             <label htmlFor="interest" className={labelCls}>I am interested in</label>
@@ -293,6 +334,10 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
         <button type="submit" disabled={pending} className={btn({ className: "mt-6 w-full" })}>
           {pending ? "Sending..." : "Request my appointment"}
         </button>
+
+        <p role="status" aria-live="polite" className="sr-only">
+          {statusMessage}
+        </p>
 
         <p className="mt-4 flex items-start gap-2 text-xs leading-relaxed text-ink-soft">
           <ShieldCheck className="mt-0.5 size-4 shrink-0 text-teal" aria-hidden />
