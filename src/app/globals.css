@@ -5,24 +5,23 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
-  Riverdell Vision design system
-  ------------------------------
-  Art direction: warm bone canvas, deep petrol-teal primary (deliberately not the
-  stock optometry bright-blue), a restrained warm clay accent for humanity, deep
-  slate ink. Display type is Fraunces (optical serif), text/UI is Schibsted
-  Grotesk, and the operations layer uses Geist Mono for data. Calm, editorial,
-  clinically credible.
+  Riverdell Vision design system - "Boutique" (D3)
+  ------------------------------------------------
+  Warm-luxe boutique clinic. Cream canvas, deep teal, brass/gold accent.
+  Display type is Newsreader (elegant serif, with brass italic accents), text is
+  Hanken Grotesk, small labels are Geist Mono. Token NAMES are kept stable
+  (bone/teal/clay/brass) but revalued to the boutique palette, so the whole site
+  re-skins from here.
 */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
 
-  --font-sans: var(--font-schibsted);
-  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-hanken);
+  --font-display: var(--font-newsreader);
   --font-mono: var(--font-geist-mono);
 
-  /* Brand palette exposed as utilities: bg-teal, text-clay, border-line, etc. */
   --color-bone: var(--bone);
   --color-bone-deep: var(--bone-deep);
   --color-ink: var(--ink);
@@ -68,37 +67,36 @@
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.6);
-  --radius-2xl: calc(var(--radius) * 2.2);
-  --radius-3xl: calc(var(--radius) * 3);
+  --radius-xl: calc(var(--radius) * 1.5);
+  --radius-2xl: calc(var(--radius) * 2);
+  --radius-3xl: calc(var(--radius) * 2.6);
 }
 
 :root {
-  /* Raw brand tokens */
-  --bone: oklch(0.972 0.008 84);
-  --bone-deep: oklch(0.953 0.012 82);
-  --ink: oklch(0.245 0.014 220);
-  --ink-soft: oklch(0.445 0.02 220);
-  --teal: oklch(0.472 0.072 202);
-  --teal-deep: oklch(0.355 0.058 205);
-  --teal-tint: oklch(0.928 0.021 195);
-  --clay: oklch(0.66 0.116 50);
-  --clay-soft: oklch(0.905 0.04 58);
-  --sage: oklch(0.858 0.032 162);
-  --brass: oklch(0.72 0.088 78);
-  --line: oklch(0.9 0.008 82);
+  /* Boutique palette (D3) */
+  --bone: oklch(0.955 0.013 78);       /* cream canvas #F5EFE6 */
+  --bone-deep: oklch(0.928 0.017 76);  /* deeper cream section */
+  --ink: oklch(0.30 0.01 60);          /* warm charcoal body */
+  --ink-soft: oklch(0.475 0.017 150);  /* muted sage-gray */
+  --teal: oklch(0.36 0.047 205);       /* deep teal, headings + brand */
+  --teal-deep: oklch(0.285 0.04 207);  /* darker teal, footer */
+  --teal-tint: oklch(0.925 0.016 190); /* pale cream-teal wash */
+  --clay: oklch(0.505 0.083 66);       /* brass, accent on light (eyebrows) */
+  --clay-soft: oklch(0.9 0.035 72);    /* soft brass wash */
+  --sage: oklch(0.85 0.03 160);
+  --brass: oklch(0.745 0.092 80);      /* light gold, accent on dark */
+  --line: oklch(0.875 0.02 78);        /* warm hairline */
 
-  --radius: 0.5rem;
+  --radius: 0.7rem;
 
-  /* Semantic (shadcn) tokens mapped onto the brand palette */
   --background: var(--bone);
   --foreground: var(--ink);
-  --card: oklch(0.995 0.004 85);
+  --card: oklch(0.99 0.006 82);        /* warm near-white */
   --card-foreground: var(--ink);
-  --popover: oklch(0.995 0.004 85);
+  --popover: oklch(0.99 0.006 82);
   --popover-foreground: var(--ink);
   --primary: var(--teal);
-  --primary-foreground: oklch(0.985 0.006 85);
+  --primary-foreground: oklch(0.97 0.012 78);
   --secondary: var(--teal-tint);
   --secondary-foreground: var(--teal-deep);
   --muted: var(--bone-deep);
@@ -115,36 +113,35 @@
   --chart-4: var(--brass);
   --chart-5: var(--ink-soft);
 
-  --sidebar: oklch(0.985 0.006 85);
+  --sidebar: oklch(0.975 0.01 78);
   --sidebar-foreground: var(--ink);
   --sidebar-primary: var(--teal);
-  --sidebar-primary-foreground: oklch(0.985 0.006 85);
+  --sidebar-primary-foreground: oklch(0.97 0.012 78);
   --sidebar-accent: var(--teal-tint);
   --sidebar-accent-foreground: var(--teal-deep);
   --sidebar-border: var(--line);
   --sidebar-ring: var(--teal);
 }
 
-/* A calm dark surface reused only by the operations layer footer/hero accents. */
 .dark {
-  --background: oklch(0.24 0.02 218);
-  --foreground: oklch(0.96 0.006 85);
-  --card: oklch(0.29 0.022 216);
-  --card-foreground: oklch(0.96 0.006 85);
-  --popover: oklch(0.29 0.022 216);
-  --popover-foreground: oklch(0.96 0.006 85);
-  --primary: oklch(0.72 0.07 198);
-  --primary-foreground: oklch(0.22 0.02 218);
-  --secondary: oklch(0.33 0.03 210);
-  --secondary-foreground: oklch(0.96 0.006 85);
-  --muted: oklch(0.31 0.02 216);
-  --muted-foreground: oklch(0.75 0.015 200);
-  --accent: oklch(0.33 0.03 210);
-  --accent-foreground: oklch(0.96 0.006 85);
+  --background: oklch(0.26 0.03 210);
+  --foreground: oklch(0.95 0.012 78);
+  --card: oklch(0.31 0.03 208);
+  --card-foreground: oklch(0.95 0.012 78);
+  --popover: oklch(0.31 0.03 208);
+  --popover-foreground: oklch(0.95 0.012 78);
+  --primary: oklch(0.75 0.09 80);
+  --primary-foreground: oklch(0.24 0.03 210);
+  --secondary: oklch(0.34 0.035 208);
+  --secondary-foreground: oklch(0.95 0.012 78);
+  --muted: oklch(0.32 0.03 208);
+  --muted-foreground: oklch(0.78 0.02 90);
+  --accent: oklch(0.34 0.035 208);
+  --accent-foreground: oklch(0.95 0.012 78);
   --destructive: oklch(0.68 0.17 26);
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 16%);
-  --ring: oklch(0.72 0.07 198);
+  --ring: oklch(0.75 0.09 80);
 }
 
 @layer base {
@@ -159,12 +156,13 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "ss01", "cv01";
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
+    color: var(--teal);
+    font-weight: 500;
     font-optical-sizing: auto;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.005em;
     text-wrap: balance;
   }
   p {
@@ -188,15 +186,13 @@
   .font-mono {
     font-family: var(--font-mono);
   }
-  /* Editorial eyebrow label used above section headings */
   .eyebrow {
     font-family: var(--font-mono);
     text-transform: uppercase;
-    letter-spacing: 0.22em;
-    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    font-size: 0.7rem;
     font-weight: 500;
   }
-  /* Fine paper grain, kept extremely subtle so it reads as texture not noise */
   .grain {
     position: relative;
   }
@@ -205,29 +201,27 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.035;
+    opacity: 0.03;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
     mix-blend-mode: multiply;
   }
-  .reveal {
-    opacity: 0;
-    transform: translateY(14px);
-    animation: reveal-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-  @keyframes reveal-in {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
   @media (prefers-reduced-motion: reduce) {
-    .reveal {
-      animation: none;
-      opacity: 1;
-      transform: none;
-    }
     html {
       scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  @media print {
+    .reveal,
+    [class*="opacity-0"] {
+      opacity: 1 !important;
+      transform: none !important;
     }
   }
 }

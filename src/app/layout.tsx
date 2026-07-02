@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { Fraunces, Schibsted_Grotesk, Geist_Mono } from "next/font/google";
+import { Newsreader, Hanken_Grotesk, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { SITE_URL, practice } from "@/lib/site";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
+  style: ["normal", "italic"],
   display: "swap",
-  axes: ["opsz"],
 });
 
-const schibsted = Schibsted_Grotesk({
-  variable: "--font-schibsted",
+const hanken = Hanken_Grotesk({
+  variable: "--font-hanken",
   subsets: ["latin"],
   display: "swap",
 });
@@ -63,10 +63,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${schibsted.variable} ${geistMono.variable} h-full`}
+      className={`${newsreader.variable} ${hanken.variable} ${geistMono.variable} h-full`}
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-teal focus:px-4 focus:py-2 focus:text-bone"
+        >
+          Skip to content
+        </a>
         {children}
         <Toaster position="top-center" />
       </body>

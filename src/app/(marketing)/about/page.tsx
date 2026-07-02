@@ -4,6 +4,7 @@ import { Baby, Stethoscope, Languages, GraduationCap } from "lucide-react";
 import { Container, Section, SectionHeading, Eyebrow } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
 import { CtaBand } from "@/components/site/cta-band";
+import { DoctorPhoto } from "@/components/site/doctor-photo";
 import { JsonLd } from "@/components/site/json-ld";
 import { physicianSchema, breadcrumbSchema } from "@/lib/schema";
 import { providers } from "@/lib/site";
@@ -123,17 +124,15 @@ export default function AboutPage() {
                 title="Caring, credentialed, and here for your family."
               />
             </Reveal>
-            <div className="mt-10 grid gap-6 md:grid-cols-3">
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {providers.map((p, i) => (
                 <Reveal key={p.slug} delay={i * 70}>
                   <div className="h-full overflow-hidden rounded-2xl border border-line bg-card">
                     <div className="relative aspect-[4/5] bg-teal-tint">
-                      <Image
-                        src={p.photo}
-                        alt={`${p.name}, ${p.role}`}
-                        fill
-                        sizes="(max-width: 768px) 90vw, 30vw"
-                        className="object-cover object-top"
+                      <DoctorPhoto
+                        photo={p.photo}
+                        name={p.name}
+                        sizes="(max-width: 768px) 90vw, 24vw"
                       />
                     </div>
                     <div className="p-6">

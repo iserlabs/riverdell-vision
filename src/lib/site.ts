@@ -15,7 +15,7 @@ export const practice = {
   phone: "(201) 265-7900",
   phoneHref: "tel:+12012657900",
   email: "hello@riverdellvision.com",
-  zocdocUrl: "https://www.zocdoc.com/search?dr_specialty=93&insurance_carrier=-1&address=Oradell%2C%20NJ&q=Riverdell%20Vision",
+  zocdocUrl: "https://www.zocdoc.com/practice/riverdell-vision-30098",
   founded: 2016,
   address: {
     street: "297 Kinderkamack Rd, Suite 200",
@@ -40,6 +40,7 @@ export const practice = {
     facebook: "https://www.facebook.com/riverdellvision",
     instagram: "https://www.instagram.com/riverdellvision",
     google: "https://maps.google.com/?q=Riverdell+Vision+Oradell+NJ",
+    zocdoc: "https://www.zocdoc.com/practice/riverdell-vision-30098",
   },
 } as const;
 
@@ -87,6 +88,17 @@ export const providers = [
     focus: ["Pediatric exams", "Comprehensive eye health"],
     short:
       "Dr. Mundanchira cares for families across the age spectrum with a prevention-first approach to children's and adult eye health.",
+    languages: ["English"],
+  },
+  {
+    slug: "dr-chizoba-ogoke",
+    name: "Dr. Chizoba Heather Ogoke",
+    credential: "OD",
+    role: "Comprehensive Eye Care",
+    photo: "",
+    focus: ["Comprehensive exams", "Family eye care"],
+    short:
+      "Dr. Ogoke provides thorough, attentive comprehensive eye care for patients of every age.",
     languages: ["English"],
   },
 ] as const;

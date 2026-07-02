@@ -3,13 +3,15 @@
 // engines that read these graphs to understand the practice).
 
 import { SITE_URL, practice, providers } from "@/lib/site";
+import { REVIEWS, REVIEW_STATS } from "@/lib/reviews";
+import { SERVICES } from "@/lib/services";
 
 const ORG_ID = `${SITE_URL}/#practice`;
 
 export function localBusinessSchema() {
   return {
     "@context": "https://schema.org",
-    "@type": ["MedicalBusiness", "Optometric", "LocalBusiness"],
+    "@type": ["MedicalClinic", "LocalBusiness"],
     "@id": ORG_ID,
     name: practice.name,
     description: practice.description,
@@ -32,6 +34,7 @@ export function localBusinessSchema() {
       latitude: practice.geo.lat,
       longitude: practice.geo.lng,
     },
+    hasMap: practice.maps,
     areaServed: [
       "Oradell",
       "River Edge",
@@ -50,12 +53,40 @@ export function localBusinessSchema() {
       })),
     sameAs: Object.values(practice.socials),
     medicalSpecialty: "Optometric",
+    employee: providers.map((p) => ({
+      "@type": "Physician",
+      "@id": `${SITE_URL}/about#${p.slug}`,
+      name: `${p.name}, ${p.credential}`,
+      jobTitle: p.role,
+    })),
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Eye care services",
+      itemListElement: SERVICES.map((s) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "MedicalProcedure",
+          name: s.name,
+          url: `${SITE_URL}/${s.slug}`,
+        },
+      })),
+    },
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: "5.0",
-      reviewCount: "146",
+      ratingValue: REVIEW_STATS.rating.toFixed(1),
+      reviewCount: String(REVIEW_STATS.count),
       bestRating: "5",
     },
+    review: REVIEWS.slice(0, 6).map((r) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: r.name },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: String(r.rating),
+        bestRating: "5",
+      },
+      reviewBody: r.quote,
+    })),
   };
 }
 
