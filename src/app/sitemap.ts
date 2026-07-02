@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/oradell", priority: 0.8, freq: "monthly" },
     { path: "/fort-lee", priority: 0.7, freq: "monthly" },
     { path: "/book", priority: 0.9, freq: "monthly" },
+    { path: "/portal", priority: 0.6, freq: "monthly" },
     { path: "/reviews", priority: 0.6, freq: "monthly" },
     { path: "/areas", priority: 0.6, freq: "monthly" },
   ];

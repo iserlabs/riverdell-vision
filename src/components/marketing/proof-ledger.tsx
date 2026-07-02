@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Star, ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/site/primitives";
 import { useInView } from "@/lib/use-in-view";
@@ -45,31 +45,57 @@ const STATS: Stat[] = [
   },
 ];
 
+// Counts up to `target` when the ledger scrolls into view. The initial state is
+// the REAL target (so the server-rendered HTML shows 448/396/10, not 0, which
+// matters for crawlers and AI answer engines that read raw HTML). The reset to
+// 0 happens only on the client, only when the element starts below the fold, so
+// the count-up begins from 0 off-screen with no visible flash.
 function useCountUp(target: number, run: boolean, delay: number, ms = 1400) {
-  const [n, setN] = useState(0);
+  const [n, setN] = useState(target);
+  const phase = useRef<"init" | "armed" | "done">("init");
+  const raf = useRef(0);
+  const timer = useRef(0);
+
   useEffect(() => {
-    if (!run) return;
+    if (phase.current === "done") return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setN(target);
+      phase.current = "done";
+      return; // keep the real number, no animation
+    }
+    if (phase.current === "init") {
+      // Already in view on load: keep the number, skip the count-up.
+      if (run) {
+        phase.current = "done";
+        return;
+      }
+      // Below the fold: reset to 0 off-screen, arm for when it enters view.
+      phase.current = "armed";
+      setN(0);
       return;
     }
-    let raf = 0;
-    let startT = 0;
-    const to = window.setTimeout(() => {
-      const tick = (t: number) => {
-        if (!startT) startT = t;
-        const p = Math.min(1, (t - startT) / ms);
-        const eased = 1 - Math.pow(1 - p, 3);
-        setN(Math.round(target * eased));
-        if (p < 1) raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-    }, delay);
-    return () => {
-      window.clearTimeout(to);
-      cancelAnimationFrame(raf);
-    };
+    if (run) {
+      phase.current = "done";
+      timer.current = window.setTimeout(() => {
+        let startT = 0;
+        const tick = (t: number) => {
+          if (!startT) startT = t;
+          const p = Math.min(1, (t - startT) / ms);
+          setN(Math.round(target * (1 - Math.pow(1 - p, 3))));
+          if (p < 1) raf.current = requestAnimationFrame(tick);
+        };
+        raf.current = requestAnimationFrame(tick);
+      }, delay);
+    }
   }, [run, target, delay, ms]);
+
+  useEffect(
+    () => () => {
+      window.clearTimeout(timer.current);
+      cancelAnimationFrame(raf.current);
+    },
+    [],
+  );
+
   return n;
 }
 
