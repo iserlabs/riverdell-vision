@@ -132,10 +132,12 @@ export const primaryNav = [
   {
     label: "Practice",
     children: [
-      { label: "Meet Dr. Mina Han", href: "/about", note: "The physician behind the practice" },
-      { label: "Oradell Office", href: "/oradell", note: "297 Kinderkamack Rd" },
-      { label: "Fort Lee (Coming Soon)", href: "/fort-lee", note: "Our second location" },
-      { label: "Patient Reviews", href: "/reviews", note: "5.0 on Google" },
+      { label: "Meet Our Doctors", href: "/about", note: "Four optometrists, one standard of care" },
+      { label: "The Oradell Studio", href: "/oradell", note: "Our newly renovated office" },
+      { label: "Fort Lee (Opening 2027)", href: "/fort-lee", note: "Our second location, join the list" },
+      { label: "Patient Reviews", href: "/reviews", note: "5.0 across 448 Google reviews" },
+      { label: "Book an Appointment", href: "/book", note: "Real-time booking on Zocdoc" },
+      { label: "Contact & Hours", href: "/oradell", note: "Directions, parking, and hours" },
     ],
   },
 ] as const;

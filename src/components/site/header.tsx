@@ -13,6 +13,7 @@ import {
 import { Logo } from "@/components/site/logo";
 import { BookButton } from "@/components/site/cta";
 import { primaryNav, practice } from "@/lib/site";
+import { REVIEW_STATS } from "@/lib/reviews";
 import { cn } from "@/lib/utils";
 
 export function SiteHeader() {
@@ -82,10 +83,10 @@ export function SiteHeader() {
             className="hidden items-center gap-1 lg:flex"
             aria-label="Primary"
           >
-            {primaryNav.map((group) => {
+            {primaryNav.map((group, gi) => {
               const isOpen = openMenu === group.label;
               const id = `nav-${group.label.toLowerCase()}`;
-              const wide = group.children.length > 5;
+              const wide = group.children.length > 4;
               return (
                 <div key={group.label} className="relative">
                   <button
@@ -107,8 +108,9 @@ export function SiteHeader() {
                   <div
                     id={id}
                     className={cn(
-                      "absolute left-0 top-full pt-2 transition-all duration-200",
-                      wide ? "w-[40rem]" : "w-72",
+                      "absolute top-full pt-2 transition-all duration-200",
+                      gi === 0 ? "left-0" : "right-0",
+                      wide ? "w-[44rem]" : "w-72",
                       isOpen
                         ? "visible translate-y-0 opacity-100"
                         : "invisible -translate-y-1 opacity-0",
@@ -116,26 +118,61 @@ export function SiteHeader() {
                   >
                     <div
                       className={cn(
-                        "overflow-hidden rounded-xl border border-line bg-card p-1.5 shadow-lg shadow-ink/5",
-                        wide && "grid grid-cols-2 gap-1",
+                        "overflow-hidden rounded-2xl border border-line bg-card p-2 shadow-xl shadow-ink/10",
+                        wide && "flex gap-2",
                       )}
                     >
-                      {group.children.map((c) => (
-                        <Link
-                          key={c.href}
-                          href={c.href}
-                          tabIndex={isOpen ? 0 : -1}
-                          onClick={() => setOpenMenu(null)}
-                          className="block rounded-lg px-3 py-2.5 transition-colors hover:bg-teal-tint"
-                        >
-                          <span className="block text-sm font-medium text-ink">
-                            {c.label}
-                          </span>
-                          <span className="block text-xs text-ink-soft">
-                            {c.note}
-                          </span>
-                        </Link>
-                      ))}
+                      <div className={cn(wide && "grid flex-1 grid-cols-2 gap-0.5")}>
+                        {group.children.map((c) => (
+                          <Link
+                            key={c.href}
+                            href={c.href}
+                            tabIndex={isOpen ? 0 : -1}
+                            onClick={() => setOpenMenu(null)}
+                            className="block rounded-lg px-3 py-2.5 transition-colors hover:bg-teal-tint"
+                          >
+                            <span className="block text-sm font-medium text-ink">
+                              {c.label}
+                            </span>
+                            <span className="block text-xs text-ink-soft">
+                              {c.note}
+                            </span>
+                          </Link>
+                        ))}
+                      </div>
+                      {wide && (
+                        <div className="flex w-56 shrink-0 flex-col justify-between rounded-xl bg-teal p-5 text-bone">
+                          <div>
+                            <p className="font-display text-xl leading-tight">
+                              Ready when you are.
+                            </p>
+                            <p className="mt-2 text-[13px] leading-snug text-bone/75">
+                              Book online in real time, or call the office. New and
+                              returning patients welcome.
+                            </p>
+                          </div>
+                          <div className="mt-6">
+                            <div className="flex items-center gap-0.5">
+                              {Array.from({ length: 5 }).map((_, i) => (
+                                <Star key={i} className="size-3.5 fill-brass text-brass" aria-hidden />
+                              ))}
+                            </div>
+                            <p className="mt-1.5 text-[11px] text-bone/70">
+                              {REVIEW_STATS.rating.toFixed(1)} · {REVIEW_STATS.count} Google
+                              {"  ·  "}
+                              {REVIEW_STATS.zocdocRating.toFixed(1)} · {REVIEW_STATS.zocdocCount} Zocdoc
+                            </p>
+                            <Link
+                              href="/book"
+                              tabIndex={isOpen ? 0 : -1}
+                              onClick={() => setOpenMenu(null)}
+                              className="mt-3 flex h-10 items-center justify-center rounded-lg bg-bone text-sm font-medium text-teal-deep transition-colors hover:bg-bone/90"
+                            >
+                              Request an appointment
+                            </Link>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
