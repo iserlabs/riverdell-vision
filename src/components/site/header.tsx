@@ -211,7 +211,7 @@ export function SiteHeader() {
 
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger
-                className="inline-flex size-10 items-center justify-center rounded-md border border-line text-ink lg:hidden"
+                className="inline-flex size-11 items-center justify-center rounded-md border border-line text-ink lg:hidden"
                 aria-label="Open menu"
               >
                 <Menu className="size-5" />

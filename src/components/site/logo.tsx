@@ -15,7 +15,7 @@ export function Logo({
     <Link
       href="/"
       aria-label="Riverdell Vision home"
-      className={cn("inline-flex items-center", className)}
+      className={cn("inline-flex items-center py-1.5 md:py-0", className)}
     >
       <span
         className={cn(

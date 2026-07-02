@@ -35,14 +35,14 @@ export function SiteFooter() {
             <a
               href={practice.socials.facebook}
               aria-label="Facebook"
-              className="inline-flex size-9 items-center justify-center rounded-full border border-bone/25 transition-colors hover:bg-bone/10"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-bone/25 transition-colors hover:bg-bone/10 md:size-9"
             >
               <Facebook className="size-4" />
             </a>
             <a
               href={practice.socials.instagram}
               aria-label="Instagram"
-              className="inline-flex size-9 items-center justify-center rounded-full border border-bone/25 transition-colors hover:bg-bone/10"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-bone/25 transition-colors hover:bg-bone/10 md:size-9"
             >
               <Instagram className="size-4" />
             </a>
@@ -127,17 +127,29 @@ export function SiteFooter() {
       <div className="border-t border-bone/15">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 text-xs text-bone/60 md:flex-row md:px-8">
           <p>© {new Date().getFullYear()} Riverdell Vision. All rights reserved.</p>
-          <div className="flex items-center gap-5">
-            <Link href="/privacy" className="hover:text-bone">
+          <div className="-mx-2 flex items-center gap-3 md:mx-0 md:gap-5">
+            <Link
+              href="/privacy"
+              className="-my-3.5 flex items-center px-2 py-3.5 hover:text-bone md:mx-0 md:my-0 md:px-0 md:py-0"
+            >
               Privacy
             </Link>
-            <Link href="/accessibility" className="hover:text-bone">
+            <Link
+              href="/accessibility"
+              className="-my-3.5 flex items-center px-2 py-3.5 hover:text-bone md:mx-0 md:my-0 md:px-0 md:py-0"
+            >
               Accessibility
             </Link>
-            <a href="/sitemap.xml" className="hover:text-bone">
+            <a
+              href="/sitemap.xml"
+              className="-my-3.5 flex items-center px-2 py-3.5 hover:text-bone md:mx-0 md:my-0 md:px-0 md:py-0"
+            >
               Sitemap
             </a>
-            <Link href="/dashboard" className="hover:text-bone">
+            <Link
+              href="/dashboard"
+              className="-my-3.5 flex items-center px-2 py-3.5 hover:text-bone md:mx-0 md:my-0 md:px-0 md:py-0"
+            >
               Team portal
             </Link>
           </div>

@@ -44,10 +44,10 @@ export function ConditionView({ condition: c }: { condition: Condition }) {
       {/* Hero */}
       <section className="bg-bone grain">
         <Container wide>
-          <nav aria-label="Breadcrumb" className="pt-8 text-sm text-ink-soft">
-            <Link href="/" className="hover:text-teal">Home</Link>
+          <nav aria-label="Breadcrumb" className="-mx-2 -my-3 pt-8 text-sm text-ink-soft md:mx-0 md:my-0">
+            <Link href="/" className="inline-flex items-center px-2 py-3 hover:text-teal md:px-0 md:py-0">Home</Link>
             <span className="px-2 text-clay">/</span>
-            <Link href={`/${c.parentSlug}`} className="hover:text-teal">{c.parentLabel}</Link>
+            <Link href={`/${c.parentSlug}`} className="inline-flex items-center px-2 py-3 hover:text-teal md:px-0 md:py-0">{c.parentLabel}</Link>
             <span className="px-2 text-clay">/</span>
             <span className="text-ink">{c.name}</span>
           </nav>
@@ -160,7 +160,10 @@ export function ConditionView({ condition: c }: { condition: Condition }) {
               <div className="mt-8 flex flex-wrap items-center gap-4">
                 <BookButton href={bookHref} label="Request an evaluation" />
                 {parent && (
-                  <Link href={`/${parent.slug}`} className="text-sm font-medium text-teal hover:text-teal-deep">
+                  <Link
+                    href={`/${parent.slug}`}
+                    className="-my-3 inline-flex items-center py-3 text-sm font-medium text-teal hover:text-teal-deep md:my-0 md:py-0"
+                  >
                     Explore {c.parentLabel} →
                   </Link>
                 )}

@@ -110,7 +110,7 @@ export function ReviewsWall() {
           <button
             type="button"
             onClick={showMore}
-            className="inline-flex items-center gap-2 rounded-full border border-teal px-6 py-2.5 text-sm font-medium text-teal transition-colors hover:bg-teal hover:text-bone"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-teal px-6 py-2.5 text-sm font-medium text-teal transition-colors hover:bg-teal hover:text-bone md:min-h-0"
           >
             Show more reviews
             <span className="text-ink-soft group-hover:text-bone/80">

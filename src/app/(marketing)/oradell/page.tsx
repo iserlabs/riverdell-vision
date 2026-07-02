@@ -47,13 +47,19 @@ export default function OradellPage() {
                 Paramus, Emerson, and the surrounding Bergen County towns, with a
                 calm, unhurried experience from the moment you walk in.
               </p>
-              <div className="mt-7 space-y-3 text-[15px]">
-                <a href={practice.maps} className="flex items-center gap-3 text-ink hover:text-teal">
-                  <MapPin className="size-5 text-teal" aria-hidden />
+              <div className="-my-2.5 space-y-1 text-[15px] md:my-0 md:space-y-3">
+                <a
+                  href={practice.maps}
+                  className="flex min-h-11 items-center gap-3 py-2.5 text-ink hover:text-teal md:min-h-0 md:py-0"
+                >
+                  <MapPin className="size-5 shrink-0 text-teal" aria-hidden />
                   {practice.address.full}
                 </a>
-                <a href={practice.phoneHref} className="flex items-center gap-3 text-ink hover:text-teal">
-                  <Phone className="size-5 text-teal" aria-hidden />
+                <a
+                  href={practice.phoneHref}
+                  className="flex min-h-11 items-center gap-3 py-2.5 text-ink hover:text-teal md:min-h-0 md:py-0"
+                >
+                  <Phone className="size-5 shrink-0 text-teal" aria-hidden />
                   {practice.phone}
                 </a>
               </div>

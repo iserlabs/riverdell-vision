@@ -165,7 +165,7 @@ function LedgerCell({ stat, run, i }: { stat: Stat; run: boolean; i: number }) {
           href={stat.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="group mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-teal transition-colors hover:text-teal-deep"
+          className="group mt-1 -mb-3 inline-flex items-center gap-1.5 py-3 text-sm font-medium text-teal transition-colors hover:text-teal-deep md:mt-4 md:mb-0 md:py-0"
         >
           {stat.linkText}
           <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />

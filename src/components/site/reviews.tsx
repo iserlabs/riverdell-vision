@@ -140,7 +140,7 @@ export function DualProof({ className }: { className?: string }) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`Read our ${REVIEW_STATS.count} Google reviews (opens Google)`}
-        className="group inline-flex items-center gap-2 text-sm text-ink transition-colors hover:text-teal"
+        className="group -my-3 inline-flex items-center gap-2 py-3 text-sm text-ink transition-colors hover:text-teal md:my-0 md:py-0"
       >
         <Stars label={`${REVIEW_STATS.rating} on Google`} />
         <span>
@@ -158,7 +158,7 @@ export function DualProof({ className }: { className?: string }) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="See our Zocdoc reviews and book (opens Zocdoc)"
-        className="group inline-flex items-center gap-2 text-sm text-ink transition-colors hover:text-teal"
+        className="group -my-3 inline-flex items-center gap-2 py-3 text-sm text-ink transition-colors hover:text-teal md:my-0 md:py-0"
       >
         <Star className="size-4 fill-brass text-brass" aria-hidden />
         <span>
