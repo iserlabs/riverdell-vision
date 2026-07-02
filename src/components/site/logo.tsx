@@ -26,10 +26,10 @@ export function Logo({
         <Image
           src="/riverdell-logo.png"
           alt="Riverdell Vision"
-          width={160}
-          height={33}
+          width={640}
+          height={134}
           priority
-          className="h-7 w-auto md:h-8"
+          className="h-8 w-auto md:h-10"
         />
       </span>
     </Link>

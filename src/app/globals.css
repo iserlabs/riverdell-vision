@@ -74,29 +74,29 @@
 
 :root {
   /* Boutique palette (D3) */
-  --bone: oklch(0.955 0.013 78);       /* cream canvas #F5EFE6 */
-  --bone-deep: oklch(0.928 0.017 76);  /* deeper cream section */
-  --ink: oklch(0.30 0.01 60);          /* warm charcoal body */
-  --ink-soft: oklch(0.475 0.017 150);  /* muted sage-gray */
-  --teal: oklch(0.36 0.047 205);       /* deep teal, headings + brand */
-  --teal-deep: oklch(0.285 0.04 207);  /* darker teal, footer */
-  --teal-tint: oklch(0.925 0.016 190); /* pale cream-teal wash */
-  --clay: oklch(0.505 0.083 66);       /* brass, accent on light (eyebrows) */
-  --clay-soft: oklch(0.9 0.035 72);    /* soft brass wash */
-  --sage: oklch(0.85 0.03 160);
-  --brass: oklch(0.745 0.092 80);      /* light gold, accent on dark */
-  --line: oklch(0.875 0.02 78);        /* warm hairline */
+  --bone: oklch(0.972 0.007 240);      /* cool near-white, drawn from the logo */
+  --bone-deep: oklch(0.945 0.013 242); /* soft blue-gray section */
+  --ink: oklch(0.27 0.032 258);        /* deep navy-slate body */
+  --ink-soft: oklch(0.5 0.03 256);     /* muted blue-gray */
+  --teal: oklch(0.53 0.152 254);       /* Riverdell blue (logo), headings + brand */
+  --teal-deep: oklch(0.36 0.12 258);   /* deep navy-blue, dark sections */
+  --teal-tint: oklch(0.93 0.035 246);  /* pale blue wash */
+  --clay: oklch(0.6 0.15 42);          /* warm coral, complement to the blue */
+  --clay-soft: oklch(0.92 0.045 46);   /* soft coral wash */
+  --sage: oklch(0.85 0.035 210);
+  --brass: oklch(0.78 0.11 72);        /* warm gold accent, on dark */
+  --line: oklch(0.9 0.015 246);        /* cool hairline */
 
   --radius: 0.7rem;
 
   --background: var(--bone);
   --foreground: var(--ink);
-  --card: oklch(0.99 0.006 82);        /* warm near-white */
+  --card: oklch(0.995 0.004 244);      /* cool white */
   --card-foreground: var(--ink);
   --popover: oklch(0.99 0.006 82);
   --popover-foreground: var(--ink);
   --primary: var(--teal);
-  --primary-foreground: oklch(0.97 0.012 78);
+  --primary-foreground: oklch(0.98 0.006 244);
   --secondary: var(--teal-tint);
   --secondary-foreground: var(--teal-deep);
   --muted: var(--bone-deep);
@@ -116,7 +116,7 @@
   --sidebar: oklch(0.975 0.01 78);
   --sidebar-foreground: var(--ink);
   --sidebar-primary: var(--teal);
-  --sidebar-primary-foreground: oklch(0.97 0.012 78);
+  --sidebar-primary-foreground: oklch(0.98 0.006 244);
   --sidebar-accent: var(--teal-tint);
   --sidebar-accent-foreground: var(--teal-deep);
   --sidebar-border: var(--line);
