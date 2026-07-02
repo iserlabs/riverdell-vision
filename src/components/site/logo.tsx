@@ -29,6 +29,7 @@ export function Logo({
           width={640}
           height={134}
           priority
+          sizes="200px"
           className="h-8 w-auto md:h-10"
         />
       </span>

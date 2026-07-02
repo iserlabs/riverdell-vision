@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Star, ArrowUpRight } from "lucide-react";
-import { Container, Section, Eyebrow } from "@/components/site/primitives";
+import { Container, Section } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
 import { ReviewsWall } from "@/components/site/reviews-wall";
 import { CtaBand } from "@/components/site/cta-band";
@@ -8,7 +8,7 @@ import { REVIEW_STATS } from "@/lib/reviews";
 import { practice } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Patient Reviews | Riverdell Vision, Oradell NJ",
+  title: "Patient Reviews | Oradell, NJ",
   description:
     "Read why families across Bergen County rate Riverdell Vision 5.0. Thorough exams, honest guidance, and a caring team for myopia, dry eye, specialty lenses, and family eye care.",
   alternates: { canonical: "/reviews" },
@@ -19,7 +19,7 @@ export default function ReviewsPage() {
     <>
       <section className="bg-bone grain">
         <Container wide className="py-16 text-center md:py-20">
-          <Eyebrow>Patient reviews</Eyebrow>
+          <h1 className="eyebrow text-clay">Patient reviews</h1>
           <div className="mt-5 flex items-center justify-center gap-1">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star key={i} className="size-7 fill-brass text-brass" aria-hidden />

@@ -62,12 +62,12 @@ export function SiteHeader() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-8 py-1.5 text-xs">
           <span className="inline-flex items-center gap-1.5">
             <MapPin className="size-3.5" aria-hidden />
-            297 Kinderkamack Rd, Oradell NJ
+            {practice.address.street}, {practice.address.city} {practice.address.region}
           </span>
           <span className="inline-flex items-center gap-4">
             <span className="inline-flex items-center gap-1">
               <Star className="size-3.5 fill-brass text-brass" aria-hidden />
-              5.0 · 448 Google reviews
+              {REVIEW_STATS.rating.toFixed(1)} · {REVIEW_STATS.count} Google reviews
             </span>
             <a href={practice.phoneHref} className="font-medium hover:text-bone">
               {practice.phone}

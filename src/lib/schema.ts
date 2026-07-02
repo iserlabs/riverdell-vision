@@ -36,15 +36,24 @@ export function localBusinessSchema() {
     },
     hasMap: practice.maps,
     areaServed: [
-      "Oradell",
-      "River Edge",
-      "Paramus",
-      "Emerson",
-      "Fort Lee",
-      "Bergen County",
-    ].map((name) => ({ "@type": "City", name })),
+      ...[
+        "Oradell",
+        "River Edge",
+        "Paramus",
+        "Emerson",
+        "Hackensack",
+        "New Milford",
+        "Maywood",
+        "Bergenfield",
+        "Dumont",
+        "Westwood",
+      ].map((name) => ({ "@type": "City", name })),
+      { "@type": "AdministrativeArea", name: "Bergen County, NJ" },
+    ],
     openingHoursSpecification: practice.hours
-      .filter((h) => h.open && h.close)
+      // Saturday is alternating; schema.org cannot express "every other week",
+      // so omit it and let the Google Business Profile own the live pattern.
+      .filter((h) => h.open && h.close && h.day !== "Saturday")
       .map((h) => ({
         "@type": "OpeningHoursSpecification",
         dayOfWeek: `https://schema.org/${h.day}`,

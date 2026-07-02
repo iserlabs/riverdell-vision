@@ -12,10 +12,11 @@ import { PortalTour } from "@/components/marketing/portal-tour";
 import { BookButton } from "@/components/site/cta";
 
 export const metadata: Metadata = {
-  title: "Patient Portal (Launching Soon) | Riverdell Vision",
+  title: "Patient Portal (Launching Soon)",
   description:
     "A preview of the Riverdell Vision patient portal: appointments, records and myopia progress, prescriptions and reorders, secure messaging, billing, and one login for the whole family. Launching soon.",
   alternates: { canonical: "/portal" },
+  robots: { index: false, follow: true },
 };
 
 const FEATURES = [

@@ -135,6 +135,7 @@ export const primaryNav = [
       { label: "Meet Our Doctors", href: "/about", note: "Four optometrists, one standard of care" },
       { label: "The Oradell Studio", href: "/oradell", note: "The office, hours, and directions" },
       { label: "Patient Reviews", href: "/reviews", note: "5.0 across 448 Google reviews" },
+      { label: "Areas We Serve", href: "/areas", note: "Eye care across Bergen County" },
       { label: "Fort Lee (Opening 2027)", href: "/fort-lee", note: "Our second location, join the list" },
     ],
   },

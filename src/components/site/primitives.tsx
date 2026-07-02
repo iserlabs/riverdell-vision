@@ -59,12 +59,14 @@ export function SectionHeading({
   lead,
   align = "left",
   className,
+  titleAs: TitleTag = "h2",
 }: {
   eyebrow?: string;
   title: React.ReactNode;
   lead?: React.ReactNode;
   align?: "left" | "center";
   className?: string;
+  titleAs?: "h1" | "h2";
 }) {
   return (
     <div
@@ -75,9 +77,9 @@ export function SectionHeading({
       )}
     >
       {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
-      <h2 className="max-w-2xl text-balance text-3xl font-medium leading-[1.08] md:text-[2.6rem]">
+      <TitleTag className="max-w-2xl text-balance text-3xl font-medium leading-[1.08] md:text-[2.6rem]">
         {title}
-      </h2>
+      </TitleTag>
       {lead && (
         <p
           className={cn(

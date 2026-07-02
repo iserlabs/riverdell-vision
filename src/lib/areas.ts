@@ -20,7 +20,7 @@ export const AREAS: Area[] = [
   {
     slug: "optometrist-oradell-nj",
     h1: "Optometrist in Oradell, NJ",
-    metaTitle: "Optometrist in Oradell, NJ | Riverdell Vision",
+    metaTitle: "Optometrist in Oradell, NJ",
     metaDescription:
       "Looking for an optometrist in Oradell, NJ? Riverdell Vision offers physician-led eye exams, myopia management, dry eye, and specialty lenses at 297 Kinderkamack Rd.",
     town: "Oradell",
@@ -35,7 +35,7 @@ export const AREAS: Area[] = [
   {
     slug: "eye-doctor-river-edge-nj",
     h1: "Eye Doctor near River Edge, NJ",
-    metaTitle: "Eye Doctor near River Edge, NJ | Riverdell Vision",
+    metaTitle: "Eye Doctor near River Edge, NJ",
     metaDescription:
       "Riverdell Vision is a trusted eye doctor minutes from River Edge, NJ. Comprehensive exams, myopia management, dry eye treatment, and specialty contact lenses.",
     town: "River Edge",
@@ -50,7 +50,7 @@ export const AREAS: Area[] = [
   {
     slug: "optometrist-paramus-nj",
     h1: "Optometrist near Paramus, NJ",
-    metaTitle: "Optometrist near Paramus, NJ | Riverdell Vision",
+    metaTitle: "Optometrist near Paramus, NJ",
     metaDescription:
       "A calmer alternative to the mall optical shops. Riverdell Vision serves Paramus, NJ with physician-led eye exams, myopia management, dry eye, and specialty lenses.",
     town: "Paramus",
@@ -65,7 +65,7 @@ export const AREAS: Area[] = [
   {
     slug: "eye-doctor-emerson-nj",
     h1: "Eye Doctor near Emerson, NJ",
-    metaTitle: "Eye Doctor near Emerson, NJ | Riverdell Vision",
+    metaTitle: "Eye Doctor near Emerson, NJ",
     metaDescription:
       "Riverdell Vision is a family eye doctor near Emerson, NJ, offering comprehensive exams, pediatric care, myopia management, dry eye treatment, and specialty lenses.",
     town: "Emerson",
@@ -80,7 +80,7 @@ export const AREAS: Area[] = [
   {
     slug: "myopia-management-bergen-county",
     h1: "Myopia Management in Bergen County, NJ",
-    metaTitle: "Myopia Management in Bergen County, NJ | Riverdell Vision",
+    metaTitle: "Myopia Management in Bergen County, NJ",
     metaDescription:
       "Slow your child's worsening nearsightedness with myopia management in Bergen County, NJ. Ortho-K, multifocal contacts, myopia-control glasses, and atropine at Riverdell Vision.",
     town: "Bergen County",
@@ -96,7 +96,7 @@ export const AREAS: Area[] = [
   {
     slug: "dry-eye-doctor-bergen-county",
     h1: "Dry Eye Doctor in Bergen County, NJ",
-    metaTitle: "Dry Eye Doctor in Bergen County, NJ | Riverdell Vision",
+    metaTitle: "Dry Eye Doctor in Bergen County, NJ",
     metaDescription:
       "Chronic dry, burning, or watery eyes? Riverdell Vision offers real dry eye evaluation and treatment in Bergen County, NJ, including in-office therapies for the underlying cause.",
     town: "Bergen County",
@@ -112,7 +112,7 @@ export const AREAS: Area[] = [
   {
     slug: "scleral-lenses-bergen-county",
     h1: "Scleral & Specialty Lenses in Bergen County, NJ",
-    metaTitle: "Scleral & Specialty Lenses in Bergen County, NJ | Riverdell Vision",
+    metaTitle: "Scleral & Specialty Lenses in Bergen County, NJ",
     metaDescription:
       "Scleral and specialty contact lenses in Bergen County, NJ for keratoconus, irregular corneas, severe dry eye, and hard-to-fit prescriptions. Riverdell Vision in Oradell.",
     town: "Bergen County",
@@ -128,7 +128,7 @@ export const AREAS: Area[] = [
   {
     slug: "pediatric-eye-doctor-bergen-county",
     h1: "Pediatric Eye Doctor in Bergen County, NJ",
-    metaTitle: "Pediatric Eye Doctor in Bergen County, NJ | Riverdell Vision",
+    metaTitle: "Pediatric Eye Doctor in Bergen County, NJ",
     metaDescription:
       "Gentle, thorough pediatric eye exams in Bergen County, NJ. Riverdell Vision offers children's eye care and myopia management with a prevention-first approach.",
     town: "Bergen County",

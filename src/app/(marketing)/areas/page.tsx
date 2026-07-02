@@ -6,7 +6,7 @@ import { CtaBand } from "@/components/site/cta-band";
 import { AREAS } from "@/lib/areas";
 
 export const metadata: Metadata = {
-  title: "Areas We Serve | Bergen County Eye Care | Riverdell Vision",
+  title: "Areas We Serve | Bergen County Eye Care",
   description:
     "Riverdell Vision serves Oradell, River Edge, Paramus, Emerson, Fort Lee, and Bergen County with eye exams, myopia management, dry eye care, and specialty lenses.",
   alternates: { canonical: "/areas" },
@@ -18,6 +18,7 @@ export default function AreasPage() {
       <Section>
         <Container wide>
           <SectionHeading
+            titleAs="h1"
             eyebrow="Areas we serve"
             title="Eye care across Bergen County."
             lead="From our Oradell office we care for families throughout the area. Find your town or the specialty care you are looking for."
