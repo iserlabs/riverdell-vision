@@ -11,17 +11,27 @@ test.use({ viewport: { width: 390, height: 844 } });
 // height or wrapping every link in a block, which breaks the reading layout.
 // We still require nav items, buttons, CTAs, cards, and standalone action
 // links to meet 44px, since those are genuine tap targets, not prose.
-// The "Skip to content" link is intentionally `sr-only` (1x1, visually
-// hidden) until it receives keyboard focus, at which point it expands to a
-// fully padded, easily-hittable link (see focus:px-4 focus:py-2 in
-// layout.tsx). That is the standard, WCAG-conformant pattern for a
-// skip-navigation link: it is reached by Tab, never by tapping an invisible
-// element, so measuring its unfocused 1x1 state is a test artifact rather
-// than a real tap-target defect. It is excluded here by its specific href
-// rather than by a broad sr-only exemption, so any other visually-hidden
-// control would still be caught.
+//
+// The prose exemption is decided ENTIRELY at runtime by the free-text-sibling
+// check below, so it applies uniformly to links in <p>, <li>, <dd>, <dt>, or
+// anywhere else: a link whose parent holds other non-whitespace text (a real
+// sentence, e.g. `<li>See our <a>guide</a> for details</li>`) is exempt, while
+// a link that is the sole content of its parent (e.g. a footer nav list item
+// `<li><Link>Care</Link></li>`) is a standalone control and IS measured. The
+// CSS selector deliberately does NOT pre-filter by wrapper tag, so no genuine
+// tap target can be silently dropped before the runtime check runs.
+//
+// The one exception is the "Skip to content" link, which is intentionally
+// `sr-only` (1x1, visually hidden) until it receives keyboard focus, at which
+// point it expands to a fully padded, easily-hittable link (see
+// focus:px-4 focus:py-2 in layout.tsx). That is the standard, WCAG-conformant
+// pattern for a skip-navigation link: it is reached by Tab, never by tapping
+// an invisible element, so measuring its unfocused 1x1 state is a test
+// artifact rather than a real tap-target defect. It is excluded here by its
+// specific href rather than by a broad sr-only exemption, so any other
+// visually-hidden control would still be caught.
 const INTERACTIVE_SELECTOR = [
-  'a:not(p a, li:not([role=listitem]) > a, dd a, dt a, a[href="#main"])',
+  'a:not(a[href="#main"])',
   "button",
   "[role=button]",
 ].join(", ");

@@ -54,7 +54,10 @@ export function SiteFooter() {
           <ul className="mt-4 space-y-2.5 text-sm">
             {primaryNav[0].children.map((c) => (
               <li key={c.href}>
-                <Link href={c.href} className="text-bone/75 hover:text-bone">
+                <Link
+                  href={c.href}
+                  className="-my-3.5 inline-flex items-center py-3.5 text-bone/75 hover:text-bone md:my-0 md:py-0"
+                >
                   {c.label}
                 </Link>
               </li>
@@ -66,19 +69,28 @@ export function SiteFooter() {
           <p className="eyebrow text-brass">Practice</p>
           <ul className="mt-4 space-y-2.5 text-sm">
             <li>
-              <Link href="/portal" className="font-medium text-bone hover:text-brass">
+              <Link
+                href="/portal"
+                className="-my-3.5 inline-flex items-center py-3.5 font-medium text-bone hover:text-brass md:my-0 md:py-0"
+              >
                 Patient Portal
               </Link>
             </li>
             {primaryNav[1].children.map((c) => (
               <li key={c.href}>
-                <Link href={c.href} className="text-bone/75 hover:text-bone">
+                <Link
+                  href={c.href}
+                  className="-my-3.5 inline-flex items-center py-3.5 text-bone/75 hover:text-bone md:my-0 md:py-0"
+                >
                   {c.label}
                 </Link>
               </li>
             ))}
             <li>
-              <Link href="/areas" className="text-bone/75 hover:text-bone">
+              <Link
+                href="/areas"
+                className="-my-3.5 inline-flex items-center py-3.5 text-bone/75 hover:text-bone md:my-0 md:py-0"
+              >
                 Areas we serve
               </Link>
             </li>
@@ -90,19 +102,28 @@ export function SiteFooter() {
           <ul className="mt-4 space-y-3 text-sm text-bone/80">
             <li className="flex gap-2.5">
               <MapPin className="mt-0.5 size-4 shrink-0 text-brass" aria-hidden />
-              <a href={practice.maps} className="hover:text-bone">
+              <a
+                href={practice.maps}
+                className="-my-3 inline-block py-3 hover:text-bone md:my-0 md:py-0"
+              >
                 {practice.address.full}
               </a>
             </li>
             <li className="flex gap-2.5">
               <Phone className="mt-0.5 size-4 shrink-0 text-brass" aria-hidden />
-              <a href={practice.phoneHref} className="hover:text-bone">
+              <a
+                href={practice.phoneHref}
+                className="-my-3 inline-block py-3 hover:text-bone md:my-0 md:py-0"
+              >
                 {practice.phone}
               </a>
             </li>
             <li className="flex gap-2.5">
               <Mail className="mt-0.5 size-4 shrink-0 text-brass" aria-hidden />
-              <a href={`mailto:${practice.email}`} className="hover:text-bone">
+              <a
+                href={`mailto:${practice.email}`}
+                className="-my-3 inline-block py-3 hover:text-bone md:my-0 md:py-0"
+              >
                 {practice.email}
               </a>
             </li>
