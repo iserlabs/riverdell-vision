@@ -20,21 +20,18 @@ export function Logo({
       aria-label="Riverdell Vision home"
       className={cn("group inline-flex items-center gap-2.5", className)}
     >
-      <svg
-        viewBox="0 0 44 44"
-        className="h-9 w-9 shrink-0"
-        aria-hidden="true"
-        fill="none"
-      >
-        <path
-          d="M4 22C9.5 13 15.5 9 22 9s12.5 4 18 13c-5.5 9-11.5 13-18 13S9.5 31 4 22Z"
-          stroke="currentColor"
-          strokeWidth="1.7"
-          strokeLinejoin="round"
-        />
-        <circle cx="22" cy="22" r="7.6" stroke="currentColor" strokeWidth="1.7" />
-        <circle cx="22" cy="22" r="3" className="fill-clay" />
-      </svg>
+      <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-teal text-bone shadow-sm shadow-ink/10">
+        <svg viewBox="0 0 44 44" className="size-6" aria-hidden="true" fill="none">
+          <path
+            d="M4 22C9.5 13 15.5 9 22 9s12.5 4 18 13c-5.5 9-11.5 13-18 13S9.5 31 4 22Z"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinejoin="round"
+          />
+          <circle cx="22" cy="22" r="7.6" stroke="currentColor" strokeWidth="2" />
+          <circle cx="22" cy="22" r="3.2" className="fill-clay" />
+        </svg>
+      </span>
       {!markOnly && (
         <span className="flex flex-col leading-none">
           <span className="font-display text-[1.35rem] font-medium tracking-[-0.02em]">

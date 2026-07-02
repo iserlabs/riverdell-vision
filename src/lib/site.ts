@@ -95,7 +95,7 @@ export const providers = [
     name: "Dr. Chizoba Heather Ogoke",
     credential: "OD",
     role: "Comprehensive Eye Care",
-    photo: "",
+    photo: "/images/team-ogoke.png",
     focus: ["Comprehensive exams", "Family eye care"],
     short:
       "Dr. Ogoke provides thorough, attentive comprehensive eye care for patients of every age.",
