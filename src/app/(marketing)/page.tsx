@@ -55,9 +55,9 @@ export default function HomePage() {
                 <Eyebrow>Family optometry · Oradell, New Jersey</Eyebrow>
               </Reveal>
               <Reveal delay={80}>
-                <h1 className="mt-6 max-w-xl font-display text-[3.1rem] font-medium leading-[1.02] tracking-[-0.01em] text-teal md:text-[4.25rem]">
-                  Considered eye care,{" "}
-                  <span className="italic text-clay">beautifully</span> delivered.
+                <h1 className="mt-6 max-w-xl font-display text-[3.1rem] font-medium leading-[1.04] tracking-[-0.01em] text-teal md:text-[4.1rem]">
+                  The eye doctor Bergen County{" "}
+                  <span className="italic text-clay">families trust.</span>
                 </h1>
               </Reveal>
               <Reveal delay={160}>

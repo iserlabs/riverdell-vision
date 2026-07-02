@@ -119,9 +119,13 @@ export const primaryNav = [
   {
     label: "Care",
     children: [
-      { label: "Myopia Management", href: "/myopia-management", note: "Slow a child's worsening nearsightedness" },
+      { label: "Myopia Management", href: "/myopia-management", note: "Slow a child's nearsightedness" },
+      { label: "Orthokeratology (Ortho-K)", href: "/ortho-k", note: "Clear days, corrected overnight" },
       { label: "Dry Eye Treatment", href: "/dry-eye-treatment", note: "Real answers for chronic irritation" },
-      { label: "Specialty & Scleral Lenses", href: "/specialty-contact-lenses", note: "When regular contacts do not work" },
+      { label: "Specialty & Scleral Lenses", href: "/specialty-contact-lenses", note: "When regular contacts fail" },
+      { label: "Vision Therapy", href: "/vision-therapy", note: "The skills reading depends on" },
+      { label: "Neuro-Optometric Rehab", href: "/neuro-optometric-rehabilitation", note: "Vision care after concussion" },
+      { label: "Medical Eye Care", href: "/medical-eye-care", note: "Eye health, not just glasses" },
       { label: "Pediatric & Family Care", href: "/about#care", note: "Prevention-first, every age" },
     ],
   },

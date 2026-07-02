@@ -85,6 +85,7 @@ export function SiteHeader() {
             {primaryNav.map((group) => {
               const isOpen = openMenu === group.label;
               const id = `nav-${group.label.toLowerCase()}`;
+              const wide = group.children.length > 5;
               return (
                 <div key={group.label} className="relative">
                   <button
@@ -106,13 +107,19 @@ export function SiteHeader() {
                   <div
                     id={id}
                     className={cn(
-                      "absolute left-0 top-full w-72 pt-2 transition-all duration-200",
+                      "absolute left-0 top-full pt-2 transition-all duration-200",
+                      wide ? "w-[40rem]" : "w-72",
                       isOpen
                         ? "visible translate-y-0 opacity-100"
                         : "invisible -translate-y-1 opacity-0",
                     )}
                   >
-                    <div className="overflow-hidden rounded-xl border border-line bg-card p-1.5 shadow-lg shadow-ink/5">
+                    <div
+                      className={cn(
+                        "overflow-hidden rounded-xl border border-line bg-card p-1.5 shadow-lg shadow-ink/5",
+                        wide && "grid grid-cols-2 gap-1",
+                      )}
+                    >
                       {group.children.map((c) => (
                         <Link
                           key={c.href}
@@ -134,12 +141,6 @@ export function SiteHeader() {
                 </div>
               );
             })}
-            <Link
-              href="/areas"
-              className="rounded-md px-3 py-2 text-sm font-medium text-ink transition-colors hover:text-teal"
-            >
-              Areas
-            </Link>
             <Link
               href="/book"
               className="rounded-md px-3 py-2 text-sm font-medium text-ink transition-colors hover:text-teal"
@@ -185,13 +186,6 @@ export function SiteHeader() {
                       ))}
                     </div>
                   ))}
-                  <Link
-                    href="/areas"
-                    onClick={() => setMobileOpen(false)}
-                    className="block rounded-lg px-2 py-2.5 text-[15px] font-medium text-ink hover:bg-teal-tint"
-                  >
-                    Areas we serve
-                  </Link>
                 </nav>
                 <div
                   className="mt-2 flex flex-col gap-2 px-4"

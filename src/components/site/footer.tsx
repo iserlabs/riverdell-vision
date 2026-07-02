@@ -72,6 +72,11 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link href="/areas" className="text-bone/75 hover:text-bone">
+                Areas we serve
+              </Link>
+            </li>
           </ul>
         </nav>
 

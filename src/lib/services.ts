@@ -290,6 +290,207 @@ export const SERVICES: ServiceContent[] = [
     reviewedBy: "Dr. Mina Han, OD",
     dateReviewed: "June 2026",
   },
+  {
+    slug: "ortho-k",
+    name: "Orthokeratology (Ortho-K)",
+    shortName: "Ortho-K",
+    icon: "lens",
+    image: "/images/myopia.jpeg",
+    imageAlt: "A young patient who will wake to clear vision after wearing ortho-k lenses overnight",
+    eyebrow: "Overnight vision",
+    headline: "Clear days without glasses, corrected while your child sleeps.",
+    subhead:
+      "Ortho-K reshapes vision overnight with custom lenses: a favorite for active kids and a proven way to slow myopia.",
+    directAnswer:
+      "Orthokeratology, or Ortho-K, uses custom rigid lenses worn only during sleep to gently and temporarily reshape the front of the eye. Children and adults then see clearly all day without glasses or daytime contacts. At Riverdell Vision, Dr. Mina Han fits Ortho-K both for daytime freedom and as one of the most effective ways to slow the progression of a child's nearsightedness.",
+    problem:
+      "For active kids, glasses fog up, slip, and break, and daytime contacts are not always practical during sports and long school days. Meanwhile, a prescription that keeps climbing raises lifelong eye-health risk. Ortho-K addresses both at once: clear, correction-free days, and a slower rate of myopia progression.",
+    whoFor: [
+      "Children and teens who play sports or dislike glasses",
+      "Families looking to slow myopia progression",
+      "Adults who want daytime freedom without surgery",
+      "Anyone not ready for, or not a candidate for, LASIK",
+    ],
+    whenToSee: [
+      "Your child is tired of glasses during sports or play",
+      "A recent exam showed nearsightedness increasing",
+      "You want a non-surgical way to reduce daytime dependence on glasses",
+    ],
+    howWeEvaluate: [
+      { title: "Corneal mapping", body: "We measure the precise shape of the eye so lenses are designed to your child's anatomy." },
+      { title: "Candidacy and fit", body: "Dr. Han confirms Ortho-K is appropriate and fits trial lenses to check comfort and response." },
+      { title: "Trial and follow-up", body: "We track results over the first nights and follow up to fine-tune the fit and confirm clear, stable daytime vision." },
+    ],
+    whatTreatment: [
+      { title: "Custom overnight lenses", body: "Rigid, highly breathable lenses worn during sleep and removed in the morning." },
+      { title: "Daytime freedom", body: "Most patients see clearly through the day with no glasses or contacts, refreshed each night." },
+      { title: "Myopia control benefit", body: "For children, Ortho-K also helps slow how quickly the prescription grows over time." },
+    ],
+    faqs: [
+      { q: "Is Ortho-K safe for children?", a: "Ortho-K has been used safely in children for many years when lenses are properly fit and cared for. We teach thorough handling and hygiene and monitor eye health at every visit." },
+      { q: "Is the effect permanent?", a: "No. Ortho-K temporarily reshapes the cornea, so lenses must be worn regularly to maintain clear daytime vision. If you stop, the eyes gradually return to their original prescription." },
+      { q: "How quickly does it work?", a: "Many patients notice a big improvement within the first few nights, with vision stabilizing over one to two weeks. We follow up closely during this period." },
+      { q: "Will insurance cover Ortho-K?", a: "Coverage varies and specialty lens materials are often not covered. We verify your benefits and give you clear pricing before you begin." },
+    ],
+    keywords: ["ortho-k Oradell NJ", "orthokeratology Bergen County", "ortho-k for myopia NJ"],
+    related: ["myopia-management", "specialty-contact-lenses"],
+    metaTitle: "Ortho-K (Orthokeratology) in Oradell & Bergen County, NJ",
+    metaDescription:
+      "Orthokeratology (Ortho-K) at Riverdell Vision in Oradell, NJ: custom overnight lenses for clear, glasses-free days and myopia control. Request an Ortho-K consult.",
+    reviewedBy: "Dr. Mina Han, OD",
+    dateReviewed: "June 2026",
+  },
+  {
+    slug: "vision-therapy",
+    name: "Vision Therapy",
+    shortName: "Vision Therapy",
+    icon: "eye",
+    image: "/images/hero-care.jpeg",
+    imageAlt: "A child engaged in a guided visual activity during a vision therapy session",
+    eyebrow: "Visual skills",
+    headline: "Building the visual skills that reading and learning depend on.",
+    subhead:
+      "A doctor-supervised program that strengthens eye teaming, tracking, and focusing, led by Dr. Bruce Meyer, FCOVD.",
+    directAnswer:
+      "Vision therapy is a personalized, doctor-supervised program of progressive activities that develops the visual skills behind reading, learning, and attention, including eye teaming, tracking, and focusing. At Riverdell Vision, Dr. Bruce Meyer, a Fellow of the College of Optometrists in Vision Development, directs each program and advances it as skills improve. It is not the same as reading glasses; it retrains how the eyes work together.",
+    problem:
+      "A child can have 20/20 eyesight and still struggle to read, lose their place, skip lines, or avoid near work, because clarity and visual skill are different things. When the eyes do not team, track, and focus efficiently, reading is exhausting and comprehension suffers. Vision therapy targets those underlying skills, not just the symptom.",
+    whoFor: [
+      "Children who avoid reading, lose their place, or reverse letters",
+      "Kids with an eye-teaming or focusing problem found on exam",
+      "Students whose effort does not match their results",
+      "Adults with lingering visual symptoms after a concussion",
+    ],
+    whenToSee: [
+      "Reading is a struggle despite clear eyesight",
+      "A teacher or exam flagged an eye-teaming or tracking issue",
+      "Your child skips lines, loses their place, or gets headaches with near work",
+    ],
+    howWeEvaluate: [
+      { title: "A developmental vision evaluation", body: "We assess eye teaming, tracking, focusing, and how the visual system supports reading and learning." },
+      { title: "A written program", body: "Dr. Meyer designs a personalized plan with clear goals and a realistic timeline." },
+      { title: "Progress you can see", body: "We re-measure skills over the program so families can see objective improvement, not guesswork." },
+    ],
+    whatTreatment: [
+      { title: "In-office therapy sessions", body: "Guided, progressive activities that build specific visual skills, supported by home practice." },
+      { title: "Skill-by-skill progression", body: "The program advances as your child masters each level, keeping it effective." },
+      { title: "Carryover to real life", body: "The goal is durable improvement in reading stamina, comfort, and confidence." },
+    ],
+    faqs: [
+      { q: "How is vision therapy different from glasses?", a: "Glasses change the clarity of the image. Vision therapy retrains how the eyes work together and focus. Some children need one, some need both." },
+      { q: "How long does a program take?", a: "It depends on the goals and the starting point. Many programs run over several months. Dr. Meyer gives you a clear plan and timeline after the evaluation." },
+      { q: "Does it really work?", a: "Vision therapy is well established for specific diagnosed eye-teaming and focusing problems. We measure skills before, during, and after so progress is objective. We do not claim it treats unrelated conditions." },
+      { q: "Is it covered by insurance?", a: "Some medical plans cover parts of diagnosed vision therapy. Benefits vary widely; we verify coverage and explain costs before starting." },
+    ],
+    keywords: ["vision therapy Bergen County", "vision therapy Oradell NJ", "vision therapy for kids NJ"],
+    related: ["neuro-optometric-rehabilitation", "myopia-management"],
+    metaTitle: "Vision Therapy in Oradell & Bergen County, NJ",
+    metaDescription:
+      "Doctor-supervised vision therapy at Riverdell Vision in Oradell, NJ, led by Dr. Bruce Meyer, FCOVD. Build the eye-teaming, tracking, and focusing skills reading depends on.",
+    reviewedBy: "Dr. Bruce Meyer, FCOVD",
+    dateReviewed: "June 2026",
+  },
+  {
+    slug: "neuro-optometric-rehabilitation",
+    name: "Neuro-Optometric Rehabilitation",
+    shortName: "Neuro-Optometric Rehab",
+    icon: "stethoscope",
+    image: "/images/office-oradell.jpeg",
+    imageAlt: "A calm, modern clinical space used for neuro-optometric rehabilitation",
+    eyebrow: "After concussion or injury",
+    headline: "Rebuilding vision after concussion, stroke, or brain injury.",
+    subhead:
+      "A personalized program for the visual symptoms that follow a concussion or neurological event, led by Dr. Bruce Meyer, FCOVD.",
+    directAnswer:
+      "Neuro-optometric rehabilitation treats the visual problems that often follow a concussion, traumatic brain injury, or stroke, such as double vision, light sensitivity, dizziness, difficulty reading, and trouble in busy environments. At Riverdell Vision, Dr. Bruce Meyer, FCOVD, evaluates how the injury has affected the visual system and builds a rehabilitation program, which may include therapeutic lenses, prisms, and guided therapy, to help the brain and eyes work together again.",
+    problem:
+      "After a concussion, many people are told their scans are normal and to simply wait, yet they still cannot read, tolerate screens, or feel steady in a busy aisle. Vision is deeply tied to balance, attention, and comfort, and when a brain injury disrupts the visual system, everyday life becomes exhausting. These symptoms are real, common, and treatable.",
+    whoFor: [
+      "People with lingering symptoms after a concussion or TBI",
+      "Patients recovering from a stroke with new visual difficulty",
+      "Anyone with double vision, light sensitivity, or dizziness after a head injury",
+      "Those told their eyes are fine but who still cannot read or focus comfortably",
+    ],
+    whenToSee: [
+      "Reading, screens, or busy places became hard after a head injury",
+      "You have double vision, light sensitivity, or dizziness that will not resolve",
+      "A concussion specialist recommended a vision evaluation",
+    ],
+    howWeEvaluate: [
+      { title: "A neuro-visual evaluation", body: "We assess how the injury has affected eye teaming, focusing, eye movements, and visual processing." },
+      { title: "A rehabilitation plan", body: "Dr. Meyer designs a personalized program, which may include therapeutic lenses, prisms, and guided therapy." },
+      { title: "Coordinated care", body: "We work alongside your other providers and track progress toward specific, functional goals." },
+    ],
+    whatTreatment: [
+      { title: "Therapeutic lenses and prisms", body: "Carefully prescribed lenses or prisms can ease double vision, strain, and disorientation." },
+      { title: "Guided neuro-visual therapy", body: "Progressive activities help the visual system reorganize and regain stability." },
+      { title: "Functional goals", body: "The aim is real-world improvement: reading, screens, driving, and moving through busy spaces with less strain." },
+    ],
+    faqs: [
+      { q: "Can vision problems really come from a concussion?", a: "Yes. A large share of concussions affect the visual system, causing double vision, light sensitivity, dizziness, and reading difficulty, even when eyesight is 20/20 and scans are normal." },
+      { q: "When should rehabilitation start?", a: "It can help both soon after injury and long afterward. If symptoms are limiting daily life, an evaluation is worthwhile whenever you are ready." },
+      { q: "Will it cure my symptoms?", a: "Every injury is different and we make no guarantees. The goal is measurable, functional improvement, and we track progress toward your specific goals." },
+      { q: "Do you coordinate with my other doctors?", a: "Yes. Neuro-optometric rehabilitation works best as part of a team, and we communicate with your other providers when helpful." },
+    ],
+    keywords: ["neuro optometric rehabilitation NJ", "concussion vision therapy Bergen County", "post concussion vision Oradell"],
+    related: ["vision-therapy", "dry-eye-treatment"],
+    metaTitle: "Neuro-Optometric Rehabilitation in Bergen County, NJ",
+    metaDescription:
+      "Neuro-optometric rehabilitation at Riverdell Vision in Oradell, NJ for visual symptoms after concussion, TBI, or stroke. Led by Dr. Bruce Meyer, FCOVD.",
+    reviewedBy: "Dr. Bruce Meyer, FCOVD",
+    dateReviewed: "June 2026",
+  },
+  {
+    slug: "medical-eye-care",
+    name: "Medical Eye Care",
+    shortName: "Medical Eye Care",
+    icon: "stethoscope",
+    image: "/images/dry-eye.jpeg",
+    imageAlt: "A calm clinical setting for medical eye care at Riverdell Vision",
+    eyebrow: "Eye health, not just glasses",
+    headline: "Medical eye care to protect your sight, not just update it.",
+    subhead:
+      "Diabetic eye exams, glaucoma monitoring, red eye, and urgent problems, handled here as real medicine.",
+    directAnswer:
+      "Medical eye care covers the health of your eyes beyond a glasses prescription: diabetic eye exams, glaucoma screening and monitoring, red or painful eyes and infections, sudden flashes or floaters, and ocular-surface disease. At Riverdell Vision, our doctors diagnose and manage these conditions, coordinate with your other physicians, and refer to trusted specialists when surgery or subspecialty care is needed.",
+    problem:
+      "Many eye conditions have no early symptoms. Glaucoma quietly narrows vision, diabetes can damage the retina before you notice, and a red or painful eye can be minor or serious. A practice that treats eye care as medicine catches these early, manages them over time, and knows when to escalate, rather than simply handing you a new prescription.",
+    whoFor: [
+      "People with diabetes who need a dilated retinal exam",
+      "Patients with, or at risk for, glaucoma",
+      "Anyone with a red, painful, or suddenly changed eye",
+      "Patients on medications that require eye monitoring",
+    ],
+    whenToSee: [
+      "You have diabetes and are due for a retinal exam",
+      "You notice new flashes, floaters, or a curtain in your vision",
+      "Your eye is red, painful, light-sensitive, or suddenly blurry",
+      "You have a family history of glaucoma or other eye disease",
+    ],
+    howWeEvaluate: [
+      { title: "A medical eye examination", body: "We assess eye health with modern imaging and testing appropriate to your concern, not a routine glasses check." },
+      { title: "Diagnosis and a plan", body: "We explain what we find in plain language and lay out monitoring or treatment." },
+      { title: "Coordinated, ongoing care", body: "We track conditions over time and coordinate with your primary care or specialists, referring for surgery when needed." },
+    ],
+    whatTreatment: [
+      { title: "Diabetic and retinal monitoring", body: "Dilated exams and imaging to catch and track diabetic and other retinal changes early." },
+      { title: "Glaucoma screening and management", body: "Pressure checks, imaging, and monitoring, with treatment or referral as appropriate." },
+      { title: "Urgent and ocular-surface care", body: "Evaluation and management of red eye, infections, flashes and floaters, and ocular-surface disease." },
+    ],
+    faqs: [
+      { q: "Do you handle eye emergencies?", a: "For red eye, sudden vision changes, flashes and floaters, or injuries, call the office promptly. We reserve time for urgent visits and will guide you on next steps." },
+      { q: "Why do I need a dilated exam if I have diabetes?", a: "Diabetes can damage the retina before you notice any change in vision. A dilated exam lets us catch and monitor those changes early, when they are most manageable." },
+      { q: "Do you treat glaucoma?", a: "We screen for and monitor glaucoma, and can begin management or coordinate with a specialist depending on your situation." },
+      { q: "Is medical eye care billed to medical insurance?", a: "Yes. Medical eye visits are typically billed to your medical insurance rather than a vision plan. Our team will help you understand your coverage." },
+    ],
+    keywords: ["medical eye care Oradell NJ", "diabetic eye exam Bergen County", "glaucoma eye doctor NJ"],
+    related: ["dry-eye-treatment", "specialty-contact-lenses"],
+    metaTitle: "Medical Eye Care in Oradell & Bergen County, NJ",
+    metaDescription:
+      "Medical eye care at Riverdell Vision in Oradell, NJ: diabetic eye exams, glaucoma monitoring, red eye, flashes and floaters, and urgent eye problems.",
+    reviewedBy: "Dr. Mina Han, OD",
+    dateReviewed: "June 2026",
+  },
 ];
 
 export function getService(slug: string) {
