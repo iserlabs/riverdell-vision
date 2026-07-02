@@ -21,28 +21,19 @@ export function Logo({
       className={cn("group inline-flex items-center gap-2.5", className)}
     >
       <svg
-        viewBox="0 0 40 40"
+        viewBox="0 0 44 44"
         className="h-9 w-9 shrink-0"
         aria-hidden="true"
         fill="none"
       >
-        <circle
-          cx="20"
-          cy="20"
-          r="16.5"
-          stroke="currentColor"
-          strokeWidth="1.75"
-          className="opacity-90"
-        />
-        <ellipse cx="20" cy="20" r="0" />
         <path
-          d="M6.5 20c4-6.5 9-9.75 13.5-9.75S29.5 13.5 33.5 20c-4 6.5-9 9.75-13.5 9.75S10.5 26.5 6.5 20Z"
+          d="M4 22C9.5 13 15.5 9 22 9s12.5 4 18 13c-5.5 9-11.5 13-18 13S9.5 31 4 22Z"
           stroke="currentColor"
-          strokeWidth="1.5"
-          className="opacity-55"
+          strokeWidth="1.7"
+          strokeLinejoin="round"
         />
-        <circle cx="20" cy="20" r="4.75" fill="currentColor" />
-        <circle cx="31.5" cy="8.5" r="3" className="fill-clay" />
+        <circle cx="22" cy="22" r="7.6" stroke="currentColor" strokeWidth="1.7" />
+        <circle cx="22" cy="22" r="3" className="fill-clay" />
       </svg>
       {!markOnly && (
         <span className="flex flex-col leading-none">
