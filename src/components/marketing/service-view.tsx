@@ -16,6 +16,7 @@ import { CostInsurance } from "@/components/marketing/cost-insurance";
 import { Glossary } from "@/components/marketing/glossary";
 import { OptionsCompare } from "@/components/marketing/options-compare";
 import { DualProof } from "@/components/site/reviews";
+import { ServiceReviews } from "@/components/site/service-reviews";
 import { Faq } from "@/components/site/faq";
 import { CtaBand } from "@/components/site/cta-band";
 import { JsonLd } from "@/components/site/json-ld";
@@ -232,6 +233,9 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
           </Section>
         </Container>
       </section>
+
+      {/* Social proof, matched to this service by tag */}
+      <ServiceReviews slug={s.slug} shortName={s.shortName} />
 
       {/* Glossary (plain-English, feeds DefinedTerm schema) */}
       {extras?.glossary && (
