@@ -9,6 +9,7 @@ import { InsuranceRow } from "@/components/site/insurance";
 import { ServiceIcon } from "@/components/site/service-icon";
 import { DoctorPhoto } from "@/components/site/doctor-photo";
 import { HeroBooking } from "@/components/marketing/hero-booking";
+import { CareFinder } from "@/components/marketing/care-finder";
 import { CtaBand } from "@/components/site/cta-band";
 import { SERVICE_LADDER } from "@/lib/services";
 import { providers, fortLee } from "@/lib/site";
@@ -170,6 +171,29 @@ export default function HomePage() {
           </div>
         </Container>
       </Section>
+
+      {/* Care finder (signature qualifier) */}
+      <section className="bg-teal-deep text-bone">
+        <Container wide>
+          <Section>
+            <Reveal>
+              <div className="mx-auto max-w-2xl text-center">
+                <p className="eyebrow text-brass">Not sure where to start?</p>
+                <h2 className="mt-4 font-display text-3xl font-medium leading-tight text-bone md:text-[2.6rem]">
+                  Find your family&apos;s care in under a minute.
+                </h2>
+                <p className="mt-4 text-lg leading-relaxed text-bone/75">
+                  Answer two quick questions and we will point you to the right
+                  starting place, and the doctor who leads it.
+                </p>
+              </div>
+            </Reveal>
+            <Reveal delay={120} className="mt-12">
+              <CareFinder />
+            </Reveal>
+          </Section>
+        </Container>
+      </section>
 
       {/* Approach */}
       <section className="bg-bone-deep">

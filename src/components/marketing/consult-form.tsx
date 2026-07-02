@@ -12,8 +12,12 @@ const labelCls = "text-sm font-medium text-ink";
 
 const INTERESTS = [
   "Myopia Management",
+  "Orthokeratology (Ortho-K)",
   "Dry Eye",
   "Specialty & Scleral Lenses",
+  "Vision Therapy",
+  "Neuro-Optometric Rehabilitation",
+  "Medical Eye Care",
   "Pediatric & Family Care",
   "Comprehensive Eye Exam",
   "Not sure yet",

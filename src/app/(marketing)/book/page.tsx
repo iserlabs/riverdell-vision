@@ -13,7 +13,12 @@ export const metadata: Metadata = {
   alternates: { canonical: "/book" },
 };
 
-export default function BookPage() {
+export default async function BookPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ interest?: string }>;
+}) {
+  const { interest } = await searchParams;
   return (
     <section className="bg-bone grain">
       <Container wide className="py-14 md:py-20">
@@ -36,7 +41,7 @@ export default function BookPage() {
               <CalendarCheck className="size-5 text-teal" aria-hidden />
               Request an appointment
             </h2>
-            <ConsultForm />
+            <ConsultForm defaultInterest={interest} />
           </div>
 
           <aside className="flex flex-col gap-6">
