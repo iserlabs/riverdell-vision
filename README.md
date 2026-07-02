@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Riverdell Vision
 
-## Getting Started
+Growth website + high-value patient ops prototype for Riverdell Vision, a physician-led
+family optometry practice in Oradell, NJ preparing to finance a second office in Fort Lee.
 
-First, run the development server:
+Built as a pitch prototype: a premium public marketing site plus a zero-PHI operations and
+investor dashboard, all on sample data. See
+`docs/superpowers/specs/2026-07-02-riverdell-vision-slice1-design.md` for the design record.
+
+## Stack
+
+- Next.js 16 (App Router) + React 19 + TypeScript
+- Tailwind CSS v4 + shadcn (Base UI) components
+- Fonts: Fraunces (display), Schibsted Grotesk (text), Geist Mono (data)
+- Deployed on Vercel
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev        # http://localhost:3000
+pnpm build      # production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `src/app/(marketing)/` public site (home, services, locations, book, reviews, areas)
+- `src/app/dashboard/` demo-gated ops + investor dashboard
+- `src/app/api/` zero-PHI lead + waitlist intake endpoints
+- `src/lib/` site config, services, areas, reviews, schema (JSON-LD), demo lead store
+- `src/components/site|marketing|dashboard/` UI
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Demo notes
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Dashboard is at `/dashboard` (any credentials; it is a demo gate, not real auth).
+- Lead capture is zero-PHI by design. Production adds a HIPAA-ready backend, RBAC, MFA,
+  audit logging, and real integrations (Zocdoc, EHR, messaging).
+- Set `NEXT_PUBLIC_SITE_URL` in the environment for correct canonical/sitemap/OG URLs.
