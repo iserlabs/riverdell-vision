@@ -1,52 +1,31 @@
-# Resume: Riverdell Vision site  -  hero card shipped; security/mobile/a11y brainstorm paused at approval gate
+# RESUME: Riverdell Vision (webdev + upgrade in flight)
 
-**Working dir:** /Users/macbook/workspace/riverdell-vision · **branch** feat/proof-diff-reviews (upstream origin/feat/proof-diff-reviews; a PARALLEL agent's "proof band + reviews" initiative that also carries my hero-booking commit 587aab0. A background /sync auto-commits the working tree and sometimes moves branches. Do NOT force-merge; check `git log` before assuming main.)
-**Stack / org:** Next 16 (App Router, Turbopack) / React 19 / Tailwind v4 / shadcn=Base-UI / Vercel · GitHub iserlabs/riverdell-vision · LIVE https://riverdell-vision.vercel.app
-**Saved:** 2026-07-02T17:50:35Z
+**Repo:** /Users/macbook/workspace/riverdell-vision · branch **main** (all work merged here)
+**GitHub:** iserlabs/riverdell-vision (public) · **Vercel:** Iser Labs team, canonical **https://riverdell-vision.vercel.app** (auto-deploy on push; if a git auto-deploy 404s, run `vercel --prod --scope iser-labs --yes` then `vercel alias set <dep> riverdell-vision.vercel.app --scope iser-labs`). Deployment protection is OFF (ssoProtection null).
 
-## Status
-- **Hero booking card enlarge/tidy** (user's last concrete request)  -  DONE + committed (587aab0) and CONFIRMED LIVE (2026-07-02): https://riverdell-vision.vercel.app = HTTP 200, public, 56 `aspect-square` occurrences (28 cells x2 RSC). Getting here required a 3-part prod RECOVERY (site was 404-down, masked by an SSO wall): set project `framework`=nextjs, cleared `ssoProtection`, re-linked `.vercel/project.json` to iser-labs (team_F3Fnvg7CKFEDuJEZFs39rmKa / prj_xDxHqSSvGeYJ7iBUBPiHsymsbZlG), redeployed, and re-set the deployment alias `riverdell-vision.vercel.app`. FULL PLAYBOOK: memory `riverdell-vercel-deploy-recovery.md`. NOTE: count cells with `grep -o aspect-square | wc -l` (real=56), NOT `grep -c` (returns 1 on minified prod HTML).
-- **/superpowers:brainstorming (security+privacy, mobile UI/UX, a11y+visibility)**  -  PAUSED at the design-approval gate. Design presented as 3 slices; user has NOT approved yet. No implementation started (HARD-GATE). Decisions locked: full hardening + privacy posture; CSP **Report-Only first** (static-friendly, then enforce); rate-limit **Upstash, graceful skip**; analytics **Vercel Analytics + Speed Insights** (no cookies, no consent banner); mobile = all 4 tracks; visibility = AT-a11y + SEO/AEO + never-stranded (NOT visual-legibility).
-- Everything else this session already LIVE: section system (editorial index/list, timeline, editorial no-box count-up proof ledger), /portal patient-portal preview, nav streamline, mobile+a11y pass (axe 0 serious/critical), service-page SEO/AEO depth (candidacy self-check, cost&insurance, option-compares, glossary+DefinedTerm/MedicalProcedure schema), Resend lead delivery + honeypot, SEO fixes (ledger SSR real numbers, /portal in sitemap, apple-icon), condition pages /keratoconus + /meibomian-gland-dysfunction, ortho-k/vision-therapy compares, /focus->/ redirect.
+## Done and LIVE on main
+- **/upgrade work:** premium proof band (source logos + verified header), real differentiators (FCOVD, specialty-in-house, physician-led, bilingual, unhurried), dual-source Google+Zocdoc reviews wall (6 to 12 to all + specialty filter), per-service reviews (auto by tag), concierge intake form (new/existing, insurance, optional details, live "what to expect" preview).
+- **Favicon:** real RV mark site-wide.
+- **/webdev 13-agent audit COMPLETE.** Findings summarized in the chat that produced this file.
+- **Wave 1 shipped:** SERP title double-brand fix; per-page twitter cards; /portal noindex; real H1 on /reviews + /areas (SectionHeading gained `titleAs`); Fort Lee out of Oradell areaServed + Bergen County as AdministrativeArea + nearby towns; alternating Saturday omitted from openingHoursSpecification; header NAP + review count from single source; "Areas We Serve" in nav; logo `sizes=200px`; Geist Mono `preload:false`; viewport export (themeColor + viewportFit); mobile menu `overflow-y-auto`.
+- **Wave 2 shipped:** footer /sitemap.xml as plain `<a>`; consult-form `?interest=` deep-link guard.
 
-## Changes this session (high-signal only)
-- `src/components/marketing/hero-booking.tsx`  -  rebuilt: larger card (max-w-xl), single weekday header row + uniform `aspect-square` number-only day cells (symmetrical grid), responsive title (text-xl md:text-2xl). `src/app/(marketing)/page.tsx` hero grid -> `lg:grid-cols-2` (balanced).
-- NOTE: a parallel agent (branch feat/proof-diff-reviews, commit 0382cba) added `ReviewsWall`, `service-reviews.tsx`, `GoogleG`/`ZocdocMark` brand marks in reviews.tsx, and reworked the proof ledger/differentiators. NOT my work; leave it unless it conflicts.
-- `docs/AUDIT-REVIEWS-2026-07-02.md`  -  the five verbatim audit reports (design/a11y/CRO/mobile/functional-QA), em dashes stripped.
+## OWNER ACTION (highest severity, cannot self-fix)
+Set **RESEND_API_KEY + LEAD_TO_EMAIL (+ verified LEAD_FROM_EMAIL)** in Vercel and send one real test. Without them the form shows success but leads go NOWHERE (src/lib/notify.ts returns "skipped"). Flagged by both functional-QA and conversion agents.
 
-## NEXT ACTION (updated 2026-07-02, later)
-The security/mobile/a11y initiative is fully planned and APPROVED for subagent-driven execution, but execution is **HELD** by user choice because a **concurrent /webdev agent is actively committing to `main`** (its commit `d629294` "webdev wave 1: findability + mobile + perf quick wins" touched `layout.tsx`, `schema.ts`, `header.tsx`, `primitives.tsx`, `sheet.tsx`, `site.ts`, `areas.ts`, + areas/portal/reviews pages). That overlaps my Slice 2 (mobile) + Slice 3 (SEO/findability). Two agents on the same files + background /sync = churn; so we WAIT for /webdev to finish.
+## Remaining webdev waves (prioritized, NOT yet done)
+1. **Content-stranding (Animation F1, HIGH):** EditorialIndex / EditorialList / ProcessTimeline / portal-tour ship `opacity:0` inline in SSR via `useInView` (starts false) so the homepage service ladder (primary conversion nav) can vanish if JS/observer fails. Fix: adopt reveal.tsx's visible-by-default contract (hidden only when `mounted && !inView`); watch the proof-ledger useCountUp interaction.
+2. **Conversion focus (A1/C2/A3):** make owned form dominant; demote Zocdoc/phone to links in cta-band.tsx + homepage hero; embed `<ConsultForm />` on /oradell (Contact dead-ends).
+3. **AEO content:** refresh public/llms.txt (currently lists 3 doctors not 4, 3 services not 7; add /keratoconus + /meibomian-gland-dysfunction, dateModified); add llms-full.txt; add FCOVD `EducationalOccupationalCredential` + per-doctor Physician schema + richer sameAs (schema.ts / about page emits only Dr. Han).
+4. **A11y:** segmented New/Returning toggle uses role=radio without keyboard model (use native radios); form errors are toast-only (add aria-invalid + focus first invalid); scope the consult-form `aria-live` to just doctor-pairing + insurance chip.
+5. **Privacy:** add CSP (report-only first; site is self-contained, only Google Maps iframe on /oradell) + assert HSTS in next.config.ts.
+6. **QA leftovers:** Safari `summary::-webkit-details-marker{display:none}` on the optional-details expander; dashboard StageBadge fed serviceInterest instead of stage (src/app/dashboard/page.tsx ~83).
+7. **SEO leftover:** service + area pages set page-level `openGraph:{title,description}` which STRIPS og:image/url/type (SEO F3) - add a buildOg helper or delete the overrides; also NEXT_PUBLIC_SITE_URL must be set to the real domain before launch.
 
-Artifacts DONE and committed (on main via /sync):
-- Spec: `docs/superpowers/specs/2026-07-02-security-mobile-a11y-design.md`
-- Plan: `docs/superpowers/plans/2026-07-02-security-mobile-a11y.md` (13 tasks, TDD, self-reviewed)
-- Execution mode chosen: **subagent-driven-development** (fresh implementer + task-reviewer per task).
+## Design decisions awaiting a TUNING BOARD (user asked to "send all tuning boards")
+Build ONE consolidated artifact covering: Hero direction; Homepage H1 value-prop copy (H1 is generic "families trust", buries the wedge); Heading-color hierarchy (all headings hard-locked to teal in globals.css ~162); Section rhythm (monotone 3-tone bands); CTA hierarchy; Card surface hierarchy; plus the proof band. Proof-band-only board already published: https://claude.ai/code/artifact/6eccf87b-15e0-4436-9c68-2301098e7675 (picks not yet submitted). Use the visual-tuning-board format (2-4 rendered options per dimension + 6 dial-ins + "Copy my selections" button).
 
-ON RESUME (when user says /webdev is done):
-1. **Reconcile FIRST** (do not execute blind): `git log --oneline` since d629294 and `git show` the /webdev commits; diff what it changed against the plan's assumptions. Re-scout: `layout.tsx` (my Task 5 analytics mount + Task 2 area), `schema.ts` (my Task 12), `header/primitives/sheet` (my Slice 2 mobile), `consult-form.tsx`, `not-found.tsx` (still missing?). DROP now-redundant mobile/findability items /webdev already did; KEEP net-new: security headers (CSP/HSTS), Upstash rate-limit, zod, analytics, custom 404, reusable breadcrumb, related-links, axe/mobile gates. Update the plan file in place, note deltas.
-2. **Isolate**: do NOT build on `main` (subagent-driven skill forbids it). Create a git worktree on a NEW branch off the reconciled main HEAD, OR a dedicated feat branch, then run subagent-driven-development. `.vercel/` is gitignored so a worktree needs `project.json` re-created (orgId team_F3Fnvg7CKFEDuJEZFs39rmKa / projectId prj_xDxHqSSvGeYJ7iBUBPiHsymsbZlG) before any deploy.
-3. Execute tasks 1-13, task-review each, final whole-branch review, then finishing-a-development-branch. Deploy per recovery playbook; verify riverdell-vision.vercel.app 200 + public + 56 aspect-square.
-
-DONE earlier this session: hero card CONFIRMED LIVE + full prod recovery (see Status).
-
-## Verify / then
-- Build/gates: `cd <repo> && npm run build` (green expected; note pre-existing `dashboard/gate.tsx` setState-in-effect lint warning is non-blocking).
-- a11y: axe via `/private/tmp/claude-501/-Users-macbook-workspace/579fc4ef-a31f-4cc1-b1f0-992854298dbc/scratchpad/axe*.mjs` pattern (axe-core at `~/.npm/_npx/ffe2131771d88588/node_modules/axe-core/axe.min.js`; playwright at `~/.npm/_npx/705bc6b22212b352/node_modules/playwright/index.js`, CJS `import pkg from ...; const {chromium}=pkg`).
-- Deploy: `vercel --prod --yes` from the repo; then VERIFY `riverdell-vision.vercel.app` serves the new build (deploys can time out before aliasing).
-
-## Uncommitted (on disk, git untouched)
-- None  -  working tree is CLEAN (`git status --porcelain` empty). All this session's edits are committed (background /sync).
-
-## Constraints
-- **Never output an em dash (U+2014)** anywhere (PostToolUse hook blocks Write/Edit; it does NOT fire on Bash-written files, so sanitize those manually).
-- **Interrogate before delivering** via clickable `AskUserQuestion` (opinionated, recommended-first), per global CLAUDE.md; brainstorming runs in that same clickable style.
-- Images -> `mcp__gemini-nano-banana__generate_image`; video -> `mcp__gemini-veo__generate_video`. No other providers.
-- **Never invent** testimonials/prices/metrics; mark illustrative UI (portal, hero calendar) as such. Reviews/doctors/NAP/ratings (5.0·448 Google, 4.9·396 Zocdoc) are real.
-- **Owner must set in Vercel** for real lead delivery: `RESEND_API_KEY`, `LEAD_TO_EMAIL`, `LEAD_FROM_EMAIL` (else `/api/lead` returns delivery:"skipped"). Brainstorm-planned rate-limit will add `UPSTASH_REDIS_REST_URL/TOKEN`.
-- Next 16 has breaking changes  -  read `node_modules/next/dist/docs/` before coding (AGENTS.md). shadcn=Base UI (not Radix): use `btn()` helper for link-buttons, Accordion `multiple={false}`.
-- Open links in Safari (`open -a Safari`), never VSCode Simple Browser.
-
-## Read first on resume
-- `docs/superpowers/RESUME-riverdell.md` (this file).
-- `src/components/marketing/hero-booking.tsx`, `src/app/(marketing)/page.tsx`  -  the last edit.
-- For the brainstorm: the 3-slice design is in the conversation only (not yet a spec file)  -  re-derive from the Status "decisions locked" line above, then write the spec.
+## Notes / gotchas
+- A linter reformats files on save and often races Edit ("File modified since read") - re-read then re-apply.
+- No em dashes anywhere (a hook blocks writes containing U+2014).
+- Body font is Hanken Grotesk (not Schibsted as some docs say) - leave unless user decides.
