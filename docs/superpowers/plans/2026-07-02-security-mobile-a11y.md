@@ -618,14 +618,16 @@ git commit -m "feat(privacy): cookieless Vercel Analytics + Speed Insights"
 
 ---
 
-## Task 6: Mobile form ergonomics (inputMode + aria-live)
+## Task 6: Mobile form ergonomics + form accessibility
 
 **Files:**
-- Modify: `src/components/marketing/consult-form.tsx:188-196` (inputs) and the submit-status region
+- Modify: `src/components/marketing/consult-form.tsx` (inputs ~188-196, the New/Returning segmented toggle ~170-176, the submit-status region, and the error path)
 
 **Interfaces:**
 - Consumes: nothing.
-- Produces: correct mobile keyboards and an accessible submit-status announcement.
+- Produces: correct mobile keyboards; an accessible, scoped submit-status announcement; a keyboard-operable patient-type control; and error handling that marks and focuses the first invalid field.
+
+This task folds in the /webdev a11y findings (wave 4): the segmented toggle uses `role="radio"` with no keyboard model, form errors are toast-only, and the `aria-live` region (if any) should be scoped, not global.
 
 - [ ] **Step 1: Add inputMode to the contact inputs**
 
@@ -643,9 +645,45 @@ In `src/components/marketing/consult-form.tsx`, update the three inputs (note `f
 <input id="phone" name="phone" type="tel" required className={field} autoComplete="tel" inputMode="tel" />
 ```
 
-- [ ] **Step 2: Add an aria-live submit status**
+- [ ] **Step 2: Make the New/Returning patient toggle keyboard-operable**
 
-Find where submit success/error is rendered (the component already uses `toast` from sonner and a `useState`). Add a visually-inclusive live region near the submit button so assistive tech announces status without relying only on the toast:
+The current toggle (around line 170) maps over `["New patient", "Returning patient"]` rendering buttons with `role="radio"` but no arrow-key handling or roving tabindex. Convert it to a native radiogroup so keyboard and screen-reader semantics come for free. Replace the button group with:
+
+```tsx
+<fieldset className="...existing wrapper classes...">
+  <legend className="sr-only">Patient type</legend>
+  {(["New patient", "Returning patient"] as const).map((t) => (
+    <label key={t} className="...existing per-option classes, plus a has-[:checked] active style...">
+      <input
+        type="radio"
+        name="patientType"
+        value={t}
+        checked={patientType === t}
+        onChange={() => setPatientType(t)}
+        className="sr-only"
+      />
+      {t}
+    </label>
+  ))}
+</fieldset>
+```
+
+Preserve the existing visual styling by moving the active/inactive classes onto the `<label>` (use `has-[:checked]:` or derive from `patientType === t`). Native radios give arrow-key navigation automatically. Verify the visual result is unchanged.
+
+- [ ] **Step 3: Mark and focus the first invalid field on error**
+
+Today, validation failure is toast-only. Add `aria-invalid` to required inputs when empty on submit, and move focus to the first invalid field. In the submit handler, before firing the error toast:
+
+```tsx
+const firstInvalid = e.currentTarget.querySelector<HTMLElement>("[aria-invalid='true'], :invalid");
+firstInvalid?.focus();
+```
+
+Wire an `errors` state (or read native validity) so each input gets `aria-invalid={!!errors.<field>}`. Keep the existing toast.
+
+- [ ] **Step 4: Add a scoped aria-live submit status**
+
+Add a live region near the submit button so assistive tech announces submit outcome. Scope it (polite, sr-only) so it announces the result only, not every keystroke:
 
 ```tsx
 <p role="status" aria-live="polite" className="sr-only">
@@ -653,18 +691,18 @@ Find where submit success/error is rendered (the component already uses `toast` 
 </p>
 ```
 
-Wire `statusMessage` to the existing submit-state (set it to a short success or error string in the same place the toast fires). Do not remove the toast.
+Wire `statusMessage` to the submit result (short success or error string), set in the same place the toast fires. Do not remove the toast.
 
-- [ ] **Step 3: Build**
+- [ ] **Step 5: Build**
 
 Run: `npm run build`
 Expected: green.
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
 git add src/components/marketing/consult-form.tsx
-git commit -m "feat(mobile+a11y): inputMode keyboards + aria-live submit status"
+git commit -m "feat(mobile+a11y): inputMode, native-radio toggle, aria-invalid focus, scoped aria-live"
 ```
 
 ---
@@ -1131,21 +1169,165 @@ Run these greps and confirm every indexable route type has what it needs:
 `grep -rl "breadcrumbSchema\|<Breadcrumb" src` (deep pages emit breadcrumbs).
 For any deep page missing metadata `alternates.canonical` or OpenGraph, add it using the root-layout pattern (`src/app/layout.tsx:43-56`). Do not invent copy; derive titles/descriptions from existing page content.
 
-- [ ] **Step 4: Verify sitemap completeness**
+- [ ] **Step 4: Fix the openGraph override that strips og:image (webdev SEO F3)**
+
+Several service/area pages (`medical-eye-care`, `vision-therapy`, `neuro-optometric-rehabilitation`, `specialty-contact-lenses`, `dry-eye-treatment`, `ortho-k`, `myopia-management`, `areas/[slug]`) set a page-level `openGraph: { title, description }`, which REPLACES (not merges) the root layout's `openGraph`, dropping `og:type`, `og:url`, `og:image`, `og:siteName`. Add a helper and use it so per-page OG merges with the base:
+
+Create `src/lib/og.ts`:
+
+```ts
+import { practice } from "@/lib/site";
+
+export function buildOg(input: { title: string; description: string; path: string }) {
+  return {
+    type: "website" as const,
+    siteName: practice.name,
+    locale: "en_US",
+    url: input.path,
+    title: input.title,
+    description: input.description,
+  };
+}
+```
+
+In each listed page's metadata, replace `openGraph: { title, description }` with `openGraph: buildOg({ title, description, path: "/<slug>" })`. Verify with `curl` (Step 8) that these pages emit `og:type`/`og:url` again. Do not invent copy; reuse each page's existing title/description strings.
+
+- [ ] **Step 5: Emit Physician schema for all providers (webdev AEO)**
+
+`src/app/(marketing)/about/page.tsx` currently emits `physicianSchema("dr-mina-han")` only. Emit one for every provider so AI engines see all four doctors. In `about/page.tsx`, replace the single call with:
+
+```tsx
+...providers.map((p) => physicianSchema(p.slug)).filter(Boolean),
+```
+
+(`providers` is already imported there; `physicianSchema` returns `null` for unknown slugs, hence `.filter(Boolean)`.) Confirm each provider has a `slug`, `photo`, and `languages` field in `src/lib/site.ts`; if a field is missing the builder still returns a valid object.
+
+- [ ] **Step 6: Refresh llms.txt (webdev AEO)**
+
+`public/llms.txt` is stale (lists 3 doctors and 3 services). Update it from the source of truth: all 4 providers (`providers` in `src/lib/site.ts`) and all 7 services (`SERVICES` in `src/lib/services.ts`), and add the condition pages `/keratoconus` and `/meibomian-gland-dysfunction`. Use exact names/URLs from those modules; do not invent descriptions. Keep it a concise plaintext index.
+
+- [ ] **Step 7: Verify sitemap completeness**
 
 Run: `npm run build && npm run start` then `curl -s http://localhost:3000/sitemap.xml | grep -c "<loc>"` and confirm it includes services, conditions, areas, /portal, /oradell, /about.
 Expected: count matches the known route set.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 8: Verify OG on a fixed page**
+
+With the server running: `curl -s http://localhost:3000/dry-eye-treatment | grep -oE 'og:(type|url|image|title)'` should now include `og:type` and `og:url` again.
+Expected: og:type and og:url present (not stripped).
+
+- [ ] **Step 9: Commit**
 
 ```bash
-git add src/lib/schema.test.ts src/
-git commit -m "test(seo): schema-builder tests + canonical/OG coverage"
+git add src/lib/schema.test.ts src/lib/og.ts src/ public/llms.txt
+git commit -m "fix(seo): merge-safe OG helper, all-provider Physician schema, refreshed llms.txt + schema tests"
 ```
 
 ---
 
-## Task 13: Full verification + deploy gate
+## Task 13: Content-stranding robustness (never-stranded, HIGH)
+
+**Files:**
+- Modify: `src/components/site/editorial-index.tsx`, `src/components/site/editorial-list.tsx`, `src/components/site/process-timeline.tsx`, `src/components/marketing/portal-tour.tsx`
+- Reference (do not change): `src/components/site/reveal.tsx` (the correct contract), `src/components/marketing/proof-ledger.tsx` (watch its `useCountUp`)
+
+**Interfaces:**
+- Consumes: the existing in-view hook (`src/lib/use-in-view.ts`).
+- Produces: reveal components that render VISIBLE content in SSR and when JS/the IntersectionObserver never runs.
+
+The /webdev wave-1 HIGH finding: `EditorialIndex` / `EditorialList` / `ProcessTimeline` / `portal-tour` gate content with `useInView` (initial state `false`) and apply `opacity: 0` inline during SSR. If JS fails, is blocked, or the observer never fires, the homepage service ladder (a primary conversion path) stays invisible. `reveal.tsx` already solves this with a visible-by-default contract.
+
+- [ ] **Step 1: Read the correct contract**
+
+Read `src/components/site/reveal.tsx`. Note how it stays visible unless `mounted && !inView` (it only hides AFTER mount confirms JS is running), so no-JS and pre-hydration render fully visible.
+
+- [ ] **Step 2: Add a Playwright no-JS guard (expected to fail first)**
+
+Add to `e2e/mobile.spec.ts` (or a new `e2e/no-js.spec.ts`) a test with JavaScript disabled:
+
+```ts
+import { test, expect } from "@playwright/test";
+
+test.use({ javaScriptEnabled: false });
+
+test("homepage service ladder is visible without JS", async ({ page }) => {
+  await page.goto("/");
+  // the editorial service index must be visible (opacity not 0) with JS off
+  const items = page.locator("[data-reveal], .editorial-index, section:has(h2)");
+  await expect(items.first()).toBeVisible();
+  const opacity = await items.first().evaluate((el) => getComputedStyle(el).opacity);
+  expect(Number(opacity)).toBeGreaterThan(0);
+});
+```
+
+Adjust the selector to the real container once you read the components.
+
+- [ ] **Step 3: Run it and watch it fail**
+
+Run: `npm run test:e2e -- no-js` (or the file you added it to)
+Expected: FAIL (content is `opacity:0` with JS off).
+
+- [ ] **Step 4: Convert each component to visible-by-default**
+
+In each of the four components, change the in-view gating so the element is hidden ONLY when `mounted && !inView` (add a `mounted` state set to `true` in a `useEffect`, mirroring `reveal.tsx`). The inline style should compute to full opacity during SSR and with JS off. Do not change the animated-in behavior when JS is present. Re-check the `proof-ledger` `useCountUp` still starts/finishes correctly (it shares the in-view trigger).
+
+- [ ] **Step 5: Run the guard to pass**
+
+Run: `npm run test:e2e -- no-js`
+Expected: PASS. Also re-run `npm run test:e2e -- a11y` to confirm no regressions.
+
+- [ ] **Step 6: Build + commit**
+
+Run: `npm run build`
+
+```bash
+git add src/components/site/editorial-index.tsx src/components/site/editorial-list.tsx src/components/site/process-timeline.tsx src/components/marketing/portal-tour.tsx e2e/
+git commit -m "fix(never-stranded): reveal components visible-by-default (no-JS safe)"
+```
+
+---
+
+## Task 14: QA leftovers (Safari marker + dashboard StageBadge)
+
+**Files:**
+- Modify: `src/components/marketing/consult-form.tsx` (Safari `summary` marker) or `src/app/globals.css`
+- Modify: `src/app/dashboard/page.tsx` (~line 83, StageBadge input)
+
+**Interfaces:**
+- Consumes: nothing.
+- Produces: a clean Safari expander and a correctly-fed dashboard StageBadge.
+
+These are two small correctness/polish fixes from the /webdev QA pass (wave 6 leftovers).
+
+- [ ] **Step 1: Hide the default Safari details marker**
+
+The optional-details `<details>/<summary>` expander shows a duplicate disclosure triangle in Safari. Add to `src/app/globals.css` (global, so it applies wherever the pattern is used):
+
+```css
+summary::-webkit-details-marker {
+  display: none;
+}
+```
+
+- [ ] **Step 2: Fix the dashboard StageBadge input**
+
+Read `src/app/dashboard/page.tsx` around line 83. `StageBadge` is being fed `serviceInterest` where it expects the lead's `stage`. Pass the correct `stage` field (inspect the lead/demo-store shape in `src/lib/demo-store.ts` / `src/lib/leads.ts` for the right property). If a lead has no stage, pass a sensible default (e.g. the first stage), not the service string.
+
+- [ ] **Step 3: Build**
+
+Run: `npm run build`
+Expected: green (note the pre-existing `dashboard/gate.tsx` setState-in-effect warning is unrelated).
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add src/app/globals.css src/app/dashboard/page.tsx
+git commit -m "fix(qa): hide Safari details marker + correct dashboard StageBadge input"
+```
+
+---
+
+## Task 15: Full verification + deploy gate
 
 **Files:**
 - None (verification + deploy)
@@ -1184,8 +1366,10 @@ git commit -m "docs: security/mobile/a11y program shipped"
 
 ## Owner action items (post-merge, all inert-safe if unset)
 
+- **HIGHEST (leads go nowhere without it):** set `RESEND_API_KEY` + `LEAD_TO_EMAIL` + verified `LEAD_FROM_EMAIL` in Vercel and send one real test. Until then the form shows success but `src/lib/notify.ts` returns "skipped".
 - Vercel env: `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN` (enables rate-limiting; without them the limiter safely skips).
 - Vercel project: enable Web Analytics + Speed Insights.
+- Set `NEXT_PUBLIC_SITE_URL` to the real domain before launch (affects canonicals, OG urls, schema `@id`s).
 - Follow-up (separate change): after observing `/api/csp-report`, flip CSP from Report-Only to enforcing.
 - Future custom domain: add full HSTS (`includeSubDomains; preload`) only once a real domain (not `*.vercel.app`) is attached.
 
