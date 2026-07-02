@@ -523,6 +523,12 @@ export type ServiceExtras = {
   costNote: string;
   glossary: { term: string; def: string }[];
   compare?: { headers: [string, string, string]; rows: [string, string, string][] };
+  conditions?: {
+    title: string;
+    href: string;
+    icon: ServiceContent["icon"];
+    blurb?: string;
+  }[];
 };
 
 export const SERVICE_EXTRAS: Record<string, ServiceExtras> = {
@@ -554,6 +560,14 @@ export const SERVICE_EXTRAS: Record<string, ServiceExtras> = {
       { term: "Evaporative dry eye", def: "The most common form of dry eye, driven by poor-quality oil letting tears evaporate, rather than too few tears." },
       { term: "Ocular surface", def: "The cornea and conjunctiva, the tissues a healthy tear film protects." },
     ],
+    conditions: [
+      {
+        title: "Meibomian gland dysfunction (MGD)",
+        href: "/meibomian-gland-dysfunction",
+        icon: "droplets",
+        blurb: "The leading cause of dry eye",
+      },
+    ],
   },
   "specialty-contact-lenses": {
     costNote:
@@ -572,6 +586,14 @@ export const SERVICE_EXTRAS: Record<string, ServiceExtras> = {
         ["Rigid gas-permeable", "Irregular corneas needing sharp optics", "Firm, breathable lenses that mask surface irregularity"],
       ],
     },
+    conditions: [
+      {
+        title: "Keratoconus",
+        href: "/keratoconus",
+        icon: "lens",
+        blurb: "The corneal condition scleral lenses were made for",
+      },
+    ],
   },
   "ortho-k": {
     costNote:
@@ -581,6 +603,15 @@ export const SERVICE_EXTRAS: Record<string, ServiceExtras> = {
       { term: "Corneal reshaping", def: "The gentle, reversible flattening of the cornea's front surface that produces the daytime correction." },
       { term: "Myopia control", def: "Slowing how fast nearsightedness worsens; Ortho-K is one of the most effective options in children." },
     ],
+    compare: {
+      headers: ["Option", "Best for", "Trade-off"],
+      rows: [
+        ["Ortho-K (overnight lenses)", "Active kids and adults who want glasses-free days plus myopia control", "Nightly lens wear; the effect reverses if you stop"],
+        ["Daytime soft contacts", "Older children and teens comfortable with daytime lenses", "Handling and care during the day"],
+        ["Glasses", "Simplicity and the youngest children", "No myopia-slowing effect on their own; can slip or break in sport"],
+        ["LASIK", "Adults who are done growing and want a permanent fix", "Surgical; not for children or still-progressing eyes"],
+      ],
+    },
   },
   "vision-therapy": {
     costNote:
@@ -591,6 +622,14 @@ export const SERVICE_EXTRAS: Record<string, ServiceExtras> = {
       { term: "Tracking (oculomotor)", def: "The eyes' ability to move smoothly and accurately along a line of text." },
       { term: "Accommodation", def: "The eye's focusing system that keeps near objects clear." },
     ],
+    compare: {
+      headers: ["Path", "Best for", "What it addresses"],
+      rows: [
+        ["Vision therapy", "A diagnosed eye-teaming, tracking, or focusing problem", "Retrains how the eyes work together: the root cause"],
+        ["Reading tutor", "A pure phonics or decoding gap with no visual issue", "The academic skill, not the visual system"],
+        ["Standard glasses", "Blurry eyesight (a refractive need)", "Clarity of the image, not eye coordination"],
+      ],
+    },
   },
   "neuro-optometric-rehabilitation": {
     costNote:

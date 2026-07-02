@@ -135,6 +135,29 @@ export function serviceSchema(input: {
   };
 }
 
+export function medicalConditionSchema(input: {
+  name: string;
+  slug: string;
+  description: string;
+  parentSlug: string;
+  parentName: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalCondition",
+    name: input.name,
+    url: `${SITE_URL}/${input.slug}`,
+    description: input.description,
+    associatedAnatomy: { "@type": "AnatomicalStructure", name: "Eye" },
+    possibleTreatment: {
+      "@type": "MedicalTherapy",
+      name: input.parentName,
+      url: `${SITE_URL}/${input.parentSlug}`,
+    },
+    recognizingAuthority: { "@id": ORG_ID },
+  };
+}
+
 export function faqSchema(faqs: { q: string; a: string }[]) {
   return {
     "@context": "https://schema.org",

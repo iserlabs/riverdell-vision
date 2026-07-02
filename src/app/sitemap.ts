@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 import { SERVICES } from "@/lib/services";
+import { CONDITIONS } from "@/lib/conditions";
 import { AREAS } from "@/lib/areas";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -22,13 +23,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     freq: "monthly" as const,
   }));
 
+  const conditions = CONDITIONS.map((c) => ({
+    path: `/${c.slug}`,
+    priority: 0.8,
+    freq: "monthly" as const,
+  }));
+
   const areas = AREAS.map((a) => ({
     path: `/areas/${a.slug}`,
     priority: 0.7,
     freq: "monthly" as const,
   }));
 
-  return [...core, ...services, ...areas].map((e) => ({
+  return [...core, ...services, ...conditions, ...areas].map((e) => ({
     url: `${SITE_URL}${e.path === "/" ? "" : e.path}`,
     lastModified: now,
     changeFrequency: e.freq,

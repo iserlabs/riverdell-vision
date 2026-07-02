@@ -255,20 +255,23 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
         </Section>
       </section>
 
-      {/* Related */}
-      {related.length > 0 && (
+      {/* Related care + conditions */}
+      {(related.length > 0 || extras?.conditions?.length) && (
         <section className="bg-bone">
           <Container wide>
             <Section>
               <Eyebrow>Related care</Eyebrow>
               <div className="mt-6">
                 <EditorialIndex
-                  items={related.map((r) => ({
-                    title: r.name,
-                    href: `/${r.slug}`,
-                    icon: r.icon,
-                    blurb: r.eyebrow,
-                  }))}
+                  items={[
+                    ...related.map((r) => ({
+                      title: r.name,
+                      href: `/${r.slug}`,
+                      icon: r.icon,
+                      blurb: r.eyebrow,
+                    })),
+                    ...(extras?.conditions ?? []),
+                  ]}
                 />
               </div>
             </Section>

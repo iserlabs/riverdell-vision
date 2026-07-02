@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react"],
   },
+  async redirects() {
+    // /focus was a removed demo spike; redirect any old links instead of 404ing.
+    return [{ source: "/focus", destination: "/", permanent: true }];
+  },
   async headers() {
     return [
       {
