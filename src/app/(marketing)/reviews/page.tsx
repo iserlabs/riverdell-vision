@@ -25,7 +25,7 @@ export default function ReviewsPage() {
               <Star key={i} className="size-7 fill-brass text-brass" aria-hidden />
             ))}
           </div>
-          <p className="mt-4 font-display text-5xl font-medium text-ink">
+          <p className="mt-4 font-display text-5xl font-medium text-teal">
             {REVIEW_STATS.rating.toFixed(1)}
           </p>
           <p className="mt-2 text-lg text-ink-soft">

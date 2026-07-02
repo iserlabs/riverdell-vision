@@ -1,45 +1,38 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, Clock, HeartHandshake, Microscope } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Container, Section, SectionHeading, Eyebrow } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
 import { BookButton, CallButton } from "@/components/site/cta";
 import { Magnetic } from "@/components/site/magnetic";
 import { DualProof, ReviewsGrid } from "@/components/site/reviews";
 import { InsuranceRow } from "@/components/site/insurance";
-import { ServiceIcon } from "@/components/site/service-icon";
 import { DoctorPhoto } from "@/components/site/doctor-photo";
 import { HeroBooking } from "@/components/marketing/hero-booking";
 import { CareFinder } from "@/components/marketing/care-finder";
+import { RetailVsRiverdell } from "@/components/marketing/retail-vs-riverdell";
+import { ProofLedger } from "@/components/marketing/proof-ledger";
+import { EditorialIndex } from "@/components/site/editorial-index";
+import { EditorialList } from "@/components/site/editorial-list";
+import { ReassuranceBar } from "@/components/site/reassurance-bar";
 import { CtaBand } from "@/components/site/cta-band";
 import { SERVICE_LADDER } from "@/lib/services";
 import { providers, fortLee } from "@/lib/site";
 
-const STATS = [
-  { figure: "448", label: "five-star Google reviews" },
-  { figure: "4", label: "caring optometrists" },
-  { figure: "9", label: "insurance plans accepted" },
-  { figure: "2", label: "Bergen County offices by 2027" },
-];
-
 const PRINCIPLES = [
   {
-    icon: Microscope,
     title: "Physician-led, not retail",
     body: "Eye health is medicine here. Every visit is a real clinical exam, not a lead-in to selling frames.",
   },
   {
-    icon: Clock,
     title: "Unhurried by design",
     body: "We schedule time to look carefully, explain what we see, and answer every question you have.",
   },
   {
-    icon: ShieldCheck,
     title: "Updated technology",
     body: "Modern diagnostics let us catch more, measure precisely, and track change over time with confidence.",
   },
   {
-    icon: HeartHandshake,
     title: "Care that grows with you",
     body: "One trusted practice for children, parents, and grandparents, from first exam through specialty care.",
   },
@@ -106,24 +99,8 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* Stat strip */}
-      <section className="border-y border-line bg-bone-deep">
-        <Container wide>
-          <dl className="grid grid-cols-2 divide-line md:grid-cols-4 md:divide-x">
-            {STATS.map((s) => (
-              <div key={s.label} className="px-2 py-8 text-center md:px-6">
-                <dt className="sr-only">{s.label}</dt>
-                <dd>
-                  <span className="block font-display text-4xl font-medium text-teal md:text-5xl">
-                    {s.figure}
-                  </span>
-                  <span className="mt-2 block text-sm text-ink-soft">{s.label}</span>
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </Container>
-      </section>
+      {/* Living proof ledger */}
+      <ProofLedger />
 
       {/* The moat: featured services */}
       <Section id="care">
@@ -139,41 +116,14 @@ export default function HomePage() {
               lead="Beyond the routine exam, dedicated programs for the eye problems that need real expertise, explanation, and follow-up."
             />
           </Reveal>
-          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {SERVICE_LADDER.map((s, i) => (
-              <Reveal key={s.title} delay={i * 60}>
-                <Link
-                  href={s.href}
-                  className="group flex h-full flex-col rounded-2xl border border-line bg-card p-7 transition-all duration-300 hover:-translate-y-1 hover:border-clay/40 hover:shadow-[0_20px_50px_-30px_rgba(18,60,70,0.4)]"
-                >
-                  <div className="flex items-center justify-between">
-                    <span
-                      className={`inline-flex size-12 items-center justify-center rounded-xl ${
-                        s.flagship ? "bg-teal text-bone" : "bg-teal-tint text-teal"
-                      }`}
-                    >
-                      <ServiceIcon name={s.icon} className="size-6" />
-                    </span>
-                    <span className="font-mono text-xs text-clay">
-                      0{i + 1}
-                    </span>
-                  </div>
-                  <h3 className="mt-5 font-display text-2xl font-medium text-teal">
-                    {s.title}
-                  </h3>
-                  <p className="mt-2 flex-1 text-[15px] leading-relaxed text-ink-soft">
-                    {s.blurb}
-                  </p>
-                  <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-teal">
-                    {s.flagship ? "Explore this care" : "Learn more"}
-                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                  </span>
-                </Link>
-              </Reveal>
-            ))}
+          <div className="mt-12">
+            <EditorialIndex items={SERVICE_LADDER} />
           </div>
         </Container>
       </Section>
+
+      {/* Risk-reversal strip, at the point of decision */}
+      <ReassuranceBar />
 
       {/* Care finder (signature qualifier) */}
       <section className="bg-teal-deep text-bone">
@@ -197,6 +147,9 @@ export default function HomePage() {
           </Section>
         </Container>
       </section>
+
+      {/* Head-to-head: physician-led vs retail */}
+      <RetailVsRiverdell />
 
       {/* Approach */}
       <section className="bg-bone-deep">
@@ -223,24 +176,8 @@ export default function HomePage() {
                   lead="Many practices move patients through quickly. We built the opposite: a place that feels personal and takes eye health seriously."
                 />
               </Reveal>
-              <div className="mt-10 grid gap-6 sm:grid-cols-2">
-                {PRINCIPLES.map((p, i) => (
-                  <Reveal key={p.title} delay={i * 70}>
-                    <div className="flex gap-4">
-                      <span className="mt-0.5 inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-clay-soft text-clay">
-                        <p.icon className="size-5" aria-hidden />
-                      </span>
-                      <div>
-                        <h3 className="font-display text-lg font-medium text-teal">
-                          {p.title}
-                        </h3>
-                        <p className="mt-1 text-sm leading-relaxed text-ink-soft">
-                          {p.body}
-                        </p>
-                      </div>
-                    </div>
-                  </Reveal>
-                ))}
+              <div className="mt-8">
+                <EditorialList items={PRINCIPLES} />
               </div>
             </div>
           </div>

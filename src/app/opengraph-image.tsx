@@ -5,9 +5,9 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function OpengraphImage() {
-  const bone = "#F4EFE7";
-  const tealDeep = "#123C46";
-  const brass = "#C9A24B";
+  const bone = "#f2f6fa";
+  const tealDeep = "#0b3a7a";
+  const brass = "#e3ac64";
 
   return new ImageResponse(
     (
@@ -66,7 +66,7 @@ export default function OpengraphImage() {
             style={{
               fontSize: 30,
               fontFamily: "sans-serif",
-              color: "rgba(244,239,231,0.8)",
+              color: "rgba(242,246,250,0.82)",
               maxWidth: 820,
             }}
           >

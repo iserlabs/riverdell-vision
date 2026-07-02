@@ -65,6 +65,11 @@ export function SiteFooter() {
         <nav className="md:col-span-2" aria-label="Practice">
           <p className="eyebrow text-brass">Practice</p>
           <ul className="mt-4 space-y-2.5 text-sm">
+            <li>
+              <Link href="/portal" className="font-medium text-bone hover:text-brass">
+                Patient Portal
+              </Link>
+            </li>
             {primaryNav[1].children.map((c) => (
               <li key={c.href}>
                 <Link href={c.href} className="text-bone/75 hover:text-bone">

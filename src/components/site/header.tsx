@@ -22,6 +22,7 @@ export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const navRef = useRef<HTMLElement | null>(null);
+  const triggerRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -32,7 +33,14 @@ export function SiteHeader() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpenMenu(null);
+      if (e.key === "Escape") {
+        // Return keyboard focus to the trigger of whichever menu was open,
+        // so focus is never stranded on a now-hidden panel link (WCAG 2.4.3).
+        setOpenMenu((cur) => {
+          if (cur) triggerRefs.current[cur]?.focus();
+          return null;
+        });
+      }
     };
     const onClick = (e: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(e.target as Node)) {
@@ -91,6 +99,9 @@ export function SiteHeader() {
               return (
                 <div key={group.label} className="relative">
                   <button
+                    ref={(el) => {
+                      triggerRefs.current[group.label] = el;
+                    }}
                     aria-haspopup="true"
                     aria-expanded={isOpen}
                     aria-controls={id}
@@ -147,7 +158,7 @@ export function SiteHeader() {
                             <p className="font-display text-xl leading-tight">
                               Ready when you are.
                             </p>
-                            <p className="mt-2 text-[13px] leading-snug text-bone/75">
+                            <p className="mt-2 text-[13px] leading-snug text-bone/90">
                               Book online in real time, or call the office. New and
                               returning patients welcome.
                             </p>
@@ -158,7 +169,7 @@ export function SiteHeader() {
                                 <Star key={i} className="size-3.5 fill-brass text-brass" aria-hidden />
                               ))}
                             </div>
-                            <p className="mt-1.5 text-[11px] text-bone/70">
+                            <p className="mt-1.5 text-[11px] text-bone/90">
                               {REVIEW_STATS.rating.toFixed(1)} · {REVIEW_STATS.count} Google
                               {"  ·  "}
                               {REVIEW_STATS.zocdocRating.toFixed(1)} · {REVIEW_STATS.zocdocCount} Zocdoc
@@ -188,6 +199,12 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-2">
+            <Link
+              href="/portal"
+              className="hidden rounded-md px-3 py-2 text-sm font-medium text-teal transition-colors hover:text-teal-deep lg:inline-flex"
+            >
+              Patient Portal
+            </Link>
             <Magnetic className="hidden sm:inline-flex">
               <BookButton size="sm" />
             </Magnetic>
@@ -219,7 +236,7 @@ export function SiteHeader() {
                           key={c.href}
                           href={c.href}
                           onClick={() => setMobileOpen(false)}
-                          className="block rounded-lg px-2 py-2.5 text-[15px] font-medium text-ink hover:bg-teal-tint"
+                          className="flex min-h-11 items-center rounded-lg px-2 py-3 text-[15px] font-medium text-ink hover:bg-teal-tint"
                         >
                           {c.label}
                         </Link>
@@ -231,6 +248,20 @@ export function SiteHeader() {
                   className="mt-2 flex flex-col gap-2 px-4"
                   onClick={() => setMobileOpen(false)}
                 >
+                  <div className="mb-1 flex items-center justify-between gap-2">
+                    <Link
+                      href="/portal"
+                      className="flex min-h-11 flex-1 items-center rounded-lg px-2 text-[15px] font-medium text-teal hover:bg-teal-tint"
+                    >
+                      Patient Portal
+                    </Link>
+                    <Link
+                      href="/oradell"
+                      className="flex min-h-11 flex-1 items-center rounded-lg px-2 text-[15px] font-medium text-ink hover:bg-teal-tint"
+                    >
+                      Contact
+                    </Link>
+                  </div>
                   <BookButton className="w-full" />
                   <a
                     href={practice.phoneHref}

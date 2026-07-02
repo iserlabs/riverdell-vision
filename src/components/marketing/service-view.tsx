@@ -2,33 +2,25 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   Check,
-  ArrowRight,
   CircleDot,
   Sparkles,
-  ShieldCheck,
-  BadgeCheck,
-  HeartHandshake,
-  Stethoscope,
 } from "lucide-react";
 import { Container, Section, SectionHeading, Eyebrow } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
 import { BookButton, CallButton } from "@/components/site/cta";
+import { ReassuranceBar } from "@/components/site/reassurance-bar";
+import { ProcessTimeline } from "@/components/site/process-timeline";
+import { EditorialList } from "@/components/site/editorial-list";
+import { EditorialIndex } from "@/components/site/editorial-index";
 import { DualProof } from "@/components/site/reviews";
 import { Faq } from "@/components/site/faq";
 import { CtaBand } from "@/components/site/cta-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { ServiceIcon } from "@/components/site/service-icon";
 import { DoctorPhoto } from "@/components/site/doctor-photo";
-import { getService, type ServiceContent } from "@/lib/services";
+import { getService, bookHrefFor, type ServiceContent } from "@/lib/services";
 import { providers } from "@/lib/site";
 import { serviceSchema, faqSchema, breadcrumbSchema } from "@/lib/schema";
-
-const TRUST = [
-  { icon: Stethoscope, label: "Physician-led care" },
-  { icon: BadgeCheck, label: "No upselling, ever" },
-  { icon: ShieldCheck, label: "Insurance checked in advance" },
-  { icon: HeartHandshake, label: "Second opinions welcome" },
-];
 
 export function ServiceView({ service: s }: { service: ServiceContent }) {
   const related = s.related
@@ -36,6 +28,7 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
     .filter(Boolean) as ServiceContent[];
   const lead =
     providers.find((p) => s.reviewedBy.startsWith(p.name)) ?? providers[0];
+  const bookHref = bookHrefFor(s.slug);
 
   return (
     <>
@@ -78,7 +71,7 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
               </Reveal>
               <Reveal delay={240}>
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <BookButton label="Request a consult" />
+                  <BookButton href={bookHref} label="Request a consult" />
                   <CallButton />
                 </div>
               </Reveal>
@@ -105,18 +98,7 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
       </section>
 
       {/* Trust bar */}
-      <section className="border-y border-line bg-bone-deep">
-        <Container wide>
-          <ul className="grid grid-cols-2 gap-x-6 gap-y-3 py-5 md:flex md:items-center md:justify-between">
-            {TRUST.map((t) => (
-              <li key={t.label} className="flex items-center gap-2 text-sm text-ink">
-                <t.icon className="size-4 text-clay" aria-hidden />
-                {t.label}
-              </li>
-            ))}
-          </ul>
-        </Container>
-      </section>
+      <ReassuranceBar />
 
       {/* Direct answer (AEO) */}
       <section className="bg-teal-deep text-bone">
@@ -189,22 +171,8 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
                 lead="No guesswork and no rushing. Here is how an evaluation actually goes."
               />
             </Reveal>
-            <div className="mt-12 grid gap-6 md:grid-cols-3">
-              {s.howWeEvaluate.map((step, i) => (
-                <Reveal key={step.title} delay={i * 80}>
-                  <div className="h-full rounded-2xl border border-line bg-card p-7">
-                    <span className="font-mono text-sm font-medium text-clay">
-                      0{i + 1}
-                    </span>
-                    <h3 className="mt-3 font-display text-xl font-medium text-teal">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2 text-[15px] leading-relaxed text-ink-soft">
-                      {step.body}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
+            <div className="mt-14">
+              <ProcessTimeline steps={s.howWeEvaluate} />
             </div>
           </Section>
         </Container>
@@ -220,22 +188,8 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
               lead="Every plan is personalized. These are the approaches we most often use, with no exaggerated promises about outcomes."
             />
           </Reveal>
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
-            {s.whatTreatment.map((t, i) => (
-              <Reveal key={t.title} delay={i * 70}>
-                <div className="flex h-full gap-4 rounded-2xl border border-line bg-card p-7">
-                  <span className="mt-0.5 inline-flex size-10 shrink-0 items-center justify-center rounded-lg bg-teal text-bone">
-                    <ShieldCheck className="size-5" aria-hidden />
-                  </span>
-                  <div>
-                    <h3 className="font-display text-lg font-medium text-teal">{t.title}</h3>
-                    <p className="mt-1.5 text-[15px] leading-relaxed text-ink-soft">
-                      {t.body}
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
+          <div className="mt-12">
+            <EditorialList items={s.whatTreatment} />
           </div>
         </Container>
       </Section>
@@ -258,7 +212,7 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
                 </p>
               </div>
               <div className="flex shrink-0 flex-col items-center gap-2">
-                <BookButton label={`Discuss ${s.shortName.toLowerCase()}`} />
+                <BookButton href={bookHref} label={`Discuss ${s.shortName.toLowerCase()}`} />
                 <Link href="/about" className="text-sm font-medium text-teal hover:text-teal-deep">
                   Meet the team →
                 </Link>
@@ -286,24 +240,15 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
           <Container wide>
             <Section>
               <Eyebrow>Related care</Eyebrow>
-              <div className="mt-6 grid gap-5 md:grid-cols-2">
-                {related.map((r) => (
-                  <Link
-                    key={r.slug}
-                    href={`/${r.slug}`}
-                    className="group flex items-center justify-between gap-4 rounded-2xl border border-line bg-card p-6 transition-colors hover:border-clay/40"
-                  >
-                    <div className="flex items-center gap-4">
-                      <span className="inline-flex size-11 items-center justify-center rounded-xl bg-teal-tint text-teal">
-                        <ServiceIcon name={r.icon} className="size-5" />
-                      </span>
-                      <span className="font-display text-lg font-medium text-teal">
-                        {r.name}
-                      </span>
-                    </div>
-                    <ArrowRight className="size-5 text-teal transition-transform group-hover:translate-x-1" />
-                  </Link>
-                ))}
+              <div className="mt-6">
+                <EditorialIndex
+                  items={related.map((r) => ({
+                    title: r.name,
+                    href: `/${r.slug}`,
+                    icon: r.icon,
+                    blurb: r.eyebrow,
+                  }))}
+                />
               </div>
             </Section>
           </Container>
@@ -313,6 +258,7 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
       <CtaBand
         title={`Considering ${s.shortName.toLowerCase()}?`}
         sub="Request a consult and we will help you understand your options, with clear guidance and no pressure."
+        bookHref={bookHref}
       />
     </>
   );

@@ -39,7 +39,7 @@ export default function OradellPage() {
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div>
               <Eyebrow>Our Oradell office</Eyebrow>
-              <h1 className="mt-4 font-display text-4xl font-medium leading-[1.06] text-ink md:text-5xl">
+              <h1 className="mt-4 font-display text-4xl font-medium leading-[1.06] text-teal md:text-5xl">
                 Eye care in the heart of Oradell.
               </h1>
               <p className="mt-5 text-lg leading-relaxed text-ink-soft">
@@ -156,7 +156,7 @@ export default function OradellPage() {
                 <Glasses className="size-5" aria-hidden />
                 <span className="eyebrow">The optical boutique</span>
               </span>
-              <h2 className="mt-4 font-display text-3xl font-medium text-ink">
+              <h2 className="mt-4 font-display text-3xl font-medium text-teal">
                 A curated eyewear boutique, guided by clinicians.
               </h2>
               <p className="mt-4 leading-relaxed text-ink-soft">

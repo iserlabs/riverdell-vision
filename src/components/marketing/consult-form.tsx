@@ -7,7 +7,7 @@ import { btn } from "@/lib/ui";
 import { addLead } from "@/lib/demo-store";
 
 const field =
-  "w-full rounded-lg border border-line bg-card px-3.5 py-2.5 text-[15px] text-ink outline-none transition-colors placeholder:text-ink-soft/60 focus:border-teal focus:ring-2 focus:ring-teal/20";
+  "w-full rounded-lg border border-line bg-card px-3.5 py-2.5 text-base text-ink outline-none transition-colors placeholder:text-ink-soft/85 focus:border-teal focus:ring-2 focus:ring-teal/20";
 const labelCls = "text-sm font-medium text-ink";
 
 const INTERESTS = [

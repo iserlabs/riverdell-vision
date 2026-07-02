@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Riverdell Vision">
-  <rect width="48" height="48" rx="11" fill="#123C46"/>
-  <g transform="translate(6 6)" fill="none" stroke="#F4EFE7" stroke-width="2" stroke-linejoin="round">
+  <rect width="48" height="48" rx="11" fill="#0b3a7a"/>
+  <g transform="translate(6 6)" fill="none" stroke="#f2f6fa" stroke-width="2" stroke-linejoin="round">
     <path d="M2.5 18C6.5 11 11.5 8 18 8s11.5 3 15.5 10c-4 7-9 10-15.5 10S6.5 25 2.5 18Z"/>
     <circle cx="18" cy="18" r="6.4"/>
   </g>
-  <circle cx="24" cy="24" r="2.8" fill="#C6934E"/>
+  <circle cx="24" cy="24" r="2.8" fill="#e3ac64"/>
 </svg>

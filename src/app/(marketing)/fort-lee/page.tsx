@@ -39,7 +39,7 @@ export default function FortLeePage() {
               </span>
             </Reveal>
             <Reveal delay={80}>
-              <h1 className="mt-6 font-display text-4xl font-medium leading-[1.05] md:text-6xl">
+              <h1 className="mt-6 font-display text-4xl font-medium leading-[1.05] text-bone md:text-6xl">
                 Riverdell Vision is coming to Fort Lee.
               </h1>
             </Reveal>
@@ -93,7 +93,7 @@ export default function FortLeePage() {
 
             <div className="rounded-3xl bg-teal-deep p-2">
               <div className="rounded-[1.35rem] bg-teal-deep p-6 text-bone md:p-8">
-                <h2 className="font-display text-2xl font-medium">
+                <h2 className="font-display text-2xl font-medium text-bone">
                   Be first in line.
                 </h2>
                 <p className="mt-2 text-bone/75">

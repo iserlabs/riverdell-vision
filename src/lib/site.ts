@@ -25,8 +25,8 @@ export const practice = {
     country: "US",
     full: "297 Kinderkamack Rd, Suite 200, Oradell, NJ 07649",
   },
-  geo: { lat: 40.9557, lng: -74.0393 },
-  maps: "https://maps.google.com/?q=Riverdell+Vision+297+Kinderkamack+Rd+Oradell+NJ",
+  geo: { lat: 40.9506937, lng: -74.0326493 },
+  maps: "https://maps.google.com/?cid=6581698614617482117",
   hours: [
     { day: "Monday", open: "9:00", close: "17:00", label: "9:00 AM - 5:00 PM" },
     { day: "Tuesday", open: "10:00", close: "18:00", label: "10:00 AM - 6:00 PM" },
@@ -37,9 +37,9 @@ export const practice = {
     { day: "Sunday", open: null, close: null, label: "Closed" },
   ],
   socials: {
-    facebook: "https://www.facebook.com/riverdellvision",
-    instagram: "https://www.instagram.com/riverdellvision",
-    google: "https://maps.google.com/?q=Riverdell+Vision+Oradell+NJ",
+    facebook: "https://www.facebook.com/riverdellvision/",
+    instagram: "https://www.instagram.com/riverdellvision/",
+    google: "https://maps.google.com/?cid=6581698614617482117",
     zocdoc: "https://www.zocdoc.com/practice/riverdell-vision-30098",
   },
 } as const;
@@ -133,11 +133,9 @@ export const primaryNav = [
     label: "Practice",
     children: [
       { label: "Meet Our Doctors", href: "/about", note: "Four optometrists, one standard of care" },
-      { label: "The Oradell Studio", href: "/oradell", note: "Our newly renovated office" },
-      { label: "Fort Lee (Opening 2027)", href: "/fort-lee", note: "Our second location, join the list" },
+      { label: "The Oradell Studio", href: "/oradell", note: "The office, hours, and directions" },
       { label: "Patient Reviews", href: "/reviews", note: "5.0 across 448 Google reviews" },
-      { label: "Book an Appointment", href: "/book", note: "Real-time booking on Zocdoc" },
-      { label: "Contact & Hours", href: "/oradell", note: "Directions, parking, and hours" },
+      { label: "Fort Lee (Opening 2027)", href: "/fort-lee", note: "Our second location, join the list" },
     ],
   },
 ] as const;

@@ -9,14 +9,16 @@ export function BookButton({
   className,
   size = "lg",
   label,
+  href,
 }: {
   className?: string;
   size?: Size;
   label?: string;
+  href?: string;
 }) {
   return (
     <Link
-      href={CONTACT_CTA.book}
+      href={href ?? CONTACT_CTA.book}
       className={btn({ variant: "primary", size, className })}
     >
       <CalendarCheck className="size-4" aria-hidden />

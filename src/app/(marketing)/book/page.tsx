@@ -3,8 +3,12 @@ import { Phone, Clock, MapPin, CalendarCheck } from "lucide-react";
 import { Container } from "@/components/site/primitives";
 import { ConsultForm } from "@/components/marketing/consult-form";
 import { ZocdocButton } from "@/components/site/cta";
-import { ReviewStatBadge } from "@/components/site/reviews";
+import { ReassuranceBar } from "@/components/site/reassurance-bar";
+import { DualProof } from "@/components/site/reviews";
 import { practice } from "@/lib/site";
+
+const zocdocBtn =
+  "w-full border border-teal bg-transparent text-teal hover:bg-teal-tint";
 
 export const metadata: Metadata = {
   title: "Request an Appointment | Riverdell Vision, Oradell NJ",
@@ -20,38 +24,51 @@ export default async function BookPage({
 }) {
   const { interest } = await searchParams;
   return (
-    <section className="bg-bone grain">
-      <Container wide className="py-14 md:py-20">
-        <div className="max-w-2xl">
-          <span className="eyebrow text-clay">Appointments</span>
-          <h1 className="mt-4 font-display text-4xl font-medium leading-tight text-ink md:text-5xl">
-            Let&apos;s find the right time for you.
-          </h1>
-          <p className="mt-4 text-lg leading-relaxed text-ink-soft">
-            Request an appointment below and our team will reach out within one
-            business day. Prefer to book instantly, or talk to a person? Those
-            options are here too.
-          </p>
-          <ReviewStatBadge className="mt-6" />
-        </div>
+    <>
+      <section className="bg-bone grain">
+        <Container wide className="pt-14 pb-10 md:pt-20">
+          <div className="max-w-2xl">
+            <span className="eyebrow text-clay">Appointments</span>
+            <h1 className="mt-4 font-display text-4xl font-medium leading-tight text-teal md:text-5xl">
+              Let&apos;s find the right time for you.
+            </h1>
+            <p className="mt-4 text-lg leading-relaxed text-ink-soft">
+              Request an appointment below and our team will reach out within one
+              business day. Prefer to book instantly, or talk to a person? Those
+              options are here too.
+            </p>
+            <DualProof className="mt-6" />
+          </div>
 
-        <div className="mt-12 grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+          {/* Mobile: surface the fastest path (instant Zocdoc booking) before the
+              form, so ready-to-commit visitors don't scroll past it. */}
+          <div className="mt-6 lg:hidden">
+            <ZocdocButton className={zocdocBtn} />
+          </div>
+        </Container>
+      </section>
+
+      <ReassuranceBar />
+
+      <section className="bg-bone grain">
+        <Container wide className="py-12 md:py-16">
+        <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
           <div>
-            <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-medium text-ink">
+            <h2 className="mb-4 flex items-center gap-2 font-display text-xl font-medium text-teal">
               <CalendarCheck className="size-5 text-teal" aria-hidden />
               Request an appointment
             </h2>
             <ConsultForm defaultInterest={interest} />
           </div>
 
-          <aside className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6">
             <div className="rounded-2xl border border-line bg-card p-6">
               <h3 className="font-medium text-ink">Book instantly</h3>
               <p className="mt-1.5 text-sm text-ink-soft">
                 See real-time availability and confirm on the spot through our
                 Zocdoc profile.
               </p>
-              <ZocdocButton className="mt-4 w-full" />
+              <ZocdocButton className={`mt-4 ${zocdocBtn}`} />
             </div>
 
             <div className="rounded-2xl border border-line bg-card p-6">
@@ -90,9 +107,10 @@ export default async function BookPage({
                 {practice.address.full}
               </a>
             </div>
-          </aside>
+          </div>
         </div>
-      </Container>
-    </section>
+        </Container>
+      </section>
+    </>
   );
 }

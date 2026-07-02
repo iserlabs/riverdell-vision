@@ -50,13 +50,13 @@ export function DemoGate({ children }: { children: React.ReactNode }) {
               type="email"
               placeholder="you@riverdellvision.com"
               defaultValue="demo@riverdellvision.com"
-              className="w-full rounded-lg border border-bone/20 bg-bone/10 px-3.5 py-2.5 text-sm text-bone outline-none placeholder:text-bone/40 focus:border-brass"
+              className="w-full rounded-lg border border-bone/20 bg-bone/10 px-3.5 py-2.5 text-sm text-bone outline-none placeholder:text-bone/70 focus:border-brass"
             />
             <input
               type="password"
               placeholder="Password"
               defaultValue="demo"
-              className="w-full rounded-lg border border-bone/20 bg-bone/10 px-3.5 py-2.5 text-sm text-bone outline-none placeholder:text-bone/40 focus:border-brass"
+              className="w-full rounded-lg border border-bone/20 bg-bone/10 px-3.5 py-2.5 text-sm text-bone outline-none placeholder:text-bone/70 focus:border-brass"
             />
             <button
               type="submit"

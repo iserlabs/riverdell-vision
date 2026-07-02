@@ -49,7 +49,7 @@ export default function AboutPage() {
         <Container wide className="py-14 md:py-20">
           <div className="max-w-3xl">
             <Eyebrow>The practice</Eyebrow>
-            <h1 className="mt-4 font-display text-4xl font-medium leading-[1.06] text-ink md:text-5xl">
+            <h1 className="mt-4 font-display text-4xl font-medium leading-[1.06] text-teal md:text-5xl">
               A neighborhood practice that takes eye health seriously.
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-ink-soft">

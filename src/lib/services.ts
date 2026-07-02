@@ -497,6 +497,25 @@ export function getService(slug: string) {
   return SERVICES.find((s) => s.slug === slug);
 }
 
+// Maps each service page to the exact option string in the /book consult form,
+// so a high-intent service visitor lands on the form already routed to their
+// need (the values must match INTERESTS in consult-form.tsx verbatim).
+const INTEREST_BY_SLUG: Record<string, string> = {
+  "myopia-management": "Myopia Management",
+  "dry-eye-treatment": "Dry Eye",
+  "specialty-contact-lenses": "Specialty & Scleral Lenses",
+  "ortho-k": "Orthokeratology (Ortho-K)",
+  "vision-therapy": "Vision Therapy",
+  "neuro-optometric-rehabilitation": "Neuro-Optometric Rehabilitation",
+  "medical-eye-care": "Medical Eye Care",
+};
+
+// Deep-link to the booking form, pre-routed to a service when we know it.
+export function bookHrefFor(slug?: string) {
+  const interest = slug ? INTEREST_BY_SLUG[slug] : undefined;
+  return interest ? `/book?interest=${encodeURIComponent(interest)}` : "/book";
+}
+
 // The service ladder shown on the homepage: the three flagship pages plus the
 // supporting family/medical/optical lines that round out the practice.
 export const SERVICE_LADDER: {

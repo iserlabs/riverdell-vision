@@ -73,17 +73,18 @@
 }
 
 :root {
-  /* Boutique palette (D3) */
+  /* Boutique palette (D3), rebased on the Riverdell logo blue. Contrast-tuned:
+     --teal and --clay carry AA (>=4.5:1) as text on the light surfaces. */
   --bone: oklch(0.972 0.007 240);      /* cool near-white, drawn from the logo */
-  --bone-deep: oklch(0.945 0.013 242); /* soft blue-gray section */
+  --bone-deep: oklch(0.928 0.018 246); /* soft blue-gray section, cooler for tone rhythm */
   --ink: oklch(0.27 0.032 258);        /* deep navy-slate body */
   --ink-soft: oklch(0.5 0.03 256);     /* muted blue-gray */
-  --teal: oklch(0.53 0.152 254);       /* Riverdell blue (logo), headings + brand */
+  --teal: oklch(0.5 0.15 254);         /* Riverdell blue (logo), headings + brand (AA on tint) */
   --teal-deep: oklch(0.36 0.12 258);   /* deep navy-blue, dark sections */
   --teal-tint: oklch(0.93 0.035 246);  /* pale blue wash */
-  --clay: oklch(0.6 0.15 42);          /* warm coral, complement to the blue */
+  --clay: oklch(0.52 0.15 40);         /* warm coral complement, darkened to clear AA as text */
   --clay-soft: oklch(0.92 0.045 46);   /* soft coral wash */
-  --sage: oklch(0.85 0.035 210);
+  --sage: oklch(0.85 0.035 246);       /* soft blue-gray (on the brand hue axis) */
   --brass: oklch(0.78 0.11 72);        /* warm gold accent, on dark */
   --line: oklch(0.9 0.015 246);        /* cool hairline */
 
@@ -124,24 +125,25 @@
 }
 
 .dark {
-  --background: oklch(0.26 0.03 210);
-  --foreground: oklch(0.95 0.012 78);
-  --card: oklch(0.31 0.03 208);
-  --card-foreground: oklch(0.95 0.012 78);
-  --popover: oklch(0.31 0.03 208);
-  --popover-foreground: oklch(0.95 0.012 78);
-  --primary: oklch(0.75 0.09 80);
-  --primary-foreground: oklch(0.24 0.03 210);
-  --secondary: oklch(0.34 0.035 208);
-  --secondary-foreground: oklch(0.95 0.012 78);
-  --muted: oklch(0.32 0.03 208);
-  --muted-foreground: oklch(0.78 0.02 90);
-  --accent: oklch(0.34 0.035 208);
-  --accent-foreground: oklch(0.95 0.012 78);
+  /* Dashboard dark theme, on the brand blue axis (was leftover teal-green/brass). */
+  --background: oklch(0.26 0.03 258);
+  --foreground: oklch(0.95 0.012 244);
+  --card: oklch(0.31 0.03 256);
+  --card-foreground: oklch(0.95 0.012 244);
+  --popover: oklch(0.31 0.03 256);
+  --popover-foreground: oklch(0.95 0.012 244);
+  --primary: oklch(0.7 0.13 252);
+  --primary-foreground: oklch(0.98 0.01 244);
+  --secondary: oklch(0.34 0.035 256);
+  --secondary-foreground: oklch(0.95 0.012 244);
+  --muted: oklch(0.32 0.03 256);
+  --muted-foreground: oklch(0.8 0.02 244);
+  --accent: oklch(0.34 0.035 256);
+  --accent-foreground: oklch(0.95 0.012 244);
   --destructive: oklch(0.68 0.17 26);
   --border: oklch(1 0 0 / 12%);
   --input: oklch(1 0 0 / 16%);
-  --ring: oklch(0.75 0.09 80);
+  --ring: oklch(0.7 0.13 252);
 }
 
 @layer base {
