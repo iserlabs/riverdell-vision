@@ -1,52 +1,59 @@
-// Zero-PHI lead intake endpoint. Accepts only routing information (name,
-// contact, service interest, source). It intentionally does NOT accept or store
-// clinical/symptom data, so no BAA is required. On submit it emails the office
-// via Resend (see lib/notify). No PHI, no third-party trackers.
-
+// Zero-PHI lead intake. Accepts only routing information. Honeypot + zod
+// validation + graceful-skip rate limit, then emails the office via Resend.
 import { sendLeadEmail } from "@/lib/notify";
+import { parseLead } from "@/lib/validate-lead";
+import { checkRateLimit } from "@/lib/ratelimit";
+
+function clientId(req: Request): string {
+  const fwd = req.headers.get("x-forwarded-for") || "";
+  return fwd.split(",")[0].trim() || "unknown";
+}
 
 export async function POST(req: Request) {
-  let body: Record<string, unknown> = {};
+  let raw: Record<string, unknown> = {};
   try {
-    body = await req.json();
+    raw = await req.json();
   } catch {
     return Response.json({ ok: false, error: "Invalid payload" }, { status: 400 });
   }
 
   // Honeypot: bots fill the hidden "company" field. Pretend success and drop it.
-  if (String(body.company || "").trim()) {
+  if (String(raw.company || "").trim()) {
     return Response.json({ ok: true, id: "L-0" });
   }
 
-  const name = String(body.name || "").trim();
-  const email = String(body.email || "").trim();
-  const phone = String(body.phone || "").trim();
-
-  if (!name || !email || !phone) {
+  const limit = await checkRateLimit(clientId(req));
+  if (!limit.ok) {
     return Response.json(
-      { ok: false, error: "Missing required contact fields" },
-      { status: 422 },
+      { ok: false, error: "Too many requests. Please try again in a minute." },
+      { status: 429 },
     );
   }
 
+  const parsed = parseLead(raw);
+  if (!parsed.ok) {
+    return Response.json({ ok: false, error: parsed.error }, { status: 422 });
+  }
+  const d = parsed.data;
+
   const delivery = await sendLeadEmail({
     subject: "New appointment request from riverdellvision.com",
-    replyTo: email,
+    replyTo: d.email,
     lines: [
-      ["Name", name],
-      ["Patient", String(body.patientType || "Not specified")],
-      ["Phone", phone],
-      ["Email", email],
-      ["Interested in", String(body.serviceInterest || "Not specified")],
-      ["Insurance", String(body.insurance || "Not specified")],
-      ["For", String(body.whoFor || "Not specified")],
-      ["Office", String(body.office || "Oradell")],
-      ["Preferred doctor", String(body.preferredDoctor || "No preference")],
-      ["Language", String(body.language || "Not specified")],
-      ["Preferred contact", String(body.preferredContact || "Phone")],
-      ["Best time", String(body.preferredTime || "Not specified")],
-      ["Heard via", String(body.heardVia || "Not specified")],
-      ["Source", String(body.source || "Website form")],
+      ["Name", d.name],
+      ["Patient", d.patientType || "Not specified"],
+      ["Phone", d.phone],
+      ["Email", d.email],
+      ["Interested in", d.serviceInterest || "Not specified"],
+      ["Insurance", d.insurance || "Not specified"],
+      ["For", d.whoFor || "Not specified"],
+      ["Office", d.office || "Oradell"],
+      ["Preferred doctor", d.preferredDoctor || "No preference"],
+      ["Language", d.language || "Not specified"],
+      ["Preferred contact", d.preferredContact || "Phone"],
+      ["Best time", d.preferredTime || "Not specified"],
+      ["Heard via", d.heardVia || "Not specified"],
+      ["Source", d.source || "Website form"],
     ],
   });
 

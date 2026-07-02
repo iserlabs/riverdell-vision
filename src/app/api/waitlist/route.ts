@@ -3,6 +3,7 @@
 // Emails the office via Resend on submit.
 
 import { sendLeadEmail } from "@/lib/notify";
+import { checkRateLimit } from "@/lib/ratelimit";
 
 export async function POST(req: Request) {
   let body: Record<string, unknown> = {};
@@ -14,6 +15,13 @@ export async function POST(req: Request) {
 
   if (String(body.company || "").trim()) {
     return Response.json({ ok: true, id: "FL-0" });
+  }
+
+  const limit = await checkRateLimit(
+    (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() || "unknown",
+  );
+  if (!limit.ok) {
+    return Response.json({ ok: false, error: "Too many requests." }, { status: 429 });
   }
 
   const name = String(body.name || "").trim();
