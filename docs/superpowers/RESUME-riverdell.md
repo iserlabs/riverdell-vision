@@ -14,9 +14,20 @@
 - NOTE: a parallel agent (branch feat/proof-diff-reviews, commit 0382cba) added `ReviewsWall`, `service-reviews.tsx`, `GoogleG`/`ZocdocMark` brand marks in reviews.tsx, and reworked the proof ledger/differentiators. NOT my work; leave it unless it conflicts.
 - `docs/AUDIT-REVIEWS-2026-07-02.md`  -  the five verbatim audit reports (design/a11y/CRO/mobile/functional-QA), em dashes stripped.
 
-## NEXT ACTION
-1. ~~Confirm hero card live~~  -  DONE (see Status; if it 404s again, run the recovery playbook in memory `riverdell-vercel-deploy-recovery.md`).
-2. **The brainstorm:** awaits USER APPROVAL of the 3-slice design (presented via AskUserQuestion on resume 2026-07-02). On approval -> write spec to `docs/superpowers/specs/2026-07-02-security-mobile-a11y-design.md`, self-review, user-review gate, then invoke writing-plans. Do NOT implement before approval.
+## NEXT ACTION (updated 2026-07-02, later)
+The security/mobile/a11y initiative is fully planned and APPROVED for subagent-driven execution, but execution is **HELD** by user choice because a **concurrent /webdev agent is actively committing to `main`** (its commit `d629294` "webdev wave 1: findability + mobile + perf quick wins" touched `layout.tsx`, `schema.ts`, `header.tsx`, `primitives.tsx`, `sheet.tsx`, `site.ts`, `areas.ts`, + areas/portal/reviews pages). That overlaps my Slice 2 (mobile) + Slice 3 (SEO/findability). Two agents on the same files + background /sync = churn; so we WAIT for /webdev to finish.
+
+Artifacts DONE and committed (on main via /sync):
+- Spec: `docs/superpowers/specs/2026-07-02-security-mobile-a11y-design.md`
+- Plan: `docs/superpowers/plans/2026-07-02-security-mobile-a11y.md` (13 tasks, TDD, self-reviewed)
+- Execution mode chosen: **subagent-driven-development** (fresh implementer + task-reviewer per task).
+
+ON RESUME (when user says /webdev is done):
+1. **Reconcile FIRST** (do not execute blind): `git log --oneline` since d629294 and `git show` the /webdev commits; diff what it changed against the plan's assumptions. Re-scout: `layout.tsx` (my Task 5 analytics mount + Task 2 area), `schema.ts` (my Task 12), `header/primitives/sheet` (my Slice 2 mobile), `consult-form.tsx`, `not-found.tsx` (still missing?). DROP now-redundant mobile/findability items /webdev already did; KEEP net-new: security headers (CSP/HSTS), Upstash rate-limit, zod, analytics, custom 404, reusable breadcrumb, related-links, axe/mobile gates. Update the plan file in place, note deltas.
+2. **Isolate**: do NOT build on `main` (subagent-driven skill forbids it). Create a git worktree on a NEW branch off the reconciled main HEAD, OR a dedicated feat branch, then run subagent-driven-development. `.vercel/` is gitignored so a worktree needs `project.json` re-created (orgId team_F3Fnvg7CKFEDuJEZFs39rmKa / projectId prj_xDxHqSSvGeYJ7iBUBPiHsymsbZlG) before any deploy.
+3. Execute tasks 1-13, task-review each, final whole-branch review, then finishing-a-development-branch. Deploy per recovery playbook; verify riverdell-vision.vercel.app 200 + public + 56 aspect-square.
+
+DONE earlier this session: hero card CONFIRMED LIVE + full prod recovery (see Status).
 
 ## Verify / then
 - Build/gates: `cd <repo> && npm run build` (green expected; note pre-existing `dashboard/gate.tsx` setState-in-effect lint warning is non-blocking).

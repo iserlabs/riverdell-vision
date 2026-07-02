@@ -134,9 +134,9 @@ export function SiteFooter() {
             <Link href="/accessibility" className="hover:text-bone">
               Accessibility
             </Link>
-            <Link href="/sitemap.xml" className="hover:text-bone">
+            <a href="/sitemap.xml" className="hover:text-bone">
               Sitemap
-            </Link>
+            </a>
             <Link href="/dashboard" className="hover:text-bone">
               Team portal
             </Link>

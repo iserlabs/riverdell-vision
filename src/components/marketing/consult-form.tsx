@@ -64,7 +64,11 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
 
   // Controlled fields that drive the live "what to expect" preview.
   const [patientType, setPatientType] = useState<"New patient" | "Returning patient">("New patient");
-  const [interest, setInterest] = useState(defaultInterest ?? INTERESTS[0]);
+  const [interest, setInterest] = useState(
+    defaultInterest && INTERESTS.includes(defaultInterest)
+      ? defaultInterest
+      : INTERESTS[0],
+  );
   const [insurance, setInsurance] = useState("");
   const [done, setDone] = useState({ name: "", phone: "", service: "", office: "Oradell" });
 
