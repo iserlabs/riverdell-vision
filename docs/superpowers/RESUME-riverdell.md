@@ -5,7 +5,7 @@
 **Saved:** 2026-07-02T17:50:35Z
 
 ## Status
-- **Hero booking card enlarge/tidy** (user's last concrete request)  -  DONE + committed (587aab0). Redeploy was in-flight (bg task bwwo7bkr9); the earlier `vercel --prod` TIMED OUT before aliasing, so the canonical alias may still show the OLD card. MUST VERIFY (see NEXT ACTION).
+- **Hero booking card enlarge/tidy** (user's last concrete request)  -  DONE + committed (587aab0) and CONFIRMED LIVE (2026-07-02): https://riverdell-vision.vercel.app = HTTP 200, public, 56 `aspect-square` occurrences (28 cells x2 RSC). Getting here required a 3-part prod RECOVERY (site was 404-down, masked by an SSO wall): set project `framework`=nextjs, cleared `ssoProtection`, re-linked `.vercel/project.json` to iser-labs (team_F3Fnvg7CKFEDuJEZFs39rmKa / prj_xDxHqSSvGeYJ7iBUBPiHsymsbZlG), redeployed, and re-set the deployment alias `riverdell-vision.vercel.app`. FULL PLAYBOOK: memory `riverdell-vercel-deploy-recovery.md`. NOTE: count cells with `grep -o aspect-square | wc -l` (real=56), NOT `grep -c` (returns 1 on minified prod HTML).
 - **/superpowers:brainstorming (security+privacy, mobile UI/UX, a11y+visibility)**  -  PAUSED at the design-approval gate. Design presented as 3 slices; user has NOT approved yet. No implementation started (HARD-GATE). Decisions locked: full hardening + privacy posture; CSP **Report-Only first** (static-friendly, then enforce); rate-limit **Upstash, graceful skip**; analytics **Vercel Analytics + Speed Insights** (no cookies, no consent banner); mobile = all 4 tracks; visibility = AT-a11y + SEO/AEO + never-stranded (NOT visual-legibility).
 - Everything else this session already LIVE: section system (editorial index/list, timeline, editorial no-box count-up proof ledger), /portal patient-portal preview, nav streamline, mobile+a11y pass (axe 0 serious/critical), service-page SEO/AEO depth (candidacy self-check, cost&insurance, option-compares, glossary+DefinedTerm/MedicalProcedure schema), Resend lead delivery + honeypot, SEO fixes (ledger SSR real numbers, /portal in sitemap, apple-icon), condition pages /keratoconus + /meibomian-gland-dysfunction, ortho-k/vision-therapy compares, /focus->/ redirect.
 
@@ -15,8 +15,8 @@
 - `docs/AUDIT-REVIEWS-2026-07-02.md`  -  the five verbatim audit reports (design/a11y/CRO/mobile/functional-QA), em dashes stripped.
 
 ## NEXT ACTION
-1. **Confirm the new hero card is live:** `curl -s https://riverdell-vision.vercel.app/ | grep -c aspect-square`  -  expect many (28+). If **0**, redeploy: `cd /Users/macbook/workspace/riverdell-vision && vercel --prod --yes` and re-check (the canonical alias tracks latest prod but a timed-out deploy can leave it stale).
-2. **Then the brainstorm:** it awaits USER APPROVAL of the presented 3-slice design. On approval -> write spec to `docs/superpowers/specs/2026-07-02-security-mobile-a11y-design.md`, self-review, user-review gate, then invoke writing-plans. Do NOT implement before approval.
+1. ~~Confirm hero card live~~  -  DONE (see Status; if it 404s again, run the recovery playbook in memory `riverdell-vercel-deploy-recovery.md`).
+2. **The brainstorm:** awaits USER APPROVAL of the 3-slice design (presented via AskUserQuestion on resume 2026-07-02). On approval -> write spec to `docs/superpowers/specs/2026-07-02-security-mobile-a11y-design.md`, self-review, user-review gate, then invoke writing-plans. Do NOT implement before approval.
 
 ## Verify / then
 - Build/gates: `cd <repo> && npm run build` (green expected; note pre-existing `dashboard/gate.tsx` setState-in-effect lint warning is non-blocking).
