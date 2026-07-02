@@ -26,7 +26,7 @@ export function SiteFooter() {
     <footer className="mt-auto bg-teal-deep text-bone">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-12 md:px-8">
         <div className="md:col-span-4">
-          <Logo className="text-bone" />
+          <Logo onDark />
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-bone/70">
             {practice.tagline} Physician-led eye care for children, adults, and
             seniors across Bergen County, New Jersey.

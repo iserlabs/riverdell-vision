@@ -20,7 +20,7 @@ export function localBusinessSchema() {
     email: practice.email,
     priceRange: "$$",
     image: `${SITE_URL}/images/office-oradell.jpeg`,
-    logo: `${SITE_URL}/icon.svg`,
+    logo: `${SITE_URL}/riverdell-mark.png`,
     address: {
       "@type": "PostalAddress",
       streetAddress: practice.address.street,

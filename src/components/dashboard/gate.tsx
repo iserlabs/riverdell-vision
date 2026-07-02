@@ -28,7 +28,7 @@ export function DemoGate({ children }: { children: React.ReactNode }) {
     <div className="flex min-h-screen items-center justify-center bg-teal-deep px-6 text-bone">
       <div className="w-full max-w-sm">
         <div className="flex justify-center">
-          <Logo className="text-bone" />
+          <Logo onDark />
         </div>
         <div className="mt-8 rounded-2xl border border-bone/15 bg-bone/5 p-7 backdrop-blur">
           <div className="flex items-center gap-2 text-brass">

@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import { Logo } from "@/components/site/logo";
 import { BookButton } from "@/components/site/cta";
+import { Magnetic } from "@/components/site/magnetic";
 import { primaryNav, practice } from "@/lib/site";
 import { REVIEW_STATS } from "@/lib/reviews";
 import { cn } from "@/lib/utils";
@@ -179,15 +180,17 @@ export function SiteHeader() {
               );
             })}
             <Link
-              href="/book"
+              href="/oradell"
               className="rounded-md px-3 py-2 text-sm font-medium text-ink transition-colors hover:text-teal"
             >
-              Book
+              Contact
             </Link>
           </nav>
 
           <div className="flex items-center gap-2">
-            <BookButton size="sm" className="hidden sm:inline-flex" />
+            <Magnetic className="hidden sm:inline-flex">
+              <BookButton size="sm" />
+            </Magnetic>
 
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
               <SheetTrigger

@@ -5,22 +5,12 @@ import { REVIEW_STATS } from "@/lib/reviews";
 // Branded, on-brand booking card showing live-style availability that deep-links
 // into the practice's real Zocdoc profile. (Locked choice: branded card, not the
 // raw Zocdoc widget, so it stays in the boutique palette.)
-const CAL = [
-  { d: "Thu", n: 2 },
-  { d: "Fri", n: 3 },
-  { d: "Sat", n: 4 },
-  { d: "Sun", n: 5 },
-  { d: "Mon", n: 6, on: true },
-  { d: "Tue", n: 7 },
-  { d: "Wed", n: 8, on: true },
-  { d: "Thu", n: 9, on: true },
-  { d: "Fri", n: 10, on: true },
-  { d: "Sat", n: 11 },
-  { d: "Sun", n: 12 },
-  { d: "Mon", n: 13, on: true },
-  { d: "Tue", n: 14 },
-  { d: "Wed", n: 15, on: true },
-];
+const DAY_NAMES = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"];
+const OPEN = new Set(["Mon", "Wed", "Thu", "Fri"]);
+const CAL = Array.from({ length: 28 }, (_, i) => {
+  const d = DAY_NAMES[i % 7];
+  return { d, n: i + 2, on: OPEN.has(d) };
+});
 
 export function HeroBooking() {
   return (
@@ -38,7 +28,7 @@ export function HeroBooking() {
         <div className="px-6 py-5">
           <div className="mb-3 flex items-center justify-between text-xs text-ink-soft">
             <span>Riverdell Vision · Oradell</span>
-            <span className="font-mono">Next 2 weeks</span>
+            <span className="font-mono">Next 4 weeks</span>
           </div>
           <div className="grid grid-cols-7 gap-1.5" aria-hidden>
             {CAL.map((c, i) => (

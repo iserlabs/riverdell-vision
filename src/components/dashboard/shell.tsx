@@ -34,7 +34,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
       <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col justify-between bg-teal-deep px-4 py-6 text-bone md:flex print:hidden">
         <div>
           <div className="px-2">
-            <Logo className="text-bone" />
+            <Logo onDark />
           </div>
           <p className="mt-1 px-2 font-mono text-[0.6rem] uppercase tracking-[0.22em] text-brass">
             Operations

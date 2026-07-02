@@ -4,6 +4,7 @@ import { ArrowRight, ShieldCheck, Clock, HeartHandshake, Microscope } from "luci
 import { Container, Section, SectionHeading, Eyebrow } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
 import { BookButton, CallButton } from "@/components/site/cta";
+import { Magnetic } from "@/components/site/magnetic";
 import { DualProof, ReviewsGrid } from "@/components/site/reviews";
 import { InsuranceRow } from "@/components/site/insurance";
 import { ServiceIcon } from "@/components/site/service-icon";
@@ -70,7 +71,9 @@ export default function HomePage() {
               </Reveal>
               <Reveal delay={240}>
                 <div className="mt-8 flex flex-wrap items-center gap-3">
-                  <BookButton />
+                  <Magnetic>
+                    <BookButton />
+                  </Magnetic>
                   <CallButton />
                 </div>
               </Reveal>
