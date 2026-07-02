@@ -54,7 +54,11 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
       await fetch("/api/lead", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ...payload, preferredTime: fd.get("time") }),
+        body: JSON.stringify({
+          ...payload,
+          preferredTime: fd.get("time"),
+          company: fd.get("company"),
+        }),
       });
     } catch {
       /* demo: ignore network errors */
@@ -89,6 +93,15 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
       onSubmit={onSubmit}
       className="rounded-2xl border border-line bg-card p-6 md:p-8"
     >
+      {/* Honeypot: hidden from people, tempting to bots. */}
+      <div className="absolute left-[-9999px]" aria-hidden>
+        <input
+          type="text"
+          name="company"
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5 sm:col-span-2">
           <label htmlFor="name" className={labelCls}>

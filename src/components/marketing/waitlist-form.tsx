@@ -40,7 +40,7 @@ export function WaitlistForm() {
       await fetch("/api/waitlist", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ name, email, interest }),
+        body: JSON.stringify({ name, email, interest, company: fd.get("company") }),
       });
     } catch {
       /* demo */
@@ -80,6 +80,9 @@ export function WaitlistForm() {
       onSubmit={onSubmit}
       className="rounded-2xl border border-bone/20 bg-bone/5 p-6 backdrop-blur md:p-8"
     >
+      <div className="absolute left-[-9999px]" aria-hidden>
+        <input type="text" name="company" tabIndex={-1} autoComplete="off" />
+      </div>
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="flex flex-col gap-1.5 sm:col-span-2">
           <label htmlFor="w-name" className="text-sm font-medium text-bone">

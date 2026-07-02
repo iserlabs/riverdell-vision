@@ -1,8 +1,9 @@
 // Zero-PHI lead intake endpoint. Accepts only routing information (name,
 // contact, service interest, source). It intentionally does NOT accept or store
-// clinical/symptom data, so no BAA is required for the prototype. In production
-// this writes to the HIPAA-ready store and triggers the staff-notification +
-// follow-up-task workflow.
+// clinical/symptom data, so no BAA is required. On submit it emails the office
+// via Resend (see lib/notify). No PHI, no third-party trackers.
+
+import { sendLeadEmail } from "@/lib/notify";
 
 export async function POST(req: Request) {
   let body: Record<string, unknown> = {};
@@ -10,6 +11,11 @@ export async function POST(req: Request) {
     body = await req.json();
   } catch {
     return Response.json({ ok: false, error: "Invalid payload" }, { status: 400 });
+  }
+
+  // Honeypot: bots fill the hidden "company" field. Pretend success and drop it.
+  if (String(body.company || "").trim()) {
+    return Response.json({ ok: true, id: "L-0" });
   }
 
   const name = String(body.name || "").trim();
@@ -23,7 +29,20 @@ export async function POST(req: Request) {
     );
   }
 
-  // Demo: acknowledge receipt. (No persistence, no PHI, no third-party trackers.)
+  const delivery = await sendLeadEmail({
+    subject: "New appointment request from riverdellvision.com",
+    replyTo: email,
+    lines: [
+      ["Name", name],
+      ["Phone", phone],
+      ["Email", email],
+      ["Interested in", String(body.serviceInterest || "Not specified")],
+      ["Preferred contact", String(body.preferredContact || "Phone")],
+      ["Best time", String(body.preferredTime || "Not specified")],
+      ["Source", String(body.source || "Website form")],
+    ],
+  });
+
   const id = `L-${Math.floor(1000 + Math.random() * 8999)}`;
-  return Response.json({ ok: true, id });
+  return Response.json({ ok: true, id, delivery });
 }

@@ -1,5 +1,8 @@
 // Zero-PHI Fort Lee waitlist intake. Same principles as /api/lead: routing and
 // interest only, explicit opt-in consent flag for pre-opening messages, no PHI.
+// Emails the office via Resend on submit.
+
+import { sendLeadEmail } from "@/lib/notify";
 
 export async function POST(req: Request) {
   let body: Record<string, unknown> = {};
@@ -7,6 +10,10 @@ export async function POST(req: Request) {
     body = await req.json();
   } catch {
     return Response.json({ ok: false, error: "Invalid payload" }, { status: 400 });
+  }
+
+  if (String(body.company || "").trim()) {
+    return Response.json({ ok: true, id: "FL-0" });
   }
 
   const name = String(body.name || "").trim();
@@ -19,6 +26,17 @@ export async function POST(req: Request) {
     );
   }
 
+  const delivery = await sendLeadEmail({
+    subject: "New Fort Lee waitlist signup from riverdellvision.com",
+    replyTo: email,
+    lines: [
+      ["Name", name],
+      ["Email", email],
+      ["Interested in", String(body.serviceInterest || body.interest || "Fort Lee opening")],
+      ["Source", "Fort Lee waitlist"],
+    ],
+  });
+
   const id = `FL-${Math.floor(100 + Math.random() * 899)}`;
-  return Response.json({ ok: true, id });
+  return Response.json({ ok: true, id, delivery });
 }
