@@ -65,11 +65,6 @@ export function EditorialIndex({ items }: { items: Item[] }) {
                 </span>
                 <h3 className="font-display text-xl font-medium text-teal md:text-2xl">
                   {it.title}
-                  {it.flagship && (
-                    <span className="ml-2.5 align-middle font-mono text-[0.6rem] font-medium uppercase tracking-wider text-clay">
-                      Flagship
-                    </span>
-                  )}
                 </h3>
               </div>
               {it.blurb && (

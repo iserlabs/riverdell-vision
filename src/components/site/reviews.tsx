@@ -160,7 +160,7 @@ export function DualProof({ className }: { className?: string }) {
         aria-label="See our Zocdoc reviews and book (opens Zocdoc)"
         className="group -my-3 inline-flex items-center gap-2 py-3 text-sm text-ink transition-colors hover:text-teal md:my-0 md:py-0"
       >
-        <Star className="size-4 fill-brass text-brass" aria-hidden />
+        <Stars label={`${REVIEW_STATS.zocdocRating} on Zocdoc`} />
         <span>
           <span className="font-semibold">{REVIEW_STATS.zocdocRating.toFixed(1)}</span>
           <span className="text-ink-soft group-hover:text-teal"> · </span>
