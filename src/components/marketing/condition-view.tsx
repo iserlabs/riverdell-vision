@@ -10,6 +10,7 @@ import { DualProof } from "@/components/site/reviews";
 import { Faq } from "@/components/site/faq";
 import { CtaBand } from "@/components/site/cta-band";
 import { JsonLd } from "@/components/site/json-ld";
+import { KeepExploring } from "@/components/marketing/keep-exploring";
 import { getService } from "@/lib/services";
 import {
   medicalConditionSchema,
@@ -21,6 +22,17 @@ import type { Condition } from "@/lib/conditions";
 export function ConditionView({ condition: c }: { condition: Condition }) {
   const parent = getService(c.parentSlug);
   const bookHref = `/book?interest=${encodeURIComponent(c.bookInterest)}`;
+
+  // Keep-exploring links: the parent service (the care that treats this
+  // condition) plus that service's own related services, so a visitor always
+  // has a real next step. Pulled entirely from existing services data.
+  const keepExploringLinks = [
+    ...(parent ? [{ label: parent.name, href: `/${parent.slug}` }] : []),
+    ...(parent?.related ?? [])
+      .map((slug) => getService(slug))
+      .filter((s): s is NonNullable<typeof s> => Boolean(s))
+      .map((s) => ({ label: s.name, href: `/${s.slug}` })),
+  ];
 
   return (
     <>
@@ -187,6 +199,8 @@ export function ConditionView({ condition: c }: { condition: Condition }) {
           </Container>
         </Section>
       </section>
+
+      {keepExploringLinks.length > 0 && <KeepExploring links={keepExploringLinks} />}
 
       <CtaBand
         title={`Concerned about ${c.name.toLowerCase()}?`}

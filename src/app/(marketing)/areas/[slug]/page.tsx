@@ -10,9 +10,10 @@ import { ReviewsGrid } from "@/components/site/reviews";
 import { ServiceIcon } from "@/components/site/service-icon";
 import { CtaBand } from "@/components/site/cta-band";
 import { JsonLd } from "@/components/site/json-ld";
+import { KeepExploring } from "@/components/marketing/keep-exploring";
 import { breadcrumbSchema } from "@/lib/schema";
 import { AREAS, getArea } from "@/lib/areas";
-import { SERVICE_LADDER, getService } from "@/lib/services";
+import { SERVICES, SERVICE_LADDER, getService } from "@/lib/services";
 
 export function generateStaticParams() {
   return AREAS.map((a) => ({ slug: a.slug }));
@@ -45,6 +46,14 @@ export default async function AreaPage({
   if (!area) notFound();
 
   const service = area.serviceSlug ? getService(area.serviceSlug) : undefined;
+
+  // Keep-exploring links: the top flagship services (real data from
+  // src/lib/services.ts) plus the Oradell studio page, so a town-page visitor
+  // always has a next step regardless of which area they landed on.
+  const keepExploringLinks = [
+    ...SERVICES.slice(0, 3).map((s) => ({ label: s.name, href: `/${s.slug}` })),
+    { label: "The Oradell Studio", href: "/oradell" },
+  ];
 
   return (
     <>
@@ -140,6 +149,8 @@ export default async function AreaPage({
           </Section>
         </Container>
       </section>
+
+      <KeepExploring links={keepExploringLinks} />
 
       <CtaBand />
     </>
