@@ -284,7 +284,7 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
       )}
 
       <CtaBand
-        title={`Considering ${s.shortName.toLowerCase()}?`}
+        title={`Considering ${s.shortName}?`}
         sub="Request a consult and we will help you understand your options, with clear guidance and no pressure."
         bookHref={bookHref}
       />

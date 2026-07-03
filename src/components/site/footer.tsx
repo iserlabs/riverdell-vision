@@ -86,14 +86,6 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
-            <li>
-              <Link
-                href="/areas"
-                className="-my-3.5 inline-flex items-center py-3.5 text-bone/75 hover:text-bone md:my-0 md:py-0"
-              >
-                Areas we serve
-              </Link>
-            </li>
           </ul>
         </nav>
 
