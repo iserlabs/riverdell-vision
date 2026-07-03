@@ -74,6 +74,7 @@ function useCountUp(target: number, run: boolean, delay: number, ms = 1400) {
       }
       // Below the fold: reset to 0 off-screen, arm for when it enters view.
       phase.current = "armed";
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time off-screen arm so the count-up starts from 0; the SSR/initial render keeps the real number.
       setN(0);
       return;
     }

@@ -19,8 +19,12 @@ export default function ReviewsPage() {
     <>
       <section className="bg-bone grain">
         <Container wide className="py-16 text-center md:py-20">
-          <h1 className="eyebrow text-clay">Patient reviews</h1>
-          <div className="mt-7 flex items-center justify-center gap-4">
+          <p className="eyebrow text-clay">Patient reviews</p>
+          <h1 className="sr-only">
+            Patient reviews: {REVIEW_STATS.rating.toFixed(1)} out of 5 stars from{" "}
+            {REVIEW_STATS.count}+ reviews
+          </h1>
+          <div className="mt-7 flex items-center justify-center gap-4" aria-hidden>
             <p className="font-display text-[4.75rem] font-medium leading-[0.82] text-teal md:text-[6rem]">
               {REVIEW_STATS.rating.toFixed(1)}
             </p>

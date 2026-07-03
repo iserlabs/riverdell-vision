@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MapPin, ArrowRight, Check } from "lucide-react";
-import { Container, Section, SectionHeading, Eyebrow } from "@/components/site/primitives";
+import { MapPin, ArrowRight } from "lucide-react";
+import { Container, Section, SectionHeading } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
 import { Breadcrumb } from "@/components/site/breadcrumb";
 import { BookButton, CallButton } from "@/components/site/cta";

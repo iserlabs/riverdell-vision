@@ -267,7 +267,7 @@ export default function GrowthPage() {
       </section>
 
       {/* Closing: lender / partner CTA */}
-      <section className="bg-teal text-bone">
+      <section className="bg-teal-deep text-bone">
         <Container wide>
           <div className="flex flex-col items-start gap-8 py-16 md:flex-row md:items-center md:justify-between md:py-20">
             <div className="max-w-xl">

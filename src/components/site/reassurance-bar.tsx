@@ -19,7 +19,10 @@ const REASSURANCES = [
 
 export function ReassuranceBar({ className }: { className?: string }) {
   return (
-    <section className={cn("border-y border-line bg-bone-deep", className)}>
+    <section
+      aria-label="Our promise to every patient"
+      className={cn("border-y border-line bg-bone-deep", className)}
+    >
       <Container wide>
         <ul className="grid grid-cols-2 gap-x-6 gap-y-3 py-5 md:flex md:items-center md:justify-between">
           {REASSURANCES.map((t) => (

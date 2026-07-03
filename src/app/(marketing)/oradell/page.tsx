@@ -177,7 +177,7 @@ export default function OradellPage() {
             <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
               <Image
                 src="/images/office-oradell.jpeg"
-                alt="Designer eyewear on warm wood shelving at Riverdell Vision"
+                alt="Inside the Riverdell Vision optical boutique in Oradell, a warm and unhurried space"
                 fill
                 sizes="(max-width: 768px) 90vw, 45vw"
                 className="object-cover"

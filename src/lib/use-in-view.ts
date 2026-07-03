@@ -17,6 +17,7 @@ export function useInView<T extends Element>(opts?: {
     const el = ref.current;
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time mount read of a media query; reveals content immediately for reduced-motion users, no cascading render.
       setInView(true);
       return;
     }
@@ -37,6 +38,9 @@ export function useInView<T extends Element>(opts?: {
       io.disconnect();
       window.clearTimeout(t);
     };
+    // Mount-only: the observer is set up once; reacting to opts changes would
+    // needlessly tear down and rebuild it.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { ref, inView };

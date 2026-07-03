@@ -17,6 +17,7 @@ export function DemoGate({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time mount read of localStorage; deferring to an effect is what keeps SSR markup stable.
     setAuthed(localStorage.getItem(KEY) === "1");
     setReady(true);
   }, []);

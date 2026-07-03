@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Slide = {
@@ -55,6 +55,10 @@ const SLIDES: Slide[] = [
 export function HeroSlideshow() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  // Explicit user pause (WCAG 2.2.2): a mechanism to stop the auto-advance that
+  // does not depend on hovering or focusing, so keyboard and touch users can
+  // halt the motion too.
+  const [userPaused, setUserPaused] = useState(false);
   const reduced = useRef(false);
   const n = SLIDES.length;
 
@@ -65,10 +69,10 @@ export function HeroSlideshow() {
   }, []);
 
   useEffect(() => {
-    if (paused || reduced.current) return;
+    if (paused || userPaused || reduced.current) return;
     const id = setInterval(() => setActive((a) => (a + 1) % n), 5200);
     return () => clearInterval(id);
-  }, [paused, n]);
+  }, [paused, userPaused, n]);
 
   const go = (i: number) => setActive((i + n) % n);
 
@@ -83,7 +87,7 @@ export function HeroSlideshow() {
       aria-roledescription="carousel"
       aria-label="Riverdell Vision specialty care"
     >
-      <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-line shadow-xl shadow-ink/10">
+      <div className="group relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-line shadow-xl shadow-ink/10">
         {SLIDES.map((s, i) => (
           <div
             key={s.img}
@@ -104,12 +108,14 @@ export function HeroSlideshow() {
           </div>
         ))}
 
-        {/* Prev / next controls */}
+        {/* Prev / next controls. Hidden until the carousel is hovered or a
+            control is focused; a focused control is always revealed so keyboard
+            users can see where they are. */}
         <button
           type="button"
           onClick={() => go(active - 1)}
           aria-label="Previous slide"
-          className="absolute left-2 top-1/2 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-bone/85 text-teal-deep opacity-0 shadow transition-opacity hover:bg-bone focus-visible:opacity-100 group-hover:opacity-100 md:opacity-0 md:hover:opacity-100"
+          className="absolute left-2 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-bone/85 text-teal-deep opacity-0 shadow transition-opacity hover:bg-bone focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 group-hover:opacity-100"
         >
           <ChevronLeft className="size-5" />
         </button>
@@ -117,13 +123,24 @@ export function HeroSlideshow() {
           type="button"
           onClick={() => go(active + 1)}
           aria-label="Next slide"
-          className="absolute right-2 top-1/2 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-bone/85 text-teal-deep opacity-0 shadow transition-opacity hover:bg-bone focus-visible:opacity-100 md:hover:opacity-100"
+          className="absolute right-2 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-bone/85 text-teal-deep opacity-0 shadow transition-opacity hover:bg-bone focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2 group-hover:opacity-100"
         >
           <ChevronRight className="size-5" />
         </button>
 
-        {/* Dots */}
-        <div className="absolute bottom-3.5 left-1/2 flex -translate-x-1/2 gap-1.5">
+        {/* Pause / play (WCAG 2.2.2): always reachable, not hover-gated. */}
+        <button
+          type="button"
+          onClick={() => setUserPaused((p) => !p)}
+          aria-label={userPaused ? "Play slideshow" : "Pause slideshow"}
+          aria-pressed={userPaused}
+          className="absolute right-2 top-2 grid size-9 place-items-center rounded-full bg-bone/85 text-teal-deep opacity-70 shadow transition-opacity hover:bg-bone hover:opacity-100 focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal focus-visible:ring-offset-2"
+        >
+          {userPaused ? <Play className="size-4" /> : <Pause className="size-4" />}
+        </button>
+
+        {/* Dots. Each has a ≥44px transparent hit area around the visible pill. */}
+        <div className="absolute bottom-1 left-1/2 flex -translate-x-1/2">
           {SLIDES.map((s, i) => (
             <button
               key={s.img}
@@ -131,11 +148,15 @@ export function HeroSlideshow() {
               onClick={() => go(i)}
               aria-label={`Show ${s.title}`}
               aria-current={i === active}
-              className={cn(
-                "h-1.5 rounded-full bg-bone shadow transition-all",
-                i === active ? "w-6 opacity-100" : "w-1.5 opacity-60 hover:opacity-90",
-              )}
-            />
+              className="grid h-11 place-items-center rounded-full px-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bone"
+            >
+              <span
+                className={cn(
+                  "h-1.5 rounded-full bg-bone shadow transition-all",
+                  i === active ? "w-6 opacity-100" : "w-1.5 opacity-60 group-hover:opacity-90",
+                )}
+              />
+            </button>
           ))}
         </div>
       </div>

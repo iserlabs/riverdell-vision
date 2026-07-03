@@ -5,6 +5,7 @@ import { CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 import { btn } from "@/lib/ui";
 import { addLead } from "@/lib/demo-store";
+import { practice } from "@/lib/site";
 
 const field =
   "w-full rounded-lg border border-line bg-card px-3.5 py-2.5 text-base text-ink outline-none transition-colors placeholder:text-ink-soft/85 focus:border-teal focus:ring-2 focus:ring-teal/20";
@@ -36,14 +37,29 @@ export function WaitlistForm() {
     }
     setPending(true);
     const interest = String(fd.get("interest") || "Fort Lee Waitlist");
+    // Only a genuine delivery failure breaks the promise; a not-yet-configured
+    // mailer returns delivery:"skipped" and stays a soft success (see notify.ts).
+    let ok = false;
+    let serverError = "";
     try {
-      await fetch("/api/waitlist", {
+      const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ name, email, interest, company: fd.get("company") }),
       });
+      const data = await res.json().catch(() => null);
+      ok = res.ok && data?.delivery !== "error";
+      if (!ok && data && typeof data.error === "string") serverError = data.error;
     } catch {
-      /* demo */
+      ok = false;
+    }
+    if (!ok) {
+      setPending(false);
+      toast.error(
+        serverError ||
+          `We couldn't add you to the list just now. Please call us at ${practice.phone} and we'll add you.`,
+      );
+      return;
     }
     addLead({
       name,

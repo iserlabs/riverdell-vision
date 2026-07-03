@@ -131,6 +131,11 @@ export default function OverviewPage() {
                 </Link>
               </li>
             ))}
+            {attention.length === 0 && (
+              <li className="flex items-center gap-2 py-6 text-sm text-ink-soft">
+                <CheckCircle2 className="size-5 text-teal" /> Nothing needs attention right now.
+              </li>
+            )}
           </ul>
         </Panel>
       </div>

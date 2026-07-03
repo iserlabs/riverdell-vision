@@ -124,28 +124,6 @@
   --sidebar-ring: var(--teal);
 }
 
-.dark {
-  /* Dashboard dark theme, on the brand blue axis (was leftover teal-green/brass). */
-  --background: oklch(0.26 0.03 258);
-  --foreground: oklch(0.95 0.012 244);
-  --card: oklch(0.31 0.03 256);
-  --card-foreground: oklch(0.95 0.012 244);
-  --popover: oklch(0.31 0.03 256);
-  --popover-foreground: oklch(0.95 0.012 244);
-  --primary: oklch(0.7 0.13 252);
-  --primary-foreground: oklch(0.98 0.01 244);
-  --secondary: oklch(0.34 0.035 256);
-  --secondary-foreground: oklch(0.95 0.012 244);
-  --muted: oklch(0.32 0.03 256);
-  --muted-foreground: oklch(0.8 0.02 244);
-  --accent: oklch(0.34 0.035 256);
-  --accent-foreground: oklch(0.95 0.012 244);
-  --destructive: oklch(0.68 0.17 26);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 16%);
-  --ring: oklch(0.7 0.13 252);
-}
-
 @layer base {
   * {
     @apply border-border outline-ring/50;

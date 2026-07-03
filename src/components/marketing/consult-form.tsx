@@ -5,7 +5,7 @@ import { CheckCircle2, ShieldCheck, BadgeCheck, PhoneCall, CalendarCheck, Sparkl
 import { toast } from "sonner";
 import { btn } from "@/lib/ui";
 import { addLead } from "@/lib/demo-store";
-import { providers, insurers } from "@/lib/site";
+import { providers, insurers, practice } from "@/lib/site";
 
 const field =
   "w-full rounded-lg border border-line bg-card px-3.5 py-2.5 text-base text-ink outline-none transition-colors placeholder:text-ink-soft/85 focus:border-teal focus:ring-2 focus:ring-teal/20";
@@ -108,8 +108,14 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
       source: "Website form" as const,
     };
     // Zero-PHI notify. Sends the full routing/triage picture to the office.
+    // Only a genuine delivery failure (network error, 4xx/5xx, or the mailer
+    // reporting "error") should break the "we'll call you" promise; a mailer
+    // that is not yet configured returns delivery:"skipped", which stays a soft
+    // success for the visitor while the owner finishes setup.
+    let ok = false;
+    let serverError = "";
     try {
-      await fetch("/api/lead", {
+      const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({
@@ -125,8 +131,20 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
           company: fd.get("company"),
         }),
       });
+      const data = await res.json().catch(() => null);
+      ok = res.ok && data?.delivery !== "error";
+      if (!ok && data && typeof data.error === "string") serverError = data.error;
     } catch {
-      /* demo: ignore network errors */
+      ok = false;
+    }
+    if (!ok) {
+      setPending(false);
+      const message = serverError
+        ? serverError
+        : `We couldn't send your request just now. Please call us at ${practice.phone} and we'll help right away.`;
+      toast.error(message);
+      setStatusMessage(message);
+      return;
     }
     addLead(payload);
     setDone({ name, phone, service: interest, office });
@@ -203,7 +221,9 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
 
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <div className="flex flex-col gap-1.5 sm:col-span-2">
-            <label htmlFor="name" className={labelCls}>Full name</label>
+            <label htmlFor="name" className={labelCls}>
+              Full name <span className="text-clay" aria-hidden>*</span>
+            </label>
             <input
               id="name"
               name="name"
@@ -212,10 +232,18 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
               autoComplete="name"
               inputMode="text"
               aria-invalid={errors.name}
+              aria-describedby={errors.name ? "name-error" : undefined}
             />
+            {errors.name && (
+              <span id="name-error" className="text-xs text-destructive">
+                Please enter your name.
+              </span>
+            )}
           </div>
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="email" className={labelCls}>Email</label>
+            <label htmlFor="email" className={labelCls}>
+              Email <span className="text-clay" aria-hidden>*</span>
+            </label>
             <input
               id="email"
               name="email"
@@ -225,10 +253,18 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
               autoComplete="email"
               inputMode="email"
               aria-invalid={errors.email}
+              aria-describedby={errors.email ? "email-error" : undefined}
             />
+            {errors.email && (
+              <span id="email-error" className="text-xs text-destructive">
+                Please enter your email.
+              </span>
+            )}
           </div>
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="phone" className={labelCls}>Phone</label>
+            <label htmlFor="phone" className={labelCls}>
+              Phone <span className="text-clay" aria-hidden>*</span>
+            </label>
             <input
               id="phone"
               name="phone"
@@ -238,7 +274,13 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
               autoComplete="tel"
               inputMode="tel"
               aria-invalid={errors.phone}
+              aria-describedby={errors.phone ? "phone-error" : undefined}
             />
+            {errors.phone && (
+              <span id="phone-error" className="text-xs text-destructive">
+                Please enter a phone number.
+              </span>
+            )}
           </div>
           <div className="flex flex-col gap-1.5">
             <label htmlFor="interest" className={labelCls}>I am interested in</label>

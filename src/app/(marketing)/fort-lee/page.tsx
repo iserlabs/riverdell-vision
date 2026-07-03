@@ -34,7 +34,7 @@ export default function FortLeePage() {
         <Container wide className="relative">
           <div className="max-w-2xl py-24 md:py-32">
             <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full bg-bone/10 px-3.5 py-1.5 text-sm font-medium text-brass ring-1 ring-bone/20">
+              <span className="inline-flex items-center gap-2 rounded-full bg-teal-deep/70 px-3.5 py-1.5 text-sm font-medium text-brass ring-1 ring-bone/20">
                 <Sparkles className="size-4" aria-hidden /> {fortLee.status}
               </span>
             </Reveal>

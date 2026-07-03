@@ -77,6 +77,7 @@ export function PortalTour() {
               {TABS.map((t) => (
                 <button
                   key={t.key}
+                  type="button"
                   onClick={() => setTab(t.key)}
                   aria-current={tab === t.key}
                   className={cn(
@@ -98,10 +99,11 @@ export function PortalTour() {
             {TABS.map((t) => (
               <button
                 key={t.key}
+                type="button"
                 onClick={() => setTab(t.key)}
                 aria-current={tab === t.key}
                 className={cn(
-                  "inline-flex min-h-10 shrink-0 items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-medium transition-colors",
+                  "inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-medium transition-colors",
                   tab === t.key ? "bg-teal text-bone" : "bg-bone-deep text-ink-soft",
                 )}
               >
