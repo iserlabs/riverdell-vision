@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { MapPin, ArrowRight, Check } from "lucide-react";
 import { Container, Section, SectionHeading, Eyebrow } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
+import { Breadcrumb } from "@/components/site/breadcrumb";
 import { BookButton, CallButton } from "@/components/site/cta";
 import { ReviewsGrid } from "@/components/site/reviews";
 import { ServiceIcon } from "@/components/site/service-icon";
@@ -57,6 +58,13 @@ export default async function AreaPage({
 
       <section className="bg-bone grain">
         <Container wide className="py-14 md:py-20">
+          <Breadcrumb
+            items={[
+              { name: "Home", href: "/" },
+              { name: "Areas", href: "/areas" },
+              { name: area.h1 },
+            ]}
+          />
           <div className="max-w-3xl">
             <span className="inline-flex items-center gap-2 text-clay">
               <MapPin className="size-4" aria-hidden />

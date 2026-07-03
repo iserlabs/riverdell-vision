@@ -3,6 +3,7 @@ import Image from "next/image";
 import { MapPin, Phone, Clock, Car, Glasses } from "lucide-react";
 import { Container, Section, SectionHeading, Eyebrow } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
+import { Breadcrumb } from "@/components/site/breadcrumb";
 import { BookButton, CallButton } from "@/components/site/cta";
 import { ReviewsGrid } from "@/components/site/reviews";
 import { ServiceIcon } from "@/components/site/service-icon";
@@ -36,6 +37,7 @@ export default function OradellPage() {
       {/* Hero */}
       <section className="bg-bone grain">
         <Container wide className="py-14 md:py-20">
+          <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "Oradell Office" }]} />
           <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div>
               <Eyebrow>Our Oradell office</Eyebrow>

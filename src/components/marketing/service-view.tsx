@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { Container, Section, SectionHeading, Eyebrow } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
+import { Breadcrumb } from "@/components/site/breadcrumb";
 import { BookButton, CallButton } from "@/components/site/cta";
 import { ReassuranceBar } from "@/components/site/reassurance-bar";
 import { ProcessTimeline } from "@/components/site/process-timeline";
@@ -54,11 +55,7 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
       {/* Hero */}
       <section className="relative overflow-hidden bg-bone grain">
         <Container wide className="relative">
-          <nav aria-label="Breadcrumb" className="-mx-2 -my-3 pt-8 text-sm text-ink-soft md:mx-0 md:my-0">
-            <Link href="/" className="inline-flex items-center px-2 py-3 hover:text-teal md:px-0 md:py-0">Home</Link>
-            <span className="px-2 text-clay">/</span>
-            <span className="text-ink">{s.name}</span>
-          </nav>
+          <Breadcrumb items={[{ name: "Home", href: "/" }, { name: s.name }]} />
           <div className="grid items-center gap-14 py-10 md:py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <div>
               <Reveal>

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Baby, Stethoscope, Languages, GraduationCap } from "lucide-react";
 import { Container, Section, SectionHeading, Eyebrow } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
+import { Breadcrumb } from "@/components/site/breadcrumb";
 import { CtaBand } from "@/components/site/cta-band";
 import { DoctorPhoto } from "@/components/site/doctor-photo";
 import { JsonLd } from "@/components/site/json-ld";
@@ -47,6 +48,7 @@ export default function AboutPage() {
       {/* Intro */}
       <section className="bg-bone grain">
         <Container wide className="py-14 md:py-20">
+          <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "About" }]} />
           <div className="max-w-3xl">
             <Eyebrow>The practice</Eyebrow>
             <h1 className="mt-4 font-display text-4xl font-medium leading-[1.06] text-teal md:text-5xl">

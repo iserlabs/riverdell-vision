@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Container, Section, SectionHeading } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
+import { Breadcrumb } from "@/components/site/breadcrumb";
 import { BookButton, CallButton } from "@/components/site/cta";
 import { ReassuranceBar } from "@/components/site/reassurance-bar";
 import { CandidacyCheck } from "@/components/marketing/candidacy-check";
@@ -44,13 +45,13 @@ export function ConditionView({ condition: c }: { condition: Condition }) {
       {/* Hero */}
       <section className="bg-bone grain">
         <Container wide>
-          <nav aria-label="Breadcrumb" className="-mx-2 -my-3 pt-8 text-sm text-ink-soft md:mx-0 md:my-0">
-            <Link href="/" className="inline-flex items-center px-2 py-3 hover:text-teal md:px-0 md:py-0">Home</Link>
-            <span className="px-2 text-clay">/</span>
-            <Link href={`/${c.parentSlug}`} className="inline-flex items-center px-2 py-3 hover:text-teal md:px-0 md:py-0">{c.parentLabel}</Link>
-            <span className="px-2 text-clay">/</span>
-            <span className="text-ink">{c.name}</span>
-          </nav>
+          <Breadcrumb
+            items={[
+              { name: "Home", href: "/" },
+              { name: c.parentLabel, href: `/${c.parentSlug}` },
+              { name: c.name },
+            ]}
+          />
           <div className="max-w-3xl py-10 md:py-14">
             <Reveal>
               <span className="eyebrow text-clay">{c.eyebrow}</span>
