@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Star, ArrowUpRight } from "lucide-react";
+import { Star } from "lucide-react";
 import { Container, Section } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
 import { ReviewsWall } from "@/components/site/reviews-wall";
+import { DualProof } from "@/components/site/reviews";
 import { CtaBand } from "@/components/site/cta-band";
 import { REVIEW_STATS } from "@/lib/reviews";
-import { practice } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Patient Reviews | Oradell, NJ",
@@ -20,28 +20,30 @@ export default function ReviewsPage() {
       <section className="bg-bone grain">
         <Container wide className="py-16 text-center md:py-20">
           <h1 className="eyebrow text-clay">Patient reviews</h1>
-          <div className="mt-5 flex items-center justify-center gap-1">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star key={i} className="size-7 fill-brass text-brass" aria-hidden />
-            ))}
+          <div className="mt-7 flex items-center justify-center gap-4">
+            <p className="font-display text-[4.75rem] font-medium leading-[0.82] text-teal md:text-[6rem]">
+              {REVIEW_STATS.rating.toFixed(1)}
+            </p>
+            <span className="flex flex-col items-start gap-1.5">
+              <span className="flex gap-1" aria-hidden>
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="size-6 fill-brass text-brass" />
+                ))}
+              </span>
+              <span className="font-mono text-xs uppercase tracking-[0.18em] text-ink-soft">
+                {REVIEW_STATS.count}+ reviews
+              </span>
+            </span>
           </div>
-          <p className="mt-4 font-display text-5xl font-medium text-teal">
-            {REVIEW_STATS.rating.toFixed(1)}
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+            Real, unedited words from families across Bergen County, drawn
+            straight from our public Google and Zocdoc profiles.
           </p>
-          <p className="mt-2 text-lg text-ink-soft">
-            across {REVIEW_STATS.count}+ verified reviews on Google and Zocdoc
-          </p>
-          <a
-            href={practice.socials.google}
-            className="mt-6 inline-flex items-center gap-1.5 font-medium text-teal hover:gap-2.5"
-          >
-            Read and leave a review on Google
-            <ArrowUpRight className="size-4" />
-          </a>
+          <DualProof className="mt-8 justify-center" />
         </Container>
       </section>
 
-      <Section>
+      <Section className="pt-10 md:pt-14">
         <Container wide>
           <Reveal>
             <ReviewsWall />

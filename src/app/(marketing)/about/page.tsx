@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Baby, Stethoscope, Languages, GraduationCap } from "lucide-react";
+import { Baby, Stethoscope, Languages, GraduationCap, MapPin } from "lucide-react";
 import { Container, Section, SectionHeading, Eyebrow } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
 import { Breadcrumb } from "@/components/site/breadcrumb";
 import { CtaBand } from "@/components/site/cta-band";
+import { DualProof } from "@/components/site/reviews";
 import { DoctorPhoto } from "@/components/site/doctor-photo";
 import { JsonLd } from "@/components/site/json-ld";
 import { physicianSchema, breadcrumbSchema } from "@/lib/schema";
@@ -47,19 +48,44 @@ export default function AboutPage() {
 
       {/* Intro */}
       <section className="bg-bone grain">
-        <Container wide className="py-14 md:py-20">
+        <Container wide className="pb-14 pt-2 md:pb-20">
           <Breadcrumb items={[{ name: "Home", href: "/" }, { name: "About" }]} />
-          <div className="max-w-3xl">
-            <Eyebrow>The practice</Eyebrow>
-            <h1 className="mt-4 font-display text-4xl font-medium leading-[1.06] text-teal md:text-5xl">
-              A neighborhood practice that takes eye health seriously.
-            </h1>
-            <p className="mt-5 text-lg leading-relaxed text-ink-soft">
-              Riverdell Vision was built on a simple idea: family eye care should
-              feel personal and be practiced like real medicine. We take the time
-              to look carefully, explain clearly, and treat every patient, from a
-              child&apos;s first exam to complex specialty care, like family.
-            </p>
+          <div className="mt-8 grid items-center gap-10 lg:mt-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+            <div>
+              <Eyebrow>The practice</Eyebrow>
+              <h1 className="mt-5 font-display text-4xl font-medium leading-[1.05] text-teal md:text-[3.4rem]">
+                A neighborhood practice that takes eye health seriously.
+              </h1>
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+                Riverdell Vision was built on a simple idea: family eye care
+                should feel personal and be practiced like real medicine. We
+                take the time to look carefully, explain clearly, and treat
+                every patient, from a child&apos;s first exam to complex
+                specialty care, like family.
+              </p>
+              <DualProof className="mt-8 border-t border-line pt-7" />
+            </div>
+            <Reveal className="relative">
+              <figure className="relative">
+                <div className="relative aspect-[5/6] overflow-hidden rounded-[1.6rem] border border-line bg-teal-tint p-2 shadow-[0_40px_90px_-55px_rgba(18,60,70,0.55)]">
+                  <div className="relative h-full w-full overflow-hidden rounded-[1.1rem]">
+                    <Image
+                      src="/images/office-oradell.jpeg"
+                      alt="Inside the Riverdell Vision office on Kinderkamack Road in Oradell, New Jersey"
+                      fill
+                      sizes="(max-width: 1024px) 90vw, 44vw"
+                      className="object-cover object-center"
+                      priority
+                    />
+                  </div>
+                </div>
+                <figcaption className="mt-4 flex items-center gap-2 text-sm text-ink-soft">
+                  <MapPin className="size-4 shrink-0 text-clay" aria-hidden />
+                  The Oradell office · Kinderkamack Road, caring for families since
+                  2016
+                </figcaption>
+              </figure>
+            </Reveal>
           </div>
         </Container>
       </section>
