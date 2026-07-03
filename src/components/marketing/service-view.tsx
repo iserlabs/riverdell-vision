@@ -70,7 +70,7 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
                 </h1>
               </Reveal>
               <Reveal delay={160}>
-                <p className="mt-6 max-w-lg text-lg leading-relaxed text-ink-soft">
+                <p className="mt-6 max-w-[34rem] text-lg leading-[1.55] text-ink-soft">
                   {s.subhead}
                 </p>
               </Reveal>
@@ -131,7 +131,7 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
             <Reveal>
               <SectionHeading eyebrow={s.eyebrow} title="Why this matters" />
-              <p className="mt-6 text-lg leading-relaxed text-ink-soft">{s.problem}</p>
+              <p className="mt-6 max-w-[34rem] text-lg leading-[1.55] text-ink-soft">{s.problem}</p>
             </Reveal>
             <Reveal delay={80}>
               <h3 className="flex items-center gap-2 font-display text-lg font-medium text-teal">
@@ -216,7 +216,7 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
                 <h3 className="mt-1 font-display text-2xl font-medium text-teal">
                   {lead.name}, {lead.credential}
                 </h3>
-                <p className="mt-2 max-w-2xl text-[15px] leading-relaxed text-ink-soft">
+                <p className="mt-2 max-w-2xl text-[15px] leading-[1.6] text-ink-soft">
                   {lead.short}
                 </p>
               </div>

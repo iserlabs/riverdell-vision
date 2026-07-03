@@ -77,7 +77,7 @@ export function ConditionView({ condition: c }: { condition: Condition }) {
               <p className="mt-3 font-display text-xl italic text-clay">{c.aka}</p>
             </Reveal>
             <Reveal delay={200}>
-              <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
+              <p className="mt-6 max-w-[34rem] text-lg leading-[1.55] text-ink-soft">
                 {c.intro}
               </p>
             </Reveal>
@@ -122,7 +122,7 @@ export function ConditionView({ condition: c }: { condition: Condition }) {
           <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
             <Reveal>
               <SectionHeading eyebrow="What it is" title={`Understanding ${c.name.toLowerCase()}`} />
-              <p className="mt-6 text-lg leading-relaxed text-ink-soft">{c.whatItIs}</p>
+              <p className="mt-6 max-w-[34rem] text-lg leading-[1.55] text-ink-soft">{c.whatItIs}</p>
             </Reveal>
             {parent && (
               <Reveal delay={100}>
@@ -135,7 +135,7 @@ export function ConditionView({ condition: c }: { condition: Condition }) {
                     <h3 className="mt-2 font-display text-2xl font-medium text-teal">
                       {c.parentLabel}
                     </h3>
-                    <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">
+                    <p className="mt-3 text-[15px] leading-[1.6] text-ink-soft">
                       {parent.subhead}
                     </p>
                   </div>
@@ -167,7 +167,7 @@ export function ConditionView({ condition: c }: { condition: Condition }) {
           <div className="max-w-3xl">
             <Reveal>
               <SectionHeading eyebrow="How Riverdell Vision helps" title="A clear path to sharper, more comfortable vision." />
-              <p className="mt-6 text-lg leading-relaxed text-ink-soft">{c.howWeHelp}</p>
+              <p className="mt-6 max-w-[34rem] text-lg leading-[1.55] text-ink-soft">{c.howWeHelp}</p>
             </Reveal>
             <Reveal delay={100}>
               <div className="mt-8 flex flex-wrap items-center gap-4">
