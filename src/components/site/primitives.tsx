@@ -41,15 +41,30 @@ export function Section({
   );
 }
 
+// Ruled editorial label: the mono uppercase eyebrow followed (or flanked, when
+// centered) by a hairline rule, so section labels read as indexed markers. The
+// rules are decorative (aria-hidden).
 export function Eyebrow({
   children,
   className,
+  align = "left",
 }: {
   children: React.ReactNode;
   className?: string;
+  align?: "left" | "center";
 }) {
   return (
-    <span className={cn("eyebrow text-clay", className)}>{children}</span>
+    <span
+      className={cn(
+        "flex w-full items-center gap-3.5",
+        align === "center" && "justify-center",
+        className,
+      )}
+    >
+      {align === "center" && <span aria-hidden className="h-px flex-1 bg-line" />}
+      <span className="eyebrow shrink-0 text-clay">{children}</span>
+      <span aria-hidden className="h-px flex-1 bg-line" />
+    </span>
   );
 }
 
@@ -76,14 +91,18 @@ export function SectionHeading({
         className,
       )}
     >
-      {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+      {eyebrow && (
+        <Eyebrow align={align} className="max-w-2xl">
+          {eyebrow}
+        </Eyebrow>
+      )}
       <TitleTag className="max-w-2xl text-balance text-3xl font-medium leading-[1.08] md:text-[2.6rem]">
         {title}
       </TitleTag>
       {lead && (
         <p
           className={cn(
-            "max-w-2xl text-lg leading-relaxed text-ink-soft",
+            "max-w-[34rem] text-lg leading-[1.55] text-ink-soft",
             align === "center" && "mx-auto",
           )}
         >

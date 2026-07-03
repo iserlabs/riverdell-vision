@@ -62,12 +62,12 @@ export default function HomePage() {
               </Reveal>
               <Reveal delay={80}>
                 <h1 className="mt-6 max-w-xl font-display text-[3.1rem] font-medium leading-[1.04] tracking-[-0.01em] text-teal md:text-[4.1rem]">
-                  The eye doctor Bergen County{" "}
-                  <span className="italic text-clay">families trust.</span>
+                  Eye care that&apos;s{" "}
+                  <span className="italic text-clay">actually medicine.</span>
                 </h1>
               </Reveal>
               <Reveal delay={160}>
-                <p className="mt-7 max-w-lg text-lg leading-relaxed text-ink-soft">
+                <p className="mt-7 max-w-[34rem] text-lg leading-[1.55] text-ink-soft">
                   The warmth of a boutique practice with the rigor of real
                   medicine. Physician-led family eye care for every age, in a calm,
                   modern space in the heart of Oradell.
