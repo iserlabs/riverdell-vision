@@ -80,7 +80,7 @@ export default function OverviewPage() {
                     >
                       {lead.name}
                     </Link>
-                    <StageBadge stage={lead.serviceInterest} />
+                    <StageBadge stage={lead.stage} />
                   </div>
                   <p className="mt-0.5 line-clamp-1 text-sm text-ink-soft">{task.label}</p>
                 </div>
