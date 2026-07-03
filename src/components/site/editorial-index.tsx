@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ServiceIcon } from "@/components/site/service-icon";
@@ -20,6 +21,14 @@ type Item = {
 // stagger up on scroll. Reads like a magazine contents page, not a template.
 export function EditorialIndex({ items }: { items: Item[] }) {
   const { ref, inView } = useInView<HTMLUListElement>({ threshold: 0.1 });
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    if (!ref.current) return;
+    setMounted(true);
+  }, [ref]);
+  // Visible by default (SSR + no-JS): only hide once JS has mounted AND the
+  // element is confirmed still off-screen, mirroring reveal.tsx's contract.
+  const hidden = mounted && !inView;
 
   return (
     <ul ref={ref} className="border-t border-line">
@@ -28,8 +37,8 @@ export function EditorialIndex({ items }: { items: Item[] }) {
           key={it.title}
           className="border-b border-line"
           style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(16px)",
+            opacity: hidden ? 0 : 1,
+            transform: hidden ? "translateY(16px)" : "translateY(0)",
             transition:
               "opacity 640ms ease, transform 640ms cubic-bezier(0.22,1,0.36,1)",
             transitionDelay: `${i * 85}ms`,

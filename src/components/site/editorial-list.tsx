@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useInView } from "@/lib/use-in-view";
 
 // Editorial numbered list for non-link content (e.g. "what treatment involves",
@@ -11,6 +12,14 @@ export function EditorialList({
   items: { title: string; body: string; proof?: string }[];
 }) {
   const { ref, inView } = useInView<HTMLOListElement>({ threshold: 0.1 });
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    if (!ref.current) return;
+    setMounted(true);
+  }, [ref]);
+  // Visible by default (SSR + no-JS): only hide once JS has mounted AND the
+  // element is confirmed still off-screen, mirroring reveal.tsx's contract.
+  const hidden = mounted && !inView;
 
   return (
     <ol ref={ref} className="border-t border-line">
@@ -19,8 +28,8 @@ export function EditorialList({
           key={it.title}
           className="border-b border-line"
           style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(14px)",
+            opacity: hidden ? 0 : 1,
+            transform: hidden ? "translateY(14px)" : "translateY(0)",
             transition:
               "opacity 600ms ease, transform 600ms cubic-bezier(0.22,1,0.36,1)",
             transitionDelay: `${i * 90}ms`,

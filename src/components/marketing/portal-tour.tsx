@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   LayoutDashboard,
   CalendarDays,
@@ -472,6 +472,14 @@ function Family() {
 /* ---------- Charts ---------- */
 function MyopiaChart() {
   const { ref, inView } = useInView<SVGSVGElement>({ threshold: 0.3 });
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    if (!ref.current) return;
+    setMounted(true);
+  }, [ref]);
+  // Visible by default (SSR + no-JS): only hide once JS has mounted AND the
+  // element is confirmed still off-screen, mirroring reveal.tsx's contract.
+  const hidden = mounted && !inView;
   const measured = [24.1, 24.28, 24.4, 24.49, 24.55, 24.58];
   const projected = [24.1, 24.4, 24.72, 25.04, 25.36, 25.66];
   const labels = ["Age 8", "", "Age 9", "", "Age 10", ""];
@@ -498,7 +506,7 @@ function MyopiaChart() {
         className="text-ink-soft/40"
         strokeWidth="1.6"
         strokeDasharray="4 3"
-        style={{ opacity: inView ? 1 : 0, transition: "opacity 700ms ease 600ms" }}
+        style={{ opacity: hidden ? 0 : 1, transition: "opacity 700ms ease 600ms" }}
       />
       {/* measured */}
       <polyline
@@ -511,13 +519,13 @@ function MyopiaChart() {
         strokeLinejoin="round"
         style={{
           strokeDasharray: 640,
-          strokeDashoffset: inView ? 0 : 640,
+          strokeDashoffset: hidden ? 640 : 0,
           transition: "stroke-dashoffset 1500ms cubic-bezier(0.22,1,0.36,1)",
         }}
       />
       {measured.map((v, i) => (
         <circle key={i} cx={x(i)} cy={y(v)} r="3" className="fill-teal"
-          style={{ opacity: inView ? 1 : 0, transition: `opacity 300ms ease ${700 + i * 130}ms` }} />
+          style={{ opacity: hidden ? 0 : 1, transition: `opacity 300ms ease ${700 + i * 130}ms` }} />
       ))}
       {labels.map((l, i) => l && (
         <text key={i} x={x(i)} y="146" textAnchor="middle" className="fill-ink-soft" style={{ fontSize: 8, fontFamily: "monospace" }}>{l}</text>
@@ -528,6 +536,14 @@ function MyopiaChart() {
 
 function MiniSpark() {
   const { ref, inView } = useInView<SVGSVGElement>({ threshold: 0.4 });
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    if (!ref.current) return;
+    setMounted(true);
+  }, [ref]);
+  // Visible by default (SSR + no-JS): only hide once JS has mounted AND the
+  // element is confirmed still off-screen, mirroring reveal.tsx's contract.
+  const hidden = mounted && !inView;
   const pts = "0,26 20,20 40,15 60,12 80,10 100,9";
   return (
     <svg ref={ref} viewBox="0 0 100 32" className="mt-3 h-10 w-full" aria-hidden>
@@ -538,7 +554,7 @@ function MiniSpark() {
         className="text-teal"
         strokeWidth="2.4"
         strokeLinecap="round"
-        style={{ strokeDasharray: 160, strokeDashoffset: inView ? 0 : 160, transition: "stroke-dashoffset 1200ms ease" }}
+        style={{ strokeDasharray: 160, strokeDashoffset: hidden ? 160 : 0, transition: "stroke-dashoffset 1200ms ease" }}
       />
     </svg>
   );
