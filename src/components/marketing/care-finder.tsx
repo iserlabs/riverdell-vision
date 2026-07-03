@@ -86,33 +86,54 @@ function recommend(who: Who, concern: Concern): Rec {
   }
 }
 
-function OptionTile({
+function OptionRow({
   icon,
   label,
   sub,
+  selected,
   onClick,
   i,
 }: {
   icon: ServiceIconKey;
   label: string;
   sub: string;
+  selected?: boolean;
   onClick: () => void;
   i: number;
 }) {
   return (
     <button
+      type="button"
       onClick={onClick}
+      aria-pressed={selected}
       style={{ animationDelay: `${i * 55}ms` }}
-      className="group flex animate-in fade-in slide-in-from-bottom-2 items-center gap-4 rounded-2xl border border-line bg-card p-5 text-left transition-all duration-300 hover:-translate-y-0.5 hover:border-clay/50 hover:shadow-[0_18px_40px_-24px_rgba(18,60,70,0.45)] focus-visible:border-teal"
+      className={cn(
+        "group flex min-h-[64px] w-full animate-in fade-in slide-in-from-bottom-2 items-center gap-4 border-b border-line px-1 py-4 text-left transition-colors duration-300 first:pt-1 last:border-b-0 last:pb-1 hover:bg-teal-tint/40 focus-visible:bg-teal-tint/40 focus-visible:outline-none",
+        selected && "bg-teal-tint/60",
+      )}
     >
-      <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-xl bg-teal-tint text-teal transition-colors group-hover:bg-teal group-hover:text-bone">
-        <ServiceIcon name={icon} className="size-6" />
+      <span
+        className={cn(
+          "inline-flex size-11 shrink-0 items-center justify-center rounded-xl bg-teal-tint text-teal transition-colors duration-300",
+          "group-hover:bg-teal group-hover:text-bone",
+          selected && "bg-clay text-bone",
+        )}
+      >
+        <ServiceIcon name={icon} className="size-5" />
       </span>
       <span className="flex-1">
-        <span className="block font-display text-lg font-medium text-teal">{label}</span>
-        <span className="block text-sm text-ink-soft">{sub}</span>
+        <span className="block font-display text-lg font-medium leading-tight text-teal">
+          {label}
+        </span>
+        <span className="mt-0.5 block text-sm text-ink-soft">{sub}</span>
       </span>
-      <ArrowRight className="size-5 text-clay opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" aria-hidden />
+      <ArrowRight
+        className={cn(
+          "size-5 shrink-0 text-clay opacity-0 transition-all duration-300 group-hover:translate-x-0.5 group-hover:opacity-100",
+          selected && "translate-x-0.5 opacity-100",
+        )}
+        aria-hidden
+      />
     </button>
   );
 }
@@ -124,112 +145,124 @@ export function CareFinder() {
   const rec = who && concern ? recommend(who, concern) : null;
 
   return (
-    <div className="mx-auto max-w-2xl rounded-3xl border border-line bg-card p-6 shadow-[0_40px_90px_-50px_rgba(18,60,70,0.5)] md:p-9">
-      {/* progress */}
-      <div className="mb-6 flex items-center justify-between">
-        <div className="flex items-center gap-1.5">
-          {[0, 1, 2].map((s) => (
-            <span
-              key={s}
-              className={cn(
-                "h-1.5 rounded-full transition-all",
-                s <= step ? "w-8 bg-teal" : "w-4 bg-line",
-              )}
-            />
-          ))}
+    <div className="relative mx-auto max-w-2xl overflow-hidden rounded-3xl border border-line bg-card shadow-[0_45px_100px_-55px_rgba(18,60,70,0.55)]">
+      {/* warm top wash, ties to the practice's brass/clay accent */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-brass/10 via-clay/5 to-transparent"
+      />
+      <div className="relative p-6 md:p-9">
+        {/* progress */}
+        <div className="mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-1.5">
+            {[0, 1, 2].map((s) => (
+              <span
+                key={s}
+                className={cn(
+                  "h-1.5 rounded-full transition-all duration-500",
+                  s <= step ? "w-8 bg-teal" : "w-4 bg-line",
+                )}
+              />
+            ))}
+          </div>
+          {step > 0 && (
+            <button
+              type="button"
+              onClick={() => (step === 2 ? setConcern(null) : setWho(null))}
+              className="inline-flex min-h-[44px] items-center gap-1 px-2 text-sm text-ink-soft transition-colors hover:text-teal"
+            >
+              <ArrowLeft className="size-4" /> Back
+            </button>
+          )}
         </div>
-        {step > 0 && (
-          <button
-            onClick={() => (step === 2 ? setConcern(null) : setWho(null))}
-            className="inline-flex items-center gap-1 text-sm text-ink-soft transition-colors hover:text-teal"
+
+        {step === 0 && (
+          <div key="who">
+            <p className="eyebrow text-clay">Step 1</p>
+            <h3 className="mt-2 font-display text-2xl font-medium text-teal">
+              Who needs care?
+            </h3>
+            <div role="group" aria-label="Who needs care?" className="mt-6 border-t border-line">
+              {WHO.map((o, i) => (
+                <OptionRow
+                  key={o.key}
+                  icon={o.icon}
+                  label={o.label}
+                  sub={o.sub}
+                  i={i}
+                  onClick={() => setWho(o.key)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {step === 1 && (
+          <div key="concern">
+            <p className="eyebrow text-clay">Step 2</p>
+            <h3 className="mt-2 font-display text-2xl font-medium text-teal">
+              What is going on?
+            </h3>
+            <div role="group" aria-label="What is going on?" className="mt-6 border-t border-line">
+              {CONCERN.map((o, i) => (
+                <OptionRow
+                  key={o.key}
+                  icon={o.icon}
+                  label={o.label}
+                  sub={o.sub}
+                  i={i}
+                  onClick={() => setConcern(o.key)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {step === 2 && rec && (
+          <div
+            key="result"
+            className="animate-in fade-in slide-in-from-bottom-3 rounded-2xl border border-line bg-gradient-to-b from-teal-tint/50 to-transparent p-6 duration-500 md:p-8"
           >
-            <ArrowLeft className="size-4" /> Back
-          </button>
+            <p className="inline-flex items-center gap-1.5 text-clay">
+              <Sparkles className="size-4" aria-hidden />
+              <span className="eyebrow">Our recommendation</span>
+            </p>
+            <h3 className="mt-3 font-display text-3xl font-medium leading-tight text-teal">
+              {rec.title}
+            </h3>
+            <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">{rec.reason}</p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Link
+                href={`/book?interest=${encodeURIComponent(rec.interest)}`}
+                className={btn({ size: "md" })}
+              >
+                See available times
+              </Link>
+              {rec.slug && (
+                <Link
+                  href={`/${rec.slug}`}
+                  className={btn({ variant: "outline", size: "md" })}
+                >
+                  Learn about {rec.title.split(" ")[0]} care
+                </Link>
+              )}
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                setWho(null);
+                setConcern(null);
+              }}
+              className="mt-6 inline-flex min-h-[44px] items-center gap-1.5 text-sm text-ink-soft transition-colors hover:text-teal"
+            >
+              <RotateCcw className="size-3.5" /> Start over
+            </button>
+            <p className="mt-4 text-xs text-ink-soft">
+              A guide, not a diagnosis. Our doctors confirm the right care at your visit.
+            </p>
+          </div>
         )}
       </div>
-
-      {step === 0 && (
-        <div key="who">
-          <p className="eyebrow text-clay">Step 1</p>
-          <h3 className="mt-2 font-display text-2xl font-medium text-teal">
-            Who needs care?
-          </h3>
-          <div className="mt-6 grid gap-3">
-            {WHO.map((o, i) => (
-              <OptionTile
-                key={o.key}
-                icon={o.icon}
-                label={o.label}
-                sub={o.sub}
-                i={i}
-                onClick={() => setWho(o.key)}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {step === 1 && (
-        <div key="concern">
-          <p className="eyebrow text-clay">Step 2</p>
-          <h3 className="mt-2 font-display text-2xl font-medium text-teal">
-            What is going on?
-          </h3>
-          <div className="mt-6 grid gap-3">
-            {CONCERN.map((o, i) => (
-              <OptionTile
-                key={o.key}
-                icon={o.icon}
-                label={o.label}
-                sub={o.sub}
-                i={i}
-                onClick={() => setConcern(o.key)}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {step === 2 && rec && (
-        <div key="result" className="animate-in fade-in slide-in-from-bottom-3 duration-500">
-          <p className="inline-flex items-center gap-1.5 text-clay">
-            <Sparkles className="size-4" aria-hidden />
-            <span className="eyebrow">Our recommendation</span>
-          </p>
-          <h3 className="mt-3 font-display text-3xl font-medium leading-tight text-teal">
-            {rec.title}
-          </h3>
-          <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">{rec.reason}</p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <Link
-              href={`/book?interest=${encodeURIComponent(rec.interest)}`}
-              className={btn({ size: "md" })}
-            >
-              Request this consult
-            </Link>
-            {rec.slug && (
-              <Link
-                href={`/${rec.slug}`}
-                className={btn({ variant: "outline", size: "md" })}
-              >
-                Learn about {rec.title.split(" ")[0]} care
-              </Link>
-            )}
-          </div>
-          <button
-            onClick={() => {
-              setWho(null);
-              setConcern(null);
-            }}
-            className="mt-6 inline-flex items-center gap-1.5 text-sm text-ink-soft transition-colors hover:text-teal"
-          >
-            <RotateCcw className="size-3.5" /> Start over
-          </button>
-          <p className="mt-4 text-xs text-ink-soft">
-            A guide, not a diagnosis. Our doctors confirm the right care at your visit.
-          </p>
-        </div>
-      )}
     </div>
   );
 }

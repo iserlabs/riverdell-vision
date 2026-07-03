@@ -11,6 +11,7 @@ import { InsuranceRow } from "@/components/site/insurance";
 import { DoctorPhoto } from "@/components/site/doctor-photo";
 import { HeroBooking } from "@/components/marketing/hero-booking";
 import { CareFinder } from "@/components/marketing/care-finder";
+import { StudioPanel } from "@/components/marketing/studio-panel";
 import { RetailVsRiverdell } from "@/components/marketing/retail-vs-riverdell";
 import { ProofLedger } from "@/components/marketing/proof-ledger";
 import { EditorialIndex } from "@/components/site/editorial-index";
@@ -169,17 +170,7 @@ export default function HomePage() {
         <Container wide>
           <div className="grid items-center gap-12 py-20 md:py-28 lg:grid-cols-2 lg:gap-16">
             <Reveal className="relative order-last lg:order-first">
-              <div className="rounded-[1.5rem] border border-line bg-card p-2 shadow-[0_30px_70px_-40px_rgba(18,60,70,0.4)]">
-                <div className="relative aspect-[4/3] overflow-hidden rounded-[1.1rem]">
-                  <Image
-                    src="/images/office-oradell.jpeg"
-                    alt="The warm, light-filled interior of the Riverdell Vision studio in Oradell"
-                    fill
-                    sizes="(max-width: 1024px) 90vw, 45vw"
-                    className="object-cover"
-                  />
-                </div>
-              </div>
+              <StudioPanel />
             </Reveal>
             <div>
               <Reveal>
