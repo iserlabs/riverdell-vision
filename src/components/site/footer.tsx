@@ -160,6 +160,12 @@ export function SiteFooter() {
               Sitemap
             </a>
             <Link
+              href="/growth"
+              className="-my-3.5 flex items-center px-2 py-3.5 hover:text-bone md:mx-0 md:my-0 md:px-0 md:py-0"
+            >
+              Expansion
+            </Link>
+            <Link
               href="/dashboard"
               className="-my-3.5 flex items-center px-2 py-3.5 hover:text-bone md:mx-0 md:my-0 md:px-0 md:py-0"
             >

@@ -37,8 +37,13 @@ Riverdell Vision is a family eye-care practice at 297 Kinderkamack Rd, Suite 200
 
 ## Key pages
 - Home: /
+- Eye care answers (myopia, dry eye, specialty lenses, Ortho-K, cost): /answers
+- Cost, insurance & financing: /cost-and-insurance
 - About and doctors: /about
 - Oradell office: /oradell
 - Fort Lee (coming soon): /fort-lee
 - Reviews: /reviews
 - Areas served: /areas
+
+## Insurance accepted
+Riverdell Vision accepts most major vision and medical plans, including VSP, EyeMed, Spectera, Aetna, Blue Cross Blue Shield, Cigna, Medicare, Meritain Health, and Nippon Life Benefits. Benefits are verified before the visit; flexible financing is available through Cherry. Details: /cost-and-insurance
