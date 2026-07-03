@@ -37,7 +37,7 @@ export default function AboutPage() {
     <>
       <JsonLd
         data={[
-          physicianSchema("dr-mina-han")!,
+          ...providers.map((p) => physicianSchema(p.slug)).filter(Boolean),
           breadcrumbSchema([
             { name: "Home", path: "/" },
             { name: "About", path: "/about" },

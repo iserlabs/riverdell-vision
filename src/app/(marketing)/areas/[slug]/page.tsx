@@ -14,6 +14,7 @@ import { KeepExploring } from "@/components/marketing/keep-exploring";
 import { breadcrumbSchema } from "@/lib/schema";
 import { AREAS, getArea } from "@/lib/areas";
 import { SERVICES, SERVICE_LADDER, getService } from "@/lib/services";
+import { buildOg } from "@/lib/og";
 
 export function generateStaticParams() {
   return AREAS.map((a) => ({ slug: a.slug }));
@@ -32,7 +33,11 @@ export async function generateMetadata({
     description: area.metaDescription,
     keywords: area.keywords,
     alternates: { canonical: `/areas/${area.slug}` },
-    openGraph: { title: area.metaTitle, description: area.metaDescription },
+    openGraph: buildOg({
+      title: area.metaTitle,
+      description: area.metaDescription,
+      path: `/areas/${area.slug}`,
+    }),
   };
 }
 

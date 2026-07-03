@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ServiceView } from "@/components/marketing/service-view";
 import { getService } from "@/lib/services";
+import { buildOg } from "@/lib/og";
 
 const service = getService("medical-eye-care")!;
 
@@ -9,7 +10,11 @@ export const metadata: Metadata = {
   description: service.metaDescription,
   keywords: service.keywords,
   alternates: { canonical: `/${service.slug}` },
-  openGraph: { title: service.metaTitle, description: service.metaDescription },
+  openGraph: buildOg({
+    title: service.metaTitle,
+    description: service.metaDescription,
+    path: `/${service.slug}`,
+  }),
 };
 
 export default function Page() {
