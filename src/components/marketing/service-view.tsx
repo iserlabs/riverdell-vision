@@ -25,7 +25,7 @@ import { ServiceIcon } from "@/components/site/service-icon";
 import { DoctorPhoto } from "@/components/site/doctor-photo";
 import { getService, bookHrefFor, getServiceExtras, type ServiceContent } from "@/lib/services";
 import { providers } from "@/lib/site";
-import { serviceSchema, faqSchema, breadcrumbSchema, definedTermSetSchema } from "@/lib/schema";
+import { serviceSchema, faqSchema, breadcrumbSchema, definedTermSetSchema, medicalWebPageSchema } from "@/lib/schema";
 
 export function ServiceView({ service: s }: { service: ServiceContent }) {
   const related = s.related
@@ -41,6 +41,15 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
       <JsonLd
         data={[
           serviceSchema({ name: s.name, slug: s.slug, description: s.metaDescription }),
+          medicalWebPageSchema({
+            slug: s.slug,
+            name: s.metaTitle,
+            description: s.metaDescription,
+            reviewedBy: s.reviewedBy,
+            dateReviewed: s.dateReviewed,
+            aboutType: "MedicalProcedure",
+            aboutName: s.name,
+          }),
           faqSchema(s.faqs),
           breadcrumbSchema([
             { name: "Home", path: "/" },
