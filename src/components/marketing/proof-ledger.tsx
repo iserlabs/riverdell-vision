@@ -132,7 +132,7 @@ function LedgerCell({ stat, run, i }: { stat: Stat; run: boolean; i: number }) {
               {stat.rating}
             </span>
             {stat.source && (
-              <span className="ml-auto md:ml-2" role="img" aria-label={`on ${stat.source}`}>
+              <span className="ml-2" role="img" aria-label={`on ${stat.source}`}>
                 {stat.source === "Google" ? (
                   <GoogleG className="size-4" />
                 ) : (

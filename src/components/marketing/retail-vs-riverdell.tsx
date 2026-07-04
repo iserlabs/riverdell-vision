@@ -54,9 +54,11 @@ export function RetailVsRiverdell() {
 
           <Reveal delay={100} className="mt-12">
             <div className="overflow-hidden rounded-3xl border border-line bg-card">
-              {/* Column headers */}
-              <div className="grid grid-cols-1 border-b border-line md:grid-cols-[1.1fr_1fr_1fr]">
-                <div className="hidden px-6 py-5 md:block" />
+              {/* Column headers: only meaningful in the 3-column desktop layout.
+                  On mobile the rows carry their own per-side labels instead, so
+                  the stacked headers (and the heavy solid-teal bar) are hidden. */}
+              <div className="hidden border-b border-line md:grid md:grid-cols-[1.1fr_1fr_1fr]">
+                <div className="px-6 py-5" />
                 <div className="px-6 py-5 text-center">
                   <p className="eyebrow text-ink-soft">A typical retail optical</p>
                 </div>
@@ -77,13 +79,23 @@ export function RetailVsRiverdell() {
                     <dt className="px-6 pt-5 pb-2 font-display text-lg font-medium text-teal md:py-5 md:text-base">
                       {r.label}
                     </dt>
-                    <dd className="flex items-start gap-2.5 px-6 pb-3 text-[15px] text-ink-soft md:py-5">
-                      <Minus className="mt-1 size-4 shrink-0 text-ink-soft/50" aria-hidden />
-                      {r.retail}
+                    <dd className="px-6 pb-3 text-[15px] text-ink-soft md:py-5">
+                      <span className="eyebrow mb-2 block text-ink-soft md:hidden">
+                        A typical retail optical
+                      </span>
+                      <span className="flex items-start gap-2.5">
+                        <Minus className="mt-1 size-4 shrink-0 text-ink-soft/50" aria-hidden />
+                        <span>{r.retail}</span>
+                      </span>
                     </dd>
-                    <dd className="flex items-start gap-2.5 bg-teal-tint/50 px-6 pb-5 text-[15px] font-medium text-ink md:my-0 md:mx-3 md:py-5">
-                      <Check className="mt-0.5 size-4 shrink-0 text-teal" aria-hidden />
-                      {r.riverdell}
+                    <dd className="bg-teal-tint/50 px-6 pb-5 text-[15px] font-medium text-ink md:mx-3 md:py-5">
+                      <span className="eyebrow mb-2 block text-teal md:hidden">
+                        Riverdell Vision
+                      </span>
+                      <span className="flex items-start gap-2.5">
+                        <Check className="mt-0.5 size-4 shrink-0 text-teal" aria-hidden />
+                        <span>{r.riverdell}</span>
+                      </span>
                     </dd>
                   </div>
                 ))}

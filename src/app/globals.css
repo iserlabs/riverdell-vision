@@ -94,7 +94,7 @@
   --foreground: var(--ink);
   --card: oklch(0.995 0.004 244);      /* cool white */
   --card-foreground: var(--ink);
-  --popover: oklch(0.99 0.006 82);
+  --popover: oklch(0.99 0.006 244);    /* cool near-white, matches the site (was a warm hue-82 shadcn default that made the mobile nav sheet read cream) */
   --popover-foreground: var(--ink);
   --primary: var(--teal);
   --primary-foreground: oklch(0.98 0.006 244);
