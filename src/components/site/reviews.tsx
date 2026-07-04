@@ -103,8 +103,14 @@ export function ReviewCard({
 }
 
 // Static grid, used where a fixed small set is shown (locations, area pages).
-export function ReviewsGrid({ limit = 6 }: { limit?: number }) {
-  const items = REVIEWS.slice(0, limit);
+export function ReviewsGrid({
+  limit = 6,
+  reviews,
+}: {
+  limit?: number;
+  reviews?: Review[];
+}) {
+  const items = (reviews ?? REVIEWS).slice(0, limit);
   return (
     <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((r, i) => (

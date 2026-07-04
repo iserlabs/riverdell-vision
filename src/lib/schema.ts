@@ -209,3 +209,24 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
     })),
   };
 }
+
+// Per-page local schema for the /areas landing pages: a town-scoped Service
+// provided by the practice, so each local page carries an entity that ties the
+// service to the town and back to the LocalBusiness graph (closes the gap where
+// area pages previously shipped breadcrumb-only markup).
+export function localAreaSchema(input: {
+  town: string;
+  slug: string;
+  serviceName: string;
+  serviceSlug: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: `${input.serviceName} in ${input.town}, NJ`,
+    url: `${SITE_URL}/areas/${input.slug}`,
+    serviceType: input.serviceName,
+    provider: { "@id": ORG_ID },
+    areaServed: { "@type": "City", name: input.town },
+  };
+}
