@@ -62,6 +62,9 @@ export function localBusinessSchema() {
       })),
     sameAs: Object.values(practice.socials),
     medicalSpecialty: "Optometric",
+    // Languages spoken across the care team (Dr. Han sees patients in Korean),
+    // a real local signal for Bergen County's Korean community.
+    knowsLanguage: [...new Set(providers.flatMap((p) => p.languages))],
     employee: providers.map((p) => ({
       "@type": "Physician",
       "@id": `${SITE_URL}/about#${p.slug}`,
