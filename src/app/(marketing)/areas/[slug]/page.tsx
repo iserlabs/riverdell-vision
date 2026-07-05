@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MapPin, ArrowRight } from "lucide-react";
+import { MapPin, Navigation, ArrowRight } from "lucide-react";
 import { Container, Section, SectionHeading } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
 import { Breadcrumb } from "@/components/site/breadcrumb";
 import { BookButton, CallButton } from "@/components/site/cta";
 import { ReviewsGrid } from "@/components/site/reviews";
+import { reviewsForSlug } from "@/lib/reviews";
 import { ServiceIcon } from "@/components/site/service-icon";
 import { CtaBand } from "@/components/site/cta-band";
 import { JsonLd } from "@/components/site/json-ld";
 import { KeepExploring } from "@/components/marketing/keep-exploring";
-import { breadcrumbSchema } from "@/lib/schema";
+import { breadcrumbSchema, localAreaSchema } from "@/lib/schema";
 import { AREAS, getArea } from "@/lib/areas";
 import { SERVICES, SERVICE_LADDER, getService } from "@/lib/services";
 import { buildOg } from "@/lib/og";
@@ -52,6 +53,17 @@ export default async function AreaPage({
 
   const service = area.serviceSlug ? getService(area.serviceSlug) : undefined;
 
+  // Primary service drives the per-page local schema. For service+town pages it
+  // is the page's service; for town pages it is the town's leadService emphasis.
+  const primaryServiceSlug = area.serviceSlug ?? area.leadService;
+  const primaryService = primaryServiceSlug ? getService(primaryServiceSlug) : undefined;
+
+  // Service+town pages show reviews matched to that service (honest, relevant),
+  // never labeled as being from the town. Town pages keep the general set.
+  const serviceReviews = area.serviceSlug
+    ? reviewsForSlug(area.reviewService ?? area.serviceSlug)
+    : undefined;
+
   // Keep-exploring links: the top flagship services (real data from
   // src/lib/services.ts) plus the Oradell studio page, so a town-page visitor
   // always has a next step regardless of which area they landed on.
@@ -63,11 +75,23 @@ export default async function AreaPage({
   return (
     <>
       <JsonLd
-        data={breadcrumbSchema([
-          { name: "Home", path: "/" },
-          { name: "Areas", path: "/areas" },
-          { name: area.h1, path: `/areas/${area.slug}` },
-        ])}
+        data={[
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "Areas", path: "/areas" },
+            { name: area.h1, path: `/areas/${area.slug}` },
+          ]),
+          ...(primaryService
+            ? [
+                localAreaSchema({
+                  town: area.town,
+                  slug: area.slug,
+                  serviceName: primaryService.name,
+                  serviceSlug: primaryService.slug,
+                }),
+              ]
+            : []),
+        ]}
       />
 
       <section className="bg-bone grain">
@@ -109,6 +133,22 @@ export default async function AreaPage({
                 <MapPin className="mt-0.5 size-4 shrink-0 text-teal" aria-hidden />
                 {area.distance}
               </div>
+              {area.route && (
+                <div className="mt-3 flex items-start gap-2.5 rounded-xl border border-line bg-bone-deep p-4 text-sm text-ink-soft">
+                  <Navigation className="mt-0.5 size-4 shrink-0 text-teal" aria-hidden />
+                  <span>
+                    {area.route}
+                    {area.landmarks?.length
+                      ? ` Near ${area.landmarks.join(", ")}.`
+                      : ""}
+                  </span>
+                </div>
+              )}
+              {area.ownerNote && (
+                <blockquote className="mt-6 border-l-2 border-teal pl-4 text-[15px] italic leading-relaxed text-ink-soft">
+                  {area.ownerNote}
+                </blockquote>
+              )}
               {service && (
                 <Link
                   href={`/${service.slug}`}
@@ -149,7 +189,10 @@ export default async function AreaPage({
               <SectionHeading eyebrow="Trusted locally" title="A 5.0 rating from Bergen County families." />
             </Reveal>
             <div className="mt-10">
-              <ReviewsGrid limit={3} />
+              <ReviewsGrid
+                limit={3}
+                reviews={serviceReviews && serviceReviews.length ? serviceReviews : undefined}
+              />
             </div>
           </Section>
         </Container>

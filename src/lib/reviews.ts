@@ -2,9 +2,18 @@
 // Profile (5.0 across 448 reviews) and Zocdoc (4.91 across 396 reviews). Names
 // are as publicly posted by the reviewers; Zocdoc entries whose initials are
 // hidden are attributed to "Zocdoc patient". Text is quoted verbatim; only
-// obvious truncation is trimmed to a complete sentence and obvious typos left
-// as-is. Do not paraphrase or invent. Each review is tagged with the canonical
-// service(s) it references so service pages can pull their own matching reviews.
+// obvious truncation is trimmed to a complete sentence, stray spacing around
+// punctuation is normalized, and obvious word-level typos are left as-is. Do not
+// paraphrase or invent. Rating-only Zocdoc entries (a star with no written
+// words) are not listed here because a card has nothing to quote; the headline
+// counts above already reflect the full review volume. Each review is tagged
+// with the canonical service(s) it references so service pages can pull their
+// own matching reviews.
+//
+// Reviews are authored below in two source-grouped arrays for clarity of
+// provenance, then combined into the exported REVIEWS via interleaveBySource so
+// any top slice (homepage proof, service grids, schema, the wall's first cards)
+// shows a balanced 50/50 Google/Zocdoc mix when possible.
 
 export type ServiceId =
   | "myopia"
@@ -40,8 +49,7 @@ export type Review = {
   quote: string;
 };
 
-export const REVIEWS: Review[] = [
-  // --- Google ---
+const GOOGLE_REVIEWS: Review[] = [
   {
     name: "Katherine Rodriguez",
     source: "Google",
@@ -217,8 +225,10 @@ export const REVIEWS: Review[] = [
     services: ["comprehensive"],
     quote: `Professional staff and beautiful office, with up to date technology. Dr. Meyer is thorough and has a great bedside manner.`,
   },
+];
 
-  // --- Zocdoc ---
+const ZOCDOC_REVIEWS: Review[] = [
+  // Substantive, multi-detail reviews lead so curated top slices stay strong.
   {
     name: "Matthew H.",
     source: "Zocdoc",
@@ -311,13 +321,423 @@ export const REVIEWS: Review[] = [
     quote: `Most friendly doctor i've ever had. Opens floors for questions, explains what she's doing and why, helps with reception, etc. Probably best doctor of any field i've had`,
   },
   {
-    name: "Anna M2",
+    name: "Anna S.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["pediatric-family", "comprehensive"],
+    quote: `Wonderful experience seeing Dr. Han by my entire family! No complaints!`,
+  },
+  {
+    name: "Brian C.",
     source: "Zocdoc",
     rating: 5,
     services: ["comprehensive"],
-    quote: `Wonderful experience seeing Dr. Han by my entire family! No complaints!`,
+    quote: `I usually feel nervous when I go to the doctor for a checkup but Dr. Han and team made the visit seem pleasant and smooth. Dr. Han has a friendly and professional approach on the entire visit. She was informative and helpful.`,
+  },
+  {
+    name: "Jessica L.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["specialty-lenses", "comprehensive"],
+    quote: `Dr. Mina Pi Han is very thorough and makes sure that your prescription for glasses and contacts is just right. More importantly, she really cares about her patients and is very warm and friendly. She takes time to answer any questions and helps you feel comfortable.`,
+  },
+  {
+    name: "Klaudia K.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Dr. Han is so patient and personable. I know that she truly cares about me as a patient and does everything to make me comfortable even if it takes more time or effort from her. Best experience I've had with an optometrist.`,
+  },
+  {
+    name: "Jordan F.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["pediatric-family", "comprehensive"],
+    quote: `Dr. Han and her staff were terrific! They were super-nice, thoughtful, and very thorough in explaining everything throughout the appointment. I appreciate how personable Dr. Han was, and she made me feel very comfortable. I look forward to continuing using their office and have already referred my family members to them.`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `I booked my appointment on Zocdocs, with very short notice. There was an opening at the time I needed and that was what I booked. When I arrived, they were aware of my booking and I was seen immediately. I barely sat down. The doctor was very professional, very conversational, and such a pleasure to see. You can tell she loves what she does and has a passion for her profession.`,
+  },
+  {
+    name: "Vijay L.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["specialty-lenses", "comprehensive"],
+    quote: `Very helpful and knowledgeable. Wanted to make sure that I would use the glasses and adjusted the prescription accordingly. Definitely above and beyond.`,
+  },
+  {
+    name: "Julia M.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Dr Han is so great! been going to her and Dr Meyer at River Dell Optometry for years and they're both amazing`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Amazing Staff and Doctor! I have been looking for a new Eye Doctor for the longest time, and Dr. Mina Han and her staff were the absolute best! I look forward to all of my future appointments!`,
+  },
+  {
+    name: "Carolyn O.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Loved my visit with Dr Han! Dr Han and her staff were very friend, efficient and the exam was very thorough. I would highly recommend her to my friends and family.`,
+  },
+  {
+    name: "Elizabeth Jennifer S.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `I followed Dr. Han from a previous location. She's a fantastic doctor and I will continue seeing her.`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Dr. Han is the best! She listens to your concerns and gives helpful advice and directions. The office is very clean and the staffs are attentive and ready for assistance.`,
+  },
+  {
+    name: "Allison A.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `I really loved doctor Han and the ladies helping at the front desk. So glad i chose them for my first eye exam ever.`,
+  },
+  {
+    name: "Justin S.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Dr Han was knowledgeable and very nice. The office was clean and I was seen at my appointment time.`,
+  },
+  {
+    name: "Thomas S.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Dr. Han and her staff were wonderful! It was my first time there and I intend on going back for my annual eye exams.`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `got a thorough eye exam, Dr. Han answered all my questions and made clear the options for next steps`,
+  },
+  {
+    name: "Elaine P.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `She was very thorough and explained everything as we went along. The office staff were also pleasant and professional.`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["specialty-lenses"],
+    quote: `The best doc I have ever seen so far. Very informative and she found out that I was miss prescribed for my contacts previously.`,
+  },
+  {
+    name: "Bhakti P.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `First time going and everything was great! Staff was very friendly and Dr. Han was very through and knowledgeable.`,
+  },
+  {
+    name: "Armel F.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Convenient. Efficient and easy booking. Very clean and new office. Very friendly staff.`,
+  },
+  {
+    name: "Anthony T.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Great doctor and highly recommend! Best eye exam of my life!`,
+  },
+  {
+    name: "Nadeem M.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Dr. Han and her staff were great. Everyone was courteous and very professional.`,
+  },
+  {
+    name: "Katyia G.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Dr.Han & her staff are very friendly & professional. I'm happy to have her as my doctor.`,
+  },
+  {
+    name: "Anthony P.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Great staff, clean office and Dr. Min was a pleasure to work with.`,
+  },
+  {
+    name: "Griselda T.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `My first time , I love my time there , wonderful team, i really like Dr.Mina , very professional and friendly, I definitely will recommend her.`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["pediatric-family"],
+    quote: `Always a great experience with Dr. Han and the whole office staff. Our entire family goes to this office!`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["medical"],
+    quote: `Great bedside manner from the doctor and the staffs were incredibly friendly! It was an emergency appointment made over the weekend and the doctor and the staffs immediately accommodated me even though they couldn't find my booking. Highly recommend this office!`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `The office staff was warm, friendly and super efficient. Dr. Han was wonderful. She is a great communicator and took the time to explain things to me, every step of the way. Highly recommend her!`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Extremely knowledgeable and very comprehensive exam. Willing to answer any pertinent questions when asked. I would strongly recommend Dr. Han and her team!`,
+  },
+  {
+    name: "Wusuk K.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Dr. Han's accurate and prompt examination and judgment stood out.`,
+  },
+  {
+    name: "George L.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Dr. Han is very nice and takes her time to explain so that everything is understood.`,
+  },
+  {
+    name: "Andrew L.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Great office and great doctor. Will go back for sure`,
+  },
+  {
+    name: "Nancy M.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Very professional, thorough, courteous, and knowledgeable`,
+  },
+  {
+    name: "Lianna N.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Great bedside manner and cleanly office! Highly recommend`,
+  },
+  {
+    name: "Arthur F.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `it was my first time there and they treated very good. very friendly as well.`,
+  },
+  {
+    name: "Göktug A.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `She was very nice, caring and informative.`,
+  },
+  {
+    name: "Ayman T.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Was very satisfied with the office visit since arrived through the end of the visit.`,
+  },
+  {
+    name: "Thomas L.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Very friendly and knowledgeable.`,
+  },
+  {
+    name: "Salman M.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Knowledgeable and very professional`,
+  },
+  {
+    name: "Kara C.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Extremely pleasant experience overall.`,
+  },
+  {
+    name: "Andrew V.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Fantastic experience. Will recommend!`,
+  },
+  {
+    name: "Tara G.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Great experience, highly recommend!`,
+  },
+  {
+    name: "Frank P.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Very friendly Dr. And staff.`,
+  },
+  {
+    name: "Eun S.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Excellent medical equipment onsite`,
+  },
+  {
+    name: "Jaime C.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `She is really nice and patient with you`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Entire staff was very helpful and friendly. Was seen right away.`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Nice doctor, nice office and staff.`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `She was amazing and personable`,
+  },
+  {
+    name: "Thomas S.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `She's great!`,
+  },
+  {
+    name: "Michael H.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Loved it!`,
+  },
+  {
+    name: "Yujia J.",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Very good`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Amazing place!`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Awesome, Dr. Han`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Dr. Han was great!!!`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `flawless visit would highly recommend the practice.`,
+  },
+  {
+    name: "Zocdoc patient",
+    source: "Zocdoc",
+    rating: 5,
+    services: ["comprehensive"],
+    quote: `Wonderful staff, extremely thorough and professional staff!!`,
   },
 ];
+
+/**
+ * Interleave reviews 1:1 by source (Google, Zocdoc, Google, Zocdoc, ...) so any
+ * top slice shows a balanced mix; once the shorter source runs out, the rest of
+ * the longer source trails. Order within each source is preserved. Google leads
+ * because it is the practice's primary proof surface (5.0 / 448).
+ */
+export function interleaveBySource(reviews: Review[]): Review[] {
+  const google = reviews.filter((r) => r.source === "Google");
+  const zocdoc = reviews.filter((r) => r.source === "Zocdoc");
+  const out: Review[] = [];
+  const max = Math.max(google.length, zocdoc.length);
+  for (let i = 0; i < max; i++) {
+    if (i < google.length) out.push(google[i]);
+    if (i < zocdoc.length) out.push(zocdoc[i]);
+  }
+  return out;
+}
+
+// The exported, display-ready set: every real review, interleaved so any slice
+// is a balanced 50/50 Google/Zocdoc mix when possible.
+export const REVIEWS: Review[] = interleaveBySource([
+  ...GOOGLE_REVIEWS,
+  ...ZOCDOC_REVIEWS,
+]);
 
 // Headline proof numbers, sourced from the live public profiles.
 export const REVIEW_STATS = {

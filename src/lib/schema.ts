@@ -62,6 +62,9 @@ export function localBusinessSchema() {
       })),
     sameAs: Object.values(practice.socials),
     medicalSpecialty: "Optometric",
+    // Languages spoken across the care team (Dr. Han sees patients in Korean),
+    // a real local signal for Bergen County's Korean community.
+    knowsLanguage: [...new Set(providers.flatMap((p) => p.languages))],
     employee: providers.map((p) => ({
       "@type": "Physician",
       "@id": `${SITE_URL}/about#${p.slug}`,
@@ -123,6 +126,13 @@ export function physicianSchema(slug: string) {
     image: `${SITE_URL}${p.photo}`,
     medicalSpecialty: "Optometric",
     knowsLanguage: p.languages,
+    knowsAbout: p.focus,
+    description: p.short,
+    hasCredential: {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "degree",
+      name: p.credential,
+    },
     worksFor: { "@id": ORG_ID },
     memberOf: { "@id": ORG_ID },
   };
@@ -207,5 +217,89 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
       name: it.name,
       item: `${SITE_URL}${it.path}`,
     })),
+  };
+}
+
+// Per-page local schema for the /areas landing pages: a town-scoped Service
+// provided by the practice, so each local page carries an entity that ties the
+// service to the town and back to the LocalBusiness graph (closes the gap where
+// area pages previously shipped breadcrumb-only markup).
+export function localAreaSchema(input: {
+  town: string;
+  slug: string;
+  serviceName: string;
+  serviceSlug: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: `${input.serviceName} in ${input.town}, NJ`,
+    url: `${SITE_URL}/areas/${input.slug}`,
+    serviceType: input.serviceName,
+    provider: { "@id": ORG_ID },
+    areaServed: { "@type": "City", name: input.town },
+  };
+}
+
+const MONTHS: Record<string, string> = {
+  january: "01", february: "02", march: "03", april: "04",
+  may: "05", june: "06", july: "07", august: "08",
+  september: "09", october: "10", november: "11", december: "12",
+};
+
+// "June 2026" -> "2026-06". Year-month is valid ISO 8601, so we never fabricate
+// a day the owner did not state. Returns undefined if the string is not a
+// recognizable "Month YYYY".
+export function lastReviewedISO(dateReviewed: string): string | undefined {
+  const m = dateReviewed.trim().toLowerCase().match(/^([a-z]+)\s+(\d{4})$/);
+  const mm = m ? MONTHS[m[1]] : undefined;
+  return mm ? `${m![2]}-${mm}` : undefined;
+}
+
+// Resolves a "Dr. Name, CRED" byline to the credentialed physician entity behind
+// it, matching the @id the /about page publishes so linked data merges.
+function reviewerNode(reviewedBy: string) {
+  const p = providers.find((x) => reviewedBy.startsWith(x.name));
+  if (!p) return undefined;
+  return {
+    "@type": "Physician",
+    "@id": `${SITE_URL}/about#${p.slug}`,
+    name: `${p.name}, ${p.credential}`,
+    jobTitle: p.role,
+    hasCredential: {
+      "@type": "EducationalOccupationalCredential",
+      credentialCategory: "degree",
+      name: p.credential,
+    },
+  };
+}
+
+// MedicalWebPage wrapper for a clinician-reviewed service or condition page. Ties
+// the visible "Reviewed by ..." byline to a structured, credentialed reviewer and
+// a last-reviewed date: the E-E-A-T signal Google weights for medical (YMYL)
+// pages and that AI answer engines use to trust a source.
+export function medicalWebPageSchema(input: {
+  slug: string;
+  name: string;
+  description: string;
+  reviewedBy: string;
+  dateReviewed: string;
+  aboutType: "MedicalProcedure" | "MedicalCondition";
+  aboutName: string;
+}) {
+  const reviewer = reviewerNode(input.reviewedBy);
+  const iso = lastReviewedISO(input.dateReviewed);
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "@id": `${SITE_URL}/${input.slug}#webpage`,
+    url: `${SITE_URL}/${input.slug}`,
+    name: input.name,
+    description: input.description,
+    about: { "@type": input.aboutType, name: input.aboutName },
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    publisher: { "@id": ORG_ID },
+    ...(iso ? { lastReviewed: iso } : {}),
+    ...(reviewer ? { reviewedBy: reviewer } : {}),
   };
 }

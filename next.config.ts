@@ -10,7 +10,13 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     // /focus was a removed demo spike; redirect any old links instead of 404ing.
-    return [{ source: "/focus", destination: "/", permanent: true }];
+    // legacyRedirects: the old Roya .html URLs. Explicit .ts extension is required
+    // by Next 16's Node ESM resolver, same as the headers() import below.
+    const { legacyRedirects } = await import("./src/lib/redirects.ts");
+    return [
+      { source: "/focus", destination: "/", permanent: true },
+      ...legacyRedirects,
+    ];
   },
   async headers() {
     // Explicit .ts extension: Next 16's native Node.js TypeScript resolver for

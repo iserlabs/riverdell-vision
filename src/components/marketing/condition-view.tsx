@@ -14,6 +14,7 @@ import { KeepExploring } from "@/components/marketing/keep-exploring";
 import { getService } from "@/lib/services";
 import {
   medicalConditionSchema,
+  medicalWebPageSchema,
   faqSchema,
   breadcrumbSchema,
 } from "@/lib/schema";
@@ -44,6 +45,15 @@ export function ConditionView({ condition: c }: { condition: Condition }) {
             description: c.metaDescription,
             parentSlug: c.parentSlug,
             parentName: c.parentLabel,
+          }),
+          medicalWebPageSchema({
+            slug: c.slug,
+            name: c.metaTitle,
+            description: c.metaDescription,
+            reviewedBy: c.reviewedBy,
+            dateReviewed: c.dateReviewed,
+            aboutType: "MedicalCondition",
+            aboutName: c.name,
           }),
           faqSchema(c.faqs),
           breadcrumbSchema([
