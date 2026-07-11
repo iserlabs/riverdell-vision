@@ -2,7 +2,7 @@
 
 | | |
 |---|---|
-| Status | Findings report v2 |
+| Status | Findings report v3 |
 | Date | 2026-07-11 (research verified 2026-07-10) |
 | Author | Kevin (IserLabs), technical/infrastructure lead |
 | Responds to | `docs/riverdell-vision-platform-prd.md` (draft v1), esp. §13 |
@@ -13,12 +13,12 @@
 
 ## BLUF (bottom line up front)
 
-- **Do not vibe-code a HIPAA system. Do not hand-build the regulated commodity either.** The defensible shape: the practice **buys** the PHI-heavy commodity features from its own EHR vendor's ecosystem (recall = Eyefinity EPN at **$99/mo [listed]**, plus scheduler/messaging/reorders), and IserLabs **builds only the low-PHI differentiators** — pipelines/SLA, attribution, owner reporting — under a full compliance program (Option B, §8).
+- **Recommendation: IserLabs does not touch PHI at all (Option A, §8).** The practice **buys** the regulated features from its own EHR vendor's ecosystem — recall = Eyefinity EPN at **$99/mo [listed]**, plus scheduler, two-way messaging, and contact-lens reorders (~$4–7k/yr, each vendor carrying HIPAA as the practice's business associate) — and IserLabs stays entirely on the zero-PHI plane it has already built: the site, findability, and the data room. No BAA, no business-associate status, none of the reviews, audits, or regulatory machinery documented below.
 - **Infrastructure is cheap; the program is not.** A fully BAA-covered stack runs **$3–8k/yr** (Vercel now sells a $350/mo self-serve HIPAA BAA on Pro — the PRD's "no PHI on Vercel" is outdated). The permanent costs are the compliance programs: **~$8–21k/yr for IserLabs as a Business Associate** + **~$5–15k/yr for the practice**. Building the PRD as written ≈ **$41k/yr** typical system run-rate; the hybrid ≈ **$20–29k/yr** IserLabs-side; buying everything ≈ **$4–7k/yr** practice-side with zero IserLabs liability.
-- **The compliance runway to a lawful PHI go-live is ~8–12 weeks**, mostly parallel with build (§6): practice BAA ~$850 legal + 2–6 weeks; cloud BAAs are same-day click-throughs; SRA + advisor review; insurance bound; pen test before launch. No certification (SOC 2/HITRUST) is required — documented HIPAA compliance is the standard.
+- **What a custom PHI build would demand — documented so the decision is informed, and avoided entirely under Option A:** ~8–12 weeks of compliance runway (§6: practice BAA, SRA + advisor review, insurance, pre-launch pen test), then the recurring program above for as long as the system runs. For the record: no certification (SOC 2/HITRUST) is legally required on any path.
 - **The risk evidence is specific, not vibes:** AI-generated code fails security tests ~45% of the time (flat 2021→2026), worst exactly where patient platforms breach (authorization, secrets, telemetry); OCR is settling with small business associates for **$75k–$228k plus 2-year monitored CAPs**, always citing a missing risk analysis; NJ is a second regulator; TCPA is uncapped at **$500–1,500 per text**; a 10k-record breach models at **$100k–$750k**.
 - **Whatever the path, do the no-regret moves now (§2)** — ship the zero-PHI phases, fix the analytics/privacy-copy inconsistency on the live site, file the free Eyefinity API request, and price EPN.
-- **Recommendation: Option B.** It captures most of the PRD's value at a fraction of its risk surface, and converts "can a two-person shop operate a HIPAA system?" from a bet into a staged experiment with a small blast radius.
+- **If custom PHI work is ever reconsidered, Option B is the only defensible shape** — buy the commodity, build only the low-PHI pipeline layer under the §5.4 discipline. It is documented as the fallback, not the plan: the differentiators it would add (pipelines/SLA, attribution, consolidated reporting) do not justify becoming a business associate and carrying its permanent overhead.
 
 ### Headline figures
 
@@ -40,10 +40,10 @@ The PRD proposes a demand-to-booked-care platform wrapping the practice's EHR (E
 
 1. **Ship Phases 1–2.** Zero PHI, mostly built. Replacing Roya frees ~$500/mo (~$6k/yr) of existing spend — roughly the cost of the entire bought-SaaS stack in §4.
 2. **Fix the live-site analytics inconsistency.** `<Analytics />` is mounted in the root layout (`src/app/layout.tsx:86`), so Vercel Analytics runs on `/book` and `/portal` — while the privacy page (`/privacy`) promises "no advertising or analytics trackers on appointment, intake, or patient-facing pages." Post-*AHA v. HHS*, unauthenticated pages are reduced federal-HIPAA risk, but a published promise the site itself breaks is FTC §5 / NJ Consumer Fraud Act exposure and plaintiff-bar fodder. Either route-scope analytics off `/book`, `/portal` (and `/dashboard`), or soften the privacy copy to "cookieless, privacy-conscious aggregate analytics; no advertising trackers." One-line fix; do it before launch.
-3. **File the Eyefinity third-party FHIR Connection Request** (free; verification ~10 business days per [Eyefinity's published process](https://help.eyefinity.com/regulatory/infoblocking/api/index.htm)) and ask in writing about SMART patient-launch behavior, appointment/axial-length resource coverage, and Certified Partner terms. These are the portal's gating facts and cost nothing to learn now (PRD §11.3 already lists them — endorsed).
+3. **File the Eyefinity third-party FHIR Connection Request** (free; verification ~10 business days per [Eyefinity's published process](https://help.eyefinity.com/regulatory/infoblocking/api/index.htm)) and ask in writing about SMART patient-launch behavior, appointment/axial-length resource coverage, and Certified Partner terms. Optional under Option A — but free, and keeps the portal question answerable if it ever resurfaces (PRD §11.3 already lists these).
 4. **Have the practice price Eyefinity's engagement add-ons**: EPN ($99/mo **[listed]**, 2-months-free promo through 2026-12-31), Integrated Online Scheduler, Online Forms, PatientNavigator, EncompassMessage *[quote]*. This is the cheapest possible recall/reminder win and requires no IserLabs involvement.
-5. **Draft the BAA now** (~$850 attorney pass on the HHS model, §6) if any PHI path is contemplated — it is the long pole and the document that allocates breach costs.
-6. **Get cyber/E&O insurance quotes early.** Underwriting questionnaires shape the control set; per *Travelers v. ICS*, the answers must match reality or the policy is void.
+5. **Only if a PHI path (B/C) were ever chosen:** draft the BAA (~$850 attorney pass on the HHS model, §6) — the long pole, and the document that allocates breach costs. Under the recommended Option A, no BAA is needed.
+6. **Only if a PHI path were ever chosen:** get cyber/E&O insurance quotes early — underwriting questionnaires shape the control set, and per *Travelers v. ICS* the answers must match reality or the policy is void.
 7. **Keep the lead form zero-PHI** (current posture is correct — constrained fields, Resend relay, no storage) and add an explicit SMS-consent line ("we may text you about your request/appointments; reply STOP to opt out") to strengthen the TCPA consent record.
 8. **Upgrade the data room from the shared password to per-recipient access with logging** (PRD P2-2) before real diligence documents load; keep the deployed demo dashboard clearly labeled and noindexed.
 
@@ -74,7 +74,9 @@ Second-office (Fort Lee) delta: **+$50–150/mo** (SMS volume, database compute,
 | Practice — compliance program (SRA, platform/training, hardening, insurance) | $5,100 | $15,100 | $36,000 |
 | **System total, per year** | **~$17k** | **~$41k** | **~$96k** |
 
-One-time setup: BAA legal ~$1–3k (§6); Security Risk Analysis before go-live ($0 with the free [HHS SRA tool](https://www.healthit.gov/topic/privacy-security-and-hipaa/security-risk-assessment-tool) to ~$10k with a consultant); the HIPAA advisor review the PRD already budgets (~$2–10k); pre-launch pen test (inside the annual figure).
+**Under the recommended Option A, the IserLabs rows are $0 and nothing new lands on the practice** beyond routine vendor BAAs — its baseline covered-entity obligations (for Eyefinity, Zocdoc, et al.) exist regardless of this project. The table prices paths B/C.
+
+One-time setup (paths B/C only): BAA legal ~$1–3k (§6); Security Risk Analysis before go-live ($0 with the free [HHS SRA tool](https://www.healthit.gov/topic/privacy-security-and-hipaa/security-risk-assessment-tool) to ~$10k with a consultant); the HIPAA advisor review the PRD already budgets (~$2–10k); pre-launch pen test (inside the annual figure).
 
 **Affordability framing:** the bought stack in §4 (~$350–550/mo) lands roughly inside the ~$500/mo the practice already pays Roya and cancels at Phase 1. IserLabs' ~$15–21k/yr BA compliance cost is a genuine cost of goods for any custom PHI work and must be priced into the engagement (the PRD's commercial model, tracked separately) — this review only sizes it.
 
@@ -117,7 +119,7 @@ A realistic bought stack — EPN + Weave (or Solutionreach) + DCL/Abby, alongsid
 - **Owner/lender consolidated reporting** — demand, conversion, pipeline value in one credible report (can be a light BI layer over EDGEPro exports + engagement-tool reports).
 - **The family-proxy patient portal** — no off-the-shelf equivalent exists; also the riskiest, most PHI-laden item on the roadmap, gated on unverified Eyefinity FHIR facts (appointments and axial-length observations are not USCDI-guaranteed).
 
-> **The strategic asymmetry:** the features that are expensive to operate compliantly (recall queues, messaging — PHI at rest from the EHR) are commodities the EHR vendor already sells. The features that are genuinely unbuilt anywhere (pipelines, attribution, reporting) are the lowest-PHI parts of the vision. The market is pointing at where the custom build belongs.
+> **The strategic asymmetry:** the features that are expensive to operate compliantly (recall queues, messaging — PHI at rest from the EHR) are commodities the EHR vendor already sells. The features that are genuinely unbuilt anywhere (pipelines, attribution, reporting) are the lowest-PHI parts of the vision. The market is pointing at where any custom build would belong — and, equally, at how the practice captures most of the value with no custom build at all.
 
 ---
 
@@ -288,11 +290,11 @@ Flagged as reviewer direction — final shapes belong to a design phase, if one 
 
 ## 8. Strategic options and recommendation
 
-**Option A — Buy everything regulated; IserLabs stays zero-PHI.** Ship Phases 1–2 (built). Practice adopts EPN + Scheduler + PatientNavigator + Weave + DCL (~$4–7k/yr, vendors hold the BAAs). Leads keep relaying to the office inbox; no custom CRM; IserLabs never becomes a business associate. *Gives up:* pipelines/SLA accountability, attribution, consolidated lender reporting, the differentiated portal — the reasons the platform was conceived.
+**Option A — Buy everything regulated; IserLabs stays zero-PHI. ★ Recommendation.** Ship Phases 1–2 (built). The practice adopts EPN + Integrated Scheduler + PatientNavigator (+ Weave or Solutionreach, + DCL/Abby) at ~$4–7k/yr, every vendor holding its own BAA — patients get recall, online booking, two-way messaging, and reorders within weeks. Leads keep relaying to the office inbox under the existing zero-PHI form discipline; no custom CRM. IserLabs never signs a BAA, never becomes a business associate, and carries none of §5's risk register or §6's runway. The engagement continues where it is already strong and unregulated: the site, findability/AEO, the data room, Google Business Profile — and, if the owner wants a snapshot, an aggregates-only reporting page fed by practice-prepared, de-identified rollups (never patient-level exports, which would silently recreate BA status). *Honest cost:* the PRD's service-line pipelines with SLAs, marketing attribution, consolidated lender reporting, and the family portal don't happen — the platform thesis narrows to the non-PHI layer.
 
-**Option B — Hybrid: buy the PHI-heavy commodity, build the low-PHI differentiator. ★ Reviewer recommendation.** Practice turns on EPN (+ scheduler, DCL) now — recall value in weeks, zero IserLabs liability. IserLabs builds only the pipelines/SLA/attribution/reporting layer: website and phone leads treated as PHI-equivalent, but **no EHR sync, no clinical data**. Full BA machinery (BAA, SRA, advisor, insurance, pen test, the §5.4 discipline) stands up on a deliberately small blast radius — a breach exposes lead contact info, not the clinical panel. The portal is decided later on verified FHIR facts plus 6–12 months of proven compliance operation. **~$4–8k/yr infra + ~$15–21k/yr IserLabs compliance.** Preserves the multi-practice productization thesis with evidence.
+**Option B — Hybrid: buy the commodity, build the low-PHI layer. The documented fallback, not the plan.** If the practice's demand ever makes custom work compelling, this is the only defensible shape: the bought stack stays; IserLabs builds just the pipelines/SLA/attribution/reporting layer (website and phone leads treated as PHI-equivalent, **no EHR sync, no clinical data**) under the full §5.4 discipline and §6 runway — ~$4–8k/yr infra + ~$15–21k/yr IserLabs compliance, small blast radius. **Not recommended now:** those differentiators do not justify business-associate status and its permanent overhead.
 
-**Option C — Build the PRD as written.** Custom recall engine + portal on HIPAA rails from the start. ~$41k/yr typical system run-rate, the full risk register, duplicates a $99/mo product with an inferior (manual) booking loop, and stakes the portal on unverified FHIR facts. Rational only if compliance is treated as product R&D for the multi-practice thesis — and priced accordingly.
+**Option C — Build the PRD as written. Not recommended.** Custom recall engine + portal on HIPAA rails from the start. ~$41k/yr typical system run-rate, the full risk register, duplicates a $99/mo product with an inferior (manual) booking loop, and stakes the portal on unverified FHIR facts.
 
 ---
 
