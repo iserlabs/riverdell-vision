@@ -1,0 +1,991 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Riverdell Vision · three directions for the new site</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Instrument+Sans:ital,wdth,wght@0,75..125,400..700;1,75..125,400..700&family=Hanken+Grotesk:wght@300..700&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   BOARD CHROME
+   ============================================================ */
+:root{
+  /* revalued tokens, names kept. ground deepened so a paper card
+     no longer needs a hairline to exist. */
+  --bone:        oklch(0.945 0.008 244);
+  --card:        oklch(0.995 0.003 244);
+  --bone-deep:   oklch(0.905 0.018 246);
+  --teal-tint:   oklch(0.930 0.035 246);
+  --clay-soft:   oklch(0.920 0.045 46);
+  --teal:        oklch(0.500 0.150 254);
+  --teal-deep:   oklch(0.330 0.110 258);
+  --ink:         oklch(0.240 0.030 258);
+  --ink-soft:    oklch(0.480 0.028 256);
+  --clay:        oklch(0.520 0.150 40);
+  --clay-lift:   oklch(0.740 0.140 40);   /* coral on dark grounds */
+  --brass:       oklch(0.740 0.105 72);
+  --line:        oklch(0.880 0.015 246);
+
+  /* today's values, for the CURRENT frame only */
+  --c-bone:      oklch(0.972 0.007 240);
+  --c-bone-deep: oklch(0.928 0.018 246);
+  --c-card:      oklch(0.995 0.004 244);
+  --c-line:      oklch(0.900 0.015 246);
+  --c-ink:       oklch(0.270 0.032 258);
+  --c-ink-soft:  oklch(0.500 0.030 256);
+
+  --sans: "Instrument Sans", system-ui, sans-serif;
+  --serif: "Newsreader", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, monospace;
+  --hanken: "Hanken Grotesk", system-ui, sans-serif;
+
+  --slate:  oklch(0.185 0.014 258);
+  --slate2: oklch(0.245 0.016 258);
+  --paper:  oklch(0.930 0.008 250);
+  --paper2: oklch(0.700 0.012 252);
+  --s: 0.62;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--slate);
+  color:var(--paper);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+.mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.18em;font-size:10px;font-weight:500}
+.b-top{padding:56px 0 34px;border-bottom:1px solid oklch(0.32 0.016 258)}
+.b-kicker{color:var(--brass)}
+.b-h1{font-family:var(--serif);font-optical-sizing:auto;font-size:58px;line-height:1.02;font-weight:400;letter-spacing:-0.015em;margin:16px 0 0;color:#fff}
+.b-h1 em{font-style:italic;color:var(--clay-lift)}
+.b-sub{max-width:60ch;margin:18px 0 0;color:var(--paper2);font-size:16px}
+.brief{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;margin:34px 0 0;padding:24px 0 0;border-top:1px solid oklch(0.30 0.016 258)}
+.brief div p{margin:8px 0 0;font-size:12.5px;line-height:1.5;color:var(--paper2)}
+.brief div .mono{color:oklch(0.72 0.05 250)}
+.median{margin:26px 0 0;padding:18px 20px;border-left:2px solid var(--clay-lift);background:oklch(0.215 0.014 258);font-size:13.5px;color:var(--paper2);max-width:96ch}
+.median b{color:var(--paper);font-weight:600}
+
+.row{padding:54px 0 10px;border-bottom:1px solid oklch(0.28 0.016 258)}
+.row-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin:0 0 6px}
+.row-title{font-family:var(--serif);font-size:38px;line-height:1;font-weight:400;color:#fff;margin:10px 0 0;letter-spacing:-0.01em}
+.row-title span{color:var(--paper2);font-size:19px;font-style:italic}
+.tag{display:inline-block;padding:5px 10px;border-radius:2px;background:oklch(0.30 0.02 258);color:var(--paper)}
+.tag.cur{background:oklch(0.40 0.11 40);color:#fff}
+.struct{margin:16px 0 26px;padding:14px 18px;background:oklch(0.215 0.014 258);border:1px solid oklch(0.30 0.016 258);font-size:13.5px;color:var(--paper);max-width:100ch}
+.struct .mono{color:var(--brass);display:block;margin-bottom:6px}
+
+.frames{display:flex;gap:26px;align-items:flex-start}
+.fr{margin:0}
+.fr-cap{display:flex;justify-content:space-between;gap:10px;margin:0 0 8px;color:oklch(0.66 0.014 252)}
+.vp{position:relative;overflow:hidden;background:var(--bone);border:1px solid oklch(0.36 0.016 258);box-shadow:0 30px 70px -40px rgba(0,0,0,.9)}
+.vp-in{transform:scale(var(--s));transform-origin:0 0;font-family:var(--sans);color:var(--ink);background:var(--bone);position:relative}
+.vp-d{width:794px;height:756px}
+.vp-d .vp-in{width:1280px;height:1220px;--hero:760px}
+.vp-p{width:242px;height:818px}
+.vp-p .vp-in{width:390px;height:1320px;--hero:820px}
+.fold{position:absolute;left:0;right:0;height:0;border-top:1px dashed oklch(0.70 0.15 40 / .85);z-index:40;pointer-events:none}
+.vp-d .fold{top:471px}
+.vp-p .fold{top:508px}
+.fold b{position:absolute;right:0;top:-14px;font-family:var(--mono);font-size:8px;letter-spacing:.14em;color:#fff;background:oklch(0.55 0.17 34);padding:1px 5px}
+
+.spec{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:26px 0 0;background:oklch(0.28 0.016 258)}
+.spec > div{background:oklch(0.205 0.014 258);padding:16px 18px}
+.spec h4{margin:0 0 7px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:9.5px;font-weight:500;color:var(--brass)}
+.spec p{margin:0;font-size:12.6px;line-height:1.55;color:var(--paper2)}
+.spec p b{color:var(--paper);font-weight:600}
+.notes{margin:22px 0 0;font-size:12.6px;color:var(--paper2)}
+.notes b{color:var(--paper)}
+
+table.axes{width:100%;border-collapse:collapse;margin:18px 0 0;font-size:12.8px}
+table.axes th,table.axes td{text-align:left;padding:11px 14px;border-bottom:1px solid oklch(0.30 0.016 258);vertical-align:top}
+table.axes th{font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:9.5px;color:var(--brass);font-weight:500}
+table.axes td:first-child{color:#fff;white-space:nowrap}
+table.axes td{color:var(--paper2)}
+
+/* picker */
+.pick{padding:48px 0 70px}
+.grp{margin:0 0 30px}
+.grp-h{display:flex;align-items:baseline;gap:14px;margin:0 0 12px}
+.grp-h .mono{color:var(--brass)}
+.grp-h span{font-size:12.6px;color:var(--paper2)}
+.opts{display:flex;gap:12px;flex-wrap:wrap}
+.opt{cursor:pointer;border:1px solid oklch(0.34 0.016 258);background:oklch(0.215 0.014 258);padding:12px 14px;width:236px;transition:border-color .18s cubic-bezier(.2,0,0,1),background .18s cubic-bezier(.2,0,0,1)}
+.opt:hover{border-color:oklch(0.52 0.03 258)}
+.opt.selected{border-color:var(--brass);background:oklch(0.26 0.03 70)}
+.opt .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--brass);display:block}
+.opt .t{display:block;margin-top:5px;font-size:13px;color:var(--paper)}
+.opt .d{display:block;margin-top:3px;font-size:11.5px;color:var(--paper2)}
+.opt .demo{display:block;overflow:hidden;margin-top:10px;background:var(--bone);color:var(--ink);padding:10px;font-family:var(--serif);font-optical-sizing:auto}
+.copy{margin-top:14px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:11px;padding:14px 22px;background:var(--brass);color:oklch(0.22 0.03 70);border:0;cursor:pointer}
+.copy:hover{background:oklch(0.80 0.11 72)}
+
+/* ============================================================
+   FRAME PRIMITIVES (shared by every rendered direction)
+   ============================================================ */
+.vp-in .f-abs{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vp-in .f-lbl{font-family:var(--mono);text-transform:uppercase;letter-spacing:.2em;font-size:11px;font-weight:500}
+.vp-p .f-lbl{font-size:9.5px;letter-spacing:.18em}
+.vp-in .f-nav{display:flex;align-items:center;gap:26px;font-size:14px}
+.vp-in .f-menu{display:none}
+.vp-p .f-nav{display:none}
+.vp-p .f-menu{display:flex;flex-direction:column;gap:5px;width:24px}
+.vp-p .f-menu i{display:block;height:2px;background:currentColor}
+.vp-p .f-btn.f-hide-p{display:none}
+.vp-in .f-logo{height:30px;width:auto;display:block}
+.vp-p .f-logo{height:24px}
+.vp-in .f-chip{background:#fff;padding:7px 11px;border-radius:5px;display:inline-flex}
+.vp-in .f-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:15px;font-weight:500;padding:14px 22px;border-radius:10px;background:var(--teal);color:var(--bone);white-space:nowrap}
+.vp-in .f-btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.vp-in .f-btn.light{background:var(--bone);color:var(--teal-deep)}
+.vp-in .f-btn.outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.55)}
+.vp-p .f-btn{font-size:15px;padding:15px 18px;width:100%}
+.vp-in .f-serif{font-family:var(--serif);font-optical-sizing:auto;font-weight:400;letter-spacing:-0.014em;line-height:1.02;margin:0;color:var(--teal)}
+.vp-in .f-lead{font-size:17px;line-height:1.55;color:var(--ink-soft);margin:0}
+.vp-p .f-lead{font-size:15.5px}
+.vp-in .f-hair{height:1px;background:var(--line);border:0;margin:0}
+.vp-in em.f-it{font-style:italic;color:var(--clay)}
+.vp-in .f-stars{color:var(--brass);letter-spacing:1px;font-size:13px}
+.vp-in .f-ava{width:44px;height:44px;border-radius:50%;object-fit:cover;border:3px solid var(--bone);margin-left:-10px}
+.vp-in .f-ava:first-child{margin-left:0}
+
+/* ---------- CURRENT ---------- */
+.dCur .vp-in{background:var(--c-bone);font-family:var(--hanken);color:var(--c-ink)}
+.dCur .f-util{display:flex;justify-content:space-between;align-items:center;padding:0 40px;height:38px;background:var(--teal-deep);color:rgba(255,255,255,.82);font-size:12px}
+.dCur .f-head{display:flex;justify-content:space-between;align-items:center;padding:0 40px;height:76px;border-bottom:1px solid var(--c-line);background:var(--c-bone)}
+.dCur .f-hero{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:56px 40px}
+.dCur .f-h1{font-family:var(--serif);font-optical-sizing:auto;font-size:66px;line-height:1.04;font-weight:500;color:var(--teal);margin:24px 0 0;letter-spacing:-0.01em}
+.dCur .f-cal{border:1px solid var(--c-line);border-radius:24px;background:var(--c-card);overflow:hidden;box-shadow:0 40px 90px -42px rgba(18,60,70,.45)}
+.dCur .f-cal-h{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--c-line)}
+.dCur .f-cal-g{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;padding:0 24px}
+.dCur .f-cal-g div{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:12px;font-size:15px;font-weight:600}
+.dCur .f-cal-g div.on{background:var(--teal-tint);color:var(--teal)}
+.dCur .f-cal-g div.off{border:1px solid var(--c-line);color:rgba(0,0,0,.28)}
+.dCur .f-ledger{border-top:1px solid var(--c-line);border-bottom:1px solid var(--c-line);background:var(--c-bone-deep);padding:44px 40px}
+.dCur .f-ledger-g{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:30px}
+.dCur .f-ledger-g > div{padding:0 34px;border-left:1px solid var(--c-line)}
+.dCur .f-ledger-g > div:first-child{padding-left:0;border-left:0}
+.dCur .f-num{font-family:var(--serif);font-optical-sizing:auto;font-size:88px;line-height:.85;font-weight:500;color:var(--teal);margin:16px 0 0}
+.vp-p.dCur .f-hero{grid-template-columns:1fr;gap:30px;padding:34px 22px}
+.vp-p.dCur .f-h1{font-size:46px}
+.vp-p.dCur .f-util,.vp-p.dCur .f-nav{display:none}
+.vp-p.dCur .f-head{padding:0 22px;height:64px}
+.vp-p.dCur .f-ledger{padding:32px 22px}
+.vp-p.dCur .f-ledger-g{grid-template-columns:1fr;gap:26px}
+.vp-p.dCur .f-ledger-g > div{padding:0;border-left:0}
+.vp-p.dCur .f-num{font-size:64px}
+
+/* ---------- A · THE CHART ---------- */
+.dA .f-shell{position:relative;height:var(--hero);overflow:hidden;background:var(--teal-deep)}
+.dA .f-scrim{position:absolute;inset:0;background:
+  linear-gradient(96deg, oklch(0.22 0.05 258 / .90) 0%, oklch(0.22 0.05 258 / .74) 34%, oklch(0.22 0.05 258 / .12) 66%, transparent 84%),
+  linear-gradient(0deg, oklch(0.20 0.05 258 / .55) 0%, transparent 42%)}
+.dA .f-head{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:0 56px;height:82px;color:#fff;border-bottom:1px solid rgba(255,255,255,.18)}
+.dA .f-stack{position:absolute;z-index:3;left:56px;bottom:56px;right:56px;max-width:760px;color:#fff}
+.dA .f-r1{font-family:var(--serif);font-optical-sizing:auto;font-size:104px;line-height:.94;font-weight:400;color:#fff;letter-spacing:-0.022em;margin:0}
+.dA .f-r2{font-family:var(--serif);font-optical-sizing:auto;font-size:66px;line-height:1.0;font-weight:400;color:rgba(255,255,255,.92);letter-spacing:-0.016em;margin:2px 0 0}
+.dA .f-r3{font-family:var(--serif);font-optical-sizing:auto;font-size:50px;line-height:1.05;font-weight:400;font-style:italic;color:var(--clay-lift);margin:4px 0 0}
+.dA .f-sweep{height:1px;width:340px;background:rgba(255,255,255,.6);margin:26px 0 20px}
+.dA .f-sec{padding:52px 56px;background:var(--bone)}
+.dA .f-row{display:grid;grid-template-columns:78px 1fr 30px;gap:22px;align-items:center;padding:24px 0;border-bottom:1px solid var(--line)}
+.dA .f-row:first-of-type{border-top:1px solid var(--line)}
+.dA .f-rn{font-family:var(--serif);font-optical-sizing:auto;font-size:40px;line-height:1;color:oklch(0.50 0.15 254 / .55);font-weight:400}
+.vp-p.dA .f-head{padding:0 20px;height:66px}
+.vp-p.dA .f-stack{left:20px;right:20px;bottom:34px;max-width:none}
+.vp-p.dA .f-r1{font-size:47px}
+.vp-p.dA .f-r2{font-size:31px}
+.vp-p.dA .f-r3{font-size:26px}
+.vp-p.dA .f-sweep{width:150px;margin:18px 0 14px}
+.vp-p.dA .f-sec{padding:28px 20px}
+.vp-p.dA .f-row{grid-template-columns:38px 1fr;gap:14px;padding:16px 0}
+.vp-p.dA .f-rn{font-size:26px}
+
+/* ---------- B · THE RECORD ---------- */
+.dB .f-head{display:flex;justify-content:space-between;align-items:center;padding:0 44px;height:70px;border-bottom:1px solid var(--line);background:var(--bone)}
+.dB .f-shell{display:grid;grid-template-columns:44% 56%;height:calc(var(--hero) - 70px);background:var(--bone)}
+.dB .f-left{padding:0 48px;display:flex;flex-direction:column;justify-content:center}
+.dB .f-h1{font-family:var(--serif);font-optical-sizing:auto;font-size:56px;line-height:1.03;font-weight:400;color:var(--teal);letter-spacing:-0.014em;margin:14px 0 0}
+.dB .f-tbl{margin:30px 0 0;border-top:1px solid var(--line)}
+.dB .f-tr{display:flex;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.dB .f-tk{font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:10px;color:var(--ink-soft);white-space:nowrap}
+.dB .f-dot{flex:1;border-bottom:1px dotted oklch(0.78 0.02 246);transform:translateY(-4px)}
+.dB .f-tv{font-size:15px;font-weight:600;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+.dB .f-photo{position:relative;overflow:hidden}
+.dB .f-sec{padding:44px 44px;background:var(--bone-deep)}
+.dB .f-doc{display:grid;grid-template-columns:56px 1fr 1fr 150px;gap:20px;align-items:center;padding:16px 0;border-bottom:1px solid oklch(0.84 0.018 246)}
+.dB .f-doc:first-of-type{border-top:1px solid oklch(0.84 0.018 246)}
+.dB .f-doc img{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:50% 22%;background:var(--teal-tint)}
+.vp-p.dB .f-head{padding:0 20px;height:58px}
+.vp-p.dB .f-shell{grid-template-columns:1fr;grid-template-rows:286px 1fr;height:calc(var(--hero) - 58px)}
+.vp-p.dB .f-photo{order:-1}
+.vp-p.dB .f-tv{white-space:normal;text-align:right;font-size:13px}
+.vp-p.dB .f-tk{font-size:9px;letter-spacing:.12em}
+.vp-p.dB .f-tr:nth-of-type(n+6){display:none}
+.vp-p.dB .f-doc:nth-of-type(n+4){display:none}
+.vp-p.dB .f-left{padding:26px 20px 0;justify-content:flex-start}
+.vp-p.dB .f-h1{font-size:33px}
+.vp-p.dB .f-tbl{margin:18px 0 0}
+.vp-p.dB .f-tr{padding:8px 0}
+.vp-p.dB .f-sec{padding:26px 20px}
+.vp-p.dB .f-doc{grid-template-columns:48px 1fr;gap:12px 14px;padding:13px 0}
+.vp-p.dB .f-doc > *:nth-child(3){grid-column:1 / -1;font-size:12.5px;color:var(--ink-soft)}
+.vp-p.dB .f-doc > *:nth-child(4){display:none}
+.vp-p.dB .f-doc img{width:48px;height:48px}
+
+/* ---------- C · THE REFINEMENT ---------- */
+.dC .f-shell{position:relative;height:var(--hero);overflow:hidden;background:var(--teal-deep)}
+.dC .f-scrim{position:absolute;inset:0;background:
+  radial-gradient(120% 90% at 50% 45%, oklch(0.24 0.06 258 / .58) 0%, oklch(0.20 0.06 258 / .88) 78%),
+  linear-gradient(0deg, oklch(0.18 0.05 258 / .82) 0%, transparent 46%)}
+.dC .f-head{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:0 48px;height:80px;color:#fff}
+.dC .f-mid{position:absolute;z-index:3;left:0;right:0;top:50%;transform:translateY(-56%);text-align:center;padding:0 60px;color:#fff}
+.dC .f-h1{font-family:var(--serif);font-optical-sizing:auto;font-size:88px;line-height:1.0;font-weight:400;color:#fff;letter-spacing:-0.02em;margin:18px auto 0;max-width:15ch}
+.dC .f-h1 em{font-style:italic;color:var(--clay-lift)}
+.dC .f-duo{width:260px;height:2px;margin:30px auto 0;background:linear-gradient(90deg,var(--clay-lift) 0 50%, oklch(0.72 0.12 246) 50% 100%)}
+.dC .f-bar{position:absolute;z-index:3;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;gap:14px;padding:18px 48px;border-top:1px solid rgba(255,255,255,.22);background:oklch(0.20 0.05 258 / .55);color:#fff}
+.dC .f-seg{display:flex;border:1px solid rgba(255,255,255,.4);border-radius:8px;overflow:hidden}
+.dC .f-seg span{padding:9px 16px;font-size:13px;color:rgba(255,255,255,.72)}
+.dC .f-seg span.on{background:#fff;color:var(--teal-deep);font-weight:600}
+.dC .f-sec{padding:44px 48px;background:var(--teal-deep);color:#fff;height:460px}
+.dC .f-pair{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px}
+.dC .f-pan{border:1px solid rgba(255,255,255,.22);padding:24px;border-radius:12px}
+.dC .f-pan.soft{filter:blur(2.2px);opacity:.62}
+.dC .f-pan.sharp{background:var(--bone);color:var(--ink);border-color:transparent}
+.dC .f-dots{display:flex;gap:7px;margin-top:24px}
+.dC .f-dots i{width:22px;height:2px;background:rgba(255,255,255,.28);display:block}
+.dC .f-dots i.on{background:var(--clay-lift)}
+.vp-p.dC .f-head{padding:0 20px;height:64px}
+.vp-p.dC .f-mid{padding:0 22px}
+.vp-p.dC .f-h1{font-size:40px;max-width:none}
+.vp-p.dC .f-duo{width:150px;margin-top:22px}
+.vp-p.dC .f-bar{padding:14px 20px;flex-direction:column;gap:10px}
+.vp-p.dC .f-seg{width:100%}
+.vp-p.dC .f-seg span{flex:1;text-align:center;padding:11px 6px;font-size:12px}
+.vp-p.dC .f-sec{padding:26px 20px;height:500px}
+.vp-p.dC .f-pair{grid-template-columns:1fr;gap:14px}
+.vp-p.dC .f-pan{padding:16px}
+</style>
+</head>
+<body>
+<style>
+/* ============================================================
+   OWNER VIEW: sliding toggle, swapped frames, note widget
+   ============================================================ */
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:16px;top:16px;z-index:200;background:var(--teal);color:#fff;padding:10px 16px;border-radius:8px}
+
+.stays{display:grid;gap:1px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin:30px 0 0;background:oklch(0.30 0.016 258);border:1px solid oklch(0.30 0.016 258);border-radius:12px;overflow:hidden}
+.stays > div{background:oklch(0.205 0.014 258);padding:16px 18px}
+.stays p.k{font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:9.5px;color:var(--brass);margin:0 0 7px}
+.stays p.v{margin:0;font-size:13.5px;line-height:1.5;color:var(--paper2)}
+
+/* --- sticky segmented control --- */
+.switch{position:sticky;top:0;z-index:60;background:oklch(0.175 0.012 258 / .86);backdrop-filter:blur(14px);border-bottom:1px solid oklch(0.30 0.016 258)}
+.switch .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 0;flex-wrap:wrap}
+/* Scrolls inside itself on a narrow screen rather than widening the page. The
+   pill is absolutely positioned inside the scroller, so it tracks correctly. */
+.seg{position:relative;display:flex;gap:2px;padding:4px;border-radius:999px;background:oklch(0.235 0.014 258);
+  border:1px solid oklch(0.32 0.016 258);max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;
+  scrollbar-width:none;-ms-overflow-style:none}
+.seg::-webkit-scrollbar{display:none}
+.seg-pill{position:absolute;top:4px;left:4px;height:calc(100% - 8px);border-radius:999px;background:var(--teal);
+  transition:transform .46s cubic-bezier(.22,1,.36,1), width .46s cubic-bezier(.22,1,.36,1);pointer-events:none}
+.seg button{position:relative;z-index:1;appearance:none;background:none;border:0;cursor:pointer;color:var(--paper2);
+  font-family:inherit;font-size:13px;font-weight:500;padding:10px 17px;border-radius:999px;min-height:44px;
+  transition:color .3s ease;white-space:nowrap}
+.seg button[aria-selected="true"]{color:#fff}
+.seg button:hover:not([aria-selected="true"]){color:#fff}
+.seg button:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.seg button .l{font-family:var(--mono);font-size:10px;letter-spacing:.14em;opacity:.62;margin-right:7px}
+.switch .hint{font-size:12.5px;color:var(--paper3);font-family:var(--mono);letter-spacing:.04em}
+
+/* --- the swapped stage --- */
+.stage{padding:44px 0 8px}
+.stage-head{display:flex;align-items:flex-start;justify-content:space-between;gap:26px;flex-wrap:wrap;margin-bottom:26px}
+.stage-name{font-family:var(--serif);font-size:clamp(28px,3.6vw,46px);line-height:1.06;color:#fff;margin:0;font-weight:400}
+.stage-name em{font-style:italic;color:var(--clay-lift)}
+.stage-idea{margin:12px 0 0;max-width:56ch;font-size:16px;line-height:1.6;color:var(--paper2)}
+.stage-letter{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);margin:0 0 12px}
+/* Each name must be unique per document or the transition aborts outright. */
+.vt-head{view-transition-name:vt-head}
+.vt-frames{view-transition-name:vt-frames}
+.panel{view-transition-name:vt-panel}
+
+/* Fluid frames. The mockups are fixed-pixel documents (1280 and 390 wide)
+   scaled down to fit, so the scale factor is derived from the container's own
+   width rather than hard-coded, and the fold marker is a percentage so it
+   tracks the scale. Without this the two frames add up to 1062px and the page
+   scrolls sideways on anything under a laptop. */
+.frames{display:flex;gap:26px;align-items:flex-start}
+.fr{margin:0;min-width:0}
+.fr.is-d{flex:794 1 0}
+.fr.is-p{flex:242 1 0}
+.vp{width:100%;container-type:inline-size}
+.vp-d{aspect-ratio:794/756;height:auto}
+.vp-p{aspect-ratio:242/818;height:auto}
+.vp-d .vp-in{--s:calc(100cqw / 1280)}
+.vp-p .vp-in{--s:calc(100cqw / 390)}
+.vp-d .fold{top:62.3%}
+.vp-p .fold{top:62.1%}
+@media (max-width:820px){
+  .frames{flex-direction:column;align-items:center;gap:34px}
+  .fr.is-d,.fr.is-p{flex:none;width:100%}
+  .fr.is-p{max-width:300px;align-self:flex-start}
+  .fr-cap{max-width:100%}
+}
+.panel{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));margin:30px 0 0;
+  padding:26px 0 0;border-top:1px solid oklch(0.30 0.016 258)}
+.panel h4{font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:9.5px;color:var(--brass);margin:0 0 9px;font-weight:500}
+.panel p{margin:0;font-size:14.5px;line-height:1.62;color:var(--paper2)}
+.panel p b{color:#fff;font-weight:600}
+
+@media (prefers-reduced-motion: reduce){
+  .seg-pill{transition:none}
+  ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none !important}
+}
+::view-transition-old(vt-head),::view-transition-new(vt-head),
+::view-transition-old(vt-frames),::view-transition-new(vt-frames),
+::view-transition-old(vt-panel),::view-transition-new(vt-panel){animation-duration:.44s;animation-timing-function:cubic-bezier(.22,1,.36,1)}
+
+/* --- choose block --- */
+.choose{background:oklch(0.205 0.014 258);border-top:1px solid oklch(0.30 0.016 258);padding:56px 0 70px;margin-top:50px}
+.choose h2{font-family:var(--serif);font-size:clamp(26px,3vw,38px);color:#fff;margin:0 0 14px;font-weight:400}
+.choose p.lead{max-width:62ch;font-size:15.5px;line-height:1.65;color:var(--paper2);margin:0 0 30px}
+.picks{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.pk{appearance:none;text-align:left;cursor:pointer;background:oklch(0.235 0.014 258);border:1px solid oklch(0.34 0.016 258);
+  border-radius:12px;padding:18px 20px;color:var(--paper2);font-family:inherit;transition:border-color .28s ease,background .28s ease,transform .28s cubic-bezier(.22,1,.36,1)}
+.pk:hover{transform:translateY(-2px);border-color:oklch(0.52 0.09 250)}
+.pk:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.pk[aria-pressed="true"]{border-color:var(--teal);background:oklch(0.28 0.05 254)}
+.pk .k{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--brass);margin-bottom:8px}
+.pk .t{display:block;font-family:var(--serif);font-size:20px;color:#fff;margin-bottom:5px}
+.pk .d{display:block;font-size:13px;line-height:1.5}
+.pk[aria-pressed="true"] .mk{color:var(--teal)}
+
+/* --- note widget, bottom right --- */
+.nw{position:fixed;right:20px;bottom:20px;z-index:120;font-family:var(--sans)}
+.nw-btn{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 22px;border:0;border-radius:999px;cursor:pointer;
+  background:var(--teal);color:#fff;font-family:inherit;font-size:14.5px;font-weight:600;
+  box-shadow:0 18px 40px -14px oklch(0.20 0.06 258 / .8);
+  transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s ease}
+.nw-btn:hover{transform:translateY(-2px);box-shadow:0 24px 50px -14px oklch(0.20 0.06 258 / .9)}
+.nw-btn:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.nw-btn .cnt{display:none;min-width:22px;height:22px;line-height:22px;text-align:center;border-radius:999px;
+  background:var(--clay-lift);color:oklch(0.22 0.04 40);font-family:var(--mono);font-size:11px;font-weight:600;padding:0 6px}
+.nw-btn.has .cnt{display:inline-block}
+.nw-pan{position:absolute;right:0;bottom:66px;width:min(92vw,384px);background:oklch(0.215 0.014 258);
+  border:1px solid oklch(0.36 0.018 258);border-radius:16px;box-shadow:0 30px 70px -20px oklch(0.15 0.05 258 / .9);
+  padding:20px;opacity:0;transform:translateY(10px) scale(.985);pointer-events:none;
+  transition:opacity .3s ease,transform .34s cubic-bezier(.22,1,.36,1)}
+.nw.open .nw-pan{opacity:1;transform:none;pointer-events:auto}
+.nw-pan h3{font-family:var(--serif);font-size:19px;color:#fff;margin:0 0 4px;font-weight:400}
+.nw-pan .sub{font-size:12.5px;line-height:1.5;color:var(--paper3);margin:0 0 16px}
+.nw-pan label{display:block;font-family:var(--mono);text-transform:uppercase;letter-spacing:.15em;font-size:9px;color:var(--brass);margin:0 0 7px}
+.nw-pan textarea{width:100%;min-width:0;box-sizing:border-box;min-height:92px;resize:vertical;background:oklch(0.175 0.012 258);
+  border:1px solid oklch(0.36 0.018 258);border-radius:9px;padding:11px 12px;color:#fff;font-family:inherit;font-size:16px;line-height:1.5}
+.nw-pan textarea:focus-visible{outline:2px solid var(--teal);outline-offset:1px}
+.nw-tag{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--paper3);margin:9px 0 0}
+.nw-acts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.nw-acts button{flex:1;min-width:118px;min-height:44px;border-radius:9px;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;border:1px solid oklch(0.36 0.018 258);background:oklch(0.26 0.014 258);color:#fff;transition:background .25s ease,border-color .25s ease}
+.nw-acts button.pri{background:var(--teal);border-color:var(--teal)}
+.nw-acts button:hover{border-color:oklch(0.56 0.10 250)}
+.nw-acts button:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+.nw-list{margin:16px 0 0;padding:14px 0 0;border-top:1px solid oklch(0.32 0.016 258);max-height:180px;overflow-y:auto}
+.nw-list:empty{display:none}
+.nw-note{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid oklch(0.28 0.014 258);font-size:13px;line-height:1.5;color:var(--paper2)}
+.nw-note:last-child{border-bottom:0}
+.nw-note .w{font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:var(--brass);flex-shrink:0;padding-top:3px;min-width:26px}
+.nw-note .x{margin-left:auto;background:none;border:0;color:var(--paper3);cursor:pointer;font-size:16px;line-height:1;padding:2px 4px;min-height:24px}
+.nw-note .x:hover{color:var(--clay-lift)}
+.nw-said{margin:12px 0 0;font-size:12.5px;color:var(--brass);min-height:1.2em}
+@media (max-width:560px){
+  .nw{right:12px;bottom:12px}
+  .nw-btn{min-height:48px;padding:0 18px;font-size:14px}
+  .wrap{padding:0 18px}
+  .b-h1{font-size:clamp(34px,10vw,58px)}
+  .switch .hint{display:none}
+  .seg button{padding:10px 13px;font-size:12.5px}
+  .seg button .l{margin-right:5px}
+  .picks{grid-template-columns:1fr}
+}
+</style>
+
+<a class="skip" href="#stage">Skip to the three directions</a>
+
+<!-- =========================== HEAD =========================== -->
+<header class="b-top">
+  <div class="wrap">
+    <p class="mono b-kicker">Riverdell Vision · a new website · August 2026</p>
+    <h1 class="b-h1">Three ways to build it. <em>Your call.</em></h1>
+    <p class="b-sub">All three use the practice's own words, its own photographs and its own review scores. What changes between them is how the page is put together, and that is the part worth choosing. Switch between them with the buttons, look at the phone view first because that is how most patients arrive, and leave a note in the corner whenever something stands out.</p>
+
+    <div class="stays">
+      <div><p class="k">Your words</p><p class="v">Every headline and sentence is the practice's own. Nothing is invented for effect.</p></div>
+      <div><p class="k">Your photographs</p><p class="v">The Oradell office and your four doctors, as shot.</p></div>
+      <div><p class="k">Your proof</p><p class="v">5.0 across 448 Google reviews, and 4.9 across 396 on Zocdoc.</p></div>
+      <div><p class="k">Your web addresses</p><p class="v">Every page keeps the address it has now, so nothing you already rank for is lost.</p></div>
+    </div>
+  </div>
+</header>
+
+<!-- =========================== SWITCH =========================== -->
+<div class="switch">
+  <div class="wrap">
+    <div class="seg" role="tablist" aria-label="Choose a direction to view">
+      <span class="seg-pill" aria-hidden="true"></span>
+      <button role="tab" id="tab-Cur" data-key="Cur" aria-selected="false" aria-controls="stage"><span class="l">NOW</span>Today</button>
+      <button role="tab" id="tab-A" data-key="A" aria-selected="true" aria-controls="stage"><span class="l">A</span>The Chart</button>
+      <button role="tab" id="tab-B" data-key="B" aria-selected="false" aria-controls="stage"><span class="l">B</span>The Record</button>
+      <button role="tab" id="tab-C" data-key="C" aria-selected="false" aria-controls="stage"><span class="l">C</span>The Refinement</button>
+    </div>
+    <p class="hint">Read the phone frame first</p>
+  </div>
+</div>
+
+<!-- =========================== STAGE =========================== -->
+<section class="row stage" id="stage" role="tabpanel" tabindex="-1" aria-live="polite">
+  <div class="wrap">
+
+    <div class="stage-head vt-head">
+      <div>
+        <p class="stage-letter" data-slot="letter">Direction A</p>
+        <h2 class="stage-name" data-slot="name">The Chart</h2>
+        <p class="stage-idea" data-slot="idea"></p>
+      </div>
+    </div>
+
+    <div class="frames vt-frames">
+      <figure class="fr is-d">
+        <figcaption class="fr-cap mono"><span>On a laptop</span><span data-slot="capd"></span></figcaption>
+        <div class="vp vp-d" data-slot="vpd"><div class="fold"><b>first screen ends</b></div></div>
+      </figure>
+      <figure class="fr is-p">
+        <figcaption class="fr-cap mono"><span>On a phone</span><span data-slot="capp"></span></figcaption>
+        <div class="vp vp-p" data-slot="vpp"><div class="fold"><b>first screen ends</b></div></div>
+      </figure>
+    </div>
+
+    <div class="panel">
+      <div><h4>What leads</h4><p data-slot="leads"></p></div>
+      <div><h4>How it moves</h4><p data-slot="moves"></p></div>
+      <div><h4>Worth knowing</h4><p data-slot="risk"></p></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================== CHOOSE =========================== -->
+<section class="choose" id="choose">
+  <div class="wrap">
+    <p class="mono b-kicker">Choosing</p>
+    <h2>Which one feels like the practice?</h2>
+    <p class="lead">You are choosing how the page is built, not the final wording or the final photographs. Both of those can still change. If two of them appeal, say so, because parts of one can go into another. Press a card below, add any notes in the corner, then press Copy and paste it into your reply.</p>
+    <div class="picks">
+      <button class="pk" data-pick="A" aria-pressed="false"><span class="k">A</span><span class="t">The Chart</span><span class="d">One clean column that steps down in size, like the chart on the exam room wall.</span></button>
+      <button class="pk" data-pick="B" aria-pressed="false"><span class="k">B</span><span class="t">The Record</span><span class="d">Your facts in a ruled table, plain and checkable. The most factual, and the coolest in feel.</span></button>
+      <button class="pk" data-pick="C" aria-pressed="false"><span class="k">C</span><span class="t">The Refinement</span><span class="d">Built around comparing, the way a refraction does. The boldest of the three.</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== NOTE WIDGET =========================== -->
+<div class="nw" id="nw">
+  <div class="nw-pan" id="nwPan" role="dialog" aria-modal="false" aria-labelledby="nwTitle" hidden>
+    <h3 id="nwTitle">Leave a note</h3>
+    <p class="sub">Anything at all: what you like, what feels wrong, a word you would change. Notes stay on this device until you copy them.</p>
+    <label for="nwText">Your note</label>
+    <textarea id="nwText" placeholder="The photograph works, but the headline feels too large."></textarea>
+    <p class="nw-tag">Will be tagged: <span id="nwWhich">A, The Chart</span></p>
+    <div class="nw-acts">
+      <button type="button" class="pri" id="nwAdd">Add note</button>
+      <button type="button" id="nwCopy">Copy everything</button>
+    </div>
+    <div class="nw-list" id="nwList"></div>
+    <p class="nw-said" id="nwSaid" role="status"></p>
+  </div>
+  <button class="nw-btn" id="nwBtn" aria-expanded="false" aria-controls="nwPan">
+    Leave a note <span class="cnt" id="nwCnt">0</span>
+  </button>
+</div>
+
+<!-- =========================== TEMPLATES =========================== -->
+<template id="tplCur">
+  <div class="f-util"><span>297 Kinderkamack Rd, Suite 200, Oradell NJ</span><span>★ 5.0 · 448 Google reviews &nbsp;·&nbsp; (201) 265-7900</span></div>
+  <div class="f-head">
+    <img class="f-logo" src="/riverdell-logo.png" alt="Riverdell Vision">
+    <div class="f-nav"><span>Care</span><span>Practice</span><span>Reviews</span><span>Answers</span></div>
+    <span class="f-btn f-hide-p">Request an appointment</span>
+    <span class="f-menu"><i></i><i></i><i></i></span>
+  </div>
+  <div class="f-hero">
+    <div>
+      <p class="f-lbl" style="color:var(--clay)">Family optometry · Oradell, New Jersey</p>
+      <h1 class="f-h1">Eye care that&rsquo;s <em class="f-it">actually medicine.</em></h1>
+      <p class="f-lead" style="margin-top:26px;max-width:34rem;color:var(--c-ink-soft)">The warmth of a boutique practice with the rigor of real medicine. Physician-led family eye care for every age, in a calm, modern space in the heart of Oradell.</p>
+      <div style="display:flex;gap:12px;margin-top:30px;flex-wrap:wrap">
+        <span class="f-btn">Request an appointment</span>
+        <span class="f-btn ghost">(201) 265-7900</span>
+      </div>
+      <div style="display:flex;gap:26px;margin-top:30px;padding-top:22px;border-top:1px solid var(--c-line);flex-wrap:wrap">
+        <span style="font-size:14px;color:var(--c-ink-soft)"><span class="f-stars">★★★★★</span> 5.0 · 448 Google reviews ↗</span>
+        <span style="font-size:14px;color:var(--c-ink-soft)"><span class="f-stars">★★★★★</span> 4.9 · 396 Zocdoc reviews ↗</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:24px">
+        <span style="display:flex">
+          <img class="f-ava" src="/images/dr-mina-han.png" alt="">
+          <img class="f-ava" src="/images/team-meyer.png" alt="">
+          <img class="f-ava" src="/images/team-mundanchira.png" alt="">
+          <img class="f-ava" src="/images/team-ogoke.png" alt="">
+        </span>
+        <span style="font-size:14px;font-weight:500;color:var(--teal)">Meet our 4 optometrists →</span>
+      </div>
+    </div>
+    <div class="f-cal">
+      <div class="f-cal-h">
+        <div>
+          <p style="margin:0;font-family:var(--serif);font-size:23px;font-weight:500;color:var(--teal)">Book an appointment</p>
+          <p style="margin:4px 0 0;font-size:14px;color:var(--c-ink-soft)">Real-time availability on Zocdoc</p>
+        </div>
+        <span style="background:var(--clay-soft);color:var(--clay);border-radius:999px;padding:6px 12px;font-size:14px;font-weight:500">★ 5.0</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:20px 24px 14px;font-size:13px;color:var(--c-ink-soft)"><span>Riverdell Vision · Oradell</span><span class="f-lbl" style="font-size:10px">Next 4 weeks</span></div>
+      <div class="f-cal-g">
+        <div class="off" style="aspect-ratio:auto;border:0;font-size:10px;letter-spacing:.1em">THU</div><div class="off" style="aspect-ratio:auto;border:0;font-size:10px;letter-spacing:.1em">FRI</div><div class="off" style="aspect-ratio:auto;border:0;font-size:10px;letter-spacing:.1em">SAT</div><div class="off" style="aspect-ratio:auto;border:0;font-size:10px;letter-spacing:.1em">SUN</div><div class="off" style="aspect-ratio:auto;border:0;font-size:10px;letter-spacing:.1em">MON</div><div class="off" style="aspect-ratio:auto;border:0;font-size:10px;letter-spacing:.1em">TUE</div><div class="off" style="aspect-ratio:auto;border:0;font-size:10px;letter-spacing:.1em">WED</div>
+        <div class="on">2</div><div class="on">3</div><div class="off">4</div><div class="off">5</div><div class="on">6</div><div class="off">7</div><div class="on">8</div>
+        <div class="on">9</div><div class="on">10</div><div class="off">11</div><div class="off">12</div><div class="on">13</div><div class="off">14</div><div class="on">15</div>
+        <div class="on">16</div><div class="on">17</div><div class="off">18</div><div class="off">19</div><div class="on">20</div><div class="off">21</div><div class="on">22</div>
+      </div>
+      <div style="padding:22px 24px 24px">
+        <span class="f-btn" style="width:100%;height:56px;border-radius:16px;font-size:16px">See available times →</span>
+        <p style="margin:14px 0 0;text-align:center;font-size:14px;color:var(--c-ink-soft)">448 patients rate us 5.0 on Google</p>
+      </div>
+    </div>
+  </div>
+  <div class="f-ledger">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <span class="f-lbl" style="color:var(--clay)">The record</span>
+      <span style="font-size:13px;color:var(--c-ink-soft)">Every rating is real and patient-verified</span>
+    </div>
+    <div class="f-ledger-g">
+      <div><span class="f-stars">★★★★★</span> <span style="font-family:var(--mono);font-size:12px">5.0</span><p class="f-num">448</p><p style="margin:16px 0 0;font-family:var(--serif);font-size:20px;font-weight:500;color:var(--c-ink)">Google reviews</p><p style="margin:5px 0 0;font-size:13px;color:var(--c-ink-soft)">A genuine five-star average from real patients.</p></div>
+      <div><span class="f-stars">★★★★★</span> <span style="font-family:var(--mono);font-size:12px">4.9</span><p class="f-num">396</p><p style="margin:16px 0 0;font-family:var(--serif);font-size:20px;font-weight:500;color:var(--c-ink)">Zocdoc reviews</p><p style="margin:5px 0 0;font-size:13px;color:var(--c-ink-soft)">Verified by patients who booked through Zocdoc.</p></div>
+      <div><span class="f-lbl" style="color:var(--clay)">Since 2016</span><p class="f-num">10</p><p style="margin:16px 0 0;font-family:var(--serif);font-size:20px;font-weight:500;color:var(--c-ink)">Years of family eye care</p><p style="margin:5px 0 0;font-size:13px;color:var(--c-ink-soft)">Caring for Bergen County families in Oradell, NJ.</p></div>
+    </div>
+  </div>
+</template>
+
+<template id="tplA">
+  <div class="f-shell">
+    <img class="f-abs" style="object-position:32% 45%" src="/images/office-oradell.jpeg" alt="">
+    <div class="f-scrim"></div>
+    <div class="f-head">
+      <span class="f-chip"><img class="f-logo" src="/riverdell-logo.png" alt="Riverdell Vision"></span>
+      <div class="f-nav" style="color:#fff"><span>Care</span><span>Practice</span><span>Reviews</span><span>Answers</span></div>
+      <span class="f-btn outline f-hide-p">Book on Zocdoc</span>
+      <span class="f-menu" style="color:#fff"><i></i><i></i><i></i></span>
+    </div>
+    <div class="f-stack">
+      <p class="f-lbl" style="color:rgba(255,255,255,.72)">Oradell, New Jersey · since 2016</p>
+      <p class="f-r1" style="margin-top:18px">Eye care</p>
+      <p class="f-r2">that&rsquo;s actually</p>
+      <p class="f-r3">medicine.</p>
+      <div class="f-sweep"></div>
+      <p class="f-lead" style="color:rgba(255,255,255,.86);max-width:44ch">The warmth of a boutique practice with the rigor of real medicine.</p>
+      <div style="display:flex;gap:12px;margin-top:26px;flex-wrap:wrap">
+        <span class="f-btn light">See available times on Zocdoc</span>
+        <span class="f-btn outline">(201) 265-7900</span>
+      </div>
+    </div>
+  </div>
+  <div class="f-sec">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:26px">
+      <span class="f-lbl" style="color:var(--clay)">What we are known for</span>
+      <span class="f-lbl" style="color:var(--ink-soft)">01 / 06</span>
+    </div>
+    <h2 class="f-serif" style="font-size:44px;max-width:22ch">Specialty care most eye doctors <em class="f-it">don&rsquo;t</em> offer.</h2>
+    <div style="margin-top:26px">
+      <div class="f-row">
+        <span class="f-rn">01</span>
+        <span><span style="font-family:var(--serif);font-size:26px;color:var(--teal);display:block">Myopia Management</span><span style="font-size:15px;color:var(--ink-soft)">Slow a child&rsquo;s worsening nearsightedness with Ortho-K, multifocal contacts, control lenses, or atropine.</span></span>
+        <span style="color:var(--teal);font-size:20px">→</span>
+      </div>
+      <div class="f-row">
+        <span class="f-rn">02</span>
+        <span><span style="font-family:var(--serif);font-size:26px;color:var(--teal);display:block">Dry Eye Treatment</span><span style="font-size:15px;color:var(--ink-soft)">Find and treat the cause of chronic burning, gritty, watery eyes, not just cover the symptoms.</span></span>
+        <span style="color:var(--teal);font-size:20px">→</span>
+      </div>
+      <div class="f-row">
+        <span class="f-rn">03</span>
+        <span><span style="font-family:var(--serif);font-size:26px;color:var(--teal);display:block">Specialty &amp; Scleral Lenses</span><span style="font-size:15px;color:var(--ink-soft)">Custom lenses for keratoconus, irregular corneas, severe dry eye, and hard-to-fit prescriptions.</span></span>
+        <span style="color:var(--teal);font-size:20px">→</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="tplB">
+  <div class="f-head">
+    <img class="f-logo" src="/riverdell-logo.png" alt="Riverdell Vision">
+    <div class="f-nav"><span>Care</span><span>Practice</span><span>Reviews</span><span>Answers</span></div>
+    <span class="f-btn f-hide-p">Book on Zocdoc</span>
+    <span class="f-menu"><i></i><i></i><i></i></span>
+  </div>
+  <div class="f-shell">
+    <div class="f-left">
+      <span class="f-lbl" style="color:var(--clay)">The record</span>
+      <h1 class="f-h1">Eye care that&rsquo;s <em class="f-it">actually medicine.</em></h1>
+      <div class="f-tbl">
+        <div class="f-tr"><span class="f-tk">Optometrists</span><span class="f-dot"></span><span class="f-tv">Four, one standard of care</span></div>
+        <div class="f-tr"><span class="f-tk">Specialty programs in house</span><span class="f-dot"></span><span class="f-tv">Five</span></div>
+        <div class="f-tr"><span class="f-tk">Vision development fellow</span><span class="f-dot"></span><span class="f-tv">Dr. Bruce Meyer, FCOVD</span></div>
+        <div class="f-tr"><span class="f-tk">Google</span><span class="f-dot"></span><span class="f-tv">5.0 / 448 reviews</span></div>
+        <div class="f-tr"><span class="f-tk">Zocdoc</span><span class="f-dot"></span><span class="f-tv">4.9 / 396 reviews</span></div>
+        <div class="f-tr"><span class="f-tk">Care in</span><span class="f-dot"></span><span class="f-tv">English and Korean</span></div>
+        <div class="f-tr"><span class="f-tk">In Oradell since</span><span class="f-dot"></span><span class="f-tv">2016</span></div>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:28px;flex-wrap:wrap">
+        <span class="f-btn">See available times on Zocdoc</span>
+        <span class="f-btn ghost">(201) 265-7900</span>
+      </div>
+    </div>
+    <div class="f-photo">
+      <img class="f-abs" style="object-position:40% 45%" src="/images/office-oradell.jpeg" alt="">
+    </div>
+  </div>
+  <div class="f-sec">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px">
+      <span class="f-lbl" style="color:var(--clay)">The doctors</span>
+      <span class="f-lbl" style="color:var(--ink-soft)">Four, with a focus each</span>
+    </div>
+    <div class="f-doc">
+      <img src="/images/dr-mina-han.png" alt="">
+      <span><span style="font-family:var(--serif);font-size:21px;color:var(--teal);display:block">Dr. Mina Han, OD</span><span style="font-size:13px;color:var(--ink-soft)">Optometric Physician</span></span>
+      <span style="font-size:14px;color:var(--ink)">Myopia management · Dry eye disease · Specialty contact lenses</span>
+      <span class="f-lbl" style="color:var(--ink-soft)">English, Korean</span>
+    </div>
+    <div class="f-doc">
+      <img src="/images/team-meyer.png" alt="">
+      <span><span style="font-family:var(--serif);font-size:21px;color:var(--teal);display:block">Dr. Bruce Meyer, FCOVD</span><span style="font-size:13px;color:var(--ink-soft)">Developmental &amp; Vision Therapy</span></span>
+      <span style="font-size:14px;color:var(--ink)">Vision therapy · Neuro-optometric rehabilitation</span>
+      <span class="f-lbl" style="color:var(--ink-soft)">English</span>
+    </div>
+    <div class="f-doc">
+      <img src="/images/team-mundanchira.png" alt="">
+      <span><span style="font-family:var(--serif);font-size:21px;color:var(--teal);display:block">Dr. Amy Mundanchira, OD</span><span style="font-size:13px;color:var(--ink-soft)">Comprehensive &amp; Pediatric Care</span></span>
+      <span style="font-size:14px;color:var(--ink)">Pediatric exams · Comprehensive eye health</span>
+      <span class="f-lbl" style="color:var(--ink-soft)">English</span>
+    </div>
+    <div class="f-doc">
+      <img src="/images/team-ogoke.png" alt="">
+      <span><span style="font-family:var(--serif);font-size:21px;color:var(--teal);display:block">Dr. Chizoba Heather Ogoke, OD</span><span style="font-size:13px;color:var(--ink-soft)">Comprehensive Eye Care</span></span>
+      <span style="font-size:14px;color:var(--ink)">Comprehensive exams · Family eye care</span>
+      <span class="f-lbl" style="color:var(--ink-soft)">English</span>
+    </div>
+  </div>
+</template>
+
+<template id="tplC">
+  <div class="f-shell">
+    <img class="f-abs" style="object-position:40% 46%" src="/images/office-oradell.jpeg" alt="">
+    <div class="f-scrim"></div>
+    <div class="f-head">
+      <span class="f-chip"><img class="f-logo" src="/riverdell-logo.png" alt="Riverdell Vision"></span>
+      <div class="f-nav" style="color:#fff"><span>Care</span><span>Practice</span><span>Reviews</span></div>
+      <span class="f-btn outline f-hide-p">Book on Zocdoc</span>
+      <span class="f-menu" style="color:#fff"><i></i><i></i><i></i></span>
+    </div>
+    <div class="f-mid">
+      <p class="f-lbl" style="color:rgba(255,255,255,.7)">Oradell, New Jersey</p>
+      <h1 class="f-h1">Eye care that&rsquo;s <em>actually medicine.</em></h1>
+      <div class="f-duo"></div>
+      <p class="f-lead" style="color:rgba(255,255,255,.84);max-width:52ch;margin:26px auto 0">The warmth of a boutique practice with the rigor of real medicine.</p>
+      <div style="display:flex;gap:12px;margin-top:28px;justify-content:center;flex-wrap:wrap">
+        <span class="f-btn light">See available times on Zocdoc</span>
+        <span class="f-btn outline">(201) 265-7900</span>
+      </div>
+    </div>
+    <div class="f-bar">
+      <span class="f-lbl" style="color:rgba(255,255,255,.7)">Better one, or two?</span>
+      <span class="f-seg"><span>A typical retail optical</span><span class="on">Riverdell Vision</span></span>
+    </div>
+  </div>
+  <div class="f-sec">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <span class="f-lbl" style="color:var(--brass)">Why physician-led matters</span>
+      <span class="f-lbl" style="color:rgba(255,255,255,.55)">01 / 06</span>
+    </div>
+    <h2 class="f-serif" style="font-size:34px;color:#fff;margin-top:14px">What the visit is really for.</h2>
+    <div class="f-pair">
+      <div class="f-pan soft">
+        <span class="f-lbl" style="color:rgba(255,255,255,.6)">One</span>
+        <p style="margin:12px 0 0;font-size:19px;line-height:1.4;color:rgba(255,255,255,.9)">A typical retail optical: moving you toward frames.</p>
+      </div>
+      <div class="f-pan sharp">
+        <span class="f-lbl" style="color:var(--clay)">Two</span>
+        <p style="margin:12px 0 0;font-size:19px;line-height:1.4;color:var(--ink)">Riverdell Vision: protecting and understanding your eye health.</p>
+      </div>
+    </div>
+    <div class="f-dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+    <p class="f-lbl" style="color:rgba(255,255,255,.5);margin:14px 0 0">The unchosen side sits at the blur the chosen side resolves from</p>
+    <div style="margin-top:26px;border-top:1px solid rgba(255,255,255,.18)">
+      <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.14)"><span class="f-lbl" style="color:rgba(255,255,255,.5)">02</span><span style="font-size:15px;color:rgba(255,255,255,.78)">Who examines you</span><span class="f-lbl" style="color:rgba(255,255,255,.4)">Next</span></div>
+      <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.14)"><span class="f-lbl" style="color:rgba(255,255,255,.5)">03</span><span style="font-size:15px;color:rgba(255,255,255,.78)">Time per exam</span><span class="f-lbl" style="color:rgba(255,255,255,.4)">&nbsp;</span></div>
+      <div style="display:flex;justify-content:space-between;padding:11px 0"><span class="f-lbl" style="color:rgba(255,255,255,.5)">04</span><span style="font-size:15px;color:rgba(255,255,255,.78)">Specialty care</span><span class="f-lbl" style="color:rgba(255,255,255,.4)">&nbsp;</span></div>
+    </div>
+  </div>
+</template>
+<script>
+(function(){
+  "use strict";
+
+  var COPY = {
+    Cur: {
+      letter: "Where the build stands now",
+      name: "Today",
+      idea: "The current build, here so you have something to compare against.",
+      capd: "first screen ends 140px early",
+      capp: "booking sits below the first screen",
+      leads: "Words on the left, and on the right a calendar panel that looks like it shows appointment times but has none behind it.",
+      moves: "Every section fades upward as you scroll, all of them the same way, so nothing stands out as deliberate.",
+      risk: "On a phone, eight things stack up before the button to book, so the one action a visitor came to take falls below the first screen. All three directions fix that."
+    },
+    A: {
+      letter: "Direction A",
+      name: "The Chart",
+      idea: "The page is built like the acuity chart on your exam room wall: one column, each line stepping down in size, so the order of what matters is unmistakable.",
+      capd: "photograph fills the first screen",
+      capp: "booking inside the first screen",
+      leads: "A photograph of the Oradell office fills the first screen with the headline over it, and the button to book sits inside that first screen even on a phone. Below, the page reads as one clean column, with the five specialty programs numbered down the margin.",
+      moves: "The headline arrives slightly soft and settles into focus, the way a lens drops into place during a refraction. It happens once, on arrival, and nothing else on the page performs.",
+      risk: "This one leans hardest on the photography, so a weak crop has nowhere to hide. It is the direction I would build, because it can be read in a single pass, which is what a parent comparing three practices at ten at night actually does."
+    },
+    B: {
+      letter: "Direction B",
+      name: "The Record",
+      idea: "The practice presented as its own chart notes: a ruled table where every fact sits in a column, plain and checkable.",
+      capd: "facts left, photograph right",
+      capp: "the whole case, no scrolling",
+      leads: "The photograph holds the right half of the screen. On the left the facts line up in a ruled list: the Fellow on staff, the five specialty programs run in house, both review scores, care in Korean, and the year you opened. A visitor can read the entire case without scrolling once.",
+      moves: "Nothing moves, on purpose. A document does not need to perform, and every fact is legible the instant the page arrives.",
+      risk: "The most factual of the three and the coolest in feel. If it reads as too clinical for a family practice, that is the real risk, and it is the reason I would pair its fact table with Direction A rather than build it whole."
+    },
+    C: {
+      letter: "Direction C",
+      name: "The Refinement",
+      idea: "Built around the question every patient is already answering in the chair: better one, or two? The page lets them compare, the way a refraction does.",
+      capd: "centred headline, comparison below",
+      capp: "one comparison at a time",
+      leads: "The headline sits centred over the photograph. Below it the page sets choices side by side, a retail chain against this practice, and the visitor steps through them one at a time.",
+      moves: "The comparison itself is the movement. The side not chosen sits slightly soft, and sharpens when it is selected, so the whole page borrows the language of an eye exam.",
+      risk: "The boldest and most memorable of the three. It is also the most to keep up to date, and the furthest from the calm, permanent feel that A and B both have."
+    }
+  };
+
+  var ORDER = ["Cur","A","B","C"];
+  var current = "A";
+
+  var seg      = document.querySelector(".seg");
+  var pill     = document.querySelector(".seg-pill");
+  var tabs     = Array.prototype.slice.call(document.querySelectorAll(".seg button"));
+  var stage    = document.getElementById("stage");
+  var reduce   = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function slot(name){ return document.querySelector('[data-slot="' + name + '"]'); }
+
+  function movePill(){
+    var active = seg.querySelector('button[aria-selected="true"]');
+    if (!active) return;
+    pill.style.width = active.offsetWidth + "px";
+    pill.style.transform = "translateX(" + (active.offsetLeft - 4) + "px)";
+    // On a narrow screen the control scrolls, so keep the active tab in view
+    // without letting the page itself jump.
+    var l = active.offsetLeft - 4;
+    var r = l + active.offsetWidth;
+    if (l < seg.scrollLeft) seg.scrollTo({ left: l - 8, behavior: reduce.matches ? "auto" : "smooth" });
+    else if (r > seg.scrollLeft + seg.clientWidth) seg.scrollTo({ left: r - seg.clientWidth + 8, behavior: reduce.matches ? "auto" : "smooth" });
+  }
+
+  function mount(host, tplId, dir){
+    host.className = "vp " + (host.getAttribute("data-slot") === "vpd" ? "vp-d" : "vp-p") + " d" + dir;
+    host.innerHTML = '<div class="fold"><b>first screen ends</b></div>';
+    var t = document.getElementById(tplId);
+    if (!t) return;
+    var inner = document.createElement("div");
+    inner.className = "vp-in";
+    inner.appendChild(t.content.cloneNode(true));
+    host.appendChild(inner);
+  }
+
+  function paint(key){
+    var c = COPY[key];
+    slot("letter").textContent = c.letter;
+    slot("name").textContent   = c.name;
+    slot("idea").textContent   = c.idea;
+    slot("capd").textContent   = c.capd;
+    slot("capp").textContent   = c.capp;
+    slot("leads").textContent  = c.leads;
+    slot("moves").textContent  = c.moves;
+    slot("risk").textContent   = c.risk;
+    mount(slot("vpd"), "tpl" + key, key);
+    mount(slot("vpp"), "tpl" + key, key);
+    tabs.forEach(function(t){
+      t.setAttribute("aria-selected", String(t.getAttribute("data-key") === key));
+    });
+    movePill();
+    var which = document.getElementById("nwWhich");
+    if (which) which.textContent = key === "Cur" ? "Today, the current build" : key + ", " + c.name;
+  }
+
+  var busy = false;
+  function go(key){
+    if (key === current) return;
+    current = key;
+    if (!document.startViewTransition || reduce.matches || busy) { paint(key); return; }
+    // Starting a second transition while one is in flight aborts both, which
+    // is what a quick run along the tabs does.
+    busy = true;
+    var vt = document.startViewTransition(function(){ paint(key); });
+    vt.finished.catch(function(){}).finally(function(){ busy = false; });
+  }
+
+  tabs.forEach(function(tab){
+    tab.addEventListener("click", function(){ go(tab.getAttribute("data-key")); });
+    tab.addEventListener("keydown", function(e){
+      var i = ORDER.indexOf(tab.getAttribute("data-key"));
+      var n = e.key === "ArrowRight" ? i + 1 : e.key === "ArrowLeft" ? i - 1 : -1;
+      if (n < 0 || n >= ORDER.length) return;
+      e.preventDefault();
+      var next = document.getElementById("tab-" + ORDER[n]);
+      next.focus();
+      go(ORDER[n]);
+    });
+  });
+
+  window.addEventListener("resize", movePill);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(movePill);
+
+  /* ---------- the pick cards ---------- */
+  var picked = null;
+  var pks = Array.prototype.slice.call(document.querySelectorAll(".pk"));
+  pks.forEach(function(pk){
+    pk.addEventListener("click", function(){
+      picked = pk.getAttribute("data-pick");
+      pks.forEach(function(p){ p.setAttribute("aria-pressed", String(p === pk)); });
+      save();
+      say("Direction " + picked + " chosen. Add a note if you like, then press Copy everything.");
+    });
+  });
+
+  /* ---------- note widget ---------- */
+  var KEY  = "riverdell.directions.notes.v1";
+  var nw   = document.getElementById("nw");
+  var btn  = document.getElementById("nwBtn");
+  var pan  = document.getElementById("nwPan");
+  var text = document.getElementById("nwText");
+  var list = document.getElementById("nwList");
+  var cnt  = document.getElementById("nwCnt");
+  var said = document.getElementById("nwSaid");
+  var notes = [];
+
+  function say(m){ said.textContent = m || ""; }
+
+  function load(){
+    try {
+      var raw = JSON.parse(localStorage.getItem(KEY) || "{}");
+      if (Array.isArray(raw.notes)) notes = raw.notes;
+      if (raw.picked) {
+        picked = raw.picked;
+        pks.forEach(function(p){ p.setAttribute("aria-pressed", String(p.getAttribute("data-pick") === picked)); });
+      }
+    } catch (e) { /* a blocked or full store must not break the page */ }
+  }
+  function save(){
+    try { localStorage.setItem(KEY, JSON.stringify({ notes: notes, picked: picked })); }
+    catch (e) { /* nothing to do; notes still work for this visit */ }
+  }
+
+  function draw(){
+    list.textContent = "";
+    notes.forEach(function(n, i){
+      var row = document.createElement("div");
+      row.className = "nw-note";
+      var w = document.createElement("span");
+      w.className = "w";
+      w.textContent = n.on === "Cur" ? "NOW" : n.on;
+      var t = document.createElement("span");
+      t.textContent = n.text;
+      var x = document.createElement("button");
+      x.type = "button";
+      x.className = "x";
+      x.setAttribute("aria-label", "Remove this note");
+      x.textContent = "×";
+      x.addEventListener("click", function(){
+        notes.splice(i, 1); save(); draw(); say("Note removed.");
+      });
+      row.appendChild(w); row.appendChild(t); row.appendChild(x);
+      list.appendChild(row);
+    });
+    cnt.textContent = String(notes.length);
+    btn.classList.toggle("has", notes.length > 0);
+    btn.firstChild.textContent = notes.length ? "Your notes " : "Leave a note ";
+  }
+
+  function openPan(open){
+    nw.classList.toggle("open", open);
+    btn.setAttribute("aria-expanded", String(open));
+    if (open) { pan.hidden = false; text.focus(); }
+    else { setTimeout(function(){ if (!nw.classList.contains("open")) pan.hidden = true; }, 340); }
+  }
+
+  btn.addEventListener("click", function(){ openPan(!nw.classList.contains("open")); });
+
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape" && nw.classList.contains("open")) { openPan(false); btn.focus(); }
+  });
+
+  document.getElementById("nwAdd").addEventListener("click", function(){
+    var v = text.value.trim();
+    if (!v) { say("Type a note first."); text.focus(); return; }
+    notes.push({ on: current, text: v });
+    text.value = "";
+    save(); draw();
+    say("Added, tagged to " + (current === "Cur" ? "today's build" : current) + ".");
+    text.focus();
+  });
+
+  document.getElementById("nwCopy").addEventListener("click", function(){
+    var pending = text.value.trim();
+    var out = ["Riverdell Vision, website directions"];
+    out.push(picked ? "My pick: " + picked + ", " + COPY[picked].name : "My pick: not decided yet");
+    var all = notes.concat(pending ? [{ on: current, text: pending }] : []);
+    if (all.length) {
+      out.push("");
+      out.push("Notes:");
+      all.forEach(function(n, i){
+        out.push((i + 1) + ") [" + (n.on === "Cur" ? "today" : n.on) + "] " + n.text);
+      });
+    }
+    var s = out.join("\n");
+    function done(){ say("Copied. Paste it into your reply."); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(s).then(done, function(){ fallback(s); });
+    } else { fallback(s); }
+    function fallback(str){
+      text.value = str;
+      text.select();
+      say("Copying was blocked. The text is selected in the box, so copy it by hand.");
+    }
+  });
+
+  load();
+  draw();
+  paint("A");
+})();
+</script>
+</body>
+</html>
