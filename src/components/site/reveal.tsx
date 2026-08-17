@@ -61,6 +61,10 @@ export function Reveal({
       ref={ref}
       style={state === "shown" ? { transitionDelay: `${delay}ms` } : undefined}
       className={cn(
+        // Reveal usually sits directly inside a grid or flex track, where a
+        // default min-width of auto stops it shrinking and pushes the page
+        // sideways on narrow screens.
+        "min-w-0",
         state === "hidden" && "opacity-0 translate-y-4",
         state === "shown" &&
           "opacity-100 translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",

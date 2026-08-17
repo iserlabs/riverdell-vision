@@ -29,10 +29,14 @@ describe("medicalWebPageSchema", () => {
   });
 
   it("ties the byline to a credentialed physician entity", () => {
-    expect(s.reviewedBy).toBeDefined();
-    expect(s.reviewedBy["@type"]).toBe("Physician");
-    expect(s.reviewedBy["@id"]).toContain("/about#dr-mina-han");
-    expect(s.reviewedBy.hasCredential.name).toBe("OD");
+    const reviewedBy = s.reviewedBy;
+    expect(reviewedBy).toBeDefined();
+    // Narrowed explicitly so `tsc --noEmit` stays green: expect() does not act
+    // as a type guard, so the optional property needs a real assertion first.
+    if (!reviewedBy) throw new Error("reviewedBy missing");
+    expect(reviewedBy["@type"]).toBe("Physician");
+    expect(reviewedBy["@id"]).toContain("/about#dr-mina-han");
+    expect(reviewedBy.hasCredential.name).toBe("OD");
   });
 
   it("carries a structured last-reviewed date", () => {

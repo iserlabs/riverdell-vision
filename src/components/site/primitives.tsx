@@ -62,7 +62,10 @@ export function Eyebrow({
       )}
     >
       {align === "center" && <span aria-hidden className="h-px flex-1 bg-line" />}
-      <span className="eyebrow shrink-0 text-clay">{children}</span>
+      {/* min-w-0 rather than shrink-0: at 320px a long label is wider than the
+          viewport, and a label that refuses to shrink pushes the whole page
+          sideways (WCAG 1.4.10 reflow). It wraps instead. */}
+      <span className="eyebrow min-w-0 text-clay">{children}</span>
       <span aria-hidden className="h-px flex-1 bg-line" />
     </span>
   );
@@ -86,7 +89,10 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        "flex flex-col gap-4",
+        // min-w-0 so this can shrink inside a grid or flex track. Without it a
+        // grid item refuses to go below its content width and pushes the page
+        // sideways at 320px.
+        "flex min-w-0 flex-col gap-4",
         align === "center" && "items-center text-center",
         className,
       )}

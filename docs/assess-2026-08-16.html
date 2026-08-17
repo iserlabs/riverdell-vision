@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Riverdell Vision · Assessment · 16 Aug 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bone:#f4f7fa; --bone-deep:#e4ecf4; --card:#fdfeff;
+  --ink:#26303f; --ink-soft:#66707f;
+  --teal:#2f6bb0; --teal-deep:#1e3a5f; --teal-tint:#e3edf8;
+  --clay:#b2532c; --clay-soft:#f7e6dd; --brass:#c9a227;
+  --line:#d7e0ea;
+  --red:#a8322a; --amber:#8a6410; --green:#2c6b4f;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:"Hanken Grotesk",system-ui,sans-serif;
+  background:var(--bone); color:var(--ink);
+  line-height:1.55; -webkit-font-smoothing:antialiased;
+  padding:0 0 6rem;
+}
+.wrap{max-width:informational;max-width:62rem;margin:0 auto;padding:0 1.5rem}
+h1,h2,h3{font-family:"Newsreader",Georgia,serif;font-optical-sizing:auto;font-weight:500;color:var(--teal-deep);letter-spacing:-.01em;text-wrap:balance}
+.eyebrow{font-family:"Geist Mono",ui-monospace,monospace;text-transform:uppercase;letter-spacing:.22em;font-size:.68rem;color:var(--clay);font-weight:500}
+header.top{background:var(--teal-deep);color:var(--bone);padding:3.5rem 0 3rem;margin-bottom:3rem}
+header.top .eyebrow{color:var(--brass)}
+header.top h1{color:var(--bone);font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.06;margin:.9rem 0 0;max-width:22ch}
+header.top p.lead{margin-top:1.2rem;max-width:56ch;font-size:1.08rem;color:rgba(244,247,250,.82)}
+.meta{margin-top:1.6rem;font-family:"Geist Mono",monospace;font-size:.72rem;color:rgba(244,247,250,.6);letter-spacing:.06em}
+section{margin:0 0 3.2rem}
+h2{font-size:1.75rem;margin:0 0 .3rem}
+h2 + .sub{color:var(--ink-soft);margin-bottom:1.4rem;max-width:60ch}
+h3{font-size:1.12rem;margin:1.8rem 0 .5rem}
+.rule{height:1px;background:var(--line);margin:2.6rem 0}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));margin:1.4rem 0}
+.score{background:var(--card);border:1px solid var(--line);border-radius:.8rem;padding:1rem 1.1rem}
+.score .n{font-family:"Newsreader",serif;font-size:2.1rem;line-height:1;color:var(--teal);font-variant-numeric:tabular-nums}
+.score .l{font-family:"Geist Mono",monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.18em;color:var(--ink-soft);margin-top:.5rem}
+ol{list-style:none;counter-reset:f}
+ol li{counter-increment:f;position:relative;padding:.95rem 0 .95rem 3rem;border-top:1px solid var(--line)}
+ol li:before{content:counter(f);position:absolute;left:0;top:.95rem;font-family:"Geist Mono",monospace;font-size:.75rem;color:var(--ink-soft);width:2rem;text-align:right}
+ol li:last-child{border-bottom:1px solid var(--line)}
+.tag{display:inline-block;font-family:"Geist Mono",monospace;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;padding:.2rem .45rem;border-radius:.25rem;vertical-align:.1em;margin-right:.5rem;font-weight:500}
+.blocking{background:#f7dedb;color:var(--red)}
+.high{background:#f6ecd4;color:var(--amber)}
+.med{background:var(--teal-tint);color:var(--teal-deep)}
+.good{background:#d9ece2;color:var(--green)}
+code{font-family:"Geist Mono",monospace;font-size:.82em;background:var(--bone-deep);padding:.1rem .3rem;border-radius:.25rem;color:var(--teal-deep)}
+.where{display:block;font-family:"Geist Mono",monospace;font-size:.68rem;color:var(--ink-soft);margin-top:.35rem;word-break:break-word}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.88rem}
+th,td{text-align:left;padding:.55rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:"Geist Mono",monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:500}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.wrapT{overflow-x:auto}
+.callout{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--clay);border-radius:.6rem;padding:1.1rem 1.3rem;margin:1.4rem 0}
+.callout.win{border-left-color:var(--green)}
+.callout h3{margin-top:0}
+.tierhead{display:flex;align-items:baseline;gap:.8rem;flex-wrap:wrap}
+footer{margin-top:3rem;padding-top:1.6rem;border-top:1px solid var(--line);font-size:.85rem;color:var(--ink-soft)}
+@media (max-width:640px){
+  header.top{padding:2.4rem 0 2rem}
+  ol li{padding-left:2.4rem}
+  ol li:before{width:1.6rem}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <p class="eyebrow">Step 1 · Assess</p>
+    <h1>Riverdell Vision, measured against best in class</h1>
+    <p class="lead">Thirteen audit agents across craft, findability, business and correctness. Every finding below was measured against the running site, not inferred from reading code.</p>
+    <p class="meta">16 AUGUST 2026 · 24 MARKETING ROUTES · NOTHING CHANGED YET</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <h2>The verdict in one line</h2>
+  <p class="sub">This is a genuinely well-built site with a real design language of its own, and it is losing to itself in four places: a form that can drop a patient enquiry without telling anyone, a hero that fills the window at no screen size, a display typeface running with its best feature switched off, and the two pages that answer "what does it cost" reachable from nowhere.</p>
+
+  <div class="grid">
+    <div class="score"><div class="n">4</div><div class="l">Blocking defects</div></div>
+    <div class="score"><div class="n">26/28</div><div class="l">Hero geometry fails</div></div>
+    <div class="score"><div class="n">21/24</div><div class="l">Routes axe-clean</div></div>
+    <div class="score"><div class="n">0.00</div><div class="l">CLS on every route</div></div>
+  </div>
+  <p>The correctness floor is higher than most sites ever reach. Production LCP is 152 to 328 milliseconds, layout shift is zero everywhere, tests pass, the build is green, no content is stranded under reduced motion or with JavaScript off, and there is not one em dash or fabricated statistic on the site. The gap to best in class is not hygiene. It is art direction and a handful of real defects.</p>
+</section>
+
+<div class="rule"></div>
+
+<section>
+  <h2>Fix these regardless of which direction you pick</h2>
+  <p class="sub">Four blocking defects. The first one is costing money today.</p>
+  <ol>
+    <li><span class="tag blocking">Blocking</span><strong>The request form can lose a patient enquiry silently.</strong> When the two email environment variables are unset, the send is skipped, the server still answers "ok", and the parent sees the normal thank-you promising a callback within one business day. The lead exists only in that phone's local storage. This was driven live and reproduced, not inferred. The waitlist form has the same defect.
+      <span class="where">src/lib/notify.ts:35 · src/app/api/lead/route.ts:61 · src/components/marketing/consult-form.tsx:135</span></li>
+
+    <li><span class="tag blocking">Blocking</span><strong>Every route scrolls sideways at 320px.</strong> A single non-shrinking label overflows by 23 to 68 pixels on all 24 routes, which fails WCAG AA reflow. One line causes it on 23 of them.
+      <span class="where">src/components/site/primitives.tsx:65 · worst case src/components/marketing/consult-form.tsx:184</span></li>
+
+    <li><span class="tag blocking">Blocking</span><strong>The care finder has an invisible focus ring.</strong> The outline is removed and replaced with a tint measuring 1.08:1 against the unfocused state, so a keyboard user cannot see where they are. Fails WCAG Level A.
+      <span class="where">src/components/marketing/care-finder.tsx:111</span></li>
+
+    <li><span class="tag blocking">Blocking</span><strong>The homepage is cutting off the practice's own credentials.</strong> A fixed aspect ratio with hidden overflow clips one of four credentials on desktop and three of four on a phone. Content loss, on the section that exists to establish authority.
+      <span class="where">src/components/marketing/studio-panel.tsx:40</span></li>
+  </ol>
+</section>
+
+<div class="rule"></div>
+
+<section>
+  <div class="tierhead"><h2>Tier 1 · Craft</h2><span class="eyebrow">hero · type · colour · components · motion</span></div>
+  <p class="sub">Where the biggest visible gap sits.</p>
+
+  <h3>The hero fills the window at no screen size</h3>
+  <p>There is no viewport-height rule anywhere in the marketing site. Measured across seven geometries on four routes, 26 of 28 checks fail. The homepage overshoots the fold by 531 pixels on an iPhone and falls 200 pixels short at 1920 wide. On a landscape phone the first section runs to 373% of the window.</p>
+  <div class="wrapT">
+  <table>
+    <tr><th>Viewport</th><th>Home</th><th>About</th><th>Myopia</th><th>Reviews</th></tr>
+    <tr><td class="num">390 × 844</td><td class="num">163%</td><td class="num">143%</td><td class="num">128%</td><td class="num">59%</td></tr>
+    <tr><td class="num">440 × 956</td><td class="num">141%</td><td class="num">130%</td><td class="num">107%</td><td class="num">52%</td></tr>
+    <tr><td class="num">844 × 390</td><td class="num">373%</td><td class="num">424%</td><td class="num">349%</td><td class="num">132%</td></tr>
+    <tr><td class="num">1920 × 1080</td><td class="num">81%</td><td class="num">89%</td><td class="num">66%</td><td class="num">47%</td></tr>
+  </table>
+  </div>
+  <p>The right-hand panel on the homepage is a mocked-up calendar with dummy date cells and no real availability behind it. That same text-left, card-right construction repeats across eleven service pages with only the image swapped. It is the single loudest template tell on the site.</p>
+
+  <h3>Newsreader is running with its best feature switched off</h3>
+  <p>The font loader never requests the optical-sizing axis, so Google serves the 16-point master and pins it. A 64-pixel heading is therefore a text-grade letterform scaled up: hairlines too thin, spacing too loose. Proven by measurement, a 64px string renders identically at four different optical sizes. One line in the layout fixes every heading on the site.</p>
+  <p class="where">src/app/layout.tsx:9 · needs <code>axes: ["opsz"]</code></p>
+
+  <h3>The site already owns a better design language than it uses</h3>
+  <p>The numbered hairline rows, the ghost-numeral proof ledger, the self-drawing process timeline and the lens-ring studio panel are genuinely good, hand-built work. Then 67 containers across the marketing pages fall back to the same bordered card, 56 of them with no shadow, no fill change and no ring. Card sits 1.07:1 above the page background, a three percent step, which is precisely why every card needs a border to exist at all. That number is the flat-templated read in one measurement.</p>
+
+  <h3>Motion is careful and says nothing</h3>
+  <p>83 identical fade-ups, one considered easing curve, and no signature moment. Two measured defects: the magnetic effect on the primary Book button computes its pull from its own moved position, so it visibly wobbles for 600 milliseconds under a stationary cursor and runs up to 40 pixels away from where you aimed. And the global smooth-scroll applies to page navigation, so every internal link costs about a second of animated scrolling and lands you 93 pixels down the new page.</p>
+  <p class="where">src/components/site/magnetic.tsx:28 · src/app/globals.css:133</p>
+
+  <h3>The palette brief and the shipped palette are two different briefs</h3>
+  <p>The stylesheet comment says warm-luxe, cream canvas. The values are cool blue at hue 240 to 254. Warmth survives only in the coral and brass accents. Defensible for a medical practice, but it is worth deciding on purpose rather than by drift.</p>
+</section>
+
+<div class="rule"></div>
+
+<section>
+  <div class="tierhead"><h2>Tier 2 · Findability</h2><span class="eyebrow">seo · schema · answer engines · local</span></div>
+  <p class="sub">The technical foundation is excellent. The content strategy has holes.</p>
+
+  <p><span class="tag good">Strong</span>Canonicals on every route, 59 legacy redirects live and returning 308, a complete security header set, zero duplicate titles, 23 routes of valid structured data with no parse errors and no dangling references, and an explicitly permissive AI crawler policy naming GPTBot, ClaudeBot, PerplexityBot and the rest. Review data is real and verifiable throughout.</p>
+
+  <ol>
+    <li><span class="tag high">High</span><strong>17 of 20 answers never name the practice or the town.</strong> An assistant can quote the text without attributing it to Riverdell Vision. The answers page reads like a textbook rather than a practice.
+      <span class="where">src/lib/answers.ts:34-170</span></li>
+    <li><span class="tag high">High</span><strong>Four pages are effectively invisible.</strong> The two condition pages have zero inbound links from anywhere. The answers page and the cost page link only to each other and appear in no menu. All four depend on the sitemap alone.
+      <span class="where">src/lib/site.ts:118-142 · src/components/site/footer.tsx:52-90</span></li>
+    <li><span class="tag high">High</span><strong>The 22 area pages are 87% identical.</strong> Only about 100 words differ per town. The two fields built to fix this, landmarks and an owner note, are rendered by the template and populated by zero of 22 entries.
+      <span class="where">src/lib/areas.ts:20 · src/app/(marketing)/areas/[slug]/page.tsx:141</span></li>
+    <li><span class="tag high">High</span><strong>No Korean-language surface exists.</strong> The bilingual team is mentioned only in English body copy. Zero competition on that query, and it sits three miles from the planned second office.</li>
+    <li><span class="tag med">Medium</span><strong>Five titles print the brand name twice</strong> and sixteen descriptions overrun the snippet limit.</li>
+    <li><span class="tag med">Medium</span><strong>Cannibalisation.</strong> The Oradell town page and the Oradell area page share 566 of 720 words. Four "Bergen County" service pages compete head-on with the service pages themselves.</li>
+    <li><span class="tag med">Medium</span><strong>Three high-intent questions have no answerable page:</strong> when a child should have a first eye exam, Korean-speaking care, and Saturday hours.</li>
+  </ol>
+</section>
+
+<div class="rule"></div>
+
+<section>
+  <div class="tierhead"><h2>Tier 3 · Business</h2><span class="eyebrow">conversion · copy · architecture</span></div>
+
+  <p>Measured on a cold phone: a call is one tap, a Zocdoc booking is one scroll and one tap, the request form is five taps and one page load. Those are good numbers. Three things undercut them.</p>
+
+  <ol>
+    <li><span class="tag high">High</span><strong>Two dominant actions compete in one viewport.</strong> "Request an appointment" and "See available times" are both solid teal, go to different destinations, and the Zocdoc one is physically larger.</li>
+    <li><span class="tag high">High</span><strong>The pages answering the top two objections are unreachable by clicking.</strong> Cost and insurance is the number one question a parent has, and the page that answers it is in no menu.</li>
+    <li><span class="tag med">Medium</span><strong>The form requires an email to promise a phone call.</strong> Name and phone is the honest minimum.</li>
+    <li><span class="tag med">Medium</span><strong>The final ask on every page carries no proof beside it.</strong> Three buttons, no rating, no credential, no review.</li>
+    <li><span class="tag med">Medium</span><strong>An investor pitch and a staff dashboard are linked in the patient footer.</strong> A patient landing on lender projections reads as a practice being sold. The data room passphrase is hardcoded in the browser bundle, so treat that page as fully public.
+      <span class="where">src/components/site/footer.tsx:162 · src/components/site/expansion-gate.tsx:10</span></li>
+  </ol>
+
+  <h3>The copy claims care instead of showing the facts it already has</h3>
+  <p>The clinical writing is strong: every service and condition page opens with a direct, checkable answer and refuses to over-promise. The connective tissue is where it sounds generated. Twelve headlines fail the transfer test, meaning you could change two nouns and move the sentence to any dental practice in America. The homepage hero lead is one of them.</p>
+  <p>Meanwhile the genuinely differentiating facts sit unused underneath: a Fellow of the College of Optometrists in Vision Development on staff, five specialty programmes run in-house that most practices refer out, four named optometrists, a real 5.0 across 448 Google reviews, patients who have stayed thirty years. The words "real", "genuine", "honest" and "truly" appear 17 times in the area copy alone. Candour is behaviour, not a word you add.</p>
+  <p class="where">src/app/(marketing)/page.tsx:71 · src/components/marketing/service-view.tsx:183 · src/lib/areas.ts</p>
+
+  <h3>The navigation asks a hurried parent to speak optometry</h3>
+  <p>Eight clinical names under one "Care" menu, including neuro-optometric rehabilitation and meibomian gland dysfunction. The dropdown already supports a plain-English label with the clinical name underneath, so this is reorganisation, not rebuilding. The biggest missing page is children's eye exams: the nav promises it and lands on an anchor inside the About page.</p>
+</section>
+
+<div class="rule"></div>
+
+<section>
+  <div class="tierhead"><h2>Tier 4 · Correctness</h2><span class="eyebrow">accessibility · performance · code health</span></div>
+
+  <p><span class="tag good">Strong</span>21 of 24 routes are completely clean under automated accessibility testing at both desktop and phone widths. Every route has exactly one heading one, one main landmark, no missing alt text, no unlabelled form field and no unnamed control. The mobile menu locks scroll, moves focus in and restores it correctly. Nothing is stranded invisible under reduced motion or with JavaScript disabled, proven across 499 nodes on the homepage alone.</p>
+
+  <div class="wrapT">
+  <table>
+    <tr><th>Measure</th><th>Result</th></tr>
+    <tr><td>Production LCP</td><td class="num">152 to 328 ms across four routes</td></tr>
+    <tr><td>Cumulative layout shift</td><td class="num">0.00 on every route</td></tr>
+    <tr><td>First load JavaScript</td><td class="num">~250 kB gzipped, every route</td></tr>
+    <tr><td>Fonts per cold load</td><td class="num">182 kB, four files</td></tr>
+    <tr><td>Prefetch requests on the areas page</td><td class="num">142, for 36 unique routes</td></tr>
+    <tr><td>Tests</td><td class="num">24 passing</td></tr>
+    <tr><td>Lint</td><td class="num">0 errors</td></tr>
+    <tr><td>Standalone type check</td><td class="num">3 errors, in one test file</td></tr>
+  </table>
+  </div>
+
+  <p>The site is fast despite its payload rather than because of it. Two cheap wins: the repeated links across header, mobile menu, body and footer each prefetch independently, firing up to 142 requests and 1.4 megabytes of decoded data per page view; and the Newsreader italic file is 64.5 kB, preloaded on every route, used in seven places.</p>
+  <p>Nineteen tap targets fall under 44 pixels, all of them height failures on inline "Read the guide" links. Three contrast failures remain, the worst being unavailable date numerals in the fake calendar at 1.96:1.</p>
+</section>
+
+<div class="rule"></div>
+
+<section>
+  <h2>The five biggest levers</h2>
+  <p class="sub">Ranked by what they change for a parent deciding in two minutes.</p>
+  <ol>
+    <li><strong>Make a lost lead loud, and give the hero a real window.</strong> The first is worth every enquiry the form has ever taken. The second removes the loudest template tell and puts the practice's actual room on screen in the first second.</li>
+    <li><strong>Turn on optical sizing and give the light surfaces a real step.</strong> Two small changes that lift every heading and every card across all 24 routes without redesigning anything.</li>
+    <li><strong>Put cost and common questions in the navigation, and relabel Care by problem.</strong> One file. Converts two stranded pages into the site's second and third most useful.</li>
+    <li><strong>Rewrite the answers so each one names the practice and the town in its first sentence,</strong> then push those same sentences into the file assistants actually read. This is what decides whether an AI recommends Riverdell by name.</li>
+    <li><strong>Swap claimed care for the credential in the three highest-traffic sentences.</strong> The Fellow, the five in-house programmes, the four named doctors and the 448 reviews are all already in the repository, sitting underneath sentences that describe them in adjectives.</li>
+  </ol>
+</section>
+
+<div class="callout win">
+  <h3>What is already good, and should not be touched</h3>
+  <p>The proof ledger, the editorial index rows, the process timeline and the studio panel are real design work. The review system is honest and verifiable end to end. The redirect map, security headers and structured data are better than most agency output. The reduced-motion and no-JavaScript behaviour is correct by construction, not by accident. None of that needs replacing.</p>
+</div>
+
+<footer>
+  <p>Assessed 16 August 2026 against the running site at localhost:3000 and production at riverdell-vision.vercel.app. Every number above was measured. No files have been changed.</p>
+</footer>
+
+</div>
+</body>
+</html>

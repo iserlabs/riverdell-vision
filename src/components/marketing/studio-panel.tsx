@@ -37,7 +37,10 @@ const CREDENTIALS = [
 
 export function StudioPanel() {
   return (
-    <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] border border-line bg-card p-2 shadow-[0_30px_70px_-40px_rgba(18,60,70,0.4)]">
+    // Height follows the content. A fixed 4/3 box silently cut one of the four
+    // credentials at desktop and three of four on a phone, which is content
+    // loss on the section whose whole job is establishing authority.
+    <div className="relative overflow-hidden rounded-[1.5rem] border border-line bg-card p-2 shadow-[0_30px_70px_-40px_rgba(18,60,70,0.4)]">
       <div className="grain relative flex h-full flex-col overflow-hidden rounded-[1.1rem] bg-teal-deep px-7 py-7 text-bone md:px-9 md:py-9">
         {/* hairline motif, a quiet nod to an optical field / lens ring */}
         <svg

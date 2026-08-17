@@ -140,7 +140,11 @@ export function SiteFooter() {
       <div className="border-t border-bone/15">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-5 text-xs text-bone/60 md:flex-row md:px-8">
           <p>© {new Date().getFullYear()} Riverdell Vision. All rights reserved.</p>
-          <div className="-mx-2 flex items-center gap-3 md:mx-0 md:gap-5">
+          {/* Wraps: five non-wrapping links overflowed a 320px viewport and
+              pushed every page sideways (WCAG 1.4.10). Patient-facing legal
+              links only; the investor and staff surfaces are reached directly,
+              not from a patient's footer. */}
+          <div className="-mx-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 md:mx-0 md:gap-x-5">
             <Link
               href="/privacy"
               className="-my-3.5 flex items-center px-2 py-3.5 hover:text-bone md:mx-0 md:my-0 md:px-0 md:py-0"
@@ -159,18 +163,6 @@ export function SiteFooter() {
             >
               Sitemap
             </a>
-            <Link
-              href="/growth"
-              className="-my-3.5 flex items-center px-2 py-3.5 hover:text-bone md:mx-0 md:my-0 md:px-0 md:py-0"
-            >
-              Expansion
-            </Link>
-            <Link
-              href="/dashboard"
-              className="-my-3.5 flex items-center px-2 py-3.5 hover:text-bone md:mx-0 md:my-0 md:px-0 md:py-0"
-            >
-              Team portal
-            </Link>
           </div>
         </div>
       </div>

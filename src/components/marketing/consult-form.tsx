@@ -7,8 +7,11 @@ import { btn } from "@/lib/ui";
 import { addLead } from "@/lib/demo-store";
 import { providers, insurers, practice } from "@/lib/site";
 
+// min-w-0 matters: a <select> is as wide as its longest option ("Blue Cross
+// Blue Shield") unless it is allowed to shrink, and at 320px that one option
+// widened the whole form past the viewport.
 const field =
-  "w-full rounded-lg border border-line bg-card px-3.5 py-2.5 text-base text-ink outline-none transition-colors placeholder:text-ink-soft/85 focus:border-teal focus:ring-2 focus:ring-teal/20";
+  "w-full min-w-0 rounded-lg border border-line bg-card px-3.5 py-2.5 text-base text-ink outline-none transition-colors placeholder:text-ink-soft/85 focus:border-teal focus:ring-2 focus:ring-teal/20";
 const labelCls = "text-sm font-medium text-ink";
 const optCls = "text-[0.7rem] font-normal text-ink-soft";
 
@@ -108,10 +111,10 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
       source: "Website form" as const,
     };
     // Zero-PHI notify. Sends the full routing/triage picture to the office.
-    // Only a genuine delivery failure (network error, 4xx/5xx, or the mailer
-    // reporting "error") should break the "we'll call you" promise; a mailer
-    // that is not yet configured returns delivery:"skipped", which stays a soft
-    // success for the visitor while the owner finishes setup.
+    // Success here means the office actually received the request. An unset
+    // mailer is a failure, not a soft pass: the server answers 503 and the
+    // visitor gets the phone number rather than a callback promise nobody
+    // upstream can keep.
     let ok = false;
     let serverError = "";
     try {
@@ -132,7 +135,7 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
         }),
       });
       const data = await res.json().catch(() => null);
-      ok = res.ok && data?.delivery !== "error";
+      ok = res.ok && data?.ok === true && data?.delivery === "sent";
       if (!ok && data && typeof data.error === "string") serverError = data.error;
     } catch {
       ok = false;
@@ -183,7 +186,7 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
   return (
     <form
       onSubmit={onSubmit}
-      className="grid gap-6 rounded-2xl border border-line bg-card p-6 md:p-8 lg:grid-cols-[1.15fr_0.85fr]"
+      className="grid gap-6 rounded-2xl border border-line bg-card p-6 md:p-8 lg:grid-cols-[1.15fr_0.85fr] [&>*]:min-w-0"
     >
       {/* Honeypot: hidden from people, tempting to bots. */}
       <div className="absolute left-[-9999px]" aria-hidden>
