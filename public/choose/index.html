@@ -316,22 +316,34 @@ table.axes td{color:var(--paper2)}
 .vt-frames{view-transition-name:vt-frames}
 .panel{view-transition-name:vt-panel}
 
-/* Fluid frames. The mockups are fixed-pixel documents (1280 and 390 wide)
-   scaled down to fit, so the scale factor is derived from the container's own
-   width rather than hard-coded, and the fold marker is a percentage so it
-   tracks the scale. Without this the two frames add up to 1062px and the page
-   scrolls sideways on anything under a laptop. */
+/* Fluid frames. Each mockup is a fixed-pixel document (1280 wide by 1220 tall,
+   and 390 by 1320) shown scaled down. The scale has to be a plain number for
+   scale(), so it cannot be derived in CSS from the container width; script
+   sets --s and the frame height from the measured width instead. The
+   aspect-ratio here is only the pre-script fallback.
+
+   The dashed line is a real device viewport bottom: 800px into the laptop
+   document and 844px into the phone document, expressed as a share of the
+   document height so it holds at any scale. A hero that ends above that line
+   is a hero that fits on the first screen. */
 .frames{display:flex;gap:26px;align-items:flex-start}
 .fr{margin:0;min-width:0}
-.fr.is-d{flex:794 1 0}
-.fr.is-p{flex:242 1 0}
-.vp{width:100%;container-type:inline-size}
-.vp-d{aspect-ratio:794/756;height:auto}
-.vp-p{aspect-ratio:242/818;height:auto}
-.vp-d .vp-in{--s:calc(100cqw / 1280)}
-.vp-p .vp-in{--s:calc(100cqw / 390)}
-.vp-d .fold{top:62.3%}
-.vp-p .fold{top:62.1%}
+.fr.is-d{flex:1280 1 0}
+.fr.is-p{flex:390 1 0}
+.vp{width:100%}
+.vp-d{aspect-ratio:1280/1220;height:auto}
+.vp-p{aspect-ratio:390/1320;height:auto}
+.vp-d .fold{top:65.574%}   /* 800 / 1220 */
+.vp-p .fold{top:63.939%}   /* 844 / 1320 */
+
+/* The hero is one whole first screen, so it reaches the line rather than
+   stopping short of it. Directions that carry the header over the photograph
+   use the full height; the one with a header above the photograph subtracts it,
+   so all three end on the line. The current build is content-driven and is
+   deliberately left alone, because overshooting on a phone is the real fault
+   the three directions exist to fix. */
+.vp-d .vp-in{--hero:800px}
+.vp-p .vp-in{--hero:844px}
 @media (max-width:820px){
   .frames{flex-direction:column;align-items:center;gap:34px}
   .fr.is-d,.fr.is-p{flex:none;width:100%}
@@ -461,12 +473,12 @@ table.axes td{color:var(--paper2)}
 
     <div class="frames vt-frames">
       <figure class="fr is-d">
-        <figcaption class="fr-cap mono"><span>On a laptop</span><span data-slot="capd"></span></figcaption>
-        <div class="vp vp-d" data-slot="vpd"><div class="fold"><b>first screen ends</b></div></div>
+        <figcaption class="fr-cap mono"><span>On a laptop · 1280 × 800</span><span data-slot="capd"></span></figcaption>
+        <div class="vp vp-d" data-slot="vpd"><div class="fold"><b>bottom of the first screen</b></div></div>
       </figure>
       <figure class="fr is-p">
-        <figcaption class="fr-cap mono"><span>On a phone</span><span data-slot="capp"></span></figcaption>
-        <div class="vp vp-p" data-slot="vpp"><div class="fold"><b>first screen ends</b></div></div>
+        <figcaption class="fr-cap mono"><span>On a phone · 390 × 844</span><span data-slot="capp"></span></figcaption>
+        <div class="vp vp-p" data-slot="vpp"><div class="fold"><b>bottom of the first screen</b></div></div>
       </figure>
     </div>
 
@@ -748,8 +760,8 @@ table.axes td{color:var(--paper2)}
       letter: "Where the build stands now",
       name: "Today",
       idea: "The current build, here so you have something to compare against.",
-      capd: "first screen ends 140px early",
-      capp: "booking sits below the first screen",
+      capd: "hero stops short of the first screen",
+      capp: "booking falls below the first screen",
       leads: "Words on the left, and on the right a calendar panel that looks like it shows appointment times but has none behind it.",
       moves: "Every section fades upward as you scroll, all of them the same way, so nothing stands out as deliberate.",
       risk: "On a phone, eight things stack up before the button to book, so the one action a visitor came to take falls below the first screen. All three directions fix that."
@@ -758,8 +770,8 @@ table.axes td{color:var(--paper2)}
       letter: "Direction A",
       name: "The Chart",
       idea: "The page is built like the acuity chart on your exam room wall: one column, each line stepping down in size, so the order of what matters is unmistakable.",
-      capd: "photograph fills the first screen",
-      capp: "booking inside the first screen",
+      capd: "hero fills the first screen exactly",
+      capp: "hero fills it, booking inside it",
       leads: "A photograph of the Oradell office fills the first screen with the headline over it, and the button to book sits inside that first screen even on a phone. Below, the page reads as one clean column, with the five specialty programs numbered down the margin.",
       moves: "The headline arrives slightly soft and settles into focus, the way a lens drops into place during a refraction. It happens once, on arrival, and nothing else on the page performs.",
       risk: "This one leans hardest on the photography, so a weak crop has nowhere to hide. It is the direction I would build, because it can be read in a single pass, which is what a parent comparing three practices at ten at night actually does."
@@ -768,8 +780,8 @@ table.axes td{color:var(--paper2)}
       letter: "Direction B",
       name: "The Record",
       idea: "The practice presented as its own chart notes: a ruled table where every fact sits in a column, plain and checkable.",
-      capd: "facts left, photograph right",
-      capp: "the whole case, no scrolling",
+      capd: "hero fills the first screen exactly",
+      capp: "hero fills it, the case reads in one screen",
       leads: "The photograph holds the right half of the screen. On the left the facts line up in a ruled list: the Fellow on staff, the five specialty programs run in house, both review scores, care in Korean, and the year you opened. A visitor can read the entire case without scrolling once.",
       moves: "Nothing moves, on purpose. A document does not need to perform, and every fact is legible the instant the page arrives.",
       risk: "The most factual of the three and the coolest in feel. If it reads as too clinical for a family practice, that is the real risk, and it is the reason I would pair its fact table with Direction A rather than build it whole."
@@ -778,8 +790,8 @@ table.axes td{color:var(--paper2)}
       letter: "Direction C",
       name: "The Refinement",
       idea: "Built around the question every patient is already answering in the chair: better one, or two? The page lets them compare, the way a refraction does.",
-      capd: "centred headline, comparison below",
-      capp: "one comparison at a time",
+      capd: "hero fills the first screen exactly",
+      capp: "hero fills it, comparison just below",
       leads: "The headline sits centred over the photograph. Below it the page sets choices side by side, a retail chain against this practice, and the visitor steps through them one at a time.",
       moves: "The comparison itself is the movement. The side not chosen sits slightly soft, and sharpens when it is selected, so the whole page borrows the language of an eye exam.",
       risk: "The boldest and most memorable of the three. It is also the most to keep up to date, and the furthest from the calm, permanent feel that A and B both have."
@@ -810,9 +822,30 @@ table.axes td{color:var(--paper2)}
     else if (r > seg.scrollLeft + seg.clientWidth) seg.scrollTo({ left: r - seg.clientWidth + 8, behavior: reduce.matches ? "auto" : "smooth" });
   }
 
+  // scale() needs a unitless number, so CSS cannot derive it from the
+  // container width. Measure the frame and set both the factor and the frame
+  // height, so the frame is exactly as tall as the scaled document and the
+  // fold percentage lands on a real device viewport bottom.
+  var VIEWPORT = { d: 800, p: 844 };   // real first-screen heights
+  function fit(){
+    document.querySelectorAll(".vp").forEach(function(v){
+      var inner = v.querySelector(".vp-in");
+      if (!inner) return;
+      var isD = v.classList.contains("vp-d");
+      var s = v.clientWidth / (isD ? 1280 : 390);
+      inner.style.setProperty("--s", String(Math.round(s * 10000) / 10000));
+      v.style.height = Math.round(inner.offsetHeight * s) + "px";
+      // Place the line at the exact device viewport bottom. A percentage drifts
+      // by a pixel or two once the frame height is rounded, and this line is
+      // the whole proof that the hero fits, so it has to be exact.
+      var fold = v.querySelector(".fold");
+      if (fold) fold.style.top = (VIEWPORT[isD ? "d" : "p"] * s) + "px";
+    });
+  }
+
   function mount(host, tplId, dir){
     host.className = "vp " + (host.getAttribute("data-slot") === "vpd" ? "vp-d" : "vp-p") + " d" + dir;
-    host.innerHTML = '<div class="fold"><b>first screen ends</b></div>';
+    host.innerHTML = '<div class="fold"><b>bottom of the first screen</b></div>';
     var t = document.getElementById(tplId);
     if (!t) return;
     var inner = document.createElement("div");
@@ -833,6 +866,7 @@ table.axes td{color:var(--paper2)}
     slot("risk").textContent   = c.risk;
     mount(slot("vpd"), "tpl" + key, key);
     mount(slot("vpp"), "tpl" + key, key);
+    fit();
     tabs.forEach(function(t){
       t.setAttribute("aria-selected", String(t.getAttribute("data-key") === key));
     });
@@ -866,8 +900,12 @@ table.axes td{color:var(--paper2)}
     });
   });
 
-  window.addEventListener("resize", movePill);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(movePill);
+  window.addEventListener("resize", function(){ movePill(); fit(); });
+  if (window.ResizeObserver) {
+    var ro = new ResizeObserver(function(){ fit(); });
+    document.querySelectorAll(".vp").forEach(function(v){ ro.observe(v); });
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ movePill(); fit(); });
 
   /* ---------- the pick cards ---------- */
   var picked = null;
