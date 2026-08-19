@@ -9,6 +9,23 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Instrument+Sans:ital,wdth,wght@0,75..125,400..700;1,75..125,400..700&family=Hanken+Grotesk:wght@300..700&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
 <style>
+
+/* --- conversion spine, added 19 Aug 2026 --- */
+.vp-in .f-nap{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:10.5px;font-weight:500}
+.vp-p .f-nap{font-size:9px;letter-spacing:.1em;gap:7px}
+.vp-in .f-nap b{font-weight:500}
+.vp-in .f-price{display:inline-flex;align-items:baseline;gap:9px;padding:9px 14px;border:1px dashed var(--clay);background:oklch(0.94 0.045 46 / .55);color:var(--clay);font-size:13.5px;border-radius:3px}
+.vp-in .f-price.on-dark{border-color:var(--clay-lift);background:oklch(0.30 0.06 40 / .55);color:oklch(0.90 0.06 46)}
+.vp-in .f-price b{font-family:var(--serif);font-size:22px;font-weight:500;line-height:1}
+.vp-p .f-price{font-size:12px;padding:8px 11px}
+.vp-p .f-price b{font-size:19px}
+.vp-in .f-fresh{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--ink-soft)}
+.vp-in .f-fresh.on-dark{color:rgba(255,255,255,.82)}
+.vp-in .f-fresh i{display:block;width:6px;height:6px;border-radius:50%;background:oklch(0.62 0.14 152);font-style:normal}
+.vp-in .f-outlink{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.vp-in .f-outs{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:13px}
+.vp-p .f-outs{font-size:11.5px;gap:12px}
+
 /* ============================================================
    BOARD CHROME
    ============================================================ */
@@ -315,6 +332,9 @@ table.axes td{color:var(--paper2)}
 .vt-head{view-transition-name:vt-head}
 .vt-frames{view-transition-name:vt-frames}
 .panel{view-transition-name:vt-panel}
+  .changed{margin:26px 0 0;padding:20px 22px;border-left:2px solid var(--clay-lift);background:oklch(0.215 0.014 258);max-width:92ch}
+  .changed .mono{color:var(--clay-lift);margin:0 0 8px}
+  .changed p{margin:0;font-size:14px;line-height:1.62;color:var(--paper2)}
 
 /* Fluid frames. Each mockup is a fixed-pixel document (1280 wide by 1220 tall,
    and 390 by 1320) shown scaled down. The scale has to be a plain number for
@@ -439,8 +459,13 @@ table.axes td{color:var(--paper2)}
     <div class="stays">
       <div><p class="k">Your words</p><p class="v">Every headline and sentence is the practice's own. Nothing is invented for effect.</p></div>
       <div><p class="k">Your photographs</p><p class="v">The Oradell office and your four doctors, as shot.</p></div>
-      <div><p class="k">Your proof</p><p class="v">5.0 across 448 Google reviews, and 4.9 across 396 on Zocdoc.</p></div>
+      <div><p class="k">Your proof</p><p class="v">5.0 across 448 Google reviews, and 4.9 across 396 on Zocdoc, each one shown with the month it was left.</p></div>
       <div><p class="k">Your web addresses</p><p class="v">Every page keeps the address it has now, so nothing you already rank for is lost.</p></div>
+    </div>
+
+    <div class="changed">
+      <p class="mono">Updated 19 August</p>
+      <p>Three things moved since you last looked, and all three came out of a week spent checking what actually makes a practice website get booked rather than admired. Each direction now shows a starting price, keeps the address and phone number on screen on a phone instead of hiding them behind the menu, and dates its reviews, because patients now weigh a review from this month far more heavily than a five-star average built up over nine years. The three ways of building the page have not changed. What sits on the first screen has.</p>
     </div>
   </div>
 </header>
@@ -485,6 +510,7 @@ table.axes td{color:var(--paper2)}
     <div class="panel">
       <div><h4>What leads</h4><p data-slot="leads"></p></div>
       <div><h4>How it moves</h4><p data-slot="moves"></p></div>
+      <div><h4>What makes it book</h4><p data-slot="sells"></p></div>
       <div><h4>Worth knowing</h4><p data-slot="risk"></p></div>
     </div>
 
@@ -602,15 +628,19 @@ table.axes td{color:var(--paper2)}
       <span class="f-menu" style="color:#fff"><i></i><i></i><i></i></span>
     </div>
     <div class="f-stack">
-      <p class="f-lbl" style="color:rgba(255,255,255,.72)">Oradell, New Jersey · since 2016</p>
+      <p class="f-nap" style="color:rgba(255,255,255,.80)"><b>297 Kinderkamack Rd, Oradell NJ</b> <span style="opacity:.5">/</span> <b class="f-outlink">(201) 265-7900</b> <span style="opacity:.5">/</span> <span style="opacity:.8">since 2016</span></p>
       <p class="f-r1" style="margin-top:18px">Eye care</p>
       <p class="f-r2">that&rsquo;s actually</p>
       <p class="f-r3">medicine.</p>
       <div class="f-sweep"></div>
-      <p class="f-lead" style="color:rgba(255,255,255,.86);max-width:44ch">The warmth of a boutique practice with the rigor of real medicine.</p>
-      <div style="display:flex;gap:12px;margin-top:26px;flex-wrap:wrap">
+      <p class="f-lead" style="color:rgba(255,255,255,.86);max-width:46ch">Four optometrists in Oradell. Five specialty programs run in house. The exam is the point, not the frame wall.</p>
+      <div style="display:flex;gap:12px;margin-top:24px;flex-wrap:wrap">
         <span class="f-btn light">See available times on Zocdoc</span>
-        <span class="f-btn outline">(201) 265-7900</span>
+        <span class="f-btn outline">Call (201) 265-7900</span>
+      </div>
+      <div style="display:flex;gap:14px;margin-top:20px;flex-wrap:wrap;align-items:center">
+        <span class="f-price on-dark">Exam without insurance <b>$___</b></span>
+        <span class="f-fresh on-dark"><i></i>4.9 across 396 Zocdoc reviews, newest this week</span>
       </div>
     </div>
   </div>
@@ -655,14 +685,20 @@ table.axes td{color:var(--paper2)}
         <div class="f-tr"><span class="f-tk">Optometrists</span><span class="f-dot"></span><span class="f-tv">Four, one standard of care</span></div>
         <div class="f-tr"><span class="f-tk">Specialty programs in house</span><span class="f-dot"></span><span class="f-tv">Five</span></div>
         <div class="f-tr"><span class="f-tk">Vision development fellow</span><span class="f-dot"></span><span class="f-tv">Dr. Bruce Meyer, FCOVD</span></div>
-        <div class="f-tr"><span class="f-tk">Google</span><span class="f-dot"></span><span class="f-tv">5.0 / 448 reviews</span></div>
-        <div class="f-tr"><span class="f-tk">Zocdoc</span><span class="f-dot"></span><span class="f-tv">4.9 / 396 reviews</span></div>
+        <div class="f-tr"><span class="f-tk">Zocdoc</span><span class="f-dot"></span><span class="f-tv">4.9 / 396 reviews <span style="color:var(--ink-soft)">&middot; newest this week</span></span></div>
+        <div class="f-tr"><span class="f-tk">Google</span><span class="f-dot"></span><span class="f-tv">5.0 / 448 reviews <span style="color:var(--ink-soft)">&middot; newest this week</span></span></div>
+        <div class="f-tr"><span class="f-tk">Exam without insurance</span><span class="f-dot"></span><span class="f-tv" style="color:var(--clay)">$___</span></div>
         <div class="f-tr"><span class="f-tk">Care in</span><span class="f-dot"></span><span class="f-tv">English and Korean</span></div>
+        <div class="f-tr"><span class="f-tk">Address</span><span class="f-dot"></span><span class="f-tv">297 Kinderkamack Rd, Oradell NJ</span></div>
         <div class="f-tr"><span class="f-tk">In Oradell since</span><span class="f-dot"></span><span class="f-tv">2016</span></div>
       </div>
-      <div style="display:flex;gap:12px;margin-top:28px;flex-wrap:wrap">
+      <div style="display:flex;gap:12px;margin-top:26px;flex-wrap:wrap">
         <span class="f-btn">See available times on Zocdoc</span>
-        <span class="f-btn ghost">(201) 265-7900</span>
+        <span class="f-btn ghost">Call (201) 265-7900</span>
+      </div>
+      <div class="f-outs" style="color:var(--ink-soft)">
+        <span class="f-outlink">Read all 448 on Google &#8599;</span>
+        <span class="f-outlink">Read all 396 on Zocdoc &#8599;</span>
       </div>
     </div>
     <div class="f-photo">
@@ -703,7 +739,7 @@ table.axes td{color:var(--paper2)}
 
 <template id="tplC">
   <div class="f-shell">
-    <img class="f-abs" style="object-position:40% 46%" src="/images/office-oradell.jpeg" alt="">
+    <img class="f-abs" style="object-position:52% 38%" src="/images/hero-care.jpeg" alt="">
     <div class="f-scrim"></div>
     <div class="f-head">
       <span class="f-chip"><img class="f-logo" src="/riverdell-logo.png" alt="Riverdell Vision"></span>
@@ -712,13 +748,17 @@ table.axes td{color:var(--paper2)}
       <span class="f-menu" style="color:#fff"><i></i><i></i><i></i></span>
     </div>
     <div class="f-mid">
-      <p class="f-lbl" style="color:rgba(255,255,255,.7)">Oradell, New Jersey</p>
+      <p class="f-nap" style="color:rgba(255,255,255,.80);justify-content:center"><b>297 Kinderkamack Rd, Oradell NJ</b> <span style="opacity:.5">/</span> <b class="f-outlink">(201) 265-7900</b></p>
       <h1 class="f-h1">Eye care that&rsquo;s <em>actually medicine.</em></h1>
       <div class="f-duo"></div>
-      <p class="f-lead" style="color:rgba(255,255,255,.84);max-width:52ch;margin:26px auto 0">The warmth of a boutique practice with the rigor of real medicine.</p>
-      <div style="display:flex;gap:12px;margin-top:28px;justify-content:center;flex-wrap:wrap">
+      <p class="f-lead" style="color:rgba(255,255,255,.84);max-width:52ch;margin:24px auto 0">Four optometrists, five specialty programs run in house, and one question the whole visit answers.</p>
+      <div style="display:flex;gap:12px;margin-top:24px;justify-content:center;flex-wrap:wrap">
         <span class="f-btn light">See available times on Zocdoc</span>
-        <span class="f-btn outline">(201) 265-7900</span>
+        <span class="f-btn outline">Call (201) 265-7900</span>
+      </div>
+      <div style="display:flex;gap:14px;margin-top:18px;justify-content:center;flex-wrap:wrap;align-items:center">
+        <span class="f-price on-dark">Exam without insurance <b>$___</b></span>
+        <span class="f-fresh on-dark"><i></i>4.9 / 396 Zocdoc, newest this week</span>
       </div>
     </div>
     <div class="f-bar">
@@ -764,6 +804,7 @@ table.axes td{color:var(--paper2)}
       capp: "booking falls below the first screen",
       leads: "Words on the left, and on the right a calendar panel that looks like it shows appointment times but has none behind it.",
       moves: "Every section fades upward as you scroll, all of them the same way, so nothing stands out as deliberate.",
+      sells: "On a phone the address, the review score and the phone number all disappear, because the strip carrying them is switched off below a certain screen width. There is no price anywhere on the site, and the 95 patient reviews carry no dates. Those are the three things a stranger looks hardest for, and all three directions now fix them.",
       risk: "On a phone, eight things stack up before the button to book, so the one action a visitor came to take falls below the first screen. All three directions fix that."
     },
     A: {
@@ -771,10 +812,11 @@ table.axes td{color:var(--paper2)}
       name: "The Chart",
       idea: "The page is built like the acuity chart on your exam room wall: one column, each line stepping down in size, so the order of what matters is unmistakable.",
       capd: "hero fills the first screen exactly",
-      capp: "hero fills it, booking inside it",
+      capp: "hero fills it, booking and price inside it",
       leads: "A photograph of the Oradell office fills the first screen with the headline over it, and the button to book sits inside that first screen even on a phone. Below, the page reads as one clean column, with the five specialty programs numbered down the margin.",
-      moves: "The headline arrives slightly soft and settles into focus, the way a lens drops into place during a refraction. It happens once, on arrival, and nothing else on the page performs.",
-      risk: "This one leans hardest on the photography, so a weak crop has nowhere to hide. It is the direction I would build, because it can be read in a single pass, which is what a parent comparing three practices at ten at night actually does."
+      moves: "Almost nothing performs. A hairline draws itself from the margin out to full width once on arrival, the way a lens settles into place during a refraction. The headline itself stays sharp from the first instant, which is a change from what I showed you before: people judge a page in well under a tenth of a second, so the words have to be readable in that moment rather than arriving into focus.",
+      sells: "Five things now sit on the first screen: what the practice does, who it is for, what you get, one button, and one piece of proof with a date on it. The address and the phone number stay visible on a phone instead of hiding behind the menu, and there is a line for what an exam costs without insurance. Those two are the highest-scoring things a stranger uses to decide a practice is real, ahead of awards, badges and logos.",
+      risk: "This one leans hardest on the photography, so a weak crop has nowhere to hide. It is still the direction I would build, because it can be read in a single pass, which is what a parent comparing three practices at ten at night actually does."
     },
     B: {
       letter: "Direction B",
@@ -782,8 +824,9 @@ table.axes td{color:var(--paper2)}
       idea: "The practice presented as its own chart notes: a ruled table where every fact sits in a column, plain and checkable.",
       capd: "hero fills the first screen exactly",
       capp: "hero fills it, the case reads in one screen",
-      leads: "The photograph holds the right half of the screen. On the left the facts line up in a ruled list: the Fellow on staff, the five specialty programs run in house, both review scores, care in Korean, and the year you opened. A visitor can read the entire case without scrolling once.",
+      leads: "The photograph holds the right half of the screen. On the left the facts line up in a ruled list: the Fellow on staff, the five specialty programs run in house, both review scores with how recent they are, the address, what an exam costs without insurance, care in Korean, and the year you opened. A visitor can read the entire case without scrolling once.",
       moves: "Nothing moves, on purpose. A document does not need to perform, and every fact is legible the instant the page arrives.",
+      sells: "This is the direction where the price and the review dates cost nothing to add, because they are just two more rows in a table that already exists. It is also the only one where the whole case fits on the first screen, and the only one that puts a link straight out to your Google and Zocdoc profiles next to the scores. People trust a score they can go and check more than one you print about yourself.",
       risk: "The most factual of the three and the coolest in feel. If it reads as too clinical for a family practice, that is the real risk, and it is the reason I would pair its fact table with Direction A rather than build it whole."
     },
     C: {
@@ -792,9 +835,10 @@ table.axes td{color:var(--paper2)}
       idea: "Built around the question every patient is already answering in the chair: better one, or two? The page lets them compare, the way a refraction does.",
       capd: "hero fills the first screen exactly",
       capp: "hero fills it, comparison just below",
-      leads: "The headline sits centred over the photograph. Below it the page sets choices side by side, a retail chain against this practice, and the visitor steps through them one at a time.",
-      moves: "The comparison itself is the movement. The side not chosen sits slightly soft, and sharpens when it is selected, so the whole page borrows the language of an eye exam.",
-      risk: "The boldest and most memorable of the three. It is also the most to keep up to date, and the furthest from the calm, permanent feel that A and B both have."
+      leads: "The first screen is now a patient at the phoropter rather than the empty office, with the headline centred over it. This is the one direction I changed the photograph on, so you can see the difference against A and judge it rather than take my word for it. Below, the page sets choices side by side, a retail chain against this practice, and the visitor steps through them one at a time.",
+      moves: "The comparison itself is the movement. The side not chosen sits slightly soft and sharpens when it is selected, so the page borrows the language of an eye exam.",
+      sells: "The comparison is the strongest argument the practice has, and this puts it first instead of sixth. The cost is that a visitor has to tap to get through it, at the moment they came to press one button.",
+      risk: "The boldest and most memorable of the three, and the one that got weaker rather than stronger this week. Busier, less familiar layouts test worse on first impression, and the effect is larger for people over about 45, which is a good part of who books here. It is also the most to keep up to date, and the furthest from the calm, permanent feel that A and B both have."
     }
   };
 
@@ -863,6 +907,7 @@ table.axes td{color:var(--paper2)}
     slot("capp").textContent   = c.capp;
     slot("leads").textContent  = c.leads;
     slot("moves").textContent  = c.moves;
+    slot("sells").textContent  = c.sells;
     slot("risk").textContent   = c.risk;
     mount(slot("vpd"), "tpl" + key, key);
     mount(slot("vpp"), "tpl" + key, key);
