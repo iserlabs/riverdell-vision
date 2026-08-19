@@ -199,12 +199,6 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Link
-              href="/portal"
-              className="hidden rounded-md px-3 py-2 text-sm font-medium text-teal transition-colors hover:text-teal-deep lg:inline-flex"
-            >
-              Patient Portal
-            </Link>
             <Magnetic className="hidden sm:inline-flex">
               <BookButton size="sm" />
             </Magnetic>
@@ -249,12 +243,6 @@ export function SiteHeader() {
                   onClick={() => setMobileOpen(false)}
                 >
                   <div className="mb-1 flex items-center justify-between gap-2">
-                    <Link
-                      href="/portal"
-                      className="flex min-h-11 flex-1 items-center rounded-lg px-2 text-[15px] font-medium text-teal hover:bg-teal-tint"
-                    >
-                      Patient Portal
-                    </Link>
                     <Link
                       href="/oradell"
                       className="flex min-h-11 flex-1 items-center rounded-lg px-2 text-[15px] font-medium text-ink hover:bg-teal-tint"

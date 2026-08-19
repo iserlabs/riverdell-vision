@@ -73,7 +73,7 @@ export function SiteFooter() {
                 href="/portal"
                 className="-my-3.5 inline-flex items-center py-3.5 font-medium text-bone hover:text-brass md:my-0 md:py-0"
               >
-                Patient Portal
+                Patient portal, launching soon
               </Link>
             </li>
             {primaryNav[1].children.map((c) => (
