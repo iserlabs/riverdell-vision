@@ -10,12 +10,11 @@ const csp = [
   "frame-ancestors 'self'",
   "form-action 'self'",
   "img-src 'self' data: blob: https:",
-  "font-src 'self' data:",
-  "style-src 'self' 'unsafe-inline'",
+  "font-src 'self' data: https://fonts.gstatic.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com",
   "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com",
   "frame-src 'self'",
-  "upgrade-insecure-requests",
   "report-uri /api/csp-report",
 ].join("; ");
 
