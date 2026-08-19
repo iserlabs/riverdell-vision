@@ -1,5 +1,5 @@
-// The ten faces Dr. Han chooses the display type from, plus the one already
-// shipped. He rejected every typeface on the three renders, twice, so this
+// The ten faces Dr. Han chooses the display type from: the one already shipped,
+// plus nine alternatives. Ten on screen, which is the number he was promised. He rejected every typeface on the three renders, twice, so this
 // exists instead of guessing at an eleventh.
 //
 // The incumbent is listed first and treated the same as the rest. What is
@@ -68,12 +68,6 @@ export const TYPE_OPTIONS: TypeOption[] = [
     family: "Frank Ruhl Libre",
     note: "High contrast between thick and thin. The sharpest, most clinical of the set.",
     weights: "400;500;700",
-  },
-  {
-    id: "petrona",
-    family: "Petrona",
-    note: "Low contrast, open shapes. Reads plainer and less formal than the rest.",
-    weights: "400;500;600",
   },
   {
     id: "instrument-serif",
