@@ -5,9 +5,15 @@ disagree, this wins and the difference is stated in one line.
 
 ## Direction
 
-**OPEN. Gate 1 has not closed.** Three candidates are rendered and live for Dr. Han to
-pick from: A · The Chart, B · The Record, C · The Refinement. Board:
-`public/choose/index.html` -> https://riverdell-directions.vercel.app/choose/index.html
+**CLOSED 2026-08-19 by Dr. Han, and he chose none of the three.** He picked the incumbent,
+the homepage as already built: no photograph behind the hero, one clean column, generous
+white space, the headline and both buttons carrying the weight, Google and Zocdoc sitting in
+their own air. In his words, "everything pops," and the three new renders "are busier."
+
+What ships is a hybrid he and Jake settled on in the room, not the incumbent as-is: keep the
+column and its calm, give it roughly 60% of the width, and put a slideshow of the practice's
+own rooms in the remaining space. Not a full-bleed photograph behind the text. Board the
+three were shown on: https://riverdell-directions.vercel.app/choose/index.html
 
 Anchored to: the practice's own instruments and paperwork, not to a reference site. The
 acuity chart on the exam room wall (A), the Rx written in ruled columns (B), the refraction
@@ -113,7 +119,11 @@ service names stay).
 - 2026-08-19, Jake: revise the existing board in place at the same URL rather than start the
   option set over; test the real response time rather than ask for it; publish a real
   starting price; render both hero subjects, one per direction, instead of arguing it.
-- **Gate 1 (Dr. Han picks A, B or C): OPEN.**
+- 2026-08-19, Dr. Han: the incumbent hero over all three renders, then the 60/40 hybrid with
+  an office slideshow. Rejected the typefaces on all three renders outright. Real photographs
+  of the renovated office replace every stock and generated image. He will send what he has;
+  Kevin may shoot the office this month or next.
+- **Gate 1: CLOSED 2026-08-19.** Build is unblocked.
 
 ## Exceptions and rulings
 
@@ -187,3 +197,43 @@ The test is written up at `docs/design/RESPONSE-TEST.md` and needs Dr. Han's or 
 
 Never print a response promise the practice has not agreed to keep. An unkept "we reply
 within the hour" is worse than silence.
+
+
+## Rulings from the 19 August owner meeting
+
+**R11. The hero is not a full-bleed photograph, which reverses the 16 August decision.**
+That decision was Jake's, made before the owner had seen anything rendered. Dr. Han looked at
+three photographic heroes and preferred the plain one, and the reason he gave is the one that
+matters: at a glance he could tell what the page wanted him to do. The photograph moves beside
+the column rather than behind it. R2 is retired with this.
+
+**R12. Every typeface on the three renders was rejected.** Not "not quite right," rejected on
+sight, twice. The next pass does not guess at a replacement. It ships a selector of ten faces
+for him to lock one in, which also settles the display face for the whole build.
+
+**R13. No stock photograph and no generated image survives to the next render.** The whole
+imagery layer waits on real photographs of the renovated office. Anything in the meantime is
+scaffolding and is labelled as such when he is shown it.
+
+**R14. AEO and GEO are the objective, and the visual layer serves them.** Dr. Han named the
+high-ticket services as what carries the practice, myopia management among them, and the
+target is the person who asks an assistant for myopia treatment in Bergen County and gets
+this practice back. Jake's framing in the room: the design is "the veneer," and what is
+underneath it is being found and being trusted.
+
+**R15. Nothing on the page is written from the outside.** Copy waits on a questionnaire to
+Dr. Han and Mina, built around one question: what should a stranger who has never heard of
+this practice feel, think and believe within two minutes. Until that comes back, every word
+on the render is placeholder and is described that way.
+
+## Committed to Dr. Han on 19 August
+
+1) A font selector, ten faces, he locks one and Jake is notified.
+2) A feedback layer: a floating widget, click anywhere on the page, type what is wrong, it
+   reaches Jake, and no change lands without Jake approving it.
+3) The copy questionnaire, to him and Mina.
+4) Repo access so he can work on it himself, sooner than originally planned.
+5) Later, a password-gated desk for content only: copy, photographs, ordering, archive,
+   duplicate, delete. Design stays in the repo. An assistant-driven editing layer inside the
+   desk is possible and would run on his own model account, at his cost.
+6) A weekly 30-minute sync, first one next week.
