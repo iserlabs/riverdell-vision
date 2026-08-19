@@ -1,13 +1,23 @@
 // Sends a lead-notification email to the office via Resend's REST API (no SDK
 // dependency, so nothing is added to package.json). Zero-PHI: only routing and
-// contact fields are ever emailed. Degrades gracefully: if RESEND_API_KEY or a
-// destination address is not configured, it returns "skipped" so the form still
-// succeeds for the visitor while the owner finishes setup.
+// contact fields are ever emailed.
+//
+// There is deliberately NO graceful degradation here. A request that cannot be
+// delivered must surface as a failure the visitor can act on, because the
+// alternative is telling a parent the office will call and then losing the
+// request. Callers treat anything other than "sent" as a failed submission.
 //
 // Env the owner sets (in Vercel):
 //   RESEND_API_KEY   - from resend.com
 //   LEAD_TO_EMAIL    - office inbox that should receive requests
 //   LEAD_FROM_EMAIL  - a verified-domain sender, e.g. "Riverdell Vision <hello@riverdellvision.com>"
+
+export type Delivery = "sent" | "unconfigured" | "error";
+
+/** True when both variables the office needs for form delivery are present. */
+export function leadDeliveryConfigured(): boolean {
+  return Boolean(process.env.RESEND_API_KEY && process.env.LEAD_TO_EMAIL);
+}
 
 type LeadEmail = {
   subject: string;
@@ -28,11 +38,17 @@ export async function sendLeadEmail({
   subject,
   lines,
   replyTo,
-}: LeadEmail): Promise<"sent" | "skipped" | "error"> {
+}: LeadEmail): Promise<Delivery> {
   const key = process.env.RESEND_API_KEY;
   const to = process.env.LEAD_TO_EMAIL;
   const from = process.env.LEAD_FROM_EMAIL || "Riverdell Vision <onboarding@resend.dev>";
-  if (!key || !to) return "skipped";
+  if (!key || !to) {
+    console.error(
+      "[lead] delivery is not configured: %s unset. The request was NOT delivered.",
+      [!key && "RESEND_API_KEY", !to && "LEAD_TO_EMAIL"].filter(Boolean).join(" and "),
+    );
+    return "unconfigured";
+  }
 
   const rows = lines
     .map(

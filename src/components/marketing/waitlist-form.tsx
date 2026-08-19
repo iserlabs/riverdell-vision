@@ -37,8 +37,8 @@ export function WaitlistForm() {
     }
     setPending(true);
     const interest = String(fd.get("interest") || "Fort Lee Waitlist");
-    // Only a genuine delivery failure breaks the promise; a not-yet-configured
-    // mailer returns delivery:"skipped" and stays a soft success (see notify.ts).
+    // Success means the office actually received the signup. An unset mailer
+    // is a failure, not a soft pass (see notify.ts).
     let ok = false;
     let serverError = "";
     try {
@@ -48,7 +48,7 @@ export function WaitlistForm() {
         body: JSON.stringify({ name, email, interest, company: fd.get("company") }),
       });
       const data = await res.json().catch(() => null);
-      ok = res.ok && data?.delivery !== "error";
+      ok = res.ok && data?.ok === true && data?.delivery === "sent";
       if (!ok && data && typeof data.error === "string") serverError = data.error;
     } catch {
       ok = false;

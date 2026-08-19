@@ -105,10 +105,16 @@ function OptionRow({
     <button
       type="button"
       onClick={onClick}
-      aria-pressed={selected}
+      // Always expose the state. With `selected` undefined React drops the
+      // attribute entirely, so an unselected option announced as a plain
+      // button and gave a screen reader nothing to compare against.
+      aria-pressed={selected ?? false}
       style={{ animationDelay: `${i * 55}ms` }}
       className={cn(
-        "group flex min-h-[64px] w-full animate-in fade-in slide-in-from-bottom-2 items-center gap-4 border-b border-line px-1 py-4 text-left transition-colors duration-300 first:pt-1 last:border-b-0 last:pb-1 hover:bg-teal-tint/40 focus-visible:bg-teal-tint/40 focus-visible:outline-none",
+        // The tint alone measured 1.08:1 against the unfocused row, so a
+        // keyboard user could not see where they were (WCAG 2.4.7). The real
+        // outline stays; the tint is now reinforcement, not the indicator.
+        "group flex min-h-[64px] w-full animate-in fade-in slide-in-from-bottom-2 items-center gap-4 border-b border-line px-1 py-4 text-left transition-colors duration-300 first:pt-1 last:border-b-0 last:pb-1 hover:bg-teal-tint/40 focus-visible:bg-teal-tint/40 focus-ring",
         selected && "bg-teal-tint/60",
       )}
     >

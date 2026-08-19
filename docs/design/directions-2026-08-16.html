@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riverdell Vision · three directions · 16 Aug 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Instrument+Sans:ital,wdth,wght@0,75..125,400..700;1,75..125,400..700&family=Hanken+Grotesk:wght@300..700&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   BOARD CHROME
+   ============================================================ */
+:root{
+  /* revalued tokens, names kept. ground deepened so a paper card
+     no longer needs a hairline to exist. */
+  --bone:        oklch(0.945 0.008 244);
+  --card:        oklch(0.995 0.003 244);
+  --bone-deep:   oklch(0.905 0.018 246);
+  --teal-tint:   oklch(0.930 0.035 246);
+  --clay-soft:   oklch(0.920 0.045 46);
+  --teal:        oklch(0.500 0.150 254);
+  --teal-deep:   oklch(0.330 0.110 258);
+  --ink:         oklch(0.240 0.030 258);
+  --ink-soft:    oklch(0.480 0.028 256);
+  --clay:        oklch(0.520 0.150 40);
+  --clay-lift:   oklch(0.740 0.140 40);   /* coral on dark grounds */
+  --brass:       oklch(0.740 0.105 72);
+  --line:        oklch(0.880 0.015 246);
+
+  /* today's values, for the CURRENT frame only */
+  --c-bone:      oklch(0.972 0.007 240);
+  --c-bone-deep: oklch(0.928 0.018 246);
+  --c-card:      oklch(0.995 0.004 244);
+  --c-line:      oklch(0.900 0.015 246);
+  --c-ink:       oklch(0.270 0.032 258);
+  --c-ink-soft:  oklch(0.500 0.030 256);
+
+  --sans: "Instrument Sans", system-ui, sans-serif;
+  --serif: "Newsreader", Georgia, serif;
+  --mono: "Geist Mono", ui-monospace, monospace;
+  --hanken: "Hanken Grotesk", system-ui, sans-serif;
+
+  --slate:  oklch(0.185 0.014 258);
+  --slate2: oklch(0.245 0.016 258);
+  --paper:  oklch(0.930 0.008 250);
+  --paper2: oklch(0.700 0.012 252);
+  --s: 0.62;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--slate);
+  color:var(--paper);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+.mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.18em;font-size:10px;font-weight:500}
+.b-top{padding:56px 0 34px;border-bottom:1px solid oklch(0.32 0.016 258)}
+.b-kicker{color:var(--brass)}
+.b-h1{font-family:var(--serif);font-optical-sizing:auto;font-size:58px;line-height:1.02;font-weight:400;letter-spacing:-0.015em;margin:16px 0 0;color:#fff}
+.b-h1 em{font-style:italic;color:var(--clay-lift)}
+.b-sub{max-width:60ch;margin:18px 0 0;color:var(--paper2);font-size:16px}
+.brief{display:grid;grid-template-columns:repeat(5,1fr);gap:22px;margin:34px 0 0;padding:24px 0 0;border-top:1px solid oklch(0.30 0.016 258)}
+.brief div p{margin:8px 0 0;font-size:12.5px;line-height:1.5;color:var(--paper2)}
+.brief div .mono{color:oklch(0.72 0.05 250)}
+.median{margin:26px 0 0;padding:18px 20px;border-left:2px solid var(--clay-lift);background:oklch(0.215 0.014 258);font-size:13.5px;color:var(--paper2);max-width:96ch}
+.median b{color:var(--paper);font-weight:600}
+
+.row{padding:54px 0 10px;border-bottom:1px solid oklch(0.28 0.016 258)}
+.row-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin:0 0 6px}
+.row-title{font-family:var(--serif);font-size:38px;line-height:1;font-weight:400;color:#fff;margin:10px 0 0;letter-spacing:-0.01em}
+.row-title span{color:var(--paper2);font-size:19px;font-style:italic}
+.tag{display:inline-block;padding:5px 10px;border-radius:2px;background:oklch(0.30 0.02 258);color:var(--paper)}
+.tag.cur{background:oklch(0.40 0.11 40);color:#fff}
+.struct{margin:16px 0 26px;padding:14px 18px;background:oklch(0.215 0.014 258);border:1px solid oklch(0.30 0.016 258);font-size:13.5px;color:var(--paper);max-width:100ch}
+.struct .mono{color:var(--brass);display:block;margin-bottom:6px}
+
+.frames{display:flex;gap:26px;align-items:flex-start}
+.fr{margin:0}
+.fr-cap{display:flex;justify-content:space-between;gap:10px;margin:0 0 8px;color:oklch(0.66 0.014 252)}
+.vp{position:relative;overflow:hidden;background:var(--bone);border:1px solid oklch(0.36 0.016 258);box-shadow:0 30px 70px -40px rgba(0,0,0,.9)}
+.vp-in{transform:scale(var(--s));transform-origin:0 0;font-family:var(--sans);color:var(--ink);background:var(--bone);position:relative}
+.vp-d{width:794px;height:756px}
+.vp-d .vp-in{width:1280px;height:1220px;--hero:760px}
+.vp-p{width:242px;height:818px}
+.vp-p .vp-in{width:390px;height:1320px;--hero:820px}
+.fold{position:absolute;left:0;right:0;height:0;border-top:1px dashed oklch(0.70 0.15 40 / .85);z-index:40;pointer-events:none}
+.vp-d .fold{top:471px}
+.vp-p .fold{top:508px}
+.fold b{position:absolute;right:0;top:-14px;font-family:var(--mono);font-size:8px;letter-spacing:.14em;color:#fff;background:oklch(0.55 0.17 34);padding:1px 5px}
+
+.spec{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin:26px 0 0;background:oklch(0.28 0.016 258)}
+.spec > div{background:oklch(0.205 0.014 258);padding:16px 18px}
+.spec h4{margin:0 0 7px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:9.5px;font-weight:500;color:var(--brass)}
+.spec p{margin:0;font-size:12.6px;line-height:1.55;color:var(--paper2)}
+.spec p b{color:var(--paper);font-weight:600}
+.notes{margin:22px 0 0;font-size:12.6px;color:var(--paper2)}
+.notes b{color:var(--paper)}
+
+table.axes{width:100%;border-collapse:collapse;margin:18px 0 0;font-size:12.8px}
+table.axes th,table.axes td{text-align:left;padding:11px 14px;border-bottom:1px solid oklch(0.30 0.016 258);vertical-align:top}
+table.axes th{font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:9.5px;color:var(--brass);font-weight:500}
+table.axes td:first-child{color:#fff;white-space:nowrap}
+table.axes td{color:var(--paper2)}
+
+/* picker */
+.pick{padding:48px 0 70px}
+.grp{margin:0 0 30px}
+.grp-h{display:flex;align-items:baseline;gap:14px;margin:0 0 12px}
+.grp-h .mono{color:var(--brass)}
+.grp-h span{font-size:12.6px;color:var(--paper2)}
+.opts{display:flex;gap:12px;flex-wrap:wrap}
+.opt{cursor:pointer;border:1px solid oklch(0.34 0.016 258);background:oklch(0.215 0.014 258);padding:12px 14px;width:236px;transition:border-color .18s cubic-bezier(.2,0,0,1),background .18s cubic-bezier(.2,0,0,1)}
+.opt:hover{border-color:oklch(0.52 0.03 258)}
+.opt.selected{border-color:var(--brass);background:oklch(0.26 0.03 70)}
+.opt .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--brass);display:block}
+.opt .t{display:block;margin-top:5px;font-size:13px;color:var(--paper)}
+.opt .d{display:block;margin-top:3px;font-size:11.5px;color:var(--paper2)}
+.opt .demo{display:block;overflow:hidden;margin-top:10px;background:var(--bone);color:var(--ink);padding:10px;font-family:var(--serif);font-optical-sizing:auto}
+.copy{margin-top:14px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.16em;font-size:11px;padding:14px 22px;background:var(--brass);color:oklch(0.22 0.03 70);border:0;cursor:pointer}
+.copy:hover{background:oklch(0.80 0.11 72)}
+
+/* ============================================================
+   FRAME PRIMITIVES (shared by every rendered direction)
+   ============================================================ */
+.vp-in .f-abs{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vp-in .f-lbl{font-family:var(--mono);text-transform:uppercase;letter-spacing:.2em;font-size:11px;font-weight:500}
+.vp-p .f-lbl{font-size:9.5px;letter-spacing:.18em}
+.vp-in .f-nav{display:flex;align-items:center;gap:26px;font-size:14px}
+.vp-in .f-menu{display:none}
+.vp-p .f-nav{display:none}
+.vp-p .f-menu{display:flex;flex-direction:column;gap:5px;width:24px}
+.vp-p .f-menu i{display:block;height:2px;background:currentColor}
+.vp-p .f-btn.f-hide-p{display:none}
+.vp-in .f-logo{height:30px;width:auto;display:block}
+.vp-p .f-logo{height:24px}
+.vp-in .f-chip{background:#fff;padding:7px 11px;border-radius:5px;display:inline-flex}
+.vp-in .f-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:15px;font-weight:500;padding:14px 22px;border-radius:10px;background:var(--teal);color:var(--bone);white-space:nowrap}
+.vp-in .f-btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.vp-in .f-btn.light{background:var(--bone);color:var(--teal-deep)}
+.vp-in .f-btn.outline{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.55)}
+.vp-p .f-btn{font-size:15px;padding:15px 18px;width:100%}
+.vp-in .f-serif{font-family:var(--serif);font-optical-sizing:auto;font-weight:400;letter-spacing:-0.014em;line-height:1.02;margin:0;color:var(--teal)}
+.vp-in .f-lead{font-size:17px;line-height:1.55;color:var(--ink-soft);margin:0}
+.vp-p .f-lead{font-size:15.5px}
+.vp-in .f-hair{height:1px;background:var(--line);border:0;margin:0}
+.vp-in em.f-it{font-style:italic;color:var(--clay)}
+.vp-in .f-stars{color:var(--brass);letter-spacing:1px;font-size:13px}
+.vp-in .f-ava{width:44px;height:44px;border-radius:50%;object-fit:cover;border:3px solid var(--bone);margin-left:-10px}
+.vp-in .f-ava:first-child{margin-left:0}
+
+/* ---------- CURRENT ---------- */
+.dCur .vp-in{background:var(--c-bone);font-family:var(--hanken);color:var(--c-ink)}
+.dCur .f-util{display:flex;justify-content:space-between;align-items:center;padding:0 40px;height:38px;background:var(--teal-deep);color:rgba(255,255,255,.82);font-size:12px}
+.dCur .f-head{display:flex;justify-content:space-between;align-items:center;padding:0 40px;height:76px;border-bottom:1px solid var(--c-line);background:var(--c-bone)}
+.dCur .f-hero{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;padding:56px 40px}
+.dCur .f-h1{font-family:var(--serif);font-optical-sizing:auto;font-size:66px;line-height:1.04;font-weight:500;color:var(--teal);margin:24px 0 0;letter-spacing:-0.01em}
+.dCur .f-cal{border:1px solid var(--c-line);border-radius:24px;background:var(--c-card);overflow:hidden;box-shadow:0 40px 90px -42px rgba(18,60,70,.45)}
+.dCur .f-cal-h{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--c-line)}
+.dCur .f-cal-g{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;padding:0 24px}
+.dCur .f-cal-g div{aspect-ratio:1;display:flex;align-items:center;justify-content:center;border-radius:12px;font-size:15px;font-weight:600}
+.dCur .f-cal-g div.on{background:var(--teal-tint);color:var(--teal)}
+.dCur .f-cal-g div.off{border:1px solid var(--c-line);color:rgba(0,0,0,.28)}
+.dCur .f-ledger{border-top:1px solid var(--c-line);border-bottom:1px solid var(--c-line);background:var(--c-bone-deep);padding:44px 40px}
+.dCur .f-ledger-g{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:30px}
+.dCur .f-ledger-g > div{padding:0 34px;border-left:1px solid var(--c-line)}
+.dCur .f-ledger-g > div:first-child{padding-left:0;border-left:0}
+.dCur .f-num{font-family:var(--serif);font-optical-sizing:auto;font-size:88px;line-height:.85;font-weight:500;color:var(--teal);margin:16px 0 0}
+.vp-p.dCur .f-hero{grid-template-columns:1fr;gap:30px;padding:34px 22px}
+.vp-p.dCur .f-h1{font-size:46px}
+.vp-p.dCur .f-util,.vp-p.dCur .f-nav{display:none}
+.vp-p.dCur .f-head{padding:0 22px;height:64px}
+.vp-p.dCur .f-ledger{padding:32px 22px}
+.vp-p.dCur .f-ledger-g{grid-template-columns:1fr;gap:26px}
+.vp-p.dCur .f-ledger-g > div{padding:0;border-left:0}
+.vp-p.dCur .f-num{font-size:64px}
+
+/* ---------- A · THE CHART ---------- */
+.dA .f-shell{position:relative;height:var(--hero);overflow:hidden;background:var(--teal-deep)}
+.dA .f-scrim{position:absolute;inset:0;background:
+  linear-gradient(96deg, oklch(0.22 0.05 258 / .90) 0%, oklch(0.22 0.05 258 / .74) 34%, oklch(0.22 0.05 258 / .12) 66%, transparent 84%),
+  linear-gradient(0deg, oklch(0.20 0.05 258 / .55) 0%, transparent 42%)}
+.dA .f-head{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:0 56px;height:82px;color:#fff;border-bottom:1px solid rgba(255,255,255,.18)}
+.dA .f-stack{position:absolute;z-index:3;left:56px;bottom:56px;right:56px;max-width:760px;color:#fff}
+.dA .f-r1{font-family:var(--serif);font-optical-sizing:auto;font-size:104px;line-height:.94;font-weight:400;color:#fff;letter-spacing:-0.022em;margin:0}
+.dA .f-r2{font-family:var(--serif);font-optical-sizing:auto;font-size:66px;line-height:1.0;font-weight:400;color:rgba(255,255,255,.92);letter-spacing:-0.016em;margin:2px 0 0}
+.dA .f-r3{font-family:var(--serif);font-optical-sizing:auto;font-size:50px;line-height:1.05;font-weight:400;font-style:italic;color:var(--clay-lift);margin:4px 0 0}
+.dA .f-sweep{height:1px;width:340px;background:rgba(255,255,255,.6);margin:26px 0 20px}
+.dA .f-sec{padding:52px 56px;background:var(--bone)}
+.dA .f-row{display:grid;grid-template-columns:78px 1fr 30px;gap:22px;align-items:center;padding:24px 0;border-bottom:1px solid var(--line)}
+.dA .f-row:first-of-type{border-top:1px solid var(--line)}
+.dA .f-rn{font-family:var(--serif);font-optical-sizing:auto;font-size:40px;line-height:1;color:oklch(0.50 0.15 254 / .55);font-weight:400}
+.vp-p.dA .f-head{padding:0 20px;height:66px}
+.vp-p.dA .f-stack{left:20px;right:20px;bottom:34px;max-width:none}
+.vp-p.dA .f-r1{font-size:47px}
+.vp-p.dA .f-r2{font-size:31px}
+.vp-p.dA .f-r3{font-size:26px}
+.vp-p.dA .f-sweep{width:150px;margin:18px 0 14px}
+.vp-p.dA .f-sec{padding:28px 20px}
+.vp-p.dA .f-row{grid-template-columns:38px 1fr;gap:14px;padding:16px 0}
+.vp-p.dA .f-rn{font-size:26px}
+
+/* ---------- B · THE RECORD ---------- */
+.dB .f-head{display:flex;justify-content:space-between;align-items:center;padding:0 44px;height:70px;border-bottom:1px solid var(--line);background:var(--bone)}
+.dB .f-shell{display:grid;grid-template-columns:44% 56%;height:calc(var(--hero) - 70px);background:var(--bone)}
+.dB .f-left{padding:0 48px;display:flex;flex-direction:column;justify-content:center}
+.dB .f-h1{font-family:var(--serif);font-optical-sizing:auto;font-size:56px;line-height:1.03;font-weight:400;color:var(--teal);letter-spacing:-0.014em;margin:14px 0 0}
+.dB .f-tbl{margin:30px 0 0;border-top:1px solid var(--line)}
+.dB .f-tr{display:flex;align-items:baseline;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.dB .f-tk{font-family:var(--mono);text-transform:uppercase;letter-spacing:.14em;font-size:10px;color:var(--ink-soft);white-space:nowrap}
+.dB .f-dot{flex:1;border-bottom:1px dotted oklch(0.78 0.02 246);transform:translateY(-4px)}
+.dB .f-tv{font-size:15px;font-weight:600;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+.dB .f-photo{position:relative;overflow:hidden}
+.dB .f-sec{padding:44px 44px;background:var(--bone-deep)}
+.dB .f-doc{display:grid;grid-template-columns:56px 1fr 1fr 150px;gap:20px;align-items:center;padding:16px 0;border-bottom:1px solid oklch(0.84 0.018 246)}
+.dB .f-doc:first-of-type{border-top:1px solid oklch(0.84 0.018 246)}
+.dB .f-doc img{width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:50% 22%;background:var(--teal-tint)}
+.vp-p.dB .f-head{padding:0 20px;height:58px}
+.vp-p.dB .f-shell{grid-template-columns:1fr;grid-template-rows:286px 1fr;height:calc(var(--hero) - 58px)}
+.vp-p.dB .f-photo{order:-1}
+.vp-p.dB .f-tv{white-space:normal;text-align:right;font-size:13px}
+.vp-p.dB .f-tk{font-size:9px;letter-spacing:.12em}
+.vp-p.dB .f-tr:nth-of-type(n+6){display:none}
+.vp-p.dB .f-doc:nth-of-type(n+4){display:none}
+.vp-p.dB .f-left{padding:26px 20px 0;justify-content:flex-start}
+.vp-p.dB .f-h1{font-size:33px}
+.vp-p.dB .f-tbl{margin:18px 0 0}
+.vp-p.dB .f-tr{padding:8px 0}
+.vp-p.dB .f-sec{padding:26px 20px}
+.vp-p.dB .f-doc{grid-template-columns:48px 1fr;gap:12px 14px;padding:13px 0}
+.vp-p.dB .f-doc > *:nth-child(3){grid-column:1 / -1;font-size:12.5px;color:var(--ink-soft)}
+.vp-p.dB .f-doc > *:nth-child(4){display:none}
+.vp-p.dB .f-doc img{width:48px;height:48px}
+
+/* ---------- C · THE REFINEMENT ---------- */
+.dC .f-shell{position:relative;height:var(--hero);overflow:hidden;background:var(--teal-deep)}
+.dC .f-scrim{position:absolute;inset:0;background:
+  radial-gradient(120% 90% at 50% 45%, oklch(0.24 0.06 258 / .58) 0%, oklch(0.20 0.06 258 / .88) 78%),
+  linear-gradient(0deg, oklch(0.18 0.05 258 / .82) 0%, transparent 46%)}
+.dC .f-head{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;padding:0 48px;height:80px;color:#fff}
+.dC .f-mid{position:absolute;z-index:3;left:0;right:0;top:50%;transform:translateY(-56%);text-align:center;padding:0 60px;color:#fff}
+.dC .f-h1{font-family:var(--serif);font-optical-sizing:auto;font-size:88px;line-height:1.0;font-weight:400;color:#fff;letter-spacing:-0.02em;margin:18px auto 0;max-width:15ch}
+.dC .f-h1 em{font-style:italic;color:var(--clay-lift)}
+.dC .f-duo{width:260px;height:2px;margin:30px auto 0;background:linear-gradient(90deg,var(--clay-lift) 0 50%, oklch(0.72 0.12 246) 50% 100%)}
+.dC .f-bar{position:absolute;z-index:3;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;gap:14px;padding:18px 48px;border-top:1px solid rgba(255,255,255,.22);background:oklch(0.20 0.05 258 / .55);color:#fff}
+.dC .f-seg{display:flex;border:1px solid rgba(255,255,255,.4);border-radius:8px;overflow:hidden}
+.dC .f-seg span{padding:9px 16px;font-size:13px;color:rgba(255,255,255,.72)}
+.dC .f-seg span.on{background:#fff;color:var(--teal-deep);font-weight:600}
+.dC .f-sec{padding:44px 48px;background:var(--teal-deep);color:#fff;height:460px}
+.dC .f-pair{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px}
+.dC .f-pan{border:1px solid rgba(255,255,255,.22);padding:24px;border-radius:12px}
+.dC .f-pan.soft{filter:blur(2.2px);opacity:.62}
+.dC .f-pan.sharp{background:var(--bone);color:var(--ink);border-color:transparent}
+.dC .f-dots{display:flex;gap:7px;margin-top:24px}
+.dC .f-dots i{width:22px;height:2px;background:rgba(255,255,255,.28);display:block}
+.dC .f-dots i.on{background:var(--clay-lift)}
+.vp-p.dC .f-head{padding:0 20px;height:64px}
+.vp-p.dC .f-mid{padding:0 22px}
+.vp-p.dC .f-h1{font-size:40px;max-width:none}
+.vp-p.dC .f-duo{width:150px;margin-top:22px}
+.vp-p.dC .f-bar{padding:14px 20px;flex-direction:column;gap:10px}
+.vp-p.dC .f-seg{width:100%}
+.vp-p.dC .f-seg span{flex:1;text-align:center;padding:11px 6px;font-size:12px}
+.vp-p.dC .f-sec{padding:26px 20px;height:500px}
+.vp-p.dC .f-pair{grid-template-columns:1fr;gap:14px}
+.vp-p.dC .f-pan{padding:16px}
+</style>
+</head>
+<body>
+
+<!-- =========================== HEAD =========================== -->
+<header class="b-top">
+  <div class="wrap">
+    <p class="mono b-kicker">Riverdell Vision · creative direction · 16 August 2026 · round 1</p>
+    <h1 class="b-h1">Three constructions, <em>one set of words.</em></h1>
+    <p class="b-sub">Every direction below uses the practice's own headline, its own facts and its own photographs. Nothing changes between them except how the page is built, which is the only thing worth choosing between. Pick one at the bottom, add any dial-ins, then press Copy my selections.</p>
+
+    <div class="brief">
+      <div><p class="mono">Who</p><p>A Bergen County parent on a phone, mid-comparison, arriving from Google or Zocdoc with one worry: a child squinting at the whiteboard, eyes that burn by 3pm, a referral the last optometrist would not take.</p></div>
+      <div><p class="mono">Job</p><p>Prove in about two minutes that this is real medicine and not a glasses shop, then hand over a booking. Zocdoc leads everywhere; the request form is the fallback.</p></div>
+      <div><p class="mono">World</p><p>The phoropter dial, the acuity chart, trial lenses in velvet wells, topography maps, axial length tracked year over year, the Rx written in ruled columns, the duochrome red and green field.</p></div>
+      <div><p class="mono">Preserved</p><p>Newsreader for display (optical sizing switched on), the logo blue, 5.0 across 448 Google and 4.9 across 396 Zocdoc, four named doctors and their real photos, every URL, and the proof ledger, editorial index, process timeline and studio panel.</p></div>
+      <div><p class="mono">Mode</p><p>Brand and marketing. Register: a settled, well-made base with exactly one deliberate departure, because trust is the conversion here and this audience does not reward a trend.</p></div>
+    </div>
+
+    <p class="median"><b>The median, written down so it can be refused.</b> The first direction that comes to mind for any optometry practice is a soft blue gradient behind a smiling family, a serif headline with one italic word, three rounded cards with line icons, a review carousel, an FAQ accordion and a sticky booking pill. The current site is two moves from that shape: it has the italic word, it has 67 bordered cards (56 of which differ from the page by nothing but a hairline), and it has a calendar with no availability behind it. <b>None of the three directions below uses a card as its primary container, and none of them keeps the calendar.</b></p>
+
+    <p class="median" style="border-left-color:oklch(0.72 0.12 246)"><b>Where this disagrees with the house taste.</b> Luxurious, cinematic and technical is the standing preference. This audience is a worried parent comparing three practices at 10pm. Cinematic wins the first three seconds and then has to get out of the way, so all three directions spend their boldness once, in the hero, and run quiet and legible below it. That is a deliberate departure from the usual instinct.</p>
+  </div>
+</header>
+
+<!-- =========================== CURRENT =========================== -->
+<section class="row" id="cur">
+  <div class="wrap">
+    <div class="row-head">
+      <div>
+        <p class="mono tag cur">Current · live today</p>
+        <h2 class="row-title">Where it stands <span>the honest comparison</span></h2>
+      </div>
+    </div>
+    <div class="struct">
+      <span class="mono">What the audit measured</span>
+      No hero anywhere carries viewport-height logic: 26 of 28 geometry checks fail, the homepage overshoots the fold by 531px at 390 wide and falls 200px short at 1920. A card sits 1.07:1 above the page ground, a 3% lightness step, which is why every card needs a border to exist. 83 identical fade-up reveals, no signature moment. Newsreader ships with its optical-sizing axis stripped, so every heading is a 16pt letterform scaled up.
+    </div>
+    <div class="frames">
+      <figure class="fr">
+        <figcaption class="fr-cap mono"><span>Desktop 1280</span><span>hero stops 140px short of the fold</span></figcaption>
+        <div class="vp vp-d dCur" data-tpl="tplCur"><div class="fold"><b>fold</b></div></div>
+      </figure>
+      <figure class="fr">
+        <figcaption class="fr-cap mono"><span>390</span><span>overshoots</span></figcaption>
+        <div class="vp vp-p dCur" data-tpl="tplCur"><div class="fold"><b>fold</b></div></div>
+      </figure>
+    </div>
+    <p class="notes"><b>Read the phone frame first.</b> The eyebrow, headline, lead, two buttons, two proof lines, four avatars and a calendar card are eight stacked elements before anything below the fold, and the booking action lands well past it. That is the 531px overshoot, and it is the single most expensive fault on the site.</p>
+  </div>
+</section>
+
+<!-- =========================== A =========================== -->
+<section class="row" id="a">
+  <div class="wrap">
+    <div class="row-head">
+      <div>
+        <p class="mono tag">Direction A</p>
+        <h2 class="row-title">The Chart <span>the acuity chart on the exam-room wall</span></h2>
+      </div>
+    </div>
+    <div class="struct">
+      <span class="mono">Structural sentence, no adjectives</span>
+      Photograph fills the window; the headline steps down through three sizes; sections stack as full-measure rows on one column, divided by rules and numbered in the margin; photographs interrupt the column at two points.
+    </div>
+    <div class="frames">
+      <figure class="fr">
+        <figcaption class="fr-cap mono"><span>Desktop 1280</span><span>hero = 100dvh minus header</span></figcaption>
+        <div class="vp vp-d dA" data-tpl="tplA"><div class="fold"><b>fold</b></div></div>
+      </figure>
+      <figure class="fr">
+        <figcaption class="fr-cap mono"><span>390</span><span>three steps become three</span></figcaption>
+        <div class="vp vp-p dA" data-tpl="tplA"><div class="fold"><b>fold</b></div></div>
+      </figure>
+    </div>
+    <div class="spec">
+      <div><h4>1 · Concept</h4><p>The page is built like the chart on the exam-room wall: one column, rows that step down in size, each row labelled in the margin. Size carries the hierarchy that boxes used to carry.</p></div>
+      <div><h4>2 · Why this project</h4><p>A parent mid-comparison reads three things and leaves. A chart is legible in one pass and its order is unmistakable, so the two-minute case lands in sequence. It is also the one object every patient here has already stood in front of.</p></div>
+      <div><h4>3 · Composition model</h4><p>One column at a 68ch measure, rows divided by hairlines, numerals hanging in the left margin. Sections vary by which step of the scale they open on. Two photographs interrupt the column full bleed (the room, then the phoropter). <b>No section is a card.</b></p></div>
+      <div><h4>4 · Typography logic</h4><p>Newsreader display with optical sizing on, so 104px and 20px are different letterforms rather than one scaled. Five fixed steps at a 1.5 ratio (20/30/45/68/102 desktop, three steps at 390). Instrument Sans text at 17px/1.55. Geist Mono for margin labels only, one size, one tracking. <b>Refuses</b> a second display face, uppercase headings, italic body, and any size off the five steps.</p></div>
+      <div><h4>5 · Imagery behaviour</h4><p>Photography-led at exactly two moments. office-oradell fills the hero, object-position 50% 42% so the frame wall survives the 390 crop. hero-care (the phoropter) runs full bleed before the ask. dry-eye, myopia and specialty-lens stay at row scale, never above 480px wide. The four portraits never exceed 96px, which is inside their real resolution of 340 to 480px. Type over photo gets a scrim shaped to the type side, measured at the worst region.</p></div>
+      <div><h4>6 · Motion and interaction</h4><p>Still, with one moment. <b>Signature: the refraction snap</b>, as approved. The headline arrives at 5px blur and resolves over 900ms while a hairline draws from the left margin to full measure, landing on the same beat, like a lens dropping into the phoropter. First visit only, never on back navigation, instant and already drawn under reduced motion, and it never animates from zero opacity so the LCP text still counts. Everything else is simply present.</p></div>
+      <div><h4>7 · What makes it distinct</h4><p>The type scale <b>is</b> the layout system. Importance is a size step in one column rather than a card, a tint or a band, which is precisely how the site sheds 67 bordered containers without losing hierarchy.</p></div>
+      <div><h4>8 · What it refuses</h4><p>Bordered cards, three-up card rows, tinted bands used as a substitute for hierarchy, an eyebrow on every section (three per page maximum), rounded-full pills, fade-up-on-everything, and the mocked calendar.</p></div>
+      <div><h4>9 · Main risk</h4><p>A single column depends entirely on typographic quality and on the photographs being good; a weak 390 crop leaves nothing to hide behind. And the top step must not get so large that "Eye care" reads as decoration instead of a sentence.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== B =========================== -->
+<section class="row" id="b">
+  <div class="wrap">
+    <div class="row-head">
+      <div>
+        <p class="mono tag">Direction B</p>
+        <h2 class="row-title">The Record <span>the Rx written in ruled columns</span></h2>
+      </div>
+    </div>
+    <div class="struct">
+      <span class="mono">Structural sentence, no adjectives</span>
+      Photograph fills the right column from edge to edge; the left column holds a ruled table of labels and values; sections alternate between the two-column record and full-measure rosters; one ground runs the length of the page.
+    </div>
+    <div class="frames">
+      <figure class="fr">
+        <figcaption class="fr-cap mono"><span>Desktop 1280</span><span>photo bleeds right and bottom</span></figcaption>
+        <div class="vp vp-d dB" data-tpl="tplB"><div class="fold"><b>fold</b></div></div>
+      </figure>
+      <figure class="fr">
+        <figcaption class="fr-cap mono"><span>390</span><span>photo band, then the record</span></figcaption>
+        <div class="vp vp-p dB" data-tpl="tplB"><div class="fold"><b>fold</b></div></div>
+      </figure>
+    </div>
+    <div class="spec">
+      <div><h4>1 · Concept</h4><p>The site is set the way the practice writes: two columns, ruled rows, the label on the left and the value on the right, everything on one paper ground.</p></div>
+      <div><h4>2 · Why this project</h4><p>The job is to prove this is medicine, and a record proves it by form instead of by adjective. It is the only direction where FCOVD, five in-house programs, four doctors, English and Korean, 2016, 5.0/448 and 4.9/396 sit together in one readable block above the fold. It also turns the small portrait files into an asset, because a roster row wants a 56px portrait, not a 900px one.</p></div>
+      <div><h4>3 · Composition model</h4><p>Hero splits 44/56 under an in-flow header, the photograph bleeding off the right and bottom edges while the two columns together fill the window. Below it the page alternates between the two-column record and full-measure ruled rosters (doctors, programs, hours). Ground is constant; rules do the dividing. Density is high and continuous rather than paced.</p></div>
+      <div><h4>4 · Typography logic</h4><p>Newsreader held back to the headline and the roster names, optical sizing on. Instrument Sans carries labels, values and body, tabular figures on every number so columns line up. Geist Mono for the label column only, 10px, one tracking. Four steps: 15/17/28/56. <b>Refuses</b> display type over 64px, italic outside the single hero accent, and uppercase anywhere someone has to read.</p></div>
+      <div><h4>5 · Imagery behaviour</h4><p>The photograph is a column, not a stage. office-oradell holds the hero's right column at 56% width. Below the fold every image is cropped to the column measure at a fixed ratio and bleeds off one edge at most. The four portraits run at 56px in the roster and 96px on About, inside their real resolution. specialty-lens (the lens on a fingertip) is the one macro allowed to run wide, because it is the only frame in the set that survives it.</p></div>
+      <div><h4>6 · Motion and interaction</h4><p>Still. <b>This is the direction where I would argue against the approved signature.</b> This hero is a document, not a stage, and a blur-to-sharp headline undercuts the thing a record is claiming. The signature here is structural: <b>the axis</b>, a ticked measurement rail in the left margin labelled from the practice's own record (2016 to now, the five programs), that the page scrolls against so the whole site reads as one continuous chart. If the snap is kept anyway, it belongs on the figures, not the headline. Reduced motion changes nothing, because nothing moves.</p></div>
+      <div><h4>7 · What makes it distinct</h4><p>The proof is the layout. No other practice in Bergen County publishes itself as a record, and a competitor cannot copy the form without owning the facts that fill it.</p></div>
+      <div><h4>8 · What it refuses</h4><p>Dark full-bleed bands (there are none, which also fixes the two dark sections currently sitting back to back), text over a photograph, count-ups anywhere except the existing proof ledger, decorative icons, card shadows, and any figure that is not real.</p></div>
+      <div><h4>9 · Main risk</h4><p>It can read cold, and a frightened parent needs warmth. This direction spends its warmth in two places only, the photograph and the coral accent, so if the copy is not warm the page will not be. It is also the hardest to hold over time: one lazy section reverting to cards breaks the conceit.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== C =========================== -->
+<section class="row" id="c">
+  <div class="wrap">
+    <div class="row-head">
+      <div>
+        <p class="mono tag">Direction C</p>
+        <h2 class="row-title">The Refinement <span>better one, or two</span></h2>
+      </div>
+    </div>
+    <div class="struct">
+      <span class="mono">Structural sentence, no adjectives</span>
+      Photograph fills the window behind centred type; sections present two states and the visitor moves between them; steps advance toward one action; the ground inverts between reading zones and comparison zones.
+    </div>
+    <div class="frames">
+      <figure class="fr">
+        <figcaption class="fr-cap mono"><span>Desktop 1280</span><span>the pair below the fold</span></figcaption>
+        <div class="vp vp-d dC" data-tpl="tplC"><div class="fold"><b>fold</b></div></div>
+      </figure>
+      <figure class="fr">
+        <figcaption class="fr-cap mono"><span>390</span><span>the pair becomes a toggle</span></figcaption>
+        <div class="vp vp-p dC" data-tpl="tplC"><div class="fold"><b>fold</b></div></div>
+      </figure>
+    </div>
+    <div class="spec">
+      <div><h4>1 · Concept</h4><p>The site works the way the exam works: two states, one is better, then the next pair, converging on a single action. The soft panel in the frames is the unchosen option, held at the blur it resolves from.</p></div>
+      <div><h4>2 · Why this project</h4><p>This visitor is literally mid-comparison, with two other practices open in other tabs. A page built on comparison is the one structure that matches the state they are actually in, and the practice already owns the honest comparison content: six rows of physician-led against retail, plus the care finder.</p></div>
+      <div><h4>3 · Composition model</h4><p>Centred hero over a full-bleed photograph, then alternating zones: light for reading, teal-deep for comparison. Each comparison zone is a labelled pair with a step counter. At most two dark zones on the page. Sparse and stepped rather than dense.</p></div>
+      <div><h4>4 · Typography logic</h4><p>Newsreader centred at 88px in the hero with optical sizing on, dropping to 34px for section heads. Instrument Sans for panel content, both sides of every comparison set at the same size and weight so the difference is content and never styling. Geist Mono for step numbers and device labels. <b>Refuses</b> type over 100px, uppercase headings, and any treatment that makes one side of a comparison look pre-won.</p></div>
+      <div><h4>5 · Imagery behaviour</h4><p>Two photographs carry the page. office-oradell in the hero under a cool scrim. hero-care (the phoropter, the only portrait file at 1450x1800) is the ground of the comparison zone, cropped to a band on desktop and left portrait at 390 where it is strongest. Everything else is a small figure inside a panel; portraits stay at 64px inside the "who you would see" pair.</p></div>
+      <div><h4>6 · Motion and interaction</h4><p>Responsive, with one orchestrated arrival. <b>The refraction snap becomes the whole motion vocabulary:</b> soft to sharp over about 900ms, once on load for the headline, then again every time a comparison resolves, so the gesture means the same thing everywhere. An unchosen panel sits at 2px blur, which is the same idea held still. Under reduced motion, blur is replaced by an opacity step (100% against 55%) with no transition.</p></div>
+      <div><h4>7 · What makes it distinct</h4><p>It turns the practice's strongest argument into the page's interaction model instead of a table in section six.</p></div>
+      <div><h4>8 · What it refuses</h4><p>A hero that only sits there, fade-up-on-scroll as the site's answer to motion, more than two dark zones, and any comparison that names or implies a competitor.</p></div>
+      <div><h4>9 · Main risk</h4><p>The loudest of the three against a register that was settled as one departure, not two. A repeated gesture plus inverted zones can tip from confident to gimmicky, every comparison is a tap at the moment the visitor wants a button, and spending the signature this widely stops it being a moment.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================== COLLAPSE TEST =========================== -->
+<section class="row">
+  <div class="wrap">
+    <p class="mono tag">The collapse test</p>
+    <h2 class="row-title">Three sentences, no adjectives <span>if two read alike, they are one direction</span></h2>
+    <table class="axes">
+      <tr><th>Pair</th><th>Axes they differ on</th></tr>
+      <tr><td>A against B</td><td>Composition (one column against two), typography logic (five-step display-led against four-step text-led), information density (paced against continuous), image strategy (interrupting full bleeds against column-bound), motion (one moment against still), colour behaviour (ground and ink with one accent against four light tonal surfaces).</td></tr>
+      <tr><td>A against C</td><td>Composition (left-aligned column against centred and layered), interaction model (read-only against exploratory), motion character (one moment against a repeated gesture), colour behaviour (single ground against inverted zones), navigation (persistent bar against bar plus step rail).</td></tr>
+      <tr><td>B against C</td><td>Composition (columnar against centred), surface treatment (printed against layered), colour behaviour (no dark bands at all against two inverted zones), motion (still against responsive plus orchestrated), density (dense against sparse), interaction model (read-only against configurable).</td></tr>
+    </table>
+    <p class="notes" style="margin-top:20px"><b>Result:</b> no pair shares all axes, and no sentence can be swapped for another without changing the page's construction. All three pass. The three would also fail the paste test in different ways if lifted to another practice: A needs a real chart of content to step down through, B needs the facts to fill the table, C needs an honest comparison to run. A generic optometrist has none of the three.</p>
+  </div>
+</section>
+
+<!-- =========================== PICK =========================== -->
+<section class="pick">
+  <div class="wrap">
+    <p class="mono b-kicker">Your picks</p>
+    <h2 class="row-title" style="margin-bottom:26px">Choose one direction, then any dial-ins</h2>
+
+    <div class="grp">
+      <div class="grp-h"><span class="mono">A · Direction</span><span>pick one</span></div>
+      <div class="opts" data-group="dir">
+        <div class="opt" data-choice="A1"><span class="k">A1</span><span class="t">The Chart</span><span class="d">Type scale is the layout. One column, ruled rows.</span></div>
+        <div class="opt" data-choice="A2"><span class="k">A2</span><span class="t">The Record</span><span class="d">Ruled two-column document. Still, no dark bands.</span></div>
+        <div class="opt" data-choice="A3"><span class="k">A3</span><span class="t">The Refinement</span><span class="d">Comparison as the interaction model.</span></div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="grp-h"><span class="mono">B · Ground depth</span><span>how far the page ground drops so paper stops needing a border</span></div>
+      <div class="opts" data-group="ground">
+        <div class="opt" data-choice="B1"><span class="k">B1</span><span class="t">bone 0.945</span><span class="d">1.16:1 under paper. Recommended.</span>
+          <span class="demo" style="background:oklch(0.945 0.008 244);padding:12px"><span style="display:block;background:oklch(0.995 0.003 244);padding:12px;font-size:14px;color:oklch(0.24 0.03 258)">Paper, no border</span></span></div>
+        <div class="opt" data-choice="B2"><span class="k">B2</span><span class="t">bone 0.930</span><span class="d">1.22:1. Reads as a tinted page.</span>
+          <span class="demo" style="background:oklch(0.930 0.010 244);padding:12px"><span style="display:block;background:oklch(0.995 0.003 244);padding:12px;font-size:14px;color:oklch(0.24 0.03 258)">Paper, no border</span></span></div>
+        <div class="opt" data-choice="B3"><span class="k">B3</span><span class="t">bone 0.972 (today)</span><span class="d">1.07:1. This is why every card has a hairline.</span>
+          <span class="demo" style="background:oklch(0.972 0.007 240);padding:12px"><span style="display:block;background:oklch(0.995 0.004 244);padding:12px;font-size:14px;color:oklch(0.27 0.032 258)">Paper, no border</span></span></div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="grp-h"><span class="mono">C · Display scale</span><span>Newsreader with optical sizing on, at the hero step</span></div>
+      <div class="opts" data-group="scale">
+        <div class="opt" data-choice="C1"><span class="k">C1</span><span class="t">Five steps, ratio 1.5</span><span class="d">102 / 68 / 45 / 30 / 20</span>
+          <span class="demo" style="font-size:38px;line-height:1;color:oklch(0.5 0.15 254);font-variation-settings:'opsz' 60">Eye care</span></div>
+        <div class="opt" data-choice="C2"><span class="k">C2</span><span class="t">Four steps, compressed</span><span class="d">56 / 28 / 17 / 15</span>
+          <span class="demo" style="font-size:26px;line-height:1.05;color:oklch(0.5 0.15 254);font-variation-settings:'opsz' 36">Eye care that&rsquo;s <i style="color:oklch(0.52 0.15 40)">actually medicine.</i></span></div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="grp-h"><span class="mono">D · Accent policy</span><span>coral and brass are the two warm accents on a cool blue base</span></div>
+      <div class="opts" data-group="accent">
+        <div class="opt" data-choice="D1"><span class="k">D1</span><span class="t">Coral once per screen</span><span class="d">Brass reserved for dark grounds only. Recommended.</span></div>
+        <div class="opt" data-choice="D2"><span class="k">D2</span><span class="t">Coral and brass both live</span><span class="d">Brass allowed on light surfaces at 0.74 lightness.</span></div>
+        <div class="opt" data-choice="D3"><span class="k">D3</span><span class="t">Coral only</span><span class="d">Brass retired. One warm accent, full stop.</span></div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="grp-h"><span class="mono">E · Dial-ins</span><span>pick any</span></div>
+      <div class="opts" data-group="dial" data-multi="1">
+        <div class="opt" data-choice="E1"><span class="k">E1</span><span class="t">Labels stay Geist Mono</span><span class="d">One size, one tracking, tokenised.</span></div>
+        <div class="opt" data-choice="E2"><span class="k">E2</span><span class="t">Labels move to Instrument Sans</span><span class="d">Mono retired to figures only.</span></div>
+        <div class="opt" data-choice="E3"><span class="k">E3</span><span class="t">Snap on the headline only</span><span class="d">One moment, once per session.</span></div>
+        <div class="opt" data-choice="E4"><span class="k">E4</span><span class="t">Snap as a site-wide gesture</span><span class="d">Every resolve uses the same 900ms.</span></div>
+        <div class="opt" data-choice="E5"><span class="k">E5</span><span class="t">Photographs graded cooler</span><span class="d">Room warmth pulled toward the logo blue.</span></div>
+        <div class="opt" data-choice="E6"><span class="k">E6</span><span class="t">Photographs left as shot</span><span class="d">Warm wood against the cool palette, on purpose.</span></div>
+      </div>
+    </div>
+
+    <button class="copy" onclick="(function(b){var p=[...document.querySelectorAll('[data-choice].selected')].map(e=>e.getAttribute('data-choice')).join(' · ');if(navigator.clipboard)navigator.clipboard.writeText(p);b.textContent=p?('Copied: '+p):'Nothing selected yet';})(this)">Copy my selections</button>
+  </div>
+</section>
+
+<!-- =========================== TEMPLATES =========================== -->
+<template id="tplCur">
+  <div class="f-util"><span>297 Kinderkamack Rd, Suite 200, Oradell NJ</span><span>★ 5.0 · 448 Google reviews &nbsp;·&nbsp; (201) 265-7900</span></div>
+  <div class="f-head">
+    <img class="f-logo" src="../../public/riverdell-logo.png" alt="Riverdell Vision">
+    <div class="f-nav"><span>Care</span><span>Practice</span><span>Reviews</span><span>Answers</span></div>
+    <span class="f-btn f-hide-p">Request an appointment</span>
+    <span class="f-menu"><i></i><i></i><i></i></span>
+  </div>
+  <div class="f-hero">
+    <div>
+      <p class="f-lbl" style="color:var(--clay)">Family optometry · Oradell, New Jersey</p>
+      <h1 class="f-h1">Eye care that&rsquo;s <em class="f-it">actually medicine.</em></h1>
+      <p class="f-lead" style="margin-top:26px;max-width:34rem;color:var(--c-ink-soft)">The warmth of a boutique practice with the rigor of real medicine. Physician-led family eye care for every age, in a calm, modern space in the heart of Oradell.</p>
+      <div style="display:flex;gap:12px;margin-top:30px;flex-wrap:wrap">
+        <span class="f-btn">Request an appointment</span>
+        <span class="f-btn ghost">(201) 265-7900</span>
+      </div>
+      <div style="display:flex;gap:26px;margin-top:30px;padding-top:22px;border-top:1px solid var(--c-line);flex-wrap:wrap">
+        <span style="font-size:14px;color:var(--c-ink-soft)"><span class="f-stars">★★★★★</span> 5.0 · 448 Google reviews ↗</span>
+        <span style="font-size:14px;color:var(--c-ink-soft)"><span class="f-stars">★★★★★</span> 4.9 · 396 Zocdoc reviews ↗</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:16px;margin-top:24px">
+        <span style="display:flex">
+          <img class="f-ava" src="../../public/images/dr-mina-han.png" alt="">
+          <img class="f-ava" src="../../public/images/team-meyer.png" alt="">
+          <img class="f-ava" src="../../public/images/team-mundanchira.png" alt="">
+          <img class="f-ava" src="../../public/images/team-ogoke.png" alt="">
+        </span>
+        <span style="font-size:14px;font-weight:500;color:var(--teal)">Meet our 4 optometrists →</span>
+      </div>
+    </div>
+    <div class="f-cal">
+      <div class="f-cal-h">
+        <div>
+          <p style="margin:0;font-family:var(--serif);font-size:23px;font-weight:500;color:var(--teal)">Book an appointment</p>
+          <p style="margin:4px 0 0;font-size:14px;color:var(--c-ink-soft)">Real-time availability on Zocdoc</p>
+        </div>
+        <span style="background:var(--clay-soft);color:var(--clay);border-radius:999px;padding:6px 12px;font-size:14px;font-weight:500">★ 5.0</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:20px 24px 14px;font-size:13px;color:var(--c-ink-soft)"><span>Riverdell Vision · Oradell</span><span class="f-lbl" style="font-size:10px">Next 4 weeks</span></div>
+      <div class="f-cal-g">
+        <div class="off" style="aspect-ratio:auto;border:0;font-size:10px;letter-spacing:.1em">THU</div><div class="off" style="aspect-ratio:auto;border:0;font-size:10px;letter-spacing:.1em">FRI</div><div class="off" style="aspect-ratio:auto;border:0;font-size:10px;letter-spacing:.1em">SAT</div><div class="off" style="aspect-ratio:auto;border:0;font-size:10px;letter-spacing:.1em">SUN</div><div class="off" style="aspect-ratio:auto;border:0;font-size:10px;letter-spacing:.1em">MON</div><div class="off" style="aspect-ratio:auto;border:0;font-size:10px;letter-spacing:.1em">TUE</div><div class="off" style="aspect-ratio:auto;border:0;font-size:10px;letter-spacing:.1em">WED</div>
+        <div class="on">2</div><div class="on">3</div><div class="off">4</div><div class="off">5</div><div class="on">6</div><div class="off">7</div><div class="on">8</div>
+        <div class="on">9</div><div class="on">10</div><div class="off">11</div><div class="off">12</div><div class="on">13</div><div class="off">14</div><div class="on">15</div>
+        <div class="on">16</div><div class="on">17</div><div class="off">18</div><div class="off">19</div><div class="on">20</div><div class="off">21</div><div class="on">22</div>
+      </div>
+      <div style="padding:22px 24px 24px">
+        <span class="f-btn" style="width:100%;height:56px;border-radius:16px;font-size:16px">See available times →</span>
+        <p style="margin:14px 0 0;text-align:center;font-size:14px;color:var(--c-ink-soft)">448 patients rate us 5.0 on Google</p>
+      </div>
+    </div>
+  </div>
+  <div class="f-ledger">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <span class="f-lbl" style="color:var(--clay)">The record</span>
+      <span style="font-size:13px;color:var(--c-ink-soft)">Every rating is real and patient-verified</span>
+    </div>
+    <div class="f-ledger-g">
+      <div><span class="f-stars">★★★★★</span> <span style="font-family:var(--mono);font-size:12px">5.0</span><p class="f-num">448</p><p style="margin:16px 0 0;font-family:var(--serif);font-size:20px;font-weight:500;color:var(--c-ink)">Google reviews</p><p style="margin:5px 0 0;font-size:13px;color:var(--c-ink-soft)">A genuine five-star average from real patients.</p></div>
+      <div><span class="f-stars">★★★★★</span> <span style="font-family:var(--mono);font-size:12px">4.9</span><p class="f-num">396</p><p style="margin:16px 0 0;font-family:var(--serif);font-size:20px;font-weight:500;color:var(--c-ink)">Zocdoc reviews</p><p style="margin:5px 0 0;font-size:13px;color:var(--c-ink-soft)">Verified by patients who booked through Zocdoc.</p></div>
+      <div><span class="f-lbl" style="color:var(--clay)">Since 2016</span><p class="f-num">10</p><p style="margin:16px 0 0;font-family:var(--serif);font-size:20px;font-weight:500;color:var(--c-ink)">Years of family eye care</p><p style="margin:5px 0 0;font-size:13px;color:var(--c-ink-soft)">Caring for Bergen County families in Oradell, NJ.</p></div>
+    </div>
+  </div>
+</template>
+
+<template id="tplA">
+  <div class="f-shell">
+    <img class="f-abs" style="object-position:32% 45%" src="../../public/images/office-oradell.jpeg" alt="">
+    <div class="f-scrim"></div>
+    <div class="f-head">
+      <span class="f-chip"><img class="f-logo" src="../../public/riverdell-logo.png" alt="Riverdell Vision"></span>
+      <div class="f-nav" style="color:#fff"><span>Care</span><span>Practice</span><span>Reviews</span><span>Answers</span></div>
+      <span class="f-btn outline f-hide-p">Book on Zocdoc</span>
+      <span class="f-menu" style="color:#fff"><i></i><i></i><i></i></span>
+    </div>
+    <div class="f-stack">
+      <p class="f-lbl" style="color:rgba(255,255,255,.72)">Oradell, New Jersey · since 2016</p>
+      <p class="f-r1" style="margin-top:18px">Eye care</p>
+      <p class="f-r2">that&rsquo;s actually</p>
+      <p class="f-r3">medicine.</p>
+      <div class="f-sweep"></div>
+      <p class="f-lead" style="color:rgba(255,255,255,.86);max-width:44ch">The warmth of a boutique practice with the rigor of real medicine.</p>
+      <div style="display:flex;gap:12px;margin-top:26px;flex-wrap:wrap">
+        <span class="f-btn light">See available times on Zocdoc</span>
+        <span class="f-btn outline">(201) 265-7900</span>
+      </div>
+    </div>
+  </div>
+  <div class="f-sec">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:26px">
+      <span class="f-lbl" style="color:var(--clay)">What we are known for</span>
+      <span class="f-lbl" style="color:var(--ink-soft)">01 / 06</span>
+    </div>
+    <h2 class="f-serif" style="font-size:44px;max-width:22ch">Specialty care most eye doctors <em class="f-it">don&rsquo;t</em> offer.</h2>
+    <div style="margin-top:26px">
+      <div class="f-row">
+        <span class="f-rn">01</span>
+        <span><span style="font-family:var(--serif);font-size:26px;color:var(--teal);display:block">Myopia Management</span><span style="font-size:15px;color:var(--ink-soft)">Slow a child&rsquo;s worsening nearsightedness with Ortho-K, multifocal contacts, control lenses, or atropine.</span></span>
+        <span style="color:var(--teal);font-size:20px">→</span>
+      </div>
+      <div class="f-row">
+        <span class="f-rn">02</span>
+        <span><span style="font-family:var(--serif);font-size:26px;color:var(--teal);display:block">Dry Eye Treatment</span><span style="font-size:15px;color:var(--ink-soft)">Find and treat the cause of chronic burning, gritty, watery eyes, not just cover the symptoms.</span></span>
+        <span style="color:var(--teal);font-size:20px">→</span>
+      </div>
+      <div class="f-row">
+        <span class="f-rn">03</span>
+        <span><span style="font-family:var(--serif);font-size:26px;color:var(--teal);display:block">Specialty &amp; Scleral Lenses</span><span style="font-size:15px;color:var(--ink-soft)">Custom lenses for keratoconus, irregular corneas, severe dry eye, and hard-to-fit prescriptions.</span></span>
+        <span style="color:var(--teal);font-size:20px">→</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template id="tplB">
+  <div class="f-head">
+    <img class="f-logo" src="../../public/riverdell-logo.png" alt="Riverdell Vision">
+    <div class="f-nav"><span>Care</span><span>Practice</span><span>Reviews</span><span>Answers</span></div>
+    <span class="f-btn f-hide-p">Book on Zocdoc</span>
+    <span class="f-menu"><i></i><i></i><i></i></span>
+  </div>
+  <div class="f-shell">
+    <div class="f-left">
+      <span class="f-lbl" style="color:var(--clay)">The record</span>
+      <h1 class="f-h1">Eye care that&rsquo;s <em class="f-it">actually medicine.</em></h1>
+      <div class="f-tbl">
+        <div class="f-tr"><span class="f-tk">Optometrists</span><span class="f-dot"></span><span class="f-tv">Four, one standard of care</span></div>
+        <div class="f-tr"><span class="f-tk">Specialty programs in house</span><span class="f-dot"></span><span class="f-tv">Five</span></div>
+        <div class="f-tr"><span class="f-tk">Vision development fellow</span><span class="f-dot"></span><span class="f-tv">Dr. Bruce Meyer, FCOVD</span></div>
+        <div class="f-tr"><span class="f-tk">Google</span><span class="f-dot"></span><span class="f-tv">5.0 / 448 reviews</span></div>
+        <div class="f-tr"><span class="f-tk">Zocdoc</span><span class="f-dot"></span><span class="f-tv">4.9 / 396 reviews</span></div>
+        <div class="f-tr"><span class="f-tk">Care in</span><span class="f-dot"></span><span class="f-tv">English and Korean</span></div>
+        <div class="f-tr"><span class="f-tk">In Oradell since</span><span class="f-dot"></span><span class="f-tv">2016</span></div>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:28px;flex-wrap:wrap">
+        <span class="f-btn">See available times on Zocdoc</span>
+        <span class="f-btn ghost">(201) 265-7900</span>
+      </div>
+    </div>
+    <div class="f-photo">
+      <img class="f-abs" style="object-position:40% 45%" src="../../public/images/office-oradell.jpeg" alt="">
+    </div>
+  </div>
+  <div class="f-sec">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:22px">
+      <span class="f-lbl" style="color:var(--clay)">The doctors</span>
+      <span class="f-lbl" style="color:var(--ink-soft)">Four, with a focus each</span>
+    </div>
+    <div class="f-doc">
+      <img src="../../public/images/dr-mina-han.png" alt="">
+      <span><span style="font-family:var(--serif);font-size:21px;color:var(--teal);display:block">Dr. Mina Han, OD</span><span style="font-size:13px;color:var(--ink-soft)">Optometric Physician</span></span>
+      <span style="font-size:14px;color:var(--ink)">Myopia management · Dry eye disease · Specialty contact lenses</span>
+      <span class="f-lbl" style="color:var(--ink-soft)">English, Korean</span>
+    </div>
+    <div class="f-doc">
+      <img src="../../public/images/team-meyer.png" alt="">
+      <span><span style="font-family:var(--serif);font-size:21px;color:var(--teal);display:block">Dr. Bruce Meyer, FCOVD</span><span style="font-size:13px;color:var(--ink-soft)">Developmental &amp; Vision Therapy</span></span>
+      <span style="font-size:14px;color:var(--ink)">Vision therapy · Neuro-optometric rehabilitation</span>
+      <span class="f-lbl" style="color:var(--ink-soft)">English</span>
+    </div>
+    <div class="f-doc">
+      <img src="../../public/images/team-mundanchira.png" alt="">
+      <span><span style="font-family:var(--serif);font-size:21px;color:var(--teal);display:block">Dr. Amy Mundanchira, OD</span><span style="font-size:13px;color:var(--ink-soft)">Comprehensive &amp; Pediatric Care</span></span>
+      <span style="font-size:14px;color:var(--ink)">Pediatric exams · Comprehensive eye health</span>
+      <span class="f-lbl" style="color:var(--ink-soft)">English</span>
+    </div>
+    <div class="f-doc">
+      <img src="../../public/images/team-ogoke.png" alt="">
+      <span><span style="font-family:var(--serif);font-size:21px;color:var(--teal);display:block">Dr. Chizoba Heather Ogoke, OD</span><span style="font-size:13px;color:var(--ink-soft)">Comprehensive Eye Care</span></span>
+      <span style="font-size:14px;color:var(--ink)">Comprehensive exams · Family eye care</span>
+      <span class="f-lbl" style="color:var(--ink-soft)">English</span>
+    </div>
+  </div>
+</template>
+
+<template id="tplC">
+  <div class="f-shell">
+    <img class="f-abs" style="object-position:40% 46%" src="../../public/images/office-oradell.jpeg" alt="">
+    <div class="f-scrim"></div>
+    <div class="f-head">
+      <span class="f-chip"><img class="f-logo" src="../../public/riverdell-logo.png" alt="Riverdell Vision"></span>
+      <div class="f-nav" style="color:#fff"><span>Care</span><span>Practice</span><span>Reviews</span></div>
+      <span class="f-btn outline f-hide-p">Book on Zocdoc</span>
+      <span class="f-menu" style="color:#fff"><i></i><i></i><i></i></span>
+    </div>
+    <div class="f-mid">
+      <p class="f-lbl" style="color:rgba(255,255,255,.7)">Oradell, New Jersey</p>
+      <h1 class="f-h1">Eye care that&rsquo;s <em>actually medicine.</em></h1>
+      <div class="f-duo"></div>
+      <p class="f-lead" style="color:rgba(255,255,255,.84);max-width:52ch;margin:26px auto 0">The warmth of a boutique practice with the rigor of real medicine.</p>
+      <div style="display:flex;gap:12px;margin-top:28px;justify-content:center;flex-wrap:wrap">
+        <span class="f-btn light">See available times on Zocdoc</span>
+        <span class="f-btn outline">(201) 265-7900</span>
+      </div>
+    </div>
+    <div class="f-bar">
+      <span class="f-lbl" style="color:rgba(255,255,255,.7)">Better one, or two?</span>
+      <span class="f-seg"><span>A typical retail optical</span><span class="on">Riverdell Vision</span></span>
+    </div>
+  </div>
+  <div class="f-sec">
+    <div style="display:flex;justify-content:space-between;align-items:baseline">
+      <span class="f-lbl" style="color:var(--brass)">Why physician-led matters</span>
+      <span class="f-lbl" style="color:rgba(255,255,255,.55)">01 / 06</span>
+    </div>
+    <h2 class="f-serif" style="font-size:34px;color:#fff;margin-top:14px">What the visit is really for.</h2>
+    <div class="f-pair">
+      <div class="f-pan soft">
+        <span class="f-lbl" style="color:rgba(255,255,255,.6)">One</span>
+        <p style="margin:12px 0 0;font-size:19px;line-height:1.4;color:rgba(255,255,255,.9)">A typical retail optical: moving you toward frames.</p>
+      </div>
+      <div class="f-pan sharp">
+        <span class="f-lbl" style="color:var(--clay)">Two</span>
+        <p style="margin:12px 0 0;font-size:19px;line-height:1.4;color:var(--ink)">Riverdell Vision: protecting and understanding your eye health.</p>
+      </div>
+    </div>
+    <div class="f-dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div>
+    <p class="f-lbl" style="color:rgba(255,255,255,.5);margin:14px 0 0">The unchosen side sits at the blur the chosen side resolves from</p>
+    <div style="margin-top:26px;border-top:1px solid rgba(255,255,255,.18)">
+      <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.14)"><span class="f-lbl" style="color:rgba(255,255,255,.5)">02</span><span style="font-size:15px;color:rgba(255,255,255,.78)">Who examines you</span><span class="f-lbl" style="color:rgba(255,255,255,.4)">Next</span></div>
+      <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.14)"><span class="f-lbl" style="color:rgba(255,255,255,.5)">03</span><span style="font-size:15px;color:rgba(255,255,255,.78)">Time per exam</span><span class="f-lbl" style="color:rgba(255,255,255,.4)">&nbsp;</span></div>
+      <div style="display:flex;justify-content:space-between;padding:11px 0"><span class="f-lbl" style="color:rgba(255,255,255,.5)">04</span><span style="font-size:15px;color:rgba(255,255,255,.78)">Specialty care</span><span class="f-lbl" style="color:rgba(255,255,255,.4)">&nbsp;</span></div>
+    </div>
+  </div>
+</template>
+
+<script>
+(function(){
+  document.querySelectorAll('[data-tpl]').forEach(function(host){
+    var t = document.getElementById(host.getAttribute('data-tpl'));
+    if(!t) return;
+    var inner = document.createElement('div');
+    inner.className = 'vp-in';
+    inner.appendChild(t.content.cloneNode(true));
+    host.appendChild(inner);
+  });
+  document.querySelectorAll('.opt').forEach(function(o){
+    o.addEventListener('click', function(){
+      var grp = o.parentElement;
+      if(grp.getAttribute('data-multi') !== '1'){
+        grp.querySelectorAll('.opt').forEach(function(x){ x.classList.remove('selected'); });
+        o.classList.add('selected');
+      } else {
+        o.classList.toggle('selected');
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

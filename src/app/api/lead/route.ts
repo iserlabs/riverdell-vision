@@ -3,6 +3,7 @@
 import { sendLeadEmail } from "@/lib/notify";
 import { parseLead } from "@/lib/validate-lead";
 import { checkRateLimit } from "@/lib/ratelimit";
+import { practice } from "@/lib/site";
 
 function clientId(req: Request): string {
   const fwd = req.headers.get("x-forwarded-for") || "";
@@ -56,6 +57,28 @@ export async function POST(req: Request) {
       ["Source", d.source || "Website form"],
     ],
   });
+
+  // A request the office will never receive must not be reported as success.
+  // The visitor gets the phone number instead, and the failure is logged with
+  // enough detail to recover the request by hand.
+  if (delivery !== "sent") {
+    console.error("[lead] UNDELIVERED request, recover manually:", {
+      delivery,
+      name: d.name,
+      phone: d.phone,
+      email: d.email,
+      interest: d.serviceInterest || null,
+      at: new Date().toISOString(),
+    });
+    return Response.json(
+      {
+        ok: false,
+        delivery,
+        error: `We could not send that request. Please call the office at ${practice.phone} and we will book you straight away.`,
+      },
+      { status: 503 },
+    );
+  }
 
   const id = `L-${Math.floor(1000 + Math.random() * 8999)}`;
   return Response.json({ ok: true, id, delivery });

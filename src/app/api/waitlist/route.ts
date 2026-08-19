@@ -4,6 +4,7 @@
 
 import { sendLeadEmail } from "@/lib/notify";
 import { checkRateLimit } from "@/lib/ratelimit";
+import { practice } from "@/lib/site";
 
 export async function POST(req: Request) {
   let body: Record<string, unknown> = {};
@@ -44,6 +45,24 @@ export async function POST(req: Request) {
       ["Source", "Fort Lee waitlist"],
     ],
   });
+
+  // Same rule as /api/lead: a signup nobody receives is not a signup.
+  if (delivery !== "sent") {
+    console.error("[waitlist] UNDELIVERED signup, recover manually:", {
+      delivery,
+      name,
+      email,
+      at: new Date().toISOString(),
+    });
+    return Response.json(
+      {
+        ok: false,
+        delivery,
+        error: `We could not add you to the list. Please call the office at ${practice.phone} and we will add you by hand.`,
+      },
+      { status: 503 },
+    );
+  }
 
   const id = `FL-${Math.floor(100 + Math.random() * 899)}`;
   return Response.json({ ok: true, id, delivery });

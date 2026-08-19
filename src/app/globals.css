@@ -126,7 +126,10 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    /* Full-strength ring, not the shadcn default of 50% alpha. A half
+       transparent outline over a tinted surface measured 1.08:1 against the
+       unfocused state, which is not a visible focus indicator (WCAG 2.4.7). */
+    @apply border-border outline-ring;
   }
   html {
     @apply font-sans antialiased;
@@ -158,6 +161,13 @@
   }
   summary::-webkit-details-marker {
     display: none;
+  }
+  /* Grid and flex children default to min-width:auto, so an item refuses to
+     shrink below its content and pushes the whole page sideways on a narrow
+     screen (WCAG 1.4.10 reflow). Zero specificity, so any explicit min-w-*
+     utility still wins, and shrink-0 still prevents shrinking where intended. */
+  :where(.grid, .flex) > * {
+    min-width: 0;
   }
 }
 
@@ -207,4 +217,14 @@
       transform: none !important;
     }
   }
+}
+
+/* Authoritative focus ring, deliberately outside every cascade layer so it
+   cannot be undercut. The shadcn base applies outline-ring at 50% alpha to
+   every element, which is too faint to serve as the visible focus indicator
+   on a tinted surface (WCAG 2.4.7). Controls that draw their own background
+   opt in with .focus-ring. */
+.focus-ring:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: -2px;
 }
