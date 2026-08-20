@@ -12,13 +12,13 @@ const csp = [
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
   "style-src 'self' 'unsafe-inline'",
-  "script-src 'self' 'unsafe-inline'",
-  "connect-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://offsiteschedule.zocdoc.com https://static.zocdoc.com",
+  "connect-src 'self' https://api.zocdoc.com https://api2.zocdoc.com https://bob.zocdoc.com",
   /* The /oradell map is a Google Maps iframe and was firing three violations on every
      load. It renders today only because the policy is Report-Only; the day anyone
      enforces it the contact page loses its map silently. Named explicitly rather than
      widening frame-src to https:, so a future embed cannot slip in behind it. */
-  "frame-src 'self' https://www.google.com",
+  "frame-src 'self' https://www.google.com https://bob.zocdoc.com https://www.zocdoc.com",
   "report-uri /api/csp-report",
 ].join("; ");
 

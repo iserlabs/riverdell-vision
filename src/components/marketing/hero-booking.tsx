@@ -1,5 +1,6 @@
 import { Phone } from "lucide-react";
 import { practice } from "@/lib/site";
+import { ZocdocBooking } from "@/components/marketing/zocdoc-booking";
 
 // The hero's right rail.
 //
@@ -35,7 +36,11 @@ export function HeroBooking() {
           {line?.open ? `Open until ${line.label.split(" - ")[1]}` : "Closed today"}
         </p>
 
-        <dl className="mt-5 border-t border-line pt-4">
+        {/* Booking leads, hours support it. The rail's job is to answer "can I be seen"
+            and then let them act on it without leaving the page. */}
+        <ZocdocBooking className="mt-5" />
+
+        <dl className="mt-6 border-t border-line pt-4">
           {practice.hours.map((h) => {
             const isToday = h.day === today;
             return (
