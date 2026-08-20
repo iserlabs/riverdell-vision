@@ -76,9 +76,8 @@ export function WaitlistForm() {
       phone: String(fd.get("phone") || ""),
       preferredContact: "Email",
       location: "Fort Lee area, NJ",
-      serviceInterest: "Fort Lee Waitlist",
+      serviceInterest: `Fort Lee waitlist: ${interest}`,
       source: "Website form",
-      note: `Interested in: ${interest}`,
     });
     setPending(false);
     setSubmitted(true);

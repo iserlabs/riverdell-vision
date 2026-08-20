@@ -97,11 +97,6 @@ export default function LeadDetailPage() {
                 </span>
               </li>
             </ul>
-            {lead.note && (
-              <p className="mt-4 rounded-lg bg-bone-deep p-3 text-sm text-ink-soft">
-                {lead.note}
-              </p>
-            )}
           </Panel>
 
           <Panel title="Workflow">

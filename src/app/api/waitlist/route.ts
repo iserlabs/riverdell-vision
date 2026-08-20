@@ -2,6 +2,7 @@
 // interest only, explicit opt-in consent flag for pre-opening messages, no PHI.
 // Emails the office via Resend on submit.
 
+import { parseWaitlist } from "@/lib/validate-lead";
 import { sendLeadEmail } from "@/lib/notify";
 import { checkRateLimit } from "@/lib/ratelimit";
 import { practice } from "@/lib/site";
@@ -25,15 +26,11 @@ export async function POST(req: Request) {
     return Response.json({ ok: false, error: "Too many requests." }, { status: 429 });
   }
 
-  const name = String(body.name || "").trim();
-  const email = String(body.email || "").trim();
-
-  if (!name || !email) {
-    return Response.json(
-      { ok: false, error: "Missing required fields" },
-      { status: 422 },
-    );
+  const parsed = parseWaitlist(body);
+  if (!parsed.ok) {
+    return Response.json({ ok: false, error: parsed.error }, { status: 422 });
   }
+  const { name, email } = parsed.data;
 
   const delivery = await sendLeadEmail({
     subject: "New Fort Lee waitlist signup from riverdellvision.com",
@@ -48,10 +45,10 @@ export async function POST(req: Request) {
 
   // Same rule as /api/lead: a signup nobody receives is not a signup.
   if (delivery !== "sent") {
+    /* Same rule as /api/lead: a trace, not an identity. Vercel logs carry no BAA. */
     console.error("[waitlist] UNDELIVERED signup, recover manually:", {
       delivery,
-      name,
-      email,
+      trace: `W-${Buffer.from(email).toString("base64url").slice(0, 10)}`,
       at: new Date().toISOString(),
     });
     return Response.json(

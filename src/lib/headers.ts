@@ -10,11 +10,15 @@ const csp = [
   "frame-ancestors 'self'",
   "form-action 'self'",
   "img-src 'self' data: blob: https:",
-  "font-src 'self' data: https://fonts.gstatic.com",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com",
-  "connect-src 'self' https://va.vercel-scripts.com https://vitals.vercel-insights.com",
-  "frame-src 'self'",
+  "font-src 'self' data:",
+  "style-src 'self' 'unsafe-inline'",
+  "script-src 'self' 'unsafe-inline'",
+  "connect-src 'self'",
+  /* The /oradell map is a Google Maps iframe and was firing three violations on every
+     load. It renders today only because the policy is Report-Only; the day anyone
+     enforces it the contact page loses its map silently. Named explicitly rather than
+     widening frame-src to https:, so a future embed cannot slip in behind it. */
+  "frame-src 'self' https://www.google.com",
   "report-uri /api/csp-report",
 ].join("; ");
 

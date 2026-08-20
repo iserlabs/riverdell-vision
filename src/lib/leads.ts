@@ -41,7 +41,11 @@ export type Lead = {
   createdAt: string;
   lastActivity: string;
   tasks: FollowUpTask[];
-  note?: string;
+  /* Removed, not just emptied. This shape is reachable in a public JS chunk and the
+     file's own contract says it never holds symptoms or clinical detail, while the seed
+     data carried lines like a referral reason and a symptom description. A field that
+     cannot exist cannot be repopulated by the next person filling in demo data, and the
+     comments say V2 reuses this shape against a real store. */
 };
 
 export const PIPELINES: Record<
@@ -134,7 +138,6 @@ export const SEED_LEADS: Lead[] = [
       task("t1", "Call parent to answer questions and offer consult", "call", "Today", false, "Hi Amanda, this is Maria from Riverdell Vision returning your inquiry about myopia management for your child. Dr. Han sets aside dedicated time for these evaluations. Would a weekday afternoon or a Saturday work better to come in?"),
       task("t2", "Send myopia parent guide", "email", "Today", false),
     ],
-    note: "Daughter age 8, prescription increased last year.",
   },
   {
     id: "L-2039",
@@ -155,7 +158,6 @@ export const SEED_LEADS: Lead[] = [
     tasks: [
       task("t1", "Assign owner and call to book dry eye evaluation", "call", "Today", false, "Hi Robert, thanks for reaching out about your dry eye symptoms. A dedicated dry eye evaluation finds the underlying cause so we can actually treat it. I can get you in this week, mornings or afternoons?"),
     ],
-    note: "Drops no longer helping, worse on screens.",
   },
   {
     id: "L-2036",
@@ -177,7 +179,6 @@ export const SEED_LEADS: Lead[] = [
       task("t1", "Request prior corneal records from referring MD", "email", "Yesterday", true),
       task("t2", "Confirm diagnostic fitting appointment", "text", "Tomorrow", false),
     ],
-    note: "Keratoconus, referred by cornea specialist.",
   },
   {
     id: "L-2033",
@@ -198,7 +199,6 @@ export const SEED_LEADS: Lead[] = [
     tasks: [
       task("t1", "Follow up on Ortho-K vs atropine decision", "call", "Today", false, "Hi, following up after your son's myopia consult. Have you and your family had a chance to think about the Ortho-K option Dr. Han recommended? Happy to answer any questions before we get started."),
     ],
-    note: "Deciding between Ortho-K and atropine.",
   },
   {
     id: "L-2030",
@@ -256,7 +256,6 @@ export const SEED_LEADS: Lead[] = [
     createdAt: "5 days ago",
     lastActivity: "5 days ago",
     tasks: [task("t1", "Add to Fort Lee pre-opening SMS list (consented)", "text", "This week", false)],
-    note: "Interested in myopia care for two kids when Fort Lee opens.",
   },
   {
     id: "L-2019",

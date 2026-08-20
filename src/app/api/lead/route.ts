@@ -10,6 +10,21 @@ function clientId(req: Request): string {
   return fwd.split(",")[0].trim() || "unknown";
 }
 
+
+/**
+ * A failed delivery still has to be recoverable, but the recovery detail must not be
+ * the patient's name next to what they are seeking care for. The project's own HIPAA
+ * review sets the bar: "name + due for an eye exam" is PHI, and Vercel runtime logs
+ * carry no BAA. This logs enough to find and chase the request without writing an
+ * identity into a log line.
+ */
+function failureTrace(d: { name?: string; email?: string; phone?: string }): string {
+  const seed = `${d.email ?? ""}|${d.phone ?? ""}|${d.name ?? ""}`;
+  let h = 5381;
+  for (let i = 0; i < seed.length; i++) h = ((h << 5) + h + seed.charCodeAt(i)) | 0;
+  return `L-${Math.abs(h).toString(36)}`;
+}
+
 export async function POST(req: Request) {
   let raw: Record<string, unknown> = {};
   try {
@@ -64,10 +79,7 @@ export async function POST(req: Request) {
   if (delivery !== "sent") {
     console.error("[lead] UNDELIVERED request, recover manually:", {
       delivery,
-      name: d.name,
-      phone: d.phone,
-      email: d.email,
-      interest: d.serviceInterest || null,
+      trace: failureTrace(d),
       at: new Date().toISOString(),
     });
     return Response.json(

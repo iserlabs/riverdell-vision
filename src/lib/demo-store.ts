@@ -91,7 +91,6 @@ export function addLead(input: {
   location?: string;
   serviceInterest: string;
   source: Lead["source"];
-  note?: string;
 }): Lead {
   const p = read();
   const pipeline = pipelineForInterest(input.serviceInterest);
@@ -122,7 +121,6 @@ export function addLead(input: {
     assignedTo: "Unassigned",
     createdAt: "Today",
     lastActivity: "Today",
-    note: input.note,
     tasks: [
       {
         id: "auto1",

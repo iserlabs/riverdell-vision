@@ -32,3 +32,28 @@ export function parseLead(
   }
   return { ok: true, data: r.data };
 }
+
+/**
+ * The waitlist ran on `String(body.name || "").trim()` and a non-empty check, so a
+ * 5,000-character name and "not-an-email" both passed, and that unvalidated string went
+ * straight into an email header. Same discipline as the lead route, smaller shape.
+ */
+const waitlistSchema = z.object({
+  name: str(120).min(1),
+  email: str(200).email(),
+  serviceInterest: opt(120),
+  interest: opt(120),
+  company: opt(120),
+});
+
+export type WaitlistInput = z.infer<typeof waitlistSchema>;
+
+export function parseWaitlist(
+  body: unknown,
+): { ok: true; data: WaitlistInput } | { ok: false; error: string } {
+  const r = waitlistSchema.safeParse(body);
+  if (!r.success) {
+    return { ok: false, error: r.error.issues[0]?.message ?? "Invalid payload" };
+  }
+  return { ok: true, data: r.data };
+}

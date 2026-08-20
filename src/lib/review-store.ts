@@ -57,12 +57,13 @@ export async function deleteAnnotation(id: string): Promise<boolean> {
   const r = client();
   if (!r) return false;
   try {
+    /* LREM removes the one element. The previous version did DEL then RPUSH, so a crash
+       or a dropped connection between the two wiped every note Dr. Han had left. */
     const rows = await readAnnotations();
-    const kept = rows.filter((x) => x.id !== id);
-    if (kept.length === rows.length) return false;
-    await r.del(KEY);
-    if (kept.length) await r.rpush(KEY, ...kept.map((x) => JSON.stringify(x)));
-    return true;
+    const target = rows.find((x) => x.id === id);
+    if (!target) return false;
+    const removed = await r.lrem(KEY, 1, JSON.stringify(target));
+    return removed > 0;
   } catch {
     return false;
   }
