@@ -85,9 +85,20 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
               </Reveal>
               <Reveal delay={240}>
                 <div className="mt-8 flex flex-wrap gap-3">
-                  <BookButton href={bookHref} label="Request a consult" />
+                  {/* Zocdoc leads here too. These are the highest-intent pages on the
+                      site and they were sending that traffic into the request form, which
+                      returns 503 until the mail keys are set. The form stays available as
+                      a named fallback underneath, carrying the specialty in its link. */}
+                  <BookButton />
                   <CallButton />
                 </div>
+                <p className="mt-4 text-[0.95rem] text-ink-soft">
+                  Rather not book online?{" "}
+                  <Link href={bookHref} className="underline decoration-line underline-offset-4 hover:text-teal">
+                    Send us a request
+                  </Link>{" "}
+                  about {s.shortName.toLowerCase()} and we will call you back.
+                </p>
               </Reveal>
               <Reveal delay={300}>
                 <DualProof className="mt-8 border-t border-line pt-6" />

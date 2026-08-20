@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { practice } from "@/lib/site";
 import Link from "next/link";
 import { ArrowRight, ArrowLeft, RotateCcw, Sparkles } from "lucide-react";
 import { ServiceIcon, type ServiceIconKey } from "@/components/site/service-icon";
@@ -238,18 +239,23 @@ export function CareFinder() {
             </h3>
             <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">{rec.reason}</p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <Link
-                href={`/book?interest=${encodeURIComponent(rec.interest)}`}
+              {/* This is the site's best qualification step and it used to end on the
+                  request form under a label promising a live calendar. Zocdoc is the
+                  thing that actually shows times; the form is named for what it is. */}
+              <a
+                href={practice.zocdocUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 className={btn({ size: "md" })}
               >
-                See available times
-              </Link>
+                Book on Zocdoc
+              </a>
               {rec.slug && (
                 <Link
                   href={`/${rec.slug}`}
                   className={btn({ variant: "outline", size: "md" })}
                 >
-                  Learn about {rec.title.split(" ")[0]} care
+                  Read about {rec.title.toLowerCase()}
                 </Link>
               )}
             </div>

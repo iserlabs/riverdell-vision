@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { Star, ArrowUpRight, ShieldCheck } from "lucide-react";
 import { Container } from "@/components/site/primitives";
 import { GoogleG, ZocdocMark } from "@/components/site/reviews";
@@ -52,60 +51,13 @@ const STATS: Stat[] = [
 // Counts up to `target` when the ledger scrolls into view. The initial state is
 // the REAL target (so the server-rendered HTML shows 448/396/10, not 0, which
 // matters for crawlers and AI answer engines that read raw HTML). The reset to
-// 0 happens only on the client, only when the element starts below the fold, so
-// the count-up begins from 0 off-screen with no visible flash.
-function useCountUp(target: number, run: boolean, delay: number, ms = 1400) {
-  const [n, setN] = useState(target);
-  const phase = useRef<"init" | "armed" | "done">("init");
-  const raf = useRef(0);
-  const timer = useRef(0);
-
-  useEffect(() => {
-    if (phase.current === "done") return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      phase.current = "done";
-      return; // keep the real number, no animation
-    }
-    if (phase.current === "init") {
-      // Already in view on load: keep the number, skip the count-up.
-      if (run) {
-        phase.current = "done";
-        return;
-      }
-      // Below the fold: reset to 0 off-screen, arm for when it enters view.
-      phase.current = "armed";
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- one-time off-screen arm so the count-up starts from 0; the SSR/initial render keeps the real number.
-      setN(0);
-      return;
-    }
-    if (run) {
-      phase.current = "done";
-      timer.current = window.setTimeout(() => {
-        let startT = 0;
-        const tick = (t: number) => {
-          if (!startT) startT = t;
-          const p = Math.min(1, (t - startT) / ms);
-          setN(Math.round(target * (1 - Math.pow(1 - p, 3))));
-          if (p < 1) raf.current = requestAnimationFrame(tick);
-        };
-        raf.current = requestAnimationFrame(tick);
-      }, delay);
-    }
-  }, [run, target, delay, ms]);
-
-  useEffect(
-    () => () => {
-      window.clearTimeout(timer.current);
-      cancelAnimationFrame(raf.current);
-    },
-    [],
-  );
-
-  return n;
-}
 
 function LedgerCell({ stat, run, i }: { stat: Stat; run: boolean; i: number }) {
-  const n = useCountUp(stat.value, run, i * 160);
+  /* The count-up rendered 6, 0 and 0 for the first second of every visit, which are
+     the exact figures a visitor arrived to check. R1 already moved the signature onto
+     the hairline, so the numbers are simply true from the first frame and the sweep
+     below carries the motion. */
+  const n = stat.value;
   const base = i * 160;
   return (
     <div className="relative md:px-10 md:first:pl-0 md:last:pr-0">
@@ -147,7 +99,7 @@ function LedgerCell({ stat, run, i }: { stat: Stat; run: boolean; i: number }) {
       </div>
 
       {/* Oversized numeral */}
-      <p className="mt-5 font-display text-[4.75rem] font-medium leading-[0.85] tracking-tight text-teal tabular-nums md:text-[6.5rem]">
+      <p className="mt-5 font-display text-[2.125rem] font-medium leading-[0.95] tracking-tight text-teal tabular-nums md:text-[3.5rem]">
         {n.toLocaleString()}
       </p>
 

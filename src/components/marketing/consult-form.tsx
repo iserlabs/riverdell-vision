@@ -85,6 +85,11 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
   const [done, setDone] = useState({ name: "", phone: "", service: "", office: "Oradell" });
   const [errors, setErrors] = useState({ name: false, email: false, phone: false });
   const [statusMessage, setStatusMessage] = useState("");
+  /* The toast lives four seconds and the announcement is screen-reader only, so a
+     sighted patient who glanced away saw a filled form and an unpressed button and
+     walked off believing the practice would call. This holds the failure on screen
+     until they act on it, with both working routes inside it. */
+  const [sendFailed, setSendFailed] = useState<string | null>(null);
 
   const doctor = providers.find((p) => p.slug === LEAD_DOCTOR[interest]);
   const insured = insurance !== "" && insurance !== "Other or self-pay";
@@ -107,6 +112,7 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
     }
     setErrors({ name: false, email: false, phone: false });
     setPending(true);
+    setSendFailed(null);
     const office = String(fd.get("office") || "Oradell");
     const payload = {
       name,
@@ -156,6 +162,7 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
         : `We couldn't send your request just now. Please call us at ${practice.phone} and we'll help right away.`;
       toast.error(message);
       setStatusMessage(message);
+      setSendFailed(message);
       return;
     }
     addLead(payload);
@@ -392,6 +399,30 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
           {pending ? "Sending..." : "Request my appointment"}
         </button>
 
+        {sendFailed ? (
+          <div
+            role="alert"
+            className="mt-6 rounded-xl border border-clay/35 bg-clay-soft/60 p-4 text-[0.95rem] text-ink"
+          >
+            <p className="font-medium">{sendFailed}</p>
+            <div className="mt-3 flex flex-wrap gap-2.5">
+              <a
+                href={practice.phoneHref}
+                className="inline-flex min-h-11 items-center rounded-lg bg-teal px-4 font-medium text-bone transition-colors hover:bg-teal-deep"
+              >
+                Call {practice.phone}
+              </a>
+              <a
+                href={practice.zocdocUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-h-11 items-center rounded-lg border border-teal/40 px-4 font-medium text-teal transition-colors hover:bg-teal-tint"
+              >
+                Book on Zocdoc
+              </a>
+            </div>
+          </div>
+        ) : null}
         <p role="status" aria-live="polite" className="sr-only">
           {statusMessage}
         </p>

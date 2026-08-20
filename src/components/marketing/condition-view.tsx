@@ -93,9 +93,18 @@ export function ConditionView({ condition: c }: { condition: Condition }) {
             </Reveal>
             <Reveal delay={260}>
               <div className="mt-8 flex flex-wrap gap-3">
-                <BookButton href={bookHref} label="Request an evaluation" />
+                {/* Zocdoc leads, per the 16 August lock. The request form is the fallback
+                    below, and it still carries the condition into the enquiry. */}
+                <BookButton />
                 <CallButton />
               </div>
+              <p className="mt-4 text-[0.95rem] text-ink-soft">
+                Rather not book online?{" "}
+                <Link href={bookHref} className="underline decoration-line underline-offset-4 hover:text-teal">
+                  Send us a request
+                </Link>{" "}
+                and we will call you back.
+              </p>
             </Reveal>
             <Reveal delay={320}>
               <DualProof className="mt-8 border-t border-line pt-6" />
