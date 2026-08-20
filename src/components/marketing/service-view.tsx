@@ -244,7 +244,7 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
                 <BookButton href={bookHref} label={`Discuss ${s.shortName.toLowerCase()}`} />
                 <Link
                   href="/about"
-                  className="-my-3 inline-flex items-center py-3 text-sm font-medium text-teal hover:text-teal-deep md:my-0 md:py-0"
+                  className="-my-3 inline-flex items-center py-3 text-sm font-medium text-teal hover:text-teal-deep pointer-fine:my-0 pointer-fine:py-0"
                 >
                   Meet the team →
                 </Link>

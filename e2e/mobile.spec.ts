@@ -2,7 +2,11 @@ import { test, expect } from "@playwright/test";
 
 const routes = ["/", "/dry-eye-treatment", "/keratoconus", "/oradell"];
 
-test.use({ viewport: { width: 390, height: 844 } });
+// hasTouch matters as much as the width. Touch padding is keyed on pointer type
+// rather than screen width, because a landscape phone is 844px wide and was being
+// served desktop sizing; a 390px window with a mouse is not a phone and must not
+// stand in for one here.
+test.use({ viewport: { width: 390, height: 844 }, hasTouch: true, isMobile: true });
 
 // Standalone tappable controls only: real buttons, role=button, and links that
 // are NOT sitting inline inside a run of body text. WCAG 2.5.8 (Target Size,

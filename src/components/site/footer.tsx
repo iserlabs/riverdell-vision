@@ -35,14 +35,14 @@ export function SiteFooter() {
             <a
               href={practice.socials.facebook}
               aria-label="Facebook"
-              className="inline-flex size-11 items-center justify-center rounded-full border border-bone/25 transition-colors hover:bg-bone/10 md:size-9"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-bone/25 transition-colors hover:bg-bone/10 pointer-fine:size-9"
             >
               <Facebook className="size-4" />
             </a>
             <a
               href={practice.socials.instagram}
               aria-label="Instagram"
-              className="inline-flex size-11 items-center justify-center rounded-full border border-bone/25 transition-colors hover:bg-bone/10 md:size-9"
+              className="inline-flex size-11 items-center justify-center rounded-full border border-bone/25 transition-colors hover:bg-bone/10 pointer-fine:size-9"
             >
               <Instagram className="size-4" />
             </a>
@@ -56,7 +56,7 @@ export function SiteFooter() {
               <li key={c.href}>
                 <Link
                   href={c.href}
-                  className="-my-3.5 inline-flex items-center py-3.5 text-bone/75 hover:text-bone md:my-0 md:py-0"
+                  className="-my-3.5 inline-flex items-center py-3.5 text-bone/75 hover:text-bone pointer-fine:my-0 pointer-fine:py-0"
                 >
                   {c.label}
                 </Link>
@@ -71,7 +71,7 @@ export function SiteFooter() {
             <li>
               <Link
                 href="/portal"
-                className="-my-3.5 inline-flex items-center py-3.5 font-medium text-bone hover:text-brass md:my-0 md:py-0"
+                className="-my-3.5 inline-flex items-center py-3.5 font-medium text-bone hover:text-brass pointer-fine:my-0 pointer-fine:py-0"
               >
                 Patient portal, launching soon
               </Link>
@@ -80,7 +80,7 @@ export function SiteFooter() {
               <li key={c.href}>
                 <Link
                   href={c.href}
-                  className="-my-3.5 inline-flex items-center py-3.5 text-bone/75 hover:text-bone md:my-0 md:py-0"
+                  className="-my-3.5 inline-flex items-center py-3.5 text-bone/75 hover:text-bone pointer-fine:my-0 pointer-fine:py-0"
                 >
                   {c.label}
                 </Link>
@@ -96,7 +96,7 @@ export function SiteFooter() {
               <MapPin className="mt-0.5 size-4 shrink-0 text-brass" aria-hidden />
               <a
                 href={practice.maps}
-                className="-my-3 inline-block py-3 hover:text-bone md:my-0 md:py-0"
+                className="-my-3 inline-block py-3 hover:text-bone pointer-fine:my-0 pointer-fine:py-0"
               >
                 {practice.address.full}
               </a>
@@ -105,7 +105,7 @@ export function SiteFooter() {
               <Phone className="mt-0.5 size-4 shrink-0 text-brass" aria-hidden />
               <a
                 href={practice.phoneHref}
-                className="-my-3 inline-block py-3 hover:text-bone md:my-0 md:py-0"
+                className="-my-3 inline-block py-3 hover:text-bone pointer-fine:my-0 pointer-fine:py-0"
               >
                 {practice.phone}
               </a>
@@ -114,7 +114,7 @@ export function SiteFooter() {
               <Mail className="mt-0.5 size-4 shrink-0 text-brass" aria-hidden />
               <a
                 href={`mailto:${practice.email}`}
-                className="-my-3 inline-block py-3 hover:text-bone md:my-0 md:py-0"
+                className="-my-3 inline-block py-3 hover:text-bone pointer-fine:my-0 pointer-fine:py-0"
               >
                 {practice.email}
               </a>
@@ -144,22 +144,22 @@ export function SiteFooter() {
               pushed every page sideways (WCAG 1.4.10). Patient-facing legal
               links only; the investor and staff surfaces are reached directly,
               not from a patient's footer. */}
-          <div className="-mx-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 md:mx-0 md:gap-x-5">
+          <div className="-mx-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 pointer-fine:mx-0 md:gap-x-5">
             <Link
               href="/privacy"
-              className="-my-3.5 flex items-center px-2 py-3.5 hover:text-bone md:mx-0 md:my-0 md:px-0 md:py-0"
+              className="-my-3.5 flex items-center px-2 py-3.5 hover:text-bone pointer-fine:mx-0 pointer-fine:my-0 pointer-fine:px-0 pointer-fine:py-0"
             >
               Privacy
             </Link>
             <Link
               href="/accessibility"
-              className="-my-3.5 flex items-center px-2 py-3.5 hover:text-bone md:mx-0 md:my-0 md:px-0 md:py-0"
+              className="-my-3.5 flex items-center px-2 py-3.5 hover:text-bone pointer-fine:mx-0 pointer-fine:my-0 pointer-fine:px-0 pointer-fine:py-0"
             >
               Accessibility
             </Link>
             <a
               href="/sitemap.xml"
-              className="-my-3.5 flex items-center px-2 py-3.5 hover:text-bone md:mx-0 md:my-0 md:px-0 md:py-0"
+              className="-my-3.5 flex items-center px-2 py-3.5 hover:text-bone pointer-fine:mx-0 pointer-fine:my-0 pointer-fine:px-0 pointer-fine:py-0"
             >
               Sitemap
             </a>

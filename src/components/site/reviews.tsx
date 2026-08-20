@@ -141,8 +141,8 @@ export function ReviewStatBadge({ className }: { className?: string }) {
 export function DualProof({ className, size = "sm" }: { className?: string; size?: "sm" | "lg" }) {
   const lg = size === "lg";
   const row = lg
-    ? "group -my-3 inline-flex items-center gap-2.5 py-3 text-base text-ink transition-colors hover:text-teal md:my-0 md:py-0 md:text-[1.05rem]"
-    : "group -my-3 inline-flex items-center gap-2 py-3 text-sm text-ink transition-colors hover:text-teal md:my-0 md:py-0";
+    ? "group -my-3 inline-flex items-center gap-2.5 py-3 text-base text-ink transition-colors hover:text-teal pointer-fine:my-0 pointer-fine:py-0 md:text-[1.05rem]"
+    : "group -my-3 inline-flex items-center gap-2 py-3 text-sm text-ink transition-colors hover:text-teal pointer-fine:my-0 pointer-fine:py-0";
   const arrow = lg
     ? "size-4 shrink-0 text-clay transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
     : "size-3.5 shrink-0 text-clay transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5";

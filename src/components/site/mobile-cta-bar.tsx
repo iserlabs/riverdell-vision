@@ -31,7 +31,10 @@ export function MobileCtaBar() {
   return (
     <>
       <div aria-hidden className="h-[calc(4.75rem+env(safe-area-inset-bottom))] lg:hidden" />
-      <div
+      {/* A nav landmark, not a bare div: this is the persistent primary action on every
+          mobile page and it sat outside every landmark, so landmark navigation skipped it. */}
+      <nav
+        aria-label="Book or call"
         aria-hidden={!shown}
         className={cn(
           "fixed inset-x-0 bottom-0 z-40 border-t border-line bg-bone/95 backdrop-blur-md lg:hidden pb-[env(safe-area-inset-bottom)]",
@@ -61,7 +64,7 @@ export function MobileCtaBar() {
             <Phone className="size-5" aria-hidden />
           </a>
         </div>
-      </div>
+      </nav>
     </>
   );
 }

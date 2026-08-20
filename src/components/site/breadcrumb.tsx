@@ -8,7 +8,7 @@ export function Breadcrumb({
   return (
     <nav
       aria-label="Breadcrumb"
-      className="-mx-2 -my-3 pt-8 text-sm text-ink-soft md:mx-0 md:my-0"
+      className="-mx-2 -my-3 pt-8 text-sm text-ink-soft pointer-fine:mx-0 pointer-fine:my-0"
     >
       {items.map((it, i) => {
         const last = i === items.length - 1;
@@ -17,7 +17,7 @@ export function Breadcrumb({
             {it.href && !last ? (
               <Link
                 href={it.href}
-                className="inline-flex items-center px-2 py-3 hover:text-teal md:px-0 md:py-0"
+                className="inline-flex items-center px-2 py-3 hover:text-teal pointer-fine:px-0 pointer-fine:py-0"
               >
                 {it.name}
               </Link>

@@ -201,8 +201,10 @@ export function SiteHeader() {
           </nav>
 
           <div className="flex items-center gap-2">
+            {/* The primary CTA sized down at sm:, which a landscape phone crosses, so it
+                rendered 36px on a touch device. Keyed on pointer instead. */}
             <Magnetic className="hidden sm:inline-flex">
-              <BookButton size="sm" />
+              <BookButton size="sm" className="min-h-11 pointer-fine:min-h-0" />
             </Magnetic>
 
             <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>

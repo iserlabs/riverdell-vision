@@ -221,7 +221,10 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
             {(["New patient", "Returning patient"] as const).map((t) => (
               <label
                 key={t}
-                className={`block cursor-pointer rounded-lg border px-3 py-2.5 text-center text-sm font-medium transition-colors ${
+                /* The input is sr-only, so focus landed on a 1x1 element covered by this
+                   label and nothing showed. has-[:focus-visible] puts the indicator on the
+                   thing the visitor can actually see, on the first control in the form. */
+                className={`block min-h-11 cursor-pointer content-center rounded-lg border px-3 py-2.5 text-center text-sm font-medium transition-colors has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-teal ${
                   patientType === t
                     ? "border-teal bg-teal text-bone"
                     : "border-line bg-card text-ink-soft hover:border-teal/40 hover:text-ink"

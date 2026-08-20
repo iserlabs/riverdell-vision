@@ -61,7 +61,7 @@ export default function AnswersPage() {
                 <li key={t.id}>
                   <a
                     href={`#${t.id}`}
-                    className="inline-flex min-h-11 items-center rounded-full border border-line bg-card px-4 text-sm font-medium text-ink-soft transition-colors hover:border-teal/40 hover:text-teal md:min-h-0 md:py-2"
+                    className="inline-flex min-h-11 items-center rounded-full border border-line bg-card px-4 text-sm font-medium text-ink-soft transition-colors hover:border-teal/40 hover:text-teal pointer-fine:min-h-0 pointer-fine:py-2"
                   >
                     {t.eyebrow}
                   </a>
@@ -91,7 +91,7 @@ export default function AnswersPage() {
                     <p className="mt-3 text-ink-soft">{topic.lead}</p>
                     <Link
                       href={topic.deepHref}
-                      className="group mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-teal transition-colors hover:text-teal-deep"
+                      className="group mt-5 inline-flex min-h-11 items-center gap-1.5 text-sm font-medium text-teal transition-colors hover:text-teal-deep pointer-fine:min-h-0"
                     >
                       {topic.deepLabel}
                       <ArrowRight

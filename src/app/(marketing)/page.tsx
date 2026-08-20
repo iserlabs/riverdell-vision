@@ -105,7 +105,7 @@ export default function HomePage() {
                   </div>
                   <Link
                     href="/about"
-                    className="-my-3 inline-flex items-center py-3 text-base font-medium text-teal hover:text-teal-deep md:my-0 md:py-0 md:text-[1.05rem]"
+                    className="-my-3 inline-flex items-center py-3 text-base font-medium text-teal hover:text-teal-deep pointer-fine:my-0 pointer-fine:py-0 md:text-[1.05rem]"
                   >
                     Meet our 4 optometrists →
                   </Link>
