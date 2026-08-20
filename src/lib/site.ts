@@ -9,6 +9,10 @@ export const SITE_URL =
 export const practice = {
   name: "Riverdell Vision",
   legalName: "Riverdell Vision",
+  /* Healthgrades and CareCredit still list the practice as "Riverdell Family Vision
+     Care", so to an answer engine this is two businesses. Naming the alias is the only
+     part of that fix the website controls; claiming the directory records is not. */
+  alternateNames: ["Riverdell Family Vision Care"],
   tagline: "Family eye care, practiced like medicine.",
   description:
     "Riverdell Vision is a family optometry practice in Oradell, NJ specializing in myopia management, dry eye, and specialty contact lenses. Physician-led, prevention-first eye care for children, adults, and seniors across Bergen County.",
@@ -126,6 +130,10 @@ export const primaryNav = [
       { label: "Vision Therapy", href: "/vision-therapy", note: "The skills reading depends on" },
       { label: "Neuro-Optometric Rehab", href: "/neuro-optometric-rehabilitation", note: "Vision care after concussion" },
       { label: "Medical Eye Care", href: "/medical-eye-care", note: "Eye health, not just glasses" },
+      /* Both had one inbound link on the whole site, from their parent service page, and
+         keratoconus is a scleral-lens fitting, one of the highest-value visits here. */
+      { label: "Keratoconus", href: "/keratoconus", note: "Scleral lenses when vision distorts" },
+      { label: "Meibomian Gland Dysfunction", href: "/meibomian-gland-dysfunction", note: "The blocked-gland cause of dry eye" },
       { label: "Pediatric & Family Care", href: "/about#care", note: "Prevention-first, every age" },
     ],
   },

@@ -86,6 +86,22 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+            {/* /answers and /cost-and-insurance were in neither the nav nor the footer
+                and linked only to each other, a closed loop hanging off the site. The
+                first is the surface AI answers are supposed to land on. */}
+            {[
+              { href: "/answers", label: "Eye care answers" },
+              { href: "/cost-and-insurance", label: "Cost & insurance" },
+            ].map((c) => (
+              <li key={c.href}>
+                <Link
+                  href={c.href}
+                  className="-my-3.5 inline-flex items-center py-3.5 text-bone/75 hover:text-bone pointer-fine:my-0 pointer-fine:py-0"
+                >
+                  {c.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
 

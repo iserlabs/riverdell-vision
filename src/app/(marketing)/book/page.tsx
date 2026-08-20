@@ -11,7 +11,7 @@ const zocdocBtn =
   "w-full border border-teal bg-transparent text-teal hover:bg-teal-tint";
 
 export const metadata: Metadata = {
-  title: "Request an Appointment | Riverdell Vision, Oradell NJ",
+  title: "Request an Appointment",
   description:
     "Request an appointment at Riverdell Vision in Oradell, NJ. Book online, reserve instantly on Zocdoc, or call (201) 265-7900. New and returning patients welcome.",
   alternates: { canonical: "/book" },

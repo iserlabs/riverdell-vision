@@ -35,7 +35,7 @@ export const CONDITIONS: Condition[] = [
     parentSlug: "specialty-contact-lenses",
     parentLabel: "Specialty & Scleral Lenses",
     bookInterest: "Specialty & Scleral Lenses",
-    metaTitle: "Keratoconus Care & Scleral Lenses in Oradell & Bergen County, NJ",
+    metaTitle: "Keratoconus & Scleral Lenses, Oradell NJ",
     metaDescription:
       "Keratoconus care at Riverdell Vision in Oradell, NJ: diagnosis, monitoring, and scleral and specialty contact-lens fitting to restore clear, comfortable vision when glasses no longer work.",
     shortAnswer:
@@ -87,7 +87,7 @@ export const CONDITIONS: Condition[] = [
     parentSlug: "dry-eye-treatment",
     parentLabel: "Dry Eye Treatment",
     bookInterest: "Dry Eye",
-    metaTitle: "Meibomian Gland Dysfunction (MGD) Treatment in Bergen County, NJ",
+    metaTitle: "Meibomian Gland Dysfunction (MGD) Care",
     metaDescription:
       "Meibomian gland dysfunction (MGD) is the leading cause of evaporative dry eye. Riverdell Vision in Oradell, NJ diagnoses and treats the underlying gland problem with targeted therapy and in-office treatments.",
     shortAnswer:

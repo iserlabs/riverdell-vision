@@ -9,7 +9,7 @@ import { SERVICE_LADDER } from "@/lib/services";
 import { fortLee } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Coming Soon to Fort Lee, NJ | Riverdell Vision",
+  title: "Coming Soon to Fort Lee, NJ",
   description:
     "Riverdell Vision is opening a second office in Fort Lee, NJ, bringing myopia management, dry eye care, and specialty lenses to the Palisades communities. Join the waitlist.",
   alternates: { canonical: "/fort-lee" },

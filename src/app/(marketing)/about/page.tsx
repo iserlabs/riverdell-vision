@@ -12,7 +12,7 @@ import { physicianSchema, breadcrumbSchema } from "@/lib/schema";
 import { providers } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Meet Dr. Mina Han & the Riverdell Vision Team | Oradell, NJ",
+  title: "Meet Our Four Optometrists, Oradell NJ",
   description:
     "Meet Dr. Mina Han, OD and the Riverdell Vision team in Oradell, NJ. A physician-led family optometry practice offering myopia management, dry eye care, specialty lenses, pediatric and medical eye care.",
   alternates: { canonical: "/about" },

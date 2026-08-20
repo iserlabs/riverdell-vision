@@ -114,7 +114,7 @@ export const SERVICES: ServiceContent[] = [
       "ortho-k Oradell NJ",
     ],
     related: ["specialty-contact-lenses", "dry-eye-treatment"],
-    metaTitle: "Myopia Management for Children in Oradell & Bergen County, NJ",
+    metaTitle: "Myopia Management for Kids, Oradell NJ",
     metaDescription:
       "Slow your child's worsening nearsightedness with a personalized myopia management plan at Riverdell Vision in Oradell, NJ. Ortho-K, multifocal contacts, myopia-control glasses, and atropine. Request a consult.",
     reviewedBy: "Dr. Mina Han, OD",
@@ -199,7 +199,7 @@ export const SERVICES: ServiceContent[] = [
       "meibomian gland dysfunction NJ",
     ],
     related: ["specialty-contact-lenses", "myopia-management"],
-    metaTitle: "Dry Eye Treatment in Oradell & Bergen County, NJ",
+    metaTitle: "Dry Eye Treatment in Oradell, NJ",
     metaDescription:
       "Chronic dry, burning, or watery eyes? Riverdell Vision in Oradell, NJ offers a real dry eye evaluation and treatment for the underlying cause, including in-office gland therapies. Request an evaluation.",
     reviewedBy: "Dr. Mina Han, OD",
@@ -284,7 +284,7 @@ export const SERVICES: ServiceContent[] = [
       "keratoconus contact lenses NJ",
     ],
     related: ["dry-eye-treatment", "myopia-management"],
-    metaTitle: "Scleral & Specialty Contact Lenses in Bergen County, NJ",
+    metaTitle: "Scleral & Specialty Lenses, Bergen County",
     metaDescription:
       "Scleral and specialty contact lenses at Riverdell Vision in Oradell, NJ for keratoconus, irregular corneas, severe dry eye, and hard-to-fit prescriptions. Request a specialty lens evaluation.",
     reviewedBy: "Dr. Mina Han, OD",
@@ -334,7 +334,7 @@ export const SERVICES: ServiceContent[] = [
     ],
     keywords: ["ortho-k Oradell NJ", "orthokeratology Bergen County", "ortho-k for myopia NJ"],
     related: ["myopia-management", "specialty-contact-lenses"],
-    metaTitle: "Ortho-K (Orthokeratology) in Oradell & Bergen County, NJ",
+    metaTitle: "Ortho-K Orthokeratology, Oradell NJ",
     metaDescription:
       "Orthokeratology (Ortho-K) at Riverdell Vision in Oradell, NJ: custom overnight lenses for clear, glasses-free days and myopia control. Request an Ortho-K consult.",
     reviewedBy: "Dr. Mina Han, OD",
@@ -384,7 +384,7 @@ export const SERVICES: ServiceContent[] = [
     ],
     keywords: ["vision therapy Bergen County", "vision therapy Oradell NJ", "vision therapy for kids NJ"],
     related: ["neuro-optometric-rehabilitation", "myopia-management"],
-    metaTitle: "Vision Therapy in Oradell & Bergen County, NJ",
+    metaTitle: "Vision Therapy in Oradell, NJ",
     metaDescription:
       "Doctor-supervised vision therapy at Riverdell Vision in Oradell, NJ, led by Dr. Bruce Meyer, FCOVD. Build the eye-teaming, tracking, and focusing skills reading depends on.",
     reviewedBy: "Dr. Bruce Meyer, FCOVD",
@@ -434,7 +434,7 @@ export const SERVICES: ServiceContent[] = [
     ],
     keywords: ["neuro optometric rehabilitation NJ", "concussion vision therapy Bergen County", "post concussion vision Oradell"],
     related: ["vision-therapy", "dry-eye-treatment"],
-    metaTitle: "Neuro-Optometric Rehabilitation in Bergen County, NJ",
+    metaTitle: "Neuro-Optometric Rehab, Bergen County",
     metaDescription:
       "Neuro-optometric rehabilitation at Riverdell Vision in Oradell, NJ for visual symptoms after concussion, TBI, or stroke. Led by Dr. Bruce Meyer, FCOVD.",
     reviewedBy: "Dr. Bruce Meyer, FCOVD",
@@ -485,7 +485,7 @@ export const SERVICES: ServiceContent[] = [
     ],
     keywords: ["medical eye care Oradell NJ", "diabetic eye exam Bergen County", "glaucoma eye doctor NJ"],
     related: ["dry-eye-treatment", "specialty-contact-lenses"],
-    metaTitle: "Medical Eye Care in Oradell & Bergen County, NJ",
+    metaTitle: "Medical Eye Care in Oradell, NJ",
     metaDescription:
       "Medical eye care at Riverdell Vision in Oradell, NJ: diabetic eye exams, glaucoma monitoring, red eye, flashes and floaters, and urgent eye problems.",
     reviewedBy: "Dr. Mina Han, OD",

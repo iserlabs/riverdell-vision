@@ -14,7 +14,7 @@ import { practice } from "@/lib/site";
 import { SERVICE_LADDER } from "@/lib/services";
 
 export const metadata: Metadata = {
-  title: "Oradell Office | Optometrist at 297 Kinderkamack Rd | Riverdell Vision",
+  title: "Oradell Office, 297 Kinderkamack Rd",
   description:
     "Visit Riverdell Vision at 297 Kinderkamack Rd, Suite 200, Oradell, NJ 07649. Directions, parking, hours, and appointments for eye exams, myopia management, dry eye, and specialty lenses.",
   alternates: { canonical: "/oradell" },

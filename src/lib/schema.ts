@@ -14,9 +14,10 @@ export function localBusinessSchema() {
     "@type": ["MedicalClinic", "LocalBusiness"],
     "@id": ORG_ID,
     name: practice.name,
+    alternateName: practice.alternateNames,
     description: practice.description,
     url: SITE_URL,
-    telephone: practice.phone,
+    telephone: practice.phoneHref.replace(/^tel:/, ""),
     email: practice.email,
     priceRange: "$$",
     image: `${SITE_URL}/images/office-oradell.jpeg`,
@@ -51,9 +52,17 @@ export function localBusinessSchema() {
       { "@type": "AdministrativeArea", name: "Bergen County, NJ" },
     ],
     openingHoursSpecification: practice.hours
-      // Saturday is alternating; schema.org cannot express "every other week",
-      // so omit it and let the Google Business Profile own the live pattern.
-      .filter((h) => h.open && h.close && h.day !== "Saturday")
+      /* Saturday used to be filtered out, because schema.org cannot express "every
+         other week". The effect was that Google and every answer engine were told the
+         practice is CLOSED on Saturday, when it is open roughly 26 of them a year, and
+         "eye doctor open Saturday Bergen County" is exactly the query a working parent
+         types. Between two imperfect statements, the opening pattern is true on the
+         weeks it runs and "closed" is never true. The visible page keeps the
+         "(alternating)" wording so a human sees the caveat.
+         TODO: replace with dated OpeningHoursSpecification entries once Dr. Han
+         supplies the actual open Saturday dates, and mirror them into GBP special
+         hours. That is the only fully correct answer and it needs his calendar. */
+      .filter((h) => h.open && h.close)
       .map((h) => ({
         "@type": "OpeningHoursSpecification",
         dayOfWeek: `https://schema.org/${h.day}`,
@@ -83,22 +92,11 @@ export function localBusinessSchema() {
         },
       })),
     },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: REVIEW_STATS.rating.toFixed(1),
-      reviewCount: String(REVIEW_STATS.count),
-      bestRating: "5",
-    },
-    review: REVIEWS.slice(0, 6).map((r) => ({
-      "@type": "Review",
-      author: { "@type": "Person", name: r.name },
-      reviewRating: {
-        "@type": "Rating",
-        ratingValue: String(r.rating),
-        bestRating: "5",
-      },
-      reviewBody: r.quote,
-    })),
+    /* No aggregateRating and no review nodes. Google treats a rating a business places
+       on its own site, and one aggregated from another platform, as self-serving: it is
+       ineligible for review rich results and at worst draws a manual action. The 5.0 and
+       the 4.9 stay in visible page copy, where they convert and where both link out to
+       the unfiltered originals. */
   };
 }
 

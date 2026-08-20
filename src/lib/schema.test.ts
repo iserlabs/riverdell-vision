@@ -15,10 +15,26 @@ test("breadcrumbSchema numbers positions from 1 and builds absolute URLs", () =>
   expect(s.itemListElement[1].item).toMatch(/^https?:\/\/.+\/dry-eye$/);
 });
 
-test("localBusiness carries real aggregate rating", () => {
-  const s = localBusinessSchema();
-  expect(Number(s.aggregateRating.ratingValue)).toBeGreaterThan(0);
-  expect(Number(s.aggregateRating.reviewCount)).toBeGreaterThan(0);
+test("localBusiness publishes no self-serving rating or review nodes", () => {
+  /* Inverted deliberately. A rating a business places on its own site, or aggregates
+     from another platform, is ineligible for review rich results and risks a manual
+     action. The real scores stay in visible copy, linked to the unfiltered originals. */
+  const s = localBusinessSchema() as Record<string, unknown>;
+  expect(s.aggregateRating).toBeUndefined();
+  expect(s.review).toBeUndefined();
+});
+
+test("localBusiness states Saturday hours rather than declaring the practice closed", () => {
+  const s = localBusinessSchema() as unknown as {
+    openingHoursSpecification: { dayOfWeek: string }[];
+  };
+  const days = s.openingHoursSpecification.map((h) => h.dayOfWeek);
+  expect(days.some((d) => d.endsWith("Saturday"))).toBe(true);
+});
+
+test("telephone is E.164 for entity matching", () => {
+  const s = localBusinessSchema() as unknown as { telephone: string };
+  expect(s.telephone).toMatch(/^\+1\d{10}$/);
 });
 
 test("physicianSchema returns a valid Physician for every provider slug", () => {

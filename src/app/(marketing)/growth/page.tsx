@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   /* Investor and internal surfaces on a patient site. robots.txt disallows them,
      but the page meta said index,follow, which is the tag Google actually reads. */
   robots: { index: false, follow: false },
-  title: "Growth & Expansion | Riverdell Vision, Oradell to Fort Lee",
+  title: "Growth & Expansion",
   description:
     "How Riverdell Vision, a physician-led family optometry practice in Oradell, NJ, is extending its specialty-care model to a second office in Fort Lee. Operating record, market, and plan.",
   alternates: { canonical: "/growth" },
