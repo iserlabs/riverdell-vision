@@ -82,23 +82,23 @@ export default function HomePage() {
                 </div>
               </Reveal>
               <Reveal delay={300}>
-                <DualProof className="mt-8 border-t border-line pt-6" />
+                <DualProof size="lg" className="mt-8 border-t border-line pt-6" />
               </Reveal>
               <Reveal delay={360}>
-                <div className="mt-6 flex items-center gap-4">
+                <div className="mt-7 flex items-center gap-5">
                   <div className="flex">
                     {providers.map((p) => (
                       <div
                         key={p.slug}
-                        className="relative -ml-2.5 size-11 overflow-hidden rounded-full border-[3px] border-bone first:ml-0"
+                        className="relative -ml-3 size-14 overflow-hidden rounded-full border-4 border-bone first:ml-0"
                       >
-                        <DoctorPhoto photo={p.photo} name={p.name} sizes="44px" />
+                        <DoctorPhoto photo={p.photo} name={p.name} sizes="56px" />
                       </div>
                     ))}
                   </div>
                   <Link
                     href="/about"
-                    className="-my-3 inline-flex items-center py-3 text-sm font-medium text-teal hover:text-teal-deep md:my-0 md:py-0"
+                    className="-my-3 inline-flex items-center py-3 text-base font-medium text-teal hover:text-teal-deep md:my-0 md:py-0 md:text-[1.05rem]"
                   >
                     Meet our 4 optometrists →
                   </Link>

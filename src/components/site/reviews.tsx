@@ -8,7 +8,7 @@ import {
 import { practice } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export function Stars({ label, className }: { label?: string; className?: string }) {
+export function Stars({ label, className, size = "sm" }: { label?: string; className?: string; size?: "sm" | "lg" }) {
   return (
     <div
       role="img"
@@ -16,7 +16,7 @@ export function Stars({ label, className }: { label?: string; className?: string
       className={cn("flex gap-0.5", className)}
     >
       {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} className="size-4 fill-brass text-brass" aria-hidden />
+        <Star key={i} className={cn(size === "lg" ? "size-5" : "size-4", "fill-brass text-brass")} aria-hidden />
       ))}
     </div>
   );
@@ -138,17 +138,24 @@ export function ReviewStatBadge({ className }: { className?: string }) {
 
 // Dual-source social proof for the hero: real Google + Zocdoc ratings, each a
 // clear link out to the actual profile.
-export function DualProof({ className }: { className?: string }) {
+export function DualProof({ className, size = "sm" }: { className?: string; size?: "sm" | "lg" }) {
+  const lg = size === "lg";
+  const row = lg
+    ? "group -my-3 inline-flex items-center gap-2.5 py-3 text-base text-ink transition-colors hover:text-teal md:my-0 md:py-0 md:text-[1.05rem]"
+    : "group -my-3 inline-flex items-center gap-2 py-3 text-sm text-ink transition-colors hover:text-teal md:my-0 md:py-0";
+  const arrow = lg
+    ? "size-4 shrink-0 text-clay transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+    : "size-3.5 shrink-0 text-clay transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5";
   return (
-    <div className={cn("flex flex-wrap items-center gap-x-5 gap-y-2", className)}>
+    <div className={cn("flex flex-wrap items-center", lg ? "gap-x-6 gap-y-3" : "gap-x-5 gap-y-2", className)}>
       <a
         href={practice.socials.google}
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`Read our ${REVIEW_STATS.count} Google reviews (opens Google)`}
-        className="group -my-3 inline-flex items-center gap-2 py-3 text-sm text-ink transition-colors hover:text-teal md:my-0 md:py-0"
+        className={row}
       >
-        <Stars label={`${REVIEW_STATS.rating} on Google`} />
+        <Stars label={`${REVIEW_STATS.rating} on Google`} size={size} />
         <span>
           <span className="font-semibold">{REVIEW_STATS.rating.toFixed(1)}</span>
           <span className="text-ink-soft group-hover:text-teal"> · </span>
@@ -156,7 +163,7 @@ export function DualProof({ className }: { className?: string }) {
             {REVIEW_STATS.count} Google reviews
           </span>
         </span>
-        <ArrowUpRight className="size-3.5 shrink-0 text-clay transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
+        <ArrowUpRight className={arrow} aria-hidden />
       </a>
       <span className="hidden h-4 w-px bg-line sm:block" />
       <a
@@ -164,9 +171,9 @@ export function DualProof({ className }: { className?: string }) {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="See our Zocdoc reviews and book (opens Zocdoc)"
-        className="group -my-3 inline-flex items-center gap-2 py-3 text-sm text-ink transition-colors hover:text-teal md:my-0 md:py-0"
+        className={row}
       >
-        <Stars label={`${REVIEW_STATS.zocdocRating} on Zocdoc`} />
+        <Stars label={`${REVIEW_STATS.zocdocRating} on Zocdoc`} size={size} />
         <span>
           <span className="font-semibold">{REVIEW_STATS.zocdocRating.toFixed(1)}</span>
           <span className="text-ink-soft group-hover:text-teal"> · </span>
@@ -174,7 +181,7 @@ export function DualProof({ className }: { className?: string }) {
             {REVIEW_STATS.zocdocCount} Zocdoc reviews
           </span>
         </span>
-        <ArrowUpRight className="size-3.5 shrink-0 text-clay transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
+        <ArrowUpRight className={arrow} aria-hidden />
       </a>
     </div>
   );
