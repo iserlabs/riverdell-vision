@@ -16,13 +16,25 @@ export function BookButton({
   label?: string;
   href?: string;
 }) {
+  const to = href ?? CONTACT_CTA.book;
+  // The label follows the destination, never the default. A caller that passes an
+  // internal href wants the request form, and a button reading "Book on Zocdoc"
+  // that lands on our own form is the kind of small lie this site has been
+  // clearing out all week.
+  const internal = to.startsWith("/");
+  // The primary action is Zocdoc now, which is somebody else's site. Leaving a
+  // patient's tab on a third party mid-booking loses the practice, so external
+  // destinations open alongside rather than replace.
+  const external = /^https?:\/\//.test(to);
+
   return (
     <Link
-      href={href ?? CONTACT_CTA.book}
+      href={to}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={btn({ variant: "primary", size, className })}
     >
       <CalendarCheck className="size-4" aria-hidden />
-      {label ?? CONTACT_CTA.bookLabel}
+      {label ?? (internal ? CONTACT_CTA.requestFormLabel : CONTACT_CTA.bookLabel)}
     </Link>
   );
 }

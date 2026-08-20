@@ -44,6 +44,8 @@ export function MobileCtaBar() {
         <div className="mx-auto flex max-w-lg items-center gap-2.5 px-4 py-3">
           <Link
             href={CONTACT_CTA.book}
+            target="_blank"
+            rel="noopener noreferrer"
             tabIndex={shown ? 0 : -1}
             className="flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-teal font-medium text-bone shadow-sm shadow-ink/10 transition-colors hover:bg-teal-deep"
           >

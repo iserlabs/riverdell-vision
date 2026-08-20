@@ -1,5 +1,6 @@
 import { Container } from "@/components/site/primitives";
 import { BookButton, CallButton, ZocdocButton } from "@/components/site/cta";
+import { CONTACT_CTA } from "@/lib/site";
 
 export function CtaBand({
   title = "Ready when you are.",
@@ -18,7 +19,7 @@ export function CtaBand({
         </h2>
         <p className="max-w-xl text-lg leading-relaxed text-bone/90">{sub}</p>
         <div className="flex flex-wrap items-center justify-center gap-3">
-          <BookButton href={bookHref} className="bg-bone text-teal-deep hover:bg-bone/90" />
+          <BookButton href={bookHref ?? CONTACT_CTA.requestForm} className="bg-bone text-teal-deep hover:bg-bone/90" />
           <ZocdocButton className="border border-bone/30 bg-transparent text-bone hover:bg-bone/10" />
           <CallButton className="border-bone/40 bg-transparent text-bone hover:bg-bone/10" />
         </div>

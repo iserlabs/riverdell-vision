@@ -13,7 +13,7 @@ import {
 import { Logo } from "@/components/site/logo";
 import { BookButton } from "@/components/site/cta";
 import { Magnetic } from "@/components/site/magnetic";
-import { primaryNav, practice } from "@/lib/site";
+import { primaryNav, practice, CONTACT_CTA } from "@/lib/site";
 import { REVIEW_STATS } from "@/lib/reviews";
 import { cn } from "@/lib/utils";
 
@@ -175,12 +175,14 @@ export function SiteHeader() {
                               {REVIEW_STATS.zocdocRating.toFixed(1)} · {REVIEW_STATS.zocdocCount} Zocdoc
                             </p>
                             <Link
-                              href="/book"
+                              href={CONTACT_CTA.book}
+                              target="_blank"
+                              rel="noopener noreferrer"
                               tabIndex={isOpen ? 0 : -1}
                               onClick={() => setOpenMenu(null)}
                               className="mt-3 flex h-10 items-center justify-center rounded-lg bg-bone text-sm font-medium text-teal-deep transition-colors hover:bg-bone/90"
                             >
-                              Request an appointment
+                              {CONTACT_CTA.bookLabel}
                             </Link>
                           </div>
                         </div>

@@ -29,7 +29,14 @@ export function KeepExploring({
           ))}
         </ul>
         <div className="mt-8">
-          <Link href={CONTACT_CTA.book} className={btn()}>{CONTACT_CTA.bookLabel}</Link>
+          <Link
+            href={CONTACT_CTA.book}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={btn()}
+          >
+            {CONTACT_CTA.bookLabel}
+          </Link>
         </div>
       </div>
     </section>

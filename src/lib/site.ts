@@ -141,8 +141,23 @@ export const primaryNav = [
   },
 ] as const;
 
+/**
+ * The default primary action across the site.
+ *
+ * Zocdoc, not the request form. Locked 16 August: "Zocdoc leads as the single
+ * primary everywhere, request form is the fallback." It also happens to be the
+ * only one of the two that works right now, since /api/lead returns 503 until
+ * RESEND_API_KEY and LEAD_TO_EMAIL are set.
+ *
+ * This is the DEFAULT only. Service and condition pages pass their own href and
+ * label (bookHrefFor), because "Discuss ortho-k" carries a specialty into the
+ * form that a general booking link cannot express. Those are untouched.
+ */
 export const CONTACT_CTA = {
-  book: "/book",
-  bookLabel: "Request an appointment",
+  book: practice.zocdocUrl,
+  bookLabel: "Book on Zocdoc",
   callLabel: "Call the office",
+  /** The fallback, still linked in prose wherever the primary is offered. */
+  requestForm: "/book",
+  requestFormLabel: "Send us a request",
 } as const;
