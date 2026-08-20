@@ -74,7 +74,7 @@ export function ConditionView({ condition: c }: { condition: Condition }) {
               { name: c.name },
             ]}
           />
-          <div className="max-w-3xl py-10 md:py-14">
+          <div className="hero-fill flex max-w-3xl flex-col justify-center py-10 md:py-14">
             <Reveal>
               <span className="eyebrow text-clay">{c.eyebrow}</span>
             </Reveal>

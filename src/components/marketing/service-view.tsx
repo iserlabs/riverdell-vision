@@ -65,7 +65,7 @@ export function ServiceView({ service: s }: { service: ServiceContent }) {
       <section className="relative overflow-hidden bg-bone grain">
         <Container wide className="relative">
           <Breadcrumb items={[{ name: "Home", href: "/" }, { name: s.name }]} />
-          <div className="grid items-center gap-14 py-10 md:py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          <div className="hero-fill grid items-center gap-14 py-10 md:py-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
             <div>
               <Reveal>
                 <span className="inline-flex items-center gap-2 text-clay">

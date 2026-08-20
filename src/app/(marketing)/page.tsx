@@ -60,7 +60,7 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-bone grain">
         <Container wide className="relative z-10">
-          <div className="grid items-center gap-14 py-14 md:py-20 lg:grid-cols-[3fr_2fr] lg:gap-16">
+          <div className="hero-fill grid items-center gap-14 py-14 md:py-20 lg:grid-cols-[3fr_2fr] lg:gap-16">
             <div>
               <Reveal>
                 <Eyebrow>Family optometry · Oradell, New Jersey</Eyebrow>

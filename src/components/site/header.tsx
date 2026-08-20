@@ -121,8 +121,15 @@ export function SiteHeader() {
                     id={id}
                     className={cn(
                       "absolute top-full pt-2 transition-all duration-200",
-                      gi === 0 ? "left-0" : "right-0",
-                      wide ? "w-[44rem]" : "w-72",
+                      /* The wide panel is 704px starting at its trigger, which sits mid-nav,
+                         so left-0 pushed it past the window at 1024 and the document
+                         scrolled sideways. Centred on the trigger it stays inside. */
+                      gi === 0 ? "left-1/2 -translate-x-1/2" : "right-0",
+                      /* A fixed 44rem panel is wider than the room left beside the nav at
+                         1024, and it is only hidden by opacity, so it pushed the document
+                         704px past the viewport and produced real horizontal scroll on an
+                         iPad in landscape. Clamped to whatever the window can hold. */
+                      wide ? "w-[min(44rem,calc(100vw-3rem))]" : "w-72",
                       isOpen
                         ? "visible translate-y-0 opacity-100"
                         : "invisible -translate-y-1 opacity-0",
