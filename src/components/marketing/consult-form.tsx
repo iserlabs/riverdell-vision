@@ -12,6 +12,15 @@ import { providers, insurers, practice } from "@/lib/site";
 // widened the whole form past the viewport.
 const field =
   "w-full min-w-0 rounded-lg border border-line bg-card px-3.5 py-2.5 text-base text-ink outline-none transition-colors placeholder:text-ink-soft/85 focus:border-teal focus:ring-2 focus:ring-teal/20";
+
+/* Safari keeps `appearance: menulist` on a select and discards the padding, so every
+   dropdown rendered 26px tall beside 46px inputs, under the 44px touch minimum on the
+   booking form. Tailwind v4 preflight does not reset it, so the select carries its own
+   class with an explicit chevron. */
+const selectField =
+  field +
+  " appearance-none bg-[length:16px] bg-[right_0.9rem_center] bg-no-repeat pr-10 " +
+  "bg-[url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%235b6b74' stroke-width='1.5'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E\")]";
 const labelCls = "text-sm font-medium text-ink";
 const optCls = "text-[0.7rem] font-normal text-ink-soft";
 
@@ -185,6 +194,9 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
 
   return (
     <form
+      /* Without this the browser intercepts submit, so onSubmit never fires and every
+         error message, aria-invalid flag and announcement below is dead code. */
+      noValidate
       onSubmit={onSubmit}
       className="grid gap-6 rounded-2xl border border-line bg-card p-6 md:p-8 lg:grid-cols-[1.15fr_0.85fr] [&>*]:min-w-0"
     >
@@ -292,7 +304,7 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
               name="interest"
               value={interest}
               onChange={(e) => setInterest(e.target.value)}
-              className={field}
+              className={selectField}
             >
               {INTERESTS.map((i) => (
                 <option key={i}>{i}</option>
@@ -308,7 +320,7 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
               name="insurance"
               value={insurance}
               onChange={(e) => setInsurance(e.target.value)}
-              className={field}
+              className={selectField}
             >
               <option value="">Select your plan</option>
               {INSURANCE_OPTIONS.map((i) => (
@@ -330,32 +342,32 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
           <div className="grid gap-4 px-4 pb-4 sm:grid-cols-2">
             <div className="flex flex-col gap-1.5">
               <label htmlFor="whoFor" className={labelCls}>Who is this for?</label>
-              <select id="whoFor" name="whoFor" className={field} defaultValue="Myself">
+              <select id="whoFor" name="whoFor" className={selectField} defaultValue="Myself">
                 {WHO_FOR.map((w) => <option key={w}>{w}</option>)}
               </select>
             </div>
             <div className="flex flex-col gap-1.5">
               <label htmlFor="office" className={labelCls}>Preferred office</label>
-              <select id="office" name="office" className={field}>
+              <select id="office" name="office" className={selectField}>
                 {OFFICES.map((o) => <option key={o}>{o}</option>)}
               </select>
             </div>
             <div className="flex flex-col gap-1.5">
               <label htmlFor="preferredDoctor" className={labelCls}>Preferred doctor</label>
-              <select id="preferredDoctor" name="preferredDoctor" className={field} defaultValue="No preference">
+              <select id="preferredDoctor" name="preferredDoctor" className={selectField} defaultValue="No preference">
                 <option>No preference</option>
                 {providers.map((p) => <option key={p.slug}>{p.name}</option>)}
               </select>
             </div>
             <div className="flex flex-col gap-1.5">
               <label htmlFor="language" className={labelCls}>Preferred language</label>
-              <select id="language" name="language" className={field}>
+              <select id="language" name="language" className={selectField}>
                 {LANGUAGES.map((l) => <option key={l}>{l}</option>)}
               </select>
             </div>
             <div className="flex flex-col gap-1.5">
               <label htmlFor="preferredContact" className={labelCls}>Preferred contact</label>
-              <select id="preferredContact" name="preferredContact" className={field}>
+              <select id="preferredContact" name="preferredContact" className={selectField}>
                 <option>Phone</option>
                 <option>Email</option>
                 <option>Text</option>
@@ -363,13 +375,13 @@ export function ConsultForm({ defaultInterest }: { defaultInterest?: string }) {
             </div>
             <div className="flex flex-col gap-1.5">
               <label htmlFor="time" className={labelCls}>Best time to reach you</label>
-              <select id="time" name="time" className={field}>
+              <select id="time" name="time" className={selectField}>
                 {TIMES.map((t) => <option key={t}>{t}</option>)}
               </select>
             </div>
             <div className="flex flex-col gap-1.5 sm:col-span-2">
               <label htmlFor="heardVia" className={labelCls}>How did you hear about us?</label>
-              <select id="heardVia" name="heardVia" className={field} defaultValue="Google search">
+              <select id="heardVia" name="heardVia" className={selectField} defaultValue="Google search">
                 {HOW_HEARD.map((h) => <option key={h}>{h}</option>)}
               </select>
             </div>

@@ -72,6 +72,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      /* Next only neutralises `scroll-behavior: smooth` during a route change when this
+         attribute is present. Without it every navigation animates a full-page scroll,
+         measured at roughly a second from deep in a long page. */
+      data-scroll-behavior="smooth"
       className={`${newsreader.variable} ${hanken.variable} ${geistMono.variable} h-full`}
       suppressHydrationWarning
     >

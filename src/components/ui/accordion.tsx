@@ -54,6 +54,12 @@ function AccordionContent({
   return (
     <AccordionPrimitive.Panel
       data-slot="accordion-content"
+      /* The panel used to unmount when closed, so 41 FAQ answers across the service and
+         condition pages never reached the HTML: crawlers and AI answer engines saw the
+         questions with nothing under them. keepMounted puts the text in the document and
+         hiddenUntilFound lets find-in-page and a crawler reach it while it is collapsed. */
+      keepMounted
+      hiddenUntilFound
       className="overflow-hidden text-sm data-open:animate-accordion-down data-closed:animate-accordion-up"
       {...props}
     >

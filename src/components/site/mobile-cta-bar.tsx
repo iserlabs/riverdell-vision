@@ -30,12 +30,12 @@ export function MobileCtaBar() {
 
   return (
     <>
-      <div aria-hidden className="h-[4.75rem] lg:hidden" />
+      <div aria-hidden className="h-[calc(4.75rem+env(safe-area-inset-bottom))] lg:hidden" />
       <div
         aria-hidden={!shown}
         className={cn(
           "fixed inset-x-0 bottom-0 z-40 border-t border-line bg-bone/95 backdrop-blur-md lg:hidden pb-[env(safe-area-inset-bottom)]",
-          "transition-[transform,opacity] duration-300 ease-out motion-reduce:transition-none",
+          "transition-[translate,opacity] duration-300 ease-out motion-reduce:transition-none",
           shown
             ? "translate-y-0 opacity-100"
             : "pointer-events-none translate-y-full opacity-0",

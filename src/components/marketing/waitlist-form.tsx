@@ -10,6 +10,15 @@ import { practice } from "@/lib/site";
 const field =
   "w-full rounded-lg border border-line bg-card px-3.5 py-2.5 text-base text-ink outline-none transition-colors placeholder:text-ink-soft/85 focus:border-teal focus:ring-2 focus:ring-teal/20";
 
+/* Safari keeps `appearance: menulist` on a select and discards the padding, so every
+   dropdown rendered 26px tall beside 46px inputs, under the 44px touch minimum on the
+   booking form. Tailwind v4 preflight does not reset it, so the select carries its own
+   class with an explicit chevron. */
+const selectField =
+  field +
+  " appearance-none bg-[length:16px] bg-[right_0.9rem_center] bg-no-repeat pr-10 " +
+  "bg-[url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%235b6b74' stroke-width='1.5'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E\")]";
+
 const INTERESTS = [
   "Myopia Management",
   "Dry Eye",
@@ -93,6 +102,9 @@ export function WaitlistForm() {
 
   return (
     <form
+      /* Without this the browser intercepts submit, so onSubmit never fires and every
+         error message, aria-invalid flag and announcement below is dead code. */
+      noValidate
       onSubmit={onSubmit}
       className="rounded-2xl border border-bone/20 bg-bone/5 p-6 backdrop-blur md:p-8"
     >
@@ -122,7 +134,7 @@ export function WaitlistForm() {
           <label htmlFor="w-interest" className="text-sm font-medium text-bone">
             Care you are most interested in
           </label>
-          <select id="w-interest" name="interest" className={field} defaultValue={INTERESTS[0]}>
+          <select id="w-interest" name="interest" className={selectField} defaultValue={INTERESTS[0]}>
             {INTERESTS.map((i) => (
               <option key={i}>{i}</option>
             ))}
@@ -134,7 +146,7 @@ export function WaitlistForm() {
         <input
           type="checkbox"
           name="consent"
-          className="mt-1 size-4 rounded border-bone/40 accent-brass"
+          className="mt-1 size-4 rounded border-bone/40 accent-brass shrink-0"
         />
         Yes, Riverdell Vision may contact me about the Fort Lee opening and early
         appointments. I can opt out anytime.

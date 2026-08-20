@@ -134,6 +134,10 @@
   html {
     @apply font-sans antialiased;
     scroll-behavior: smooth;
+    /* The header is sticky and 93px tall, so anchor and route landings sat under it and
+       clipped the headline. Bottom padding keeps the mobile CTA bar off a focused field. */
+    scroll-padding-top: 6.5rem;
+    scroll-padding-bottom: 6rem;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
