@@ -1,14 +1,14 @@
-import dynamic from "next/dynamic";
 import { reviewAuthed } from "@/lib/review-auth";
+import ReviewLoader from "./ReviewLoader";
 
 /**
- * The door. A server component, so the auth check happens before any Review Mode
- * code is referenced: an ordinary patient gets nothing, and never downloads the
- * bundle. Ported from PLFA, where the same rule applied.
+ * The door. A server component, so the passphrase check never reaches the
+ * browser. It renders nothing at all for an ordinary patient, and the loader it
+ * hands off to only resolves the Review Mode import once `enabled` is true, so
+ * the bundle stays off the wire rather than merely out of the render.
  */
-const ReviewMode = dynamic(() => import("./ReviewMode"));
-
 export default async function ReviewGate() {
-  if (!(await reviewAuthed())) return null;
-  return <ReviewMode reviewerName="Dr. Han" />;
+  const enabled = await reviewAuthed();
+  if (!enabled) return null;
+  return <ReviewLoader enabled reviewerName="Dr. Han" />;
 }

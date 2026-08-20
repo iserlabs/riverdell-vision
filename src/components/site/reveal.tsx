@@ -29,9 +29,16 @@ export function Reveal({
     if (!el) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    // Already in/near view on load: leave visible, no animation (protects LCP).
+    // Already on screen at load: leave visible, no animation (protects LCP).
+    //
+    // The threshold used to be 0.9 of the viewport, which hid an 82px band of
+    // content that the browser had already painted. Measured on a real throttled
+    // phone that produced 0.086 to 0.091 of layout shift on every load, and
+    // Lighthouse missed it entirely because its simulated throttling does not
+    // reproduce the hydration timing. Anything the visitor can already see stays
+    // put; only what is genuinely below the fold animates in.
     const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.9) return;
+    if (rect.top < window.innerHeight) return;
 
     setState("hidden");
     const io = new IntersectionObserver(

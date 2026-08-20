@@ -7,9 +7,15 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { SITE_URL, practice } from "@/lib/site";
 
+/* Pinned rather than variable. The codebase uses 400, 500 and 600 and nothing else:
+   zero uses of 200, 300, 700, 800 or 900, so the variable axes were paying for weights
+   that never render. Newsreader is the display face and all 91 weighted display usages are 500,
+   so a single static instance covers every one of them. Measured together with the mono
+   below, this takes about 97KB off a page whose LCP element is text. */
 const newsreader = Newsreader({
   variable: "--font-newsreader",
   subsets: ["latin"],
+  weight: "500",
   style: ["normal", "italic"],
   display: "swap",
 });
@@ -20,9 +26,12 @@ const hanken = Hanken_Grotesk({
   display: "swap",
 });
 
+/* Kept, not dropped: the mono eyebrows and figures are part of the direction Dr. Han
+   chose, so this is pinned rather than removed. Already unpreloaded. */
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  weight: "500",
   display: "swap",
   preload: false,
 });
