@@ -64,7 +64,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
   },
-  alternates: { canonical: "/" },
+  /* No root canonical. Inherited, it made every page that forgets its own `alternates`
+     declare the homepage as its canonical: /growth/data-room was doing exactly that.
+     The homepage sets its own in its route metadata. */
   robots: { index: true, follow: true },
 };
 

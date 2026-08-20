@@ -72,11 +72,29 @@ const blog: [string, string][] = [
   ["when-we-see-a-young-patient-with-rapid-vision-changes-this-is-what-we-recommend", "/medical-eye-care"],
 ];
 
+/**
+ * The old site serves every page at BOTH `/our-team.html` and `/our-team/`, each
+ * returning 200 with no canonical to pick a winner, and Google indexed the
+ * directory form: its results for this practice show `/our-team/` and
+ * `/services/vision-therapy/`.
+ *
+ * Mapping only the `.html` form meant 50 of 52 legacy URLs would have dead-ended
+ * on cutover day. Next strips the trailing slash first, so `/our-team/` became
+ * `/our-team`, which matched no rule and 404'd. Both forms are generated from one
+ * table so they can never drift apart again.
+ */
+function bothForms(source: string, destination: string): LegacyRedirect[] {
+  const bare = source.replace(/\.html$/, "");
+  const out: LegacyRedirect[] = [{ source, destination, permanent: true as const }];
+  // Skip the bare form when it IS the destination: `/reviews.html -> /reviews` would
+  // otherwise also emit `/reviews -> /reviews`, and the real page redirects to itself.
+  if (bare !== source && bare !== destination) {
+    out.push({ source: bare, destination, permanent: true as const });
+  }
+  return out;
+}
+
 export const legacyRedirects: LegacyRedirect[] = [
-  ...pages.map(([source, destination]) => ({ source, destination, permanent: true as const })),
-  ...blog.map(([slug, destination]) => ({
-    source: `/blog/${slug}.html`,
-    destination,
-    permanent: true as const,
-  })),
+  ...pages.flatMap(([source, destination]) => bothForms(source, destination)),
+  ...blog.flatMap(([slug, destination]) => bothForms(`/blog/${slug}.html`, destination)),
 ];

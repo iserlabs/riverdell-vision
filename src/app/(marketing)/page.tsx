@@ -21,6 +21,11 @@ import { CtaBand } from "@/components/site/cta-band";
 import { SERVICE_LADDER } from "@/lib/services";
 import { providers, fortLee, practice } from "@/lib/site";
 
+export const metadata = {
+  /* Its own canonical, now that the root layout no longer hands one down. */
+  alternates: { canonical: "/" },
+};
+
 const PRINCIPLES = [
   {
     title: "A vision-development Fellow on staff",

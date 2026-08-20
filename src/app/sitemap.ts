@@ -14,7 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/book", priority: 0.9, freq: "monthly" },
     { path: "/answers", priority: 0.8, freq: "monthly" },
     { path: "/cost-and-insurance", priority: 0.8, freq: "monthly" },
-    { path: "/growth", priority: 0.5, freq: "monthly" },
     { path: "/reviews", priority: 0.6, freq: "monthly" },
     { path: "/areas", priority: 0.6, freq: "monthly" },
   ];
