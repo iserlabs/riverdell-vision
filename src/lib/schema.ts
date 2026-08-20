@@ -3,7 +3,6 @@
 // engines that read these graphs to understand the practice).
 
 import { SITE_URL, practice, providers } from "@/lib/site";
-import { REVIEWS, REVIEW_STATS } from "@/lib/reviews";
 import { SERVICES } from "@/lib/services";
 
 const ORG_ID = `${SITE_URL}/#practice`;
