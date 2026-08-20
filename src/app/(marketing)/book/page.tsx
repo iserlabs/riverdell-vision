@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildOg } from "@/lib/og";
 import { Phone, Clock, MapPin, CalendarCheck } from "lucide-react";
 import { Container } from "@/components/site/primitives";
 import { ConsultForm } from "@/components/marketing/consult-form";
@@ -11,6 +12,13 @@ const zocdocBtn =
   "w-full border border-teal bg-transparent text-teal hover:bg-teal-tint";
 
 export const metadata: Metadata = {
+  /* Its own social card. Without this the page inherits the root layout's block, so a
+     doctor referral or a parent sharing this link posts a generic homepage preview. */
+  openGraph: buildOg({
+    title: "Request an Appointment",
+    description: "Request an appointment at Riverdell Vision in Oradell, NJ. Book online, reserve instantly on Zocdoc, or call (201) 265-7900. New and returning patients welcome.",
+    path: "/book",
+  }),
   title: "Request an Appointment",
   description:
     "Request an appointment at Riverdell Vision in Oradell, NJ. Book online, reserve instantly on Zocdoc, or call (201) 265-7900. New and returning patients welcome.",

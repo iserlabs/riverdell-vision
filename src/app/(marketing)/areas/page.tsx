@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildOg } from "@/lib/og";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Container, Section, SectionHeading } from "@/components/site/primitives";
@@ -6,6 +7,13 @@ import { CtaBand } from "@/components/site/cta-band";
 import { AREAS } from "@/lib/areas";
 
 export const metadata: Metadata = {
+  /* Its own social card. Without this the page inherits the root layout's block, so a
+     doctor referral or a parent sharing this link posts a generic homepage preview. */
+  openGraph: buildOg({
+    title: "Areas We Serve | Bergen County Eye Care",
+    description: "Riverdell Vision serves Oradell, River Edge, Paramus, Emerson, Fort Lee, and Bergen County with eye exams, myopia management, dry eye care, and specialty lenses.",
+    path: "/areas",
+  }),
   title: "Areas We Serve | Bergen County Eye Care",
   description:
     "Riverdell Vision serves Oradell, River Edge, Paramus, Emerson, Fort Lee, and Bergen County with eye exams, myopia management, dry eye care, and specialty lenses.",

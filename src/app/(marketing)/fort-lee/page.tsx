@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildOg } from "@/lib/og";
 import Image from "next/image";
 import { MapPin, Sparkles } from "lucide-react";
 import { Container, Section, SectionHeading } from "@/components/site/primitives";
@@ -9,6 +10,13 @@ import { SERVICE_LADDER } from "@/lib/services";
 import { fortLee } from "@/lib/site";
 
 export const metadata: Metadata = {
+  /* Its own social card. Without this the page inherits the root layout's block, so a
+     doctor referral or a parent sharing this link posts a generic homepage preview. */
+  openGraph: buildOg({
+    title: "Coming Soon to Fort Lee, NJ",
+    description: "Riverdell Vision is opening a second office in Fort Lee, NJ, bringing myopia management, dry eye care, and specialty lenses to the Palisades communities. Join the waitlist.",
+    path: "/fort-lee",
+  }),
   title: "Coming Soon to Fort Lee, NJ",
   description:
     "Riverdell Vision is opening a second office in Fort Lee, NJ, bringing myopia management, dry eye care, and specialty lenses to the Palisades communities. Join the waitlist.",

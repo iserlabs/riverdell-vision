@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildOg } from "@/lib/og";
 import Image from "next/image";
 import { Baby, Stethoscope, Languages, GraduationCap, MapPin } from "lucide-react";
 import { Container, Section, SectionHeading, Eyebrow } from "@/components/site/primitives";
@@ -12,6 +13,13 @@ import { physicianSchema, breadcrumbSchema } from "@/lib/schema";
 import { providers } from "@/lib/site";
 
 export const metadata: Metadata = {
+  /* Its own social card. Without this the page inherits the root layout's block, so a
+     doctor referral or a parent sharing this link posts a generic homepage preview. */
+  openGraph: buildOg({
+    title: "Meet Our Four Optometrists, Oradell NJ",
+    description: "Meet Dr. Mina Han, OD and the Riverdell Vision team in Oradell, NJ. A physician-led family optometry practice offering myopia management, dry eye care, specialty lenses, pediatric and medical eye care.",
+    path: "/about",
+  }),
   title: "Meet Our Four Optometrists, Oradell NJ",
   description:
     "Meet Dr. Mina Han, OD and the Riverdell Vision team in Oradell, NJ. A physician-led family optometry practice offering myopia management, dry eye care, specialty lenses, pediatric and medical eye care.",

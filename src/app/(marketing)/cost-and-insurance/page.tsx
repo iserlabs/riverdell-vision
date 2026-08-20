@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildOg } from "@/lib/og";
 import Link from "next/link";
 import { Eye, Stethoscope, ShieldCheck, CreditCard, CircleCheck } from "lucide-react";
 import { Container, Section, SectionHeading, Eyebrow } from "@/components/site/primitives";
@@ -13,6 +14,13 @@ import { faqSchema, breadcrumbSchema } from "@/lib/schema";
 import { insurers } from "@/lib/site";
 
 export const metadata: Metadata = {
+  /* Its own social card. Without this the page inherits the root layout's block, so a
+     doctor referral or a parent sharing this link posts a generic homepage preview. */
+  openGraph: buildOg({
+    title: "Cost, Insurance & Financing | Oradell, NJ",
+    description: "The insurance plans Riverdell Vision accepts, how vision and medical benefits differ, and how we keep cost clear, with financing through Cherry. Physician-led eye care in Oradell, NJ.",
+    path: "/cost-and-insurance",
+  }),
   title: "Cost, Insurance & Financing | Oradell, NJ",
   description:
     "The insurance plans Riverdell Vision accepts, how vision and medical benefits differ, and how we keep cost clear, with financing through Cherry. Physician-led eye care in Oradell, NJ.",

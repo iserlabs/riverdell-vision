@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildOg } from "@/lib/og";
 import { Star } from "lucide-react";
 import { Container, Section } from "@/components/site/primitives";
 import { Reveal } from "@/components/site/reveal";
@@ -8,6 +9,13 @@ import { CtaBand } from "@/components/site/cta-band";
 import { REVIEW_STATS } from "@/lib/reviews";
 
 export const metadata: Metadata = {
+  /* Its own social card. Without this the page inherits the root layout's block, so a
+     doctor referral or a parent sharing this link posts a generic homepage preview. */
+  openGraph: buildOg({
+    title: "Patient Reviews | Oradell, NJ",
+    description: "Read why families across Bergen County rate Riverdell Vision 5.0. Thorough exams, honest guidance, and a caring team for myopia, dry eye, specialty lenses, and family eye care.",
+    path: "/reviews",
+  }),
   title: "Patient Reviews | Oradell, NJ",
   description:
     "Read why families across Bergen County rate Riverdell Vision 5.0. Thorough exams, honest guidance, and a caring team for myopia, dry eye, specialty lenses, and family eye care.",

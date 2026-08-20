@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildOg } from "@/lib/og";
 import Image from "next/image";
 import { MapPin, Phone, Clock, Car, Glasses } from "lucide-react";
 import { Container, Section, SectionHeading, Eyebrow } from "@/components/site/primitives";
@@ -14,6 +15,13 @@ import { practice } from "@/lib/site";
 import { SERVICE_LADDER } from "@/lib/services";
 
 export const metadata: Metadata = {
+  /* Its own social card. Without this the page inherits the root layout's block, so a
+     doctor referral or a parent sharing this link posts a generic homepage preview. */
+  openGraph: buildOg({
+    title: "Oradell Office, 297 Kinderkamack Rd",
+    description: "Visit Riverdell Vision at 297 Kinderkamack Rd, Suite 200, Oradell, NJ 07649. Directions, parking, hours, and appointments for eye exams, myopia management, dry eye, and specialty lenses.",
+    path: "/oradell",
+  }),
   title: "Oradell Office, 297 Kinderkamack Rd",
   description:
     "Visit Riverdell Vision at 297 Kinderkamack Rd, Suite 200, Oradell, NJ 07649. Directions, parking, hours, and appointments for eye exams, myopia management, dry eye, and specialty lenses.",

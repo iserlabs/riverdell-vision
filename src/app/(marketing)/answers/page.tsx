@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { buildOg } from "@/lib/og";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Container, Section, Eyebrow } from "@/components/site/primitives";
@@ -15,6 +16,13 @@ import {
 import { ANSWER_TOPICS, ANSWER_TERMS, ALL_ANSWERS } from "@/lib/answers";
 
 export const metadata: Metadata = {
+  /* Its own social card. Without this the page inherits the root layout's block, so a
+     doctor referral or a parent sharing this link posts a generic homepage preview. */
+  openGraph: buildOg({
+    title: "Eye Care Answers | Oradell & Bergen County, NJ",
+    description: "Straight answers about myopia management, dry eye, specialty and scleral lenses, Ortho-K, vision therapy, and cost and insurance, from Riverdell Vision, a physician-led family eye-care practice in Oradell, NJ.",
+    path: "/answers",
+  }),
   title: "Eye Care Answers | Oradell & Bergen County, NJ",
   description:
     "Straight answers about myopia management, dry eye, specialty and scleral lenses, Ortho-K, vision therapy, and cost and insurance, from Riverdell Vision, a physician-led family eye-care practice in Oradell, NJ.",
