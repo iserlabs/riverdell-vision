@@ -1,0 +1,447 @@
+/**
+ * Review Mode chrome, directive section 14.3.
+ *
+ * AN INSTRUMENT, NOT MORE WEBSITE. Jake, 2 August: "This looks amateurish. make this a
+ * truly high end design UI UX." The old bar was eight identical white pills on a warm
+ * limestone card, which shared a palette with the page underneath and put a destructive
+ * Exit at the same visual weight as Point. This is ink glass with one brass accent that
+ * lives only on the tool you are in, on the reasoning that chrome borrowing the design's
+ * own colours is chrome you cannot judge the design through. Anchor: Linear's command
+ * surface. Precision over personality, one accent, hairlines, tight radii, small type.
+ *
+ * Nothing here leaks into the public bundle. The stylesheet is imported by
+ * ReviewMode.tsx, which is only ever mounted behind a server-side auth check.
+ */
+
+.rv-launch,
+.rv-bar,
+.rv-pop,
+.rv-sent,
+.rv-pin {
+  --rv-ink: 20, 19, 15;
+  --rv-brass: #c9a227;
+  --rv-brass-soft: rgba(201, 162, 39, 0.16);
+  --rv-text: #f0ece4;
+  --rv-muted: #b4aea3;
+  --rv-line: rgba(255, 255, 255, 0.1);
+  --rv-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Instrument Sans is already loaded by the layout as --font-instrument. It is drawn
+     for interfaces and holds at 11px, which is where Jost, a geometric display sans,
+     goes wide and loose. No new font file for a tool two people use. */
+  font-family: var(--font-instrument), system-ui, sans-serif;
+  font-feature-settings: "tnum" 1;
+  /* iOS paints a grey box over any tapped control and offers to select the label on a
+     long press. Both read as "web page" on a tool that should read as an instrument. */
+  -webkit-tap-highlight-color: transparent;
+}
+.rv-bar, .rv-launch, .rv-pin { -webkit-user-select: none; user-select: none; }
+
+/* The one thing on screen that says a recording is running. It reads as a status light
+   rather than a label, which is why the word next to it can be small. */
+.rv-live {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--rv-brass);
+  box-shadow: 0 0 0 4px rgba(201, 162, 39, 0.14);
+  animation: rv-breathe 2.6s ease-in-out infinite;
+}
+@keyframes rv-breathe { 0%, 100% { opacity: 1 } 50% { opacity: .45 } }
+
+/* ---------------------------------------------------------------- the way in */
+
+/* Clear of the home indicator, not under it. */
+.rv-launch {
+  position: fixed; right: 18px; bottom: calc(18px + env(safe-area-inset-bottom)); z-index: 2147483000;
+  display: inline-flex; align-items: center; gap: 9px;
+  height: 44px; padding: 0 17px 0 14px;
+  font-size: 12.5px; font-weight: 500; letter-spacing: .02em;
+  color: var(--rv-text);
+  background: rgba(var(--rv-ink), .84);
+  border: 1px solid var(--rv-line); border-radius: 999px;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.07),
+    0 18px 40px -22px rgba(0,0,0,.9),
+    0 2px 6px -2px rgba(0,0,0,.6);
+  transition: transform .3s var(--rv-spring), border-color .2s ease;
+}
+.rv-launch:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.22); }
+.rv-launch:focus-visible,
+.rv-tool:focus-visible,
+.rv-icb:focus-visible,
+.rv-chip:focus-visible,
+.rv-field:focus-visible,
+.rv-send:focus-visible,
+.rv-ghostbtn:focus-visible,
+.rv-pin:focus-visible {
+  outline: 2px solid var(--rv-brass); outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------- the surface */
+
+/* THE SIZE COMES FROM JAVASCRIPT, and it has to. inset:0 with height:100% resolved
+   against the initial containing block, which is VIEWPORT sized, so the surface was one
+   screen tall and every tool died below the fold. There is no CSS length for "as tall as
+   the document", so ReviewMode measures it. The 100% floors hold the shape for the first
+   frame, before that measurement lands. */
+.rv-surface {
+  position: absolute; top: 0; left: 0; z-index: 2147482000;
+  min-width: 100%; min-height: 100%;
+  cursor: crosshair;
+  /* pan-y, NOT none. A surface covering the document with touch-action:none froze the
+     page: a reviewer on an iPhone could not scroll at all with the tool open, which
+     makes reviewing a long page impossible. Vertical panning goes back to the browser;
+     a tap still drops a Point and a horizontal-intent drag still draws a box. A gesture
+     the browser claims as a scroll fires pointercancel, which throws the part-drawn
+     mark away rather than leaving a stray rectangle behind. */
+  touch-action: pan-y;
+}
+.rv-surface--passive { pointer-events: none; }
+
+/* ---------------------------------------------------------------- marks */
+
+.rv-rect, .rv-ellipse, .rv-point, .rv-draw { position: absolute; pointer-events: none; }
+.rv-rect, .rv-ellipse {
+  border: 1.5px solid var(--rv-brass);
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(201,162,39,.22), 0 0 22px rgba(201,162,39,.26);
+}
+.rv-ellipse { border-radius: 50%; }
+.rv-point {
+  width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%;
+  border: 1.5px solid var(--rv-brass);
+  box-shadow: 0 0 0 1px rgba(201,162,39,.22), 0 0 22px rgba(201,162,39,.26);
+}
+.rv-draw { left: 0; top: 0; }
+.rv-draw path {
+  fill: none; stroke: var(--rv-brass); stroke-width: 2.5;
+  stroke-linecap: round; stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(201,162,39,.4));
+}
+
+/* The page steps back WHILE the gesture runs and comes forward the moment it commits.
+   A reviewer judging contrast must not be judging it through a scrim, so the dimming is
+   a drawing aid with a life measured in the length of one drag. */
+.rv-rect.is-live, .rv-ellipse.is-live, .rv-point.is-live {
+  box-shadow:
+    0 0 0 1px rgba(201,162,39,.22),
+    0 0 22px rgba(201,162,39,.26),
+    0 0 0 9999px rgba(10, 9, 7, .16);
+}
+.rv-rect.is-set, .rv-ellipse.is-set, .rv-point.is-set { animation: rv-markin .18s var(--rv-spring); }
+@keyframes rv-markin { from { transform: scale(.97); opacity: .6 } to { transform: scale(1); opacity: 1 } }
+
+/* Notes already left here. Dashed so they never read as something you just drew. */
+.rv-ghost {
+  position: absolute; pointer-events: none;
+  border: 1.5px dashed rgba(201,162,39,.45); border-radius: 3px;
+  background: rgba(201,162,39,.05);
+  animation: rv-fade .3s ease both;
+}
+@keyframes rv-fade { from { opacity: 0 } to { opacity: 1 } }
+
+.rv-pin {
+  position: absolute; pointer-events: auto;
+  width: 24px; height: 24px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600; line-height: 1;
+  color: #14130f; background: var(--rv-brass);
+  border: 1.5px solid rgba(255,255,255,.5);
+  box-shadow: 0 6px 16px -6px rgba(0,0,0,.8);
+  cursor: pointer;
+  animation: rv-pinin .3s var(--rv-spring) both;
+  transition: transform .2s var(--rv-spring);
+}
+@keyframes rv-pinin { from { opacity: 0; transform: scale(.7) } to { opacity: 1; transform: scale(1) } }
+.rv-pin:hover, .rv-pin.is-open { transform: scale(1.12); }
+.rv-pin.is-done { background: #6f6a5e; color: #efece6; }
+
+/* ---------------------------------------------------------------- the bar */
+
+.rv-bar {
+  position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%);
+  z-index: 2147483000;
+  display: flex; align-items: center; gap: 2px;
+  height: 56px; padding: 5px 6px;
+  background: rgba(var(--rv-ink), .82);
+  border: 1px solid var(--rv-line); border-radius: 14px;
+  -webkit-backdrop-filter: blur(22px) saturate(1.5);
+  backdrop-filter: blur(22px) saturate(1.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 24px 60px -28px rgba(0,0,0,.9),
+    0 3px 10px -4px rgba(0,0,0,.55);
+  /* WIDTH IS LOAD-BEARING. A fixed element with left:50% and no right shrink-to-fits
+     against half the screen, so the bar could never be wider than 50vw and folded into a
+     three-row block. max-content takes the cap off; max-width keeps it in the viewport. */
+  width: max-content; max-width: calc(100vw - 24px);
+  animation: rv-barin .42s var(--rv-spring) both;
+}
+@keyframes rv-barin {
+  from { opacity: 0; transform: translateX(-50%) translateY(14px) scale(.985) }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0) scale(1) }
+}
+
+.rv-brand {
+  display: flex; align-items: center; gap: 8px; height: 100%;
+  padding: 0 11px 0 7px; margin-right: 2px;
+  border-right: 1px solid var(--rv-line);
+}
+.rv-brand__who {
+  font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--rv-muted); white-space: nowrap;
+}
+
+.rv-tools { display: flex; align-items: center; gap: 2px; padding: 0 3px; }
+
+/* THE WORD UNDER THE GLYPH, ALWAYS. Jake, 2 August: "Option 1 instead of Option 2
+   (icons)." Icons alone are quicker to scan once you know them, and slower every other
+   time, which for two people opening this a handful of times a month is the wrong
+   trade. The label is not a hover reveal or an active-only flourish: it is on, on every
+   tool, at every width. The row is a fixed grid of 64px cells, so nothing widens,
+   shifts or reflows when you change tool.
+   46px tall, not 44: the tap target is unchanged, the extra two carry the second line. */
+.rv-tool {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3px;
+  width: 64px; height: 46px; padding: 0 2px;
+  border: 0; background: none; border-radius: 9px;
+  color: var(--rv-muted); cursor: pointer;
+  font: inherit; font-weight: 500; letter-spacing: .01em;
+  position: relative;
+  transition: color .18s ease, background-color .18s ease;
+}
+.rv-tool svg { width: 18px; height: 18px; flex: none; transition: transform .3s var(--rv-spring); }
+.rv-tool__label { font-size: 10.5px; line-height: 1; white-space: nowrap; }
+.rv-tool:hover { color: #e8e3da; background: rgba(255,255,255,.05); }
+.rv-tool:hover svg { transform: translateY(-1px); }
+.rv-tool.is-on {
+  color: #fbf7ef;
+  background: var(--rv-brass-soft);
+  box-shadow: inset 0 0 0 1px rgba(201,162,39,.5), inset 0 1px 0 rgba(255,255,255,.06);
+}
+
+.rv-sep { width: 1px; height: 22px; background: var(--rv-line); margin: 0 5px; flex: none; }
+
+.rv-act { display: flex; align-items: center; gap: 2px; }
+.rv-icb {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 44px; border: 0; background: none; border-radius: 9px;
+  color: var(--rv-muted); cursor: pointer; position: relative;
+  transition: background-color .18s ease, color .18s ease;
+}
+.rv-icb svg { width: 17px; height: 17px; }
+.rv-icb:hover:not(:disabled) { background: rgba(255,255,255,.07); color: #fff; }
+.rv-icb:disabled { opacity: .32; cursor: default; }
+.rv-icb.is-on { color: var(--rv-brass); background: var(--rv-brass-soft); }
+
+/* The hint the old bar spent a whole row on. It is a tooltip now, and every tool still
+   carries its own words. */
+.rv-tip {
+  position: absolute; bottom: calc(100% + 10px); left: 50%;
+  transform: translateX(-50%) translateY(3px);
+  white-space: nowrap; font-style: normal; font-size: 11.5px;
+  color: #e8e3da; background: rgba(var(--rv-ink), .95);
+  border: 1px solid var(--rv-line); border-radius: 7px; padding: 5px 9px;
+  opacity: 0; pointer-events: none;
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  transition: opacity .16s ease, transform .16s var(--rv-spring);
+}
+.rv-tool:hover .rv-tip, .rv-icb:hover .rv-tip,
+.rv-tool:focus-visible .rv-tip, .rv-icb:focus-visible .rv-tip {
+  opacity: 1; transform: translateX(-50%) translateY(0);
+}
+
+/* ---------------------------------------------------------------- the note box */
+
+/* It grows out of the mark it belongs to, positioned in document pixels beside the
+   thing being described. Page and section notes have no mark to grow from, so those
+   sit in the corner above the bar. */
+.rv-pop {
+  position: absolute; z-index: 2147483000; pointer-events: auto;
+  width: 320px; max-width: calc(100vw - 24px);
+  padding: 14px;
+  background: rgba(var(--rv-ink), .92);
+  border: 1px solid var(--rv-line); border-radius: 13px;
+  -webkit-backdrop-filter: blur(24px) saturate(1.5);
+  backdrop-filter: blur(24px) saturate(1.5);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 30px 70px -30px rgba(0,0,0,.9);
+  color: var(--rv-text);
+  /* Capped against the VIEWPORT HEIGHT, not the width. This lived in the narrow-width
+     block, which a landscape iPhone never matches: 874px wide and 402px tall, so a
+     291px note box sailed straight through the bar and off the bottom of the screen.
+     Height is the axis that runs out on a phone lying down. */
+  max-height: min(62vh, 560px); overflow-y: auto; overscroll-behavior: contain;
+  animation: rv-popin .28s var(--rv-spring) both;
+  transform-origin: top left;
+}
+@keyframes rv-popin { from { opacity: 0; transform: scale(.95) } to { opacity: 1; transform: scale(1) } }
+.rv-pop--corner {
+  position: fixed; right: 16px; left: auto;
+  bottom: calc(var(--rv-bar-h, 52px) + 32px);
+  transform-origin: bottom right;
+}
+
+.rv-pop__lead { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 0 10px; }
+.rv-pop__lead b { font-size: 12.5px; font-weight: 500; color: #f4f1ea; }
+.rv-pop__lead em { font-style: normal; font-size: 11px; color: var(--rv-muted); letter-spacing: .02em; }
+
+.rv-field {
+  width: 100%; font: inherit; color: var(--rv-text);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1); border-radius: 9px;
+  /* 16px is a floor, not a preference: iOS zooms the viewport on focus for anything
+     smaller, which yanks the page sideways the moment a reviewer starts typing. */
+  font-size: 16px; padding: 9px 10px;
+}
+.rv-textarea { min-height: 76px; resize: none; line-height: 1.45; }
+.rv-textarea::placeholder { color: var(--rv-muted); }
+/* The parts of the page, on screen rather than behind a menu. Scrolls past five, which
+   is where a list stops being a list and starts being a wall. */
+/* No border, no fill: a bordered box inside a bordered panel is a card in a card, and
+   the rows already say where the list starts and stops. A single hairline top and
+   bottom is all the containment a scroll region needs. */
+.rv-list {
+  max-height: 196px; overflow-y: auto; overscroll-behavior: contain;
+  border-top: 1px solid rgba(255,255,255,.1);
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.18) transparent;
+}
+.rv-list::-webkit-scrollbar { width: 8px; }
+.rv-list::-webkit-scrollbar-thumb { background: rgba(255,255,255,.16); border-radius: 99px;
+  border: 2px solid transparent; background-clip: content-box; }
+.rv-listrow {
+  display: block; width: 100%; text-align: left;
+  font: inherit; font-size: 13px; color: #cfc9be;
+  background: none; border: 0; border-bottom: 1px solid rgba(255,255,255,.06);
+  padding: 10px 12px; min-height: 44px; cursor: pointer;
+  transition: background-color .16s ease, color .16s ease;
+}
+.rv-listrow:last-child { border-bottom: 0; }
+.rv-listrow:hover { background: rgba(255,255,255,.06); color: #fff; }
+/* A ring, not a left stripe. A 2px coloured edge on a list row is the accent-bar
+   reflex, and it also disagreed with how every other chosen thing in this tool reads.
+   The active tool wears a brass ring; so does the chosen row. */
+.rv-listrow.is-on {
+  background: var(--rv-brass-soft); color: #fbf7ef; font-weight: 500;
+  box-shadow: inset 0 0 0 1px rgba(201,162,39,.5);
+}
+.rv-list .rv-meta { padding: 12px; margin: 0; }
+.rv-field:focus { outline: none; border-color: rgba(201,162,39,.7); box-shadow: 0 0 0 3px rgba(201,162,39,.14); }
+
+.rv-chips { display: flex; flex-wrap: wrap; gap: 5px; margin: 10px 0; }
+.rv-chip {
+  font: inherit; font-size: 11.5px; color: #bdb7ab;
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 7px; padding: 6px 9px; min-height: 30px; cursor: pointer;
+  transition: color .16s ease, border-color .16s ease, background-color .16s ease;
+}
+.rv-chip:hover { color: #fff; border-color: rgba(255,255,255,.24); }
+.rv-chip.is-on { background: var(--rv-brass-soft); border-color: var(--rv-brass); color: #fbf7ef; }
+
+.rv-pop__row { display: flex; gap: 8px; margin-top: 12px; }
+.rv-send {
+  flex: 1; font: inherit; font-size: 13.5px; font-weight: 500;
+  color: #14130f; background: var(--rv-brass);
+  border: 1px solid var(--rv-brass); border-radius: 9px; height: 40px; cursor: pointer;
+  transition: filter .18s ease;
+}
+.rv-send:hover:not(:disabled) { filter: brightness(1.08); }
+.rv-send:disabled { opacity: .6; cursor: default; }
+.rv-ghostbtn {
+  font: inherit; font-size: 13.5px; color: #bdb7ab;
+  background: none; border: 1px solid rgba(255,255,255,.12); border-radius: 9px;
+  height: 40px; padding: 0 14px; cursor: pointer;
+  transition: color .18s ease, border-color .18s ease;
+}
+.rv-ghostbtn:hover { color: #fff; border-color: rgba(255,255,255,.26); }
+
+/* Destructive, and it looks it only once it is armed. A red button sitting on a card
+   you opened to READ invites the accident it exists to undo. */
+.rv-delete { margin-left: auto; }
+.rv-delete:hover { color: #efab90; border-color: rgba(239,171,144,.5); }
+.rv-delete.is-armed {
+  color: #14130f; background: #efab90; border-color: #efab90; font-weight: 500;
+}
+.rv-delete.is-armed:hover { filter: brightness(1.06); }
+
+.rv-read { margin: 0; font-size: 13.5px; line-height: 1.5; color: #cfc9be; }
+.rv-meta { margin: 8px 0 0; font-size: 11px; color: var(--rv-muted); letter-spacing: .02em; }
+.rv-error { margin: 10px 0 0; font-size: 12.5px; color: #efab90; }
+
+/* ---------------------------------------------------------------- receipt */
+
+.rv-sent {
+  position: fixed; left: 50%; top: calc(20px + env(safe-area-inset-top)); transform: translateX(-50%);
+  z-index: 2147483001; text-align: center;
+  padding: 15px 18px; border-radius: 13px;
+  background: rgba(var(--rv-ink), .93); color: var(--rv-text);
+  border: 1px solid var(--rv-line); font-size: 13.5px;
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 24px 60px -28px rgba(0,0,0,.9);
+  animation: rv-sentin .32s var(--rv-spring) both;
+}
+@keyframes rv-sentin { from { opacity: 0; transform: translateX(-50%) translateY(-8px) } to { opacity: 1; transform: translateX(-50%) translateY(0) } }
+.rv-sent p { margin: 0 0 6px; }
+.rv-ref { color: var(--rv-brass); letter-spacing: .1em; font-size: 12px; font-weight: 500; }
+.rv-sent .rv-ghostbtn { height: 34px; margin-top: 8px; font-size: 12.5px; }
+
+/* ---------------------------------------------------------------- narrow */
+
+/**
+ * Below the width where the tools stop fitting on one line, the bar stops being a
+ * floating capsule and becomes a bar: docked to the bottom edge, edge to edge, one row.
+ *
+ * Jake, 2 August: "i want it to just become a slender bar that takes up entire width of
+ * the page." Full bleed is not decoration here, spanning the whole width is what buys
+ * the single row.
+ */
+@media (max-width: 980px) {
+  .rv-bar {
+    left: 0; right: 0; bottom: 0; transform: none;
+    width: 100%; max-width: none;
+    border-radius: 0; border-left: 0; border-right: 0; border-bottom: 0;
+    /* The bar GROWS for the home indicator rather than squeezing its controls into a
+       fixed 56px. max() would have kept the height and eaten the tap targets. */
+    height: auto; min-height: 58px; gap: 0; padding: 5px 6px;
+    padding-bottom: calc(5px + env(safe-area-inset-bottom));
+    animation-name: rv-barin-dock;
+  }
+  @keyframes rv-barin-dock {
+    from { opacity: 0; transform: translateY(14px) } to { opacity: 1; transform: none }
+  }
+  .rv-brand { display: none; }
+  .rv-tools { flex: 1; justify-content: space-evenly; padding: 0; }
+  .rv-sep { margin: 0 4px; }
+  .rv-pop--corner { bottom: calc(var(--rv-bar-h, 56px) + 14px); left: 12px; right: 12px; width: auto; }
+}
+
+@media (max-width: 560px) {
+  /* Nine controls across a phone: the active tool keeps its brass ground but not its
+     label, because the word is what would push the row off the screen. The tooltip and
+     the aria-pressed state still carry it. */
+  .rv-list { max-height: 156px; }
+
+  /* Nine controls will not each be 64 wide on a 390px screen, so the cells share what
+     there is and the word shrinks with them. Height is the axis a thumb misses on, so
+     it holds at 46 and only the width gives. */
+  .rv-tool { width: auto; flex: 1 1 0; min-width: 0; padding: 0 1px; }
+  .rv-tool__label { font-size: 9.5px; }
+  .rv-icb { width: 36px; }
+  .rv-sep { margin: 0 2px; }
+  .rv-launch { right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); }
+}
+
+/* ---------------------------------------------------------------- restraint */
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-bar, .rv-pop, .rv-sent, .rv-pin, .rv-ghost,
+  .rv-rect.is-set, .rv-ellipse.is-set, .rv-point.is-set { animation: none; }
+  .rv-launch, .rv-tool, .rv-tool svg, .rv-icb, .rv-chip, .rv-tip, .rv-pin { transition: none; }
+  .rv-live { animation: none; }
+}
+
+@media print {
+  .rv-launch, .rv-bar, .rv-pop, .rv-surface, .rv-sent, .rv-pin, .rv-ghost { display: none !important; }
+}

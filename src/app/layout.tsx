@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Newsreader, Hanken_Grotesk, Geist_Mono } from "next/font/google";
+import ReviewGate from "@/components/review/ReviewGate";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
@@ -85,6 +86,7 @@ export default function RootLayout({
         <Toaster position="top-center" />
         <Analytics />
         <SpeedInsights />
+              <ReviewGate />
       </body>
     </html>
   );
