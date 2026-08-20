@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { practice } from "@/lib/site";
 import Link from "next/link";
 import { ArrowRight, ArrowLeft, RotateCcw, Sparkles } from "lucide-react";
@@ -148,6 +148,17 @@ function OptionRow({
 export function CareFinder() {
   const [who, setWho] = useState<Who | null>(null);
   const [concern, setConcern] = useState<Concern | null>(null);
+  /* Choosing an option unmounted the row that had focus, so focus fell to <body> and a
+     keyboard user was thrown back to the top of the document with nothing announced.
+     This is the site's qualification step and it was unusable without a mouse. */
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [announcement, setAnnouncement] = useState("");
+
+  function advance(fn: () => void, said: string) {
+    fn();
+    setAnnouncement(said);
+    requestAnimationFrame(() => stageRef.current?.focus());
+  }
   const step = who && concern ? 2 : who ? 1 : 0;
   const rec = who && concern ? recommend(who, concern) : null;
 
@@ -158,10 +169,13 @@ export function CareFinder() {
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-brass/10 via-clay/5 to-transparent"
       />
-      <div className="relative p-6 md:p-9">
+      <div ref={stageRef} tabIndex={-1} className="relative p-6 outline-none md:p-9">
+        <p role="status" aria-live="polite" className="sr-only">
+          {announcement}
+        </p>
         {/* progress */}
         <div className="mb-6 flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-1.5" role="img" aria-label={`Step ${step + 1} of 3`}>
             {[0, 1, 2].map((s) => (
               <span
                 key={s}
@@ -175,7 +189,7 @@ export function CareFinder() {
           {step > 0 && (
             <button
               type="button"
-              onClick={() => (step === 2 ? setConcern(null) : setWho(null))}
+              onClick={() => advance(() => (step === 2 ? setConcern(null) : setWho(null)), "Went back a step.")}
               className="inline-flex min-h-[44px] items-center gap-1 px-2 text-sm text-ink-soft transition-colors hover:text-teal"
             >
               <ArrowLeft className="size-4" /> Back
@@ -197,7 +211,7 @@ export function CareFinder() {
                   label={o.label}
                   sub={o.sub}
                   i={i}
-                  onClick={() => setWho(o.key)}
+                  onClick={() => advance(() => setWho(o.key), `${o.label} selected. Step 2 of 3: what is going on?`)}
                 />
               ))}
             </div>
@@ -218,7 +232,7 @@ export function CareFinder() {
                   label={o.label}
                   sub={o.sub}
                   i={i}
-                  onClick={() => setConcern(o.key)}
+                  onClick={() => advance(() => setConcern(o.key), `${o.label} selected. Showing your recommendation.`)}
                 />
               ))}
             </div>
@@ -261,10 +275,12 @@ export function CareFinder() {
             </div>
             <button
               type="button"
-              onClick={() => {
-                setWho(null);
-                setConcern(null);
-              }}
+              onClick={() =>
+                advance(() => {
+                  setWho(null);
+                  setConcern(null);
+                }, "Started over. Step 1 of 3: who needs care?")
+              }
               className="mt-6 inline-flex min-h-[44px] items-center gap-1.5 text-sm text-ink-soft transition-colors hover:text-teal"
             >
               <RotateCcw className="size-3.5" /> Start over
