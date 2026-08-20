@@ -19,7 +19,7 @@ import { EditorialList } from "@/components/site/editorial-list";
 import { ReassuranceBar } from "@/components/site/reassurance-bar";
 import { CtaBand } from "@/components/site/cta-band";
 import { SERVICE_LADDER } from "@/lib/services";
-import { providers, fortLee } from "@/lib/site";
+import { providers, fortLee, practice } from "@/lib/site";
 
 const PRINCIPLES = [
   {
@@ -55,7 +55,7 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-bone grain">
         <Container wide className="relative z-10">
-          <div className="grid items-center gap-14 py-14 md:py-20 lg:grid-cols-2 lg:gap-16">
+          <div className="grid items-center gap-14 py-14 md:py-20 lg:grid-cols-[3fr_2fr] lg:gap-16">
             <div>
               <Reveal>
                 <Eyebrow>Family optometry · Oradell, New Jersey</Eyebrow>
@@ -76,10 +76,17 @@ export default function HomePage() {
               <Reveal delay={240}>
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <Magnetic>
-                    <BookButton />
+                    <BookButton href={practice.zocdocUrl} label="Book on Zocdoc" />
                   </Magnetic>
                   <CallButton />
                 </div>
+                <p className="mt-4 text-[0.95rem] text-ink-soft">
+                  Rather not book online?{" "}
+                  <Link href="/book" className="underline decoration-line underline-offset-4 hover:text-teal">
+                    Send us a request
+                  </Link>{" "}
+                  and we will call you back.
+                </p>
               </Reveal>
               <Reveal delay={300}>
                 <DualProof size="lg" className="mt-8 border-t border-line pt-6" />

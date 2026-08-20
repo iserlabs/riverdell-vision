@@ -1,81 +1,65 @@
-import { Star } from "lucide-react";
+import { Phone } from "lucide-react";
 import { practice } from "@/lib/site";
-import { REVIEW_STATS } from "@/lib/reviews";
 
-// Booking card. It shows the practice's real opening hours, read from
-// `practice.hours`, and hands off to the real Zocdoc profile for times.
+// The hero's right rail.
 //
-// It used to render a 28-cell month grid with invented numbers under the words
-// "Real-time availability on Zocdoc". Nothing was behind it: the highlighted
-// days came from a hardcoded set that had Tuesday and Saturday closed, when the
-// practice is open both. `aria-hidden` kept it out of the accessibility tree but
-// did nothing for the sighted patient reading a real-time claim over it.
+// It answers the one question a visitor actually has at this moment, which is
+// whether they can be seen today, and then gets out of the way. It used to be a
+// 28-cell month grid of invented availability under the words "Real-time
+// availability on Zocdoc"; that came out on 19 August because none of it was
+// true, and the seven real opening lines went in.
 //
-// Do not reintroduce a grid here. Zocdoc's Book Online Button opens a scheduling
-// modal; it does not provide an embeddable availability grid, so any grid in this
-// card is invented by definition.
+// Those seven lines then became the heaviest object on the page: 613px of table
+// beside a 136px headline, so the loudest thing in the hero was a list of office
+// hours. Today's line leads now and the week sits under it, quiet.
+//
+// This rail is where the slideshow of the practice's own rooms goes once the
+// photographs exist. Dr. Han chose that composition on 19 August. Until then it
+// holds this, and this is genuinely useful rather than a placeholder.
+
+const ZONE = "America/New_York";
 
 export function HeroBooking() {
-  // The practice is in Oradell NJ. Naming the zone matters: without it the
-  // server renders "today" in UTC, so from 20:00 ET onward it highlights
-  // tomorrow's row for every visitor.
-  const today = new Date().toLocaleDateString("en-US", {
-    weekday: "long",
-    timeZone: "America/New_York",
-  });
+  // Naming the zone matters: rendered on a UTC server, "today" flips at 8pm
+  // Eastern and every visitor is told the wrong day.
+  const today = new Date().toLocaleDateString("en-US", { weekday: "long", timeZone: ZONE });
+  const line = practice.hours.find((h) => h.day === today);
 
   return (
-    <div className="relative mx-auto w-full max-w-xl">
-      <div className="overflow-hidden rounded-3xl border border-line bg-card shadow-[0_40px_90px_-42px_rgba(18,60,70,0.45)]">
-        <div className="flex items-center justify-between gap-3 border-b border-line px-5 py-5 md:px-7 md:py-6">
-          <div>
-            <p className="font-display text-xl font-medium text-teal md:text-2xl">Book an appointment</p>
-            <p className="mt-1 text-sm text-ink-soft">Oradell, and on Zocdoc</p>
-          </div>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-clay-soft px-3 py-1.5 text-sm font-medium text-clay">
-            <Star className="size-3.5 fill-clay" aria-hidden /> {REVIEW_STATS.rating.toFixed(1)}
-          </span>
-        </div>
+    <div className="lg:pl-4">
+      <div className="rounded-3xl border border-line bg-card p-6 shadow-[0_30px_70px_-48px_rgba(18,60,70,0.4)] md:p-7">
+        <p className="font-mono text-[0.62rem] uppercase tracking-[0.18em] text-ink-soft">
+          Oradell · today
+        </p>
+        <p className="mt-2 font-display text-2xl font-medium leading-tight text-teal md:text-[1.75rem]">
+          {line?.open ? `Open until ${line.label.split(" - ")[1]}` : "Closed today"}
+        </p>
 
-        <div className="px-5 py-6 md:px-7">
-          <div className="mb-4 flex items-center justify-between text-sm text-ink-soft">
-            <span>Riverdell Vision · Oradell</span>
-            <span className="font-mono text-xs uppercase tracking-wide">Opening hours</span>
-          </div>
+        <dl className="mt-5 border-t border-line pt-4">
+          {practice.hours.map((h) => {
+            const isToday = h.day === today;
+            return (
+              <div
+                key={h.day}
+                className={
+                  "flex items-baseline justify-between gap-4 py-[0.3rem] text-[0.86rem] " +
+                  (isToday ? "font-medium text-ink" : "text-ink-soft")
+                }
+              >
+                <dt>{h.day}</dt>
+                <dd className="tabular-nums">{h.label}</dd>
+              </div>
+            );
+          })}
+        </dl>
 
-          <dl className="divide-y divide-line">
-            {practice.hours.map((h) => {
-              const isToday = h.day === today;
-              return (
-                <div
-                  key={h.day}
-                  className={
-                    "flex items-baseline justify-between gap-4 py-2.5 text-[0.95rem] " +
-                    (isToday ? "font-medium text-teal" : "text-ink")
-                  }
-                >
-                  <dt>
-                    {h.day}
-                    {isToday ? <span className="ml-2 font-mono text-[0.62rem] uppercase tracking-wide">Today</span> : null}
-                  </dt>
-                  <dd className={h.open ? "tabular-nums" : "tabular-nums text-ink-soft"}>{h.label}</dd>
-                </div>
-              );
-            })}
-          </dl>
-
-          <a
-            href={practice.zocdocUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 flex h-14 w-full items-center justify-center gap-2 rounded-2xl bg-teal text-base font-medium text-bone transition-colors hover:bg-teal-deep"
-          >
-            See available times →
-          </a>
-          <p className="mt-4 text-center text-sm text-ink-soft">
-            {REVIEW_STATS.count} patients rate us {REVIEW_STATS.rating.toFixed(1)} on Google
-          </p>
-        </div>
+        <a
+          href={practice.phoneHref}
+          className="-mx-2 mt-5 flex min-h-11 items-center gap-2 rounded-xl px-2 text-[0.95rem] font-medium text-teal transition-colors hover:bg-teal-tint"
+        >
+          <Phone className="size-4 shrink-0" aria-hidden />
+          {practice.phone}
+        </a>
       </div>
     </div>
   );
