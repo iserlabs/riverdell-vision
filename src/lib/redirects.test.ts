@@ -2,8 +2,27 @@ import { describe, it, expect } from "vitest";
 import { legacyRedirects } from "./redirects";
 
 describe("legacyRedirects", () => {
-  it("covers all 59 legacy URLs (29 pages + 30 blog posts)", () => {
-    expect(legacyRedirects).toHaveLength(59);
+  /* The old site serves each page at both `/x.html` and `/x/`, and Google indexed the
+     directory form, so a count alone proved nothing about whether the form that carries
+     the ranking history is covered. These assert the shape instead. */
+  it("covers every legacy URL in BOTH the .html and the extensionless form", () => {
+    const sources = new Set(legacyRedirects.map((r) => r.source));
+    const html = [...sources].filter((s) => s.endsWith(".html"));
+    expect(html.length).toBeGreaterThanOrEqual(59);
+    for (const s of html) {
+      const bare = s.replace(/\.html$/, "");
+      const dest = legacyRedirects.find((r) => r.source === s)!.destination;
+      // Skipped only when the bare form IS the destination, which would self-redirect.
+      if (bare !== dest) {
+        expect(sources.has(bare), `${bare} is missing, so the indexed form would 404`).toBe(true);
+      }
+    }
+  });
+
+  it("never redirects a path to itself", () => {
+    for (const r of legacyRedirects) {
+      expect(r.source, "a self-redirect makes the real page unreachable").not.toBe(r.destination);
+    }
   });
 
   it("has no duplicate source paths", () => {
